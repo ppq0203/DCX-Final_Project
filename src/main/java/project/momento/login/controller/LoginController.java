@@ -28,6 +28,7 @@ public class LoginController {
 	 * param
 	 * return contents/login
 	 */
+	
 	@RequestMapping(value="/login.com", produces="application/text;charset=utf-8") /* value주소 이름*/
 	public String gologinMain( Model model) {
 	    return "content/login";
