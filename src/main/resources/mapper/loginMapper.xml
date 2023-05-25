@@ -10,15 +10,14 @@
 			SELECT
 				PK_USER_SEQ AS pkUserSeq,
 				USER_ID AS userId,
-				USER_PASSWORD AS userPassword,
-				USER_NM AS userNm,
-				USER_BIRTH AS userBirth,
-				USER_SEX AS userSex,
-				USER_ADDR AS userAddr,
-				USER_ADDR_DETAIL AS userAddrDetail,
+				PASSWORD AS userPassword,
+				NAME AS userNm,
+				BIRTHDAY AS userBirth,
+				PHONE AS userPhone,
+				EMAIL AS userEmail,
 				REGIST_DT AS registDt
-			FROM user
-			WHERE USER_ID = #{userId} AND USER_PASSWORD = #{userPassword}
+			FROM USER
+			WHERE USER_ID = #{userId} AND PASSWORD = #{userPassword}
 		]]>
 	</select>
 </mapper>
