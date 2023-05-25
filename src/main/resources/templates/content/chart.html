@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!-- Default Layout Import-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+
+<th:block layout:fragment="content">
+	<style>
+		.prodDiv {
+			cursor: pointer;
+		}
+
+		.selectDiv {
+			cursor: pointer;
+			border-radius: 3px;
+			box-shadow: 7px 6px 20px 1px #007bff;
+		}
+
+	</style>
+	<div class="container">
+		<h2 style=" padding: 50px; text-align: center;">두피 검사 결과</h2>
+		<button id="uploadBtn" style="float: right;" class="btn btn-lg btn-primary" type="button">저장</button>
+		<!--th:if="${session.loginDto != null}"-->
+		<canvas id="marksChart" width="1100vw" height="400"></canvas>
+		<h2 id="textmanage" style=" padding: 50px; text-align: center;"></h2>
+		<div class="row">
+			<div class="col-12">
+
+				<nav class="navbar navbar-expand-md">
+					<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+						<ul class="navbar-nav mr-auto">
+							<h2>상품 추천</h2>
+						</ul>
+					</div>
+					<div class="mx-auto order-0">
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/chart.com}">
+									<h4><span class="badge badge-pill badge-info">ALL</span></h4>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/chart.com(prodType='샴푸')}">
+									<h4><span class="badge badge-pill badge-info">샴푸</span></h4>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/chart.com(prodType='린스')}">
+									<h4><span class="badge badge-pill badge-info">린스</span></h4>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/chart.com(prodType='에센스')}">
+									<h4><span class="badge badge-pill badge-info">에센스</span></h4>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item">
+								<div class="collapse navbar-collapse" id="navbarSupportedContent">
+									<ul class="navbar-nav mr-auto">
+										<form method="get" action="/chart.com" class="form-inline my-2 my-lg-0">
+											<input name="keyword" class="form-control mr-sm-2" type="search"
+												placeholder="상품명" aria-label="Search">
+											<button class="btn btn-outline-success my-2 my-sm-0"
+												type="submit">검색</button>
+										</form>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</nav>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="row justify-content-center productDiv">
+				<div class="col-4 mb-3" th:each="item, stat: ${list}">
+					<div class="card prodDiv">
+						<input type="hidden" th:value="${item.pkProdSeq}">
+						<img style=" height: 15rem;" class="card-img-top" th:src="${item.prodImg}" alt="Card image cap">
+						<div class="card-body" style="text-align:center; ">
+							<h5 class="card-title" th:text="${item.prodName}"></h5>
+							<p class="card-text" th:text="${item.prodKeyword}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				<nav aria-label="Page navigation example" style="padding: 50px;">
+					<ul class="pagination justify-content-center">
+						<li class="page-item previous th-disabled"
+							th:classappend="${paging.prev == false} ? 'disabled'">
+							<a th:href="@{/chart.com(page=${paging.startPage - 1})}" tabindex="0"
+								class="page-link">Previous</a>
+						</li>
+						<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+							<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
+								<a th:href="@{/chart.com(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+									class="page-link" th:text="${pNo}"></a>
+							</li>
+						</div>
+						<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
+							<a th:href="@{/chart.com(page=${paging.endPage + 1})}" tabindex="0"
+								aria-controls="dataTable" class="page-link">Next</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+
+	
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			var CHART_ARRAY = [[${chart}]];
+		/*]]>*/
+		var PRODUCT_ARRAY = [];
+		$(document).ready(function () {
+			var DANDRUFF = CHART_ARRAY[0];		// 비듬
+			var SEBUM = CHART_ARRAY[1];			// 피지
+			var PUSTULE = CHART_ARRAY[2];		// 농포
+			var CORNEOUS = CHART_ARRAY[3];		// 각질
+			var ERYTHEMA = CHART_ARRAY[4];		// 홍반
+			var HAIR_LOSS = CHART_ARRAY[5];		// 탈모
+
+			const scalpHealth = {
+				"0,0,0,0,0,0": "두피가 매우 깨끗하군요! 지금 처럼 지속적인 관리가 중요합니다.",
+				"1,0,0,0,0,0": "두피에 약간의 비듬이 있으시네요. 보습이 필요합니다.",
+				"0,1,0,0,0,0": "지성 두피입니다. 샴푸 사용을 자제하고 2~3일에 한번씩 세안을 하세요.",
+				"0,0,1,0,0,0": "여드름성 두피입니다. 두피에 수분을 공급하는 성분이 들어간 샴푸를 사용하세요.",
+				"0,0,0,1,0,0": "두피에 뾰루지가 생겼군요. 진정 성분이 들어간 제품을 사용해보세요.",
+				"0,0,0,0,1,0": "두피 각질이 약간 쌓여있습니다. 스크럽 제품이나 트러블 케어 제품을 사용해보세요.",
+				"0,0,0,0,1,0": "두피가 약간 붉어지고 가려움이 있군요. 피부 진정 제품이 필요합니다.",
+				"0,0,0,0,0,1": "두피 건강 상태가 좋지 않습니다. 탈모가 예상될 수 있으니 적극적인 관리가 필요합니다.",
+				"3,3,2,1,0,0": "두피 상태가 매우 심각합니다. 빠른 시일 가까운 병원을 방문해 주세요.",
+				"3,3,3,3,3,3": "두피 상태가 매우 심각합니다. 빠른 시일 가까운 병원을 방문해 주세요.",
+				// 나머지 경우에 대해서도 필요한 만큼의 key-value pair를 추가해줍니다.
+			};
+
+			const key = `${DANDRUFF},${SEBUM},${PUSTULE},${CORNEOUS},${ERYTHEMA},${HAIR_LOSS}`;
+			console.log(scalpHealth[key]); // 해당하는 조건에 맞는 메시지 출력
+			$("#textmanage").text(scalpHealth[key])
+
+			//$.ajax({
+			//	type: "POST",
+			//	url: "/productList",
+			//	async: false,
+			//	//data: {id: id},
+			//	success: function (data) {
+			//		var str = "";
+			//		console.log(data)
+			//			
+			//		
+			//		for (let i = 0; i < data.length; i++) {
+			//			str += "<div class=\"col-3\">";
+			//			str += 	"<div class=\"card\">";
+			//			str += 		"<img class=\"card-img-top\" src=\'"+data[i].prodImg+"\' alt=\"Card image cap\">";
+			//			str += 			"<div class=\"card-body\" style=\"text-align:center\">";
+			//			str += 				'<h5 class=\"card-title mb-5\">'+data[i].prodName+'</h5>';
+			//			str += 				"<div class=\"row justify-content-center\">";
+			//			str += 					"<span class=\"badge badge-success m-1 mb-5\">탈모</span>";
+			//			str += 					"<span class=\"badge badge-success m-1 mb-5\">건조</span>";
+			//			str += 				"</div>";
+			//			str += 				"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"yellow\" class=\"bi bi-star-fill m-1\" viewBox=\"0 0 16 16\">";
+			//			str += 					"<path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\" />";
+			//			str += 				"</svg>";
+			//			str += 			"</div>";
+			//			str +=	"</div>";
+			//			str += "</div>";
+			//		}
+			//        
+			//		$(".productDiv").append(str);
+			//	}
+			//});
+
+			$(".prodDiv").click(function () {
+				var $this = $(this);
+				var value = $this.find('input').val();
+				if ($this.hasClass('selectDiv')) {
+					$this.removeClass('selectDiv');
+					PRODUCT_ARRAY.splice(PRODUCT_ARRAY.indexOf(value), 1);
+				} else {
+					$this.addClass('selectDiv');
+					PRODUCT_ARRAY.push(value);
+				}
+				console.log(PRODUCT_ARRAY)
+			});
+
+
+			$("#uploadBtn").click(function () {
+				console.log(CHART_ARRAY)
+				console.log(PRODUCT_ARRAY)
+				$.ajax({
+					type: "POST",
+					url: "/chartUpload.com",
+					traditional: true,
+					data: JSON.stringify({
+						productArray: PRODUCT_ARRAY,
+						chartArray: CHART_ARRAY
+					}),
+					dataType: "json",
+					contentType: "application/json",
+					success: function (data) {
+					}
+				});
+
+			});
+
+			var marksCanvas = document.getElementById("marksChart");
+
+
+			var marksData = {
+				labels: ["미세각질", "피지과다", "홍반", "농포", "비듬", "탈모"],
+				datasets: [{
+					label: "두피상태",
+					backgroundColor: 'rgba(54, 162, 235, 0.2)',
+					borderColor: 'rgb(54, 162, 235)',
+					pointBackgroundColor: 'rgb(54, 162, 235)',
+					pointBorderColor: '#fff',
+					pointHoverBackgroundColor: '#fff',
+					pointHoverBorderColor: 'rgb(54, 162, 235)',
+					data: CHART_ARRAY
+				}]
+			};
+
+			var chartOptions = {
+				responsive: false,
+				scale: {
+					gridLines: {
+						color: "black",
+						lineWidth: 3
+					},
+					angleLines: {
+						display: false
+					},
+					ticks: {
+						beginAtZero: true,
+						min: 0,
+						max: 5,
+						stepSize: 1
+					},
+					pointLabels: {
+						fontSize: 18,
+						fontColor: "blue"
+					}
+				},
+				legend: {
+					position: 'center'
+				}
+			};
+
+			var radarChart = new Chart(marksCanvas, {
+				type: 'radar',
+				data: marksData,
+				options: chartOptions
+			});
+
+		});
+
+
+	</script>
+</th:block>
+
+</html>

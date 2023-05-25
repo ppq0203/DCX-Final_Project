@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- Default Layout Import-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+
+<th:block layout:fragment="content">
+
+	<div class="container">
+		<h2 style=" padding: 50px; text-align: center;">My Page</h2>
+		<div class="row">
+			<div class="col-12">
+				<canvas id="marksChart" width="1100vw" height="400"></canvas>
+			</div>
+			<div class="col-12">
+				<nav class="navbar navbar-expand-lg navbar-light">
+					<h2>사용중인 상품</h2>
+				</nav>
+			</div>
+
+
+			<div class="col-12">
+				<table class="table">
+					<thead>
+						<tr style="text-align: center;">
+							<th scope="col">#</th>
+							<th scope="col">상품명</th>
+							<th scope="col">사용일자</th>
+							<th scope="col">상품정보</th>
+						</tr>
+					</thead>
+					<tbody id="productTbody">
+						<tr th:each="item, stat: ${detailList}" data-widget="expandable-table" aria-expanded="false">
+							<td style="text-align: center; vertical-align: middle;" th:text="${stat.count}" check="N">
+							</td>
+							<td style="text-align: center; vertical-align: middle;">
+								<img th:src="${item.prodImg}" width="150px" height="150px">
+								<br>
+								<span th:text="${item.prodName}"></span>
+							</td>
+							<td style="text-align: center; vertical-align: middle;" th:text="${item.registDt}">
+							</td>
+							<td style="text-align: left; vertical-align: middle;" th:text="${item.prodKeyword}">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-12">
+				<nav aria-label="Page navigation example" style="padding: 50px;">
+					<ul class="pagination justify-content-center">
+						<li class="page-item previous th-disabled"
+							th:classappend="${paging.prev == false} ? 'disabled'">
+							<a th:href="@{/chart.com(page=${paging.startPage - 1})}" tabindex="0"
+								class="page-link">Previous</a>
+						</li>
+						<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+							<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
+								<a th:href="@{/chart.com(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+									class="page-link" th:text="${pNo}"></a>
+							</li>
+						</div>
+						<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
+							<a th:href="@{/chart.com(page=${paging.endPage + 1})}" tabindex="0"
+								aria-controls="dataTable" class="page-link">Next</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+<script th:inline="javascript">
+		/*<![CDATA[*/
+			var CHART_ARRAY = [[${list}]];
+		/*]]>*/
+		
+		$(document).ready(function () {
+			
+			var marksData = {
+				labels: ["미세각질", "피지과다", "홍반", "농포", "비듬", "탈모"],
+				datasets: []
+			};
+			for(var i = 0; i < CHART_ARRAY.length; i++){
+				var RGB_1 = Math.floor(Math.random() * (255 + 1))
+				var RGB_2 = Math.floor(Math.random() * (255 + 1))
+				var RGB_3 = Math.floor(Math.random() * (255 + 1))
+				var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+				console.log(CHART_ARRAY[i])
+				
+				marksData.datasets.push({
+						label: CHART_ARRAY[i].registDt,
+						backgroundColor: strRGBA,
+						borderColor: strRGBA,
+						pointBackgroundColor: strRGBA,
+						pointBorderColor: '#fff',
+						pointHoverBackgroundColor: '#fff',
+						pointHoverBorderColor: 'rgb(54, 162, 235)',
+						data: [
+							CHART_ARRAY[i].corneous
+							, CHART_ARRAY[i].sebum
+							, CHART_ARRAY[i].erythema
+							, CHART_ARRAY[i].pustule
+							, CHART_ARRAY[i].dandruff
+							, CHART_ARRAY[i].hairLoss
+						]
+					});
+					
+			}
+			var marksCanvas = document.getElementById("marksChart");
+
+			var chartOptions = {
+				responsive: false,
+				scale: {
+					gridLines: {
+						color: "black",
+						lineWidth: 3
+					},
+					angleLines: {
+						display: false
+					},
+					ticks: {
+						beginAtZero: true,
+						min: 0,
+						max: 5,
+						stepSize: 1
+					},
+					pointLabels: {
+						fontSize: 18,
+						fontColor: "blue"
+					}
+				},
+				legend: {
+					position: 'center'
+				}
+			};
+
+			var radarChart = new Chart(marksCanvas, {
+				type: 'radar',
+				data: marksData,
+				options: chartOptions
+			});
+
+		});
+		
+		//데이터셋 추가
+	//document.getElementById('addDataSet').onclick = function(){
+	//	var color1 = Math.floor(Math.random() * 256);
+	//	var color2 = Math.floor(Math.random() * 256);
+	//	var color3 = Math.floor(Math.random() * 256);
+	//	
+	//	console.log(color1 + " " + color2 + " " + color3)
+	//	
+	//	var newDataset = {
+	//		label: 'new Dataset'+config.data.datasets.length,
+	//		borderColor : 'rgba('+color1+', '+color2+', '+color3+', 1)',
+	//		backgroundColor : 'rgba('+color1+', '+color2+', '+color3+', 1)',
+	//		data: [],
+	//		fill: false
+	//	}
+	//	
+	//	// newDataset에 데이터 삽입
+	//	for (var i=0; i< config.data.labels.length; i++){
+	//		var num = Math.floor(Math.random() * 50);
+	//		newDataset.data.push(num);
+	//	}
+	//	
+	//	// chart에 newDataset 푸쉬
+	//	config.data.datasets.push(newDataset);
+	//	
+	//	myChart.update();	//차트 업데이트
+	//}
+	</script>
+</th:block>
+
+</html>

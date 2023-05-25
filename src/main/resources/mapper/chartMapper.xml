@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.momento.chart.mapper.ChartMapper">
+	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+	<insert id="insertResult" parameterType="project.momento.chart.dto.ChartDto" useGeneratedKeys="true" keyProperty="returnUserSeq">
+		INSERT INTO result(
+			PK_USER_SEQ
+			,CORNEOUS
+			,SEBUM
+			,ERYTHEMA
+			,PUSTULE
+			,DANDRUFF
+			,HAIR_LOSS
+			,REGIST_DT
+		)VALUES(
+			#{pkUserSeq}
+			,#{corneous}
+			,#{sebum}
+			,#{erythema}
+			,#{pustule}
+			,#{dandruff}
+			,#{hairLoss}
+			, SYSDATE()
+		)
+		<selectKey keyProperty="returnUserSeq" resultType="java.lang.Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertResultDetail" parameterType="map">
+		INSERT INTO result_detail(
+			PK_RESULT_SEQ
+			,PK_PROD_SEQ
+			,PK_USER_SEQ
+			,REGIST_DT
+		)VALUES(
+			#{resultSeq}
+			,#{prodSeq}
+			,#{userSeq}
+			, SYSDATE()
+		)
+	</insert>
+	<!-- criteria(검색조건) -->
+	<select id="getProductList" parameterType="hashmap" resultType="project.momento.chart.dto.ChartDto">
+		SELECT
+			A.PK_PROD_SEQ		AS pkProdSeq
+			, A.PROD_NAME		AS prodName
+			, A.PROD_TYPE		AS prodType
+			, A.PROD_KEYWORD	AS prodKeyword
+			, A.PROD_PRICE		AS prodPrice
+			, A.PROD_IMG		AS prodImg
+			, A.REGIST_ID		AS registId
+			, A.REGIST_DT		AS registDt
+		FROM product A
+		WHERE 1=1
+		<if test='keyword != null and keyword != ""'>
+			AND PROD_NAME LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+		<if test='prodType != null and prodType != ""'>
+			AND PROD_TYPE = #{prodType}
+	    </if>
+		ORDER BY A.PK_PROD_SEQ ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getProductListCount" parameterType="hashmap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM product A
+		WHERE 1=1
+		<if test='keyword != null and keyword != ""'>
+			AND PROD_NAME LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+		<if test='prodType != null and prodType != ""'>
+			AND PROD_TYPE = #{prodType}
+	    </if>
+		ORDER BY A.PK_PROD_SEQ ASC
+	</select>
+	
+	<select id="getResultList" parameterType="hashmap" resultType="project.momento.chart.dto.ChartDto">
+		SELECT
+			A.PK_RESULT_SEQ							AS pkResultSeq
+			, A.PK_USER_SEQ							AS pkUserSeq
+			, A.CORNEOUS							AS corneous
+			, A.SEBUM								AS sebum
+			, A.ERYTHEMA							AS erythema
+			, A.PUSTULE								AS pustule
+			, A.DANDRUFF							AS dandruff
+			, A.HAIR_LOSS							AS hairLoss
+			, DATE_FORMAT(A.REGIST_DT,'%Y-%m-%d')	AS registDt
+		FROM result A
+		WHERE 1=1
+		AND A.PK_USER_SEQ = #{pkUserSeq}
+		ORDER BY A.PK_RESULT_SEQ ASC
+	</select>
+	
+	<select id="getProductDetailList" parameterType="hashmap" resultType="project.momento.chart.dto.ChartDto">
+		SELECT
+			A.PK_RESULT_DETAIL_SEQ					AS pkResultDetailSeq
+			, A.PK_PROD_SEQ							AS pkProdSeq
+			, A.PK_RESULT_SEQ						AS pkResultSeq
+			, A.PK_USER_SEQ							AS pkUserSeq
+			, B.PROD_NAME							AS prodName
+			, B.PROD_TYPE							AS prodType
+			, B.PROD_KEYWORD						AS prodKeyword
+			, B.PROD_PRICE							AS prodPrice
+			, B.PROD_IMG							AS prodImg
+			, B.REGIST_ID							AS registId
+			, DATE_FORMAT(A.REGIST_DT,'%Y-%m-%d')	AS registDt
+		FROM result_detail A
+		INNER JOIN product B
+		ON A.PK_PROD_SEQ = B.PK_PROD_SEQ
+		WHERE 1=1
+		AND A.PK_USER_SEQ = #{pkUserSeq}
+		<if test='keyword != null and keyword != ""'>
+			AND PROD_NAME LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+		<if test='prodType != null and prodType != ""'>
+			AND PROD_TYPE = #{prodType}
+	    </if>
+		ORDER BY A.PK_PROD_SEQ ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="getProductDetailListCount" parameterType="hashmap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM result_detail A
+		INNER JOIN product B
+		ON A.PK_PROD_SEQ = B.PK_PROD_SEQ
+		WHERE 1=1
+		AND A.PK_USER_SEQ = #{pkUserSeq}
+		<if test='keyword != null and keyword != ""'>
+			AND PROD_NAME LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+		<if test='prodType != null and prodType != ""'>
+			AND PROD_TYPE = #{prodType}
+	    </if>
+		ORDER BY A.PK_PROD_SEQ ASC
+	</select>
+</mapper>

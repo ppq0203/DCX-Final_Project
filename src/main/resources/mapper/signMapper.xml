@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.momento.sign.mapper.SignMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+<!-- Heidisql연결후 입력 저장-->
+	<!-- INSERT문 -->
+	<insert id="insertUser" parameterType="project.momento.sign.dto.SignDto">
+		<![CDATA[
+			INSERT INTO user
+			(	
+				USER_ID,
+				USER_PASSWORD,
+				USER_NM,
+				USER_BIRTH,
+				USER_SEX,
+				USER_ADDR,
+				USER_ADDR_DETAIL,
+				REGIST_DT
+			)
+			VALUES
+			(	
+				#{userId},
+				#{userPassword},
+				#{userNm},
+				#{userBirth},
+				#{userSex},
+				#{userAddr},
+				#{userAddrDetail},
+				SYSDATE()
+			)
+		]]>
+	</insert>
+	
+	<!-- UPDATE문 -->
+	
+	<!-- 아이디 중복 체크      parameterType: 중복된 id가 있는지 보내는 ,  resultType: 중복된 id가 있거나 없다는 걸 알려주는  -->
+ 	<select id="checkButton" parameterType="project.momento.sign.dto.SignDto" resultType="int" >
+		SELECT COUNT(USER_ID) AS cnt  FROM user WHERE USER_ID=#{userId}<!-- FROM뒤에는 사용하는 table이름 -->
+	</select>
+	
+	
+	<!-- DELETE문 -->
+	
+</mapper>
