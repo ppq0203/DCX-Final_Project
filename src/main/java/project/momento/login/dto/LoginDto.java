@@ -14,10 +14,10 @@ public class LoginDto {
 	private String userId;
 	/*비밀번호*/
 	private String userPassword;
-	/*비밀번호 확인*/
+	/*이름*/
 	private String userNm;
-	/*성별*/
-	private String userSex;
+	/*전화번호*/
+	private String userPhone;
 	/*이메일*/
 	private String userEmail;
 

@@ -19,7 +19,7 @@ import project.momento.page.Criteria;
 @Service
 public class ChartService {
 	
-//	@Autowired
+	@Autowired
 	private ChartMapper chartMapper;
 
 	public int insertResult(ChartDto chartDto) {

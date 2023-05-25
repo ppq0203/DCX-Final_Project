@@ -19,7 +19,7 @@ import project.momento.sign.dto.SignDto;
 @Service
 public class LoginService {
 	
-//	@Autowired
+	@Autowired
 	private LoginMapper loginMapper;
 
 	public LoginDto checkLogin(LoginDto loginDto) {

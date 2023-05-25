@@ -31,7 +31,6 @@ public class ChartController {
 	 * @Autowired private SignService SignService;
 	 */
 	
-	
 	 @Autowired 
 	 private ChartService chartService;
 	 
