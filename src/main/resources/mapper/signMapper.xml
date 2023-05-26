@@ -27,7 +27,7 @@
 		]]>
 	</insert>
 	
-	<!-- UPDATE문 -->		<!--USE_YN의 상태가 n인 데이터만 모아 Y로 바꿔주기.-->
+	<!-- 가입허가 UPDATE문 -->		<!--USE_YN의 상태가 n인 데이터만 모아 Y로 바꿔주기.-->
 	<update id="userList" parameterType="project.momento.login.dto.LoginDto">
 		<foreach item="item" index="index" collection="userList">
 			UPDATE USER SET USE_YN = 'Y' WHERE USE_YN != 'D' AND USER_ID=#{item.userId}
