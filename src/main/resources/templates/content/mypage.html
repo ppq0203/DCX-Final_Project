@@ -9,17 +9,17 @@
 	<div class="container">
 		<h2 style=" padding: 50px; text-align: center;">My Page</h2>
 		<div class="row">
-			<div class="col-12">
+			<!--<div class="col-12">
 				<canvas id="marksChart" width="1100vw" height="400"></canvas>
 			</div>
 			<div class="col-12">
 				<nav class="navbar navbar-expand-lg navbar-light">
 					<h2>사용중인 상품</h2>
 				</nav>
-			</div>
+			</div>-->
 
 
-			<div class="col-12">
+			<!--<div class="col-12">
 				<table class="table">
 					<thead>
 						<tr style="text-align: center;">
@@ -45,28 +45,8 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			<div class="col-12">
-				<nav aria-label="Page navigation example" style="padding: 50px;">
-					<ul class="pagination justify-content-center">
-						<li class="page-item previous th-disabled"
-							th:classappend="${paging.prev == false} ? 'disabled'">
-							<a th:href="@{/chart.com(page=${paging.startPage - 1})}" tabindex="0"
-								class="page-link">Previous</a>
-						</li>
-						<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
-							<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
-								<a th:href="@{/chart.com(page=${pNo})}" tabindex="0" aria-controls="dataTable"
-									class="page-link" th:text="${pNo}"></a>
-							</li>
-						</div>
-						<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
-							<a th:href="@{/chart.com(page=${paging.endPage + 1})}" tabindex="0"
-								aria-controls="dataTable" class="page-link">Next</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
+			</div>-->
+			
 		</div>
 
 	</div>
