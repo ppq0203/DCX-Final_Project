@@ -33,15 +33,23 @@ public class MypageController {
 	 * 사이트에서 이동
 	 */
 	@RequestMapping(value="/mypage.com", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public ModelAndView Mypage(Criteria cri, Model model, ChartDto chartDto, HttpServletRequest request) {
+	public ModelAndView Mypage(Criteria cri, Model model, HttpServletRequest request) {
 		
-		ModelAndView mv = new ModelAndView("content/mypage");
+		ModelAndView mv = new ModelAndView("content/student");
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		cri.setPkUserSeq(loginDto.getPkUserSeq());
-		
-		int total = 0;
+		int auth = loginDto.getPkAuthSeq();
+		if(auth != 3)
+		{
+			mv.addObject("role", "Admin");
+		}
+		else
+		{
+			mv.addObject("role", "Student");
+		}
+		int total = 1;
 //		total = chartService.getProductDetailListCount(cri);
-		List<ChartDto> list = chartService.getResultList(cri);
+//		List<ChartDto> list = chartService.getResultList(cri);
 		// 페이징 객체
         Paging paging = new Paging();
         paging.setCri(cri);
@@ -50,7 +58,7 @@ public class MypageController {
         System.out.println(cri);
 //		List<ChartDto> detailList = chartService.getProductDetailList(cri);
 		
-		model.addAttribute("list", list);
+//		model.addAttribute("list", list);
 //		mv.addObject("detailList", detailList);
 		mv.addObject("paging", paging);   
 		return mv;

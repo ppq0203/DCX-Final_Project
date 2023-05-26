@@ -5,8 +5,9 @@
 	layout:decorate="~{common/layout/defaultLayout}">
 
 <th:block layout:fragment="content">
-	
-		
+		<th:block th:if="${role == 'Admin'}">
+			<div>test</div>
+		</th:block>
 		<nav class="col-md-2 bg-light sidebar">
 			<div class="sidebar-sticky">
 				<ul class="nav flex-column">

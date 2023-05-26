@@ -26,6 +26,11 @@ public class LoginService {
 		// TODO Auto-generated method stub
 		return loginMapper.checkLogin(loginDto);
 	}
+	
+	public List<String> userList(LoginDto loginDto)
+	{
+		return loginMapper.userList(loginDto);
+	}
 
 //	public int getIDPassCheck(String id, String pwd) {
 //		// TODO Auto-generated method stub
