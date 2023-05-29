@@ -6,10 +6,13 @@ import lombok.Data;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
+/*메뉴관리*/
 public class MenuDto {
 	
 	/*메뉴 고유식별 번호*/
 	private int pkMenuSeq;
+	/*권한 고유 식별번호*/
+	private int pkAuthSeq;
 	/*상위 메뉴번호*/
 	private int upperMenuNo;
 	/*메뉴 등급*/
@@ -32,7 +35,5 @@ public class MenuDto {
 	private String updateId;
 	/*수정일자*/
 	private String updateDt;
-	/*권한 고유 식별번호*/
-	private int pkAuthSeq;
 
 }
