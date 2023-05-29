@@ -6,15 +6,13 @@
 	<!-- INSERT문 -->
 	<insert id="insertUser" parameterType="project.momento.sign.dto.SignDto">
 		<![CDATA[
-			INSERT INTO user
+			INSERT INTO USER
 			(	
 				USER_ID,
-				USER_PASSWORD,
-				USER_NM,
-				USER_BIRTH,
-				USER_SEX,
-				USER_ADDR,
-				USER_ADDR_DETAIL,
+				PASSWORD,
+				NAME,
+				PHONE,
+				EMAIL,
 				REGIST_DT
 			)
 			VALUES
@@ -22,10 +20,8 @@
 				#{userId},
 				#{userPassword},
 				#{userNm},
-				#{userBirth},
-				#{userSex},
-				#{userAddr},
-				#{userAddrDetail},
+				#{userPhone},
+				#{userEmail},
 				SYSDATE()
 			)
 		]]>

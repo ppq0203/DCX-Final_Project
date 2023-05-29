@@ -31,8 +31,8 @@
 						required="">
 				</div>
 				<div class="col-sm-12">
-					<label for="userSex" class="form-label">성별</label>
-					<input id="userSex" name="userSex" type="text" class="form-control" placeholder="" value=""
+					<label for="userPhone" class="form-label">전화번호</label>
+					<input id="userPhone" name="userPhone" type="text" class="form-control" placeholder="" value=""
 						required="">
 				</div>
 				<div class="col-sm-12">
@@ -71,6 +71,11 @@
 
 			if (!document.userInfo.userNm.value) {
 				alert("이름을 입력하세요.");
+				return false;
+			}
+			
+			if (!document.userInfo.userPhone.value) {
+				alert("전화번호를 입력하세요.");
 				return false;
 			}
 

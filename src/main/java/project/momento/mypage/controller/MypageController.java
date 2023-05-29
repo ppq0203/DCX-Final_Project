@@ -35,9 +35,9 @@ public class MypageController {
 	@RequestMapping(value="/mypage.com", produces="application/text;charset=utf-8") /* value주소 이름*/
 	public ModelAndView Mypage(Criteria cri, Model model, ChartDto chartDto, HttpServletRequest request) {
 		
-		ModelAndView mv = new ModelAndView("content/mypage"); 
-//		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
-//		cri.setPkUserSeq(loginDto.getPkUserSeq());
+		ModelAndView mv = new ModelAndView("content/mypage");
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		cri.setPkUserSeq(loginDto.getPkUserSeq());
 		
 		int total = 0;
 //		total = chartService.getProductDetailListCount(cri);
