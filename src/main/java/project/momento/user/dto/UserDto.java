@@ -1,18 +1,12 @@
-package project.momento.sign.dto;
-/* sign.html에 있는 가져오는 정보의 이름를 연결해주는 곳 */
-/* sign.html에 있는 가져오는 정보의 이름를 연결해주는 곳 */
-/* sign.html에 있는 가져오는 정보의 이름를 연결해주는 곳 */
-/* sign.html에 있는 가져오는 정보의 이름를 연결해주는 곳 */
+package project.momento.user.dto;
 
 import org.springframework.context.annotation.PropertySource;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
-public class SignDto {
+public class UserDto {
 	
 	/*사용자 고유식별번호*/
 	private int pkUserSeq;
@@ -38,5 +32,5 @@ public class SignDto {
 	private String registDt;
 	/*권한 고유 식별번호*/
 	private int pkAuthSeq;
-	
+
 }

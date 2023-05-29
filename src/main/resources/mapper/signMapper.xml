@@ -18,20 +18,25 @@
 			VALUES
 			(	
 				#{userId},
-				#{userPassword},
-				#{userNm},
-				#{userPhone},
-				#{userEmail},
+				#{password},
+				#{name},
+				#{phone},
+				#{email},
 				SYSDATE()
 			)
 		]]>
 	</insert>
 	
-	<!-- UPDATE문 -->
+	<!-- 가입허가 UPDATE문 -->		<!--USE_YN의 상태가 n인 데이터만 모아 Y로 바꿔주기.-->
+	<update id="userList" parameterType="project.momento.login.dto.LoginDto">
+		<foreach item="item" index="index" collection="userList">
+			UPDATE USER SET USE_YN = 'Y' WHERE USE_YN != 'D' AND USER_ID=#{item.userId}
+		</foreach>
+	</update>
 	
 	<!-- 아이디 중복 체크      parameterType: 중복된 id가 있는지 보내는 ,  resultType: 중복된 id가 있거나 없다는 걸 알려주는  -->
  	<select id="checkButton" parameterType="project.momento.sign.dto.SignDto" resultType="int" >
-		SELECT COUNT(USER_ID) AS cnt  FROM user WHERE USER_ID=#{userId}<!-- FROM뒤에는 사용하는 table이름 -->
+		SELECT COUNT(USER_ID) AS cnt FROM user WHERE USER_ID=#{userId} AND USE_YN != 'D' <!-- FROM뒤에는 사용하는 table이름 -->
 	</select>
 	
 	

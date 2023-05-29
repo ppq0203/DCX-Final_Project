@@ -70,6 +70,10 @@ public class LoginController {
 		return "redirect:/login.com";
 	}
 	
+	public List<String>userList(HttpServletRequest request)
+	{	
+		return null;
+	}
 }
 
 
