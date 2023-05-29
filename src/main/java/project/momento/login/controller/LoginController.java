@@ -28,6 +28,7 @@ public class LoginController {
 	 * param
 	 * return contents/login
 	 */
+	
 	@RequestMapping(value="/login.com", produces="application/text;charset=utf-8") /* value주소 이름*/
 	public String gologinMain( Model model) {
 	    return "content/login";
@@ -43,6 +44,7 @@ public class LoginController {
 	public String goSignMain( Model model, LoginDto loginDto, HttpServletRequest request) {  // 입력값(id,pwd)를 loginDto에 넣기
 
 		LoginDto loginCheck = new LoginDto(); //loginDto 를 체크에넣기
+		System.out.println("In Controller: " + loginDto);
 		loginCheck = loginService.checkLogin(loginDto);
 		if(loginCheck == null) { //loginCheck안에있는 id, pwd에 값이 없으면
 			return "content/login";   //로그인화면
@@ -69,6 +71,10 @@ public class LoginController {
 		return "redirect:/login.com";
 	}
 	
+	public List<String>userList(HttpServletRequest request)
+	{	
+		return null;
+	}
 }
 
 

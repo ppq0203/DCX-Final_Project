@@ -16,8 +16,8 @@
 					</div>
 				</div>
 				<div class="col-sm-12">
-					<label for="userPassword" class="form-label">비밀번호</label>
-					<input id="userPassword" name="userPassword" type="password" class="form-control" placeholder=""
+					<label for="password" class="form-label">비밀번호</label>
+					<input id="password" name=password" type="password" class="form-control" placeholder=""
 						value="" required="">
 				</div>
 				<div class="col-sm-12">
@@ -26,18 +26,18 @@
 						required="">
 				</div>
 				<div class="col-sm-12">
-					<label for="userNm" class="form-label">이름</label>
-					<input id="userNm" name="userNm" type="text" class="form-control" placeholder="" value=""
+					<label for="name" class="form-label">이름</label>
+					<input id="name" name="name" type="text" class="form-control" placeholder="" value=""
 						required="">
 				</div>
 				<div class="col-sm-12">
-					<label for="userSex" class="form-label">성별</label>
-					<input id="userSex" name="userSex" type="text" class="form-control" placeholder="" value=""
+					<label for="phone" class="form-label">전화번호</label>
+					<input id="phone" name="phone" type="text" class="form-control" placeholder="" value=""
 						required="">
 				</div>
 				<div class="col-sm-12">
-					<label for="userEmail" class="form-label">이메일</label>
-					<input id="userEmail" name="userEmail" type="text" class="form-control" placeholder="" value=""
+					<label for="email" class="form-label">이메일</label>
+					<input id="email" name="email" type="text" class="form-control" placeholder="" value=""
 						required="">
 				</div>
 			</div>
@@ -71,6 +71,11 @@
 
 			if (!document.userInfo.userNm.value) {
 				alert("이름을 입력하세요.");
+				return false;
+			}
+			
+			if (!document.userInfo.userPhone.value) {
+				alert("전화번호를 입력하세요.");
 				return false;
 			}
 
