@@ -7,10 +7,13 @@ import lombok.Data;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
+/*사용자 관리*/
 public class LoginDto {
 	
 	/*사용자 고유식별번호*/
 	private int pkUserSeq;
+	/*권한 고유 식별번호*/
+	private int pkAuthSeq;
 	/*사용자 아이디*/
 	private String userId;
 	/*사용자 비밀번호*/
@@ -27,13 +30,11 @@ public class LoginDto {
 	private String detailedAddress;
 	/*이메일*/
 	private String email;
+	/*유저 구분(A: 관리자, B: 학생)*/
+	private String userDivn;
 	/*사용유무(D: 삭제, H:휴면계정, Y:사용, N:미사용)*/
 	private String useYn;
 	/*가입한 날짜*/
 	private String registDt;
-	/*권한 고유 식별번호*/
-	private int pkAuthSeq;
-//	/*권한 코드(A: 관리자, B: 매니저, C:학생)*/
-//	private String authCode;
 
 }

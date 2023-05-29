@@ -9,15 +9,18 @@
 		<![CDATA[
 			SELECT
 				PK_USER_SEQ AS pkUserSeq,
+				PK_AUTH_SEQ AS pkAuthSeq,
 				USER_ID AS userId,
 				PASSWORD AS password,
 				NAME AS name,
-				BIRTHDAY AS birthday,
 				PHONE AS phone,
+				BIRTHDAY AS birthday,
+				ADDRESS AS address,
+				DETAILED_ADDRESS AS detailedAddress,
 				EMAIL AS email,
+				USER_DIVN AS userDivn,
 				USE_YN AS useYn,
-				REGIST_DT AS registDt,
-				PK_AUTH_SEQ AS pkAuthSeq
+				REGIST_DT AS registDt
 			FROM USER
 			WHERE USER_ID = #{userId} AND PASSWORD = #{password}
 		]]>
