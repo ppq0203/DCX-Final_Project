@@ -18,12 +18,12 @@ public class WebSecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
-//			.requestMatchers("/", "/login.com").permitAll()
-			.requestMatchers("/**").permitAll()
+			.requestMatchers("/", "/login.com").permitAll()
 			.requestMatchers("/css/**").permitAll() // 이부분
 			.requestMatchers("/img/**").permitAll() // 이부분
 			.requestMatchers("/js/**").permitAll() // 이부분
-			.anyRequest().authenticated()
+//			.anyRequest().authenticated()
+			.anyRequest().permitAll()
 			).cors().disable()
 	        .csrf().disable()
 	        .formLogin().disable() //기본 로그인 페이지 없애기

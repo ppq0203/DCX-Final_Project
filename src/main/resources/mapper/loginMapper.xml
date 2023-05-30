@@ -9,15 +9,20 @@
 		<![CDATA[
 			SELECT
 				PK_USER_SEQ AS pkUserSeq,
+				PK_AUTH_SEQ AS pkAuthSeq,
 				USER_ID AS userId,
-				PASSWORD AS userPassword,
-				NAME AS userNm,
-				BIRTHDAY AS userBirth,
-				PHONE AS userPhone,
-				EMAIL AS userEmail,
+				PASSWORD AS password,
+				NAME AS name,
+				PHONE AS phone,
+				BIRTHDAY AS birthday,
+				ADDRESS AS address,
+				DETAILED_ADDRESS AS detailedAddress,
+				EMAIL AS email,
+				USER_DIVN AS userDivn,
+				USE_YN AS useYn,
 				REGIST_DT AS registDt
 			FROM USER
-			WHERE USER_ID = #{userId} AND PASSWORD = #{userPassword}
+			WHERE USER_ID = #{userId} AND PASSWORD = #{password}
 		]]>
 	</select>
 </mapper>
