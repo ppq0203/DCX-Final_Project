@@ -8,22 +8,40 @@
 		<![CDATA[
 			INSERT INTO USER
 			(	
+<<<<<<< HEAD
 				PK_USER_SEQ,
+=======
+				PK_AUTH_SEQ,
+>>>>>>> refs/remotes/origin/LMS_all
 				USER_ID,
 				PASSWORD,
 				NAME,
 				PHONE,
+				BIRTHDAY,
+				ADDRESS,
+				DETAILED_ADDRESS,
 				EMAIL,
+				USER_DIVN,
+				USE_YN,
 				REGIST_DT
 			)
 			VALUES
 			(	
+<<<<<<< HEAD
 				ifnull(#{pkUserSeq}, null),
+=======
+				#{pkAuthSeq},
+>>>>>>> refs/remotes/origin/LMS_all
 				#{userId},
 				#{password},
 				#{name},
 				#{phone},
+				#{birthday},
+				#{address},
+				#{detailedAddress},
 				#{email},
+				#{userDivn},
+				#{useYn},
 				SYSDATE()
 			)
 			ON DUPLICATE KEY UPDATE
