@@ -3,11 +3,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/defaultLayout}">
-
+	
 <th:block layout:fragment="content">
 	<link th:href="@{/css/marble.css}" rel="stylesheet">
 	<script th:src="@{/js/marble.js}"></script>
-	
 <body>
   <section class="game_board">
     <div class="row">
@@ -37,7 +36,7 @@
       </div>
       <div class="cell info">
         <p>Current Turn:</p>
-        <p id="currentTurn">Stan</p>
+        <p id="currentTurn">시작</p>
         <button id="rollButton">Roll!</button>
       </div>
     </div>
@@ -107,13 +106,14 @@
         <p class="square-name">Start</p>
         <p id="square1-residents"></p>
       </div>
+<!--      
       <div class="cell info" id="player2-info">
         <p>Player 2</p>
         <p id="player2-info_name">name</p>
         <p id="player2-info_token"></p>
         <p id="player2-info_cash">cash</p>
       </div>
-
+-->
 
     </div>
 

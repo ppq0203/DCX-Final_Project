@@ -58,8 +58,8 @@ var Game = (function() {
   //build an array of players
   //note: initial version of the game only allows two fixed players
   game.players = [
-    new Player("Stan", 1000, "Triangle", "player1"),
-    new Player("Ike", 1000, "Circle", "player2")
+    new Player("플레이어 1", 1000, "Triangle", "player1"),
+    //new Player("Ike", 1000, "Circle", "player2")
   ];
 
   //set the game property for current player. Initially player 1. (Using an index of the game.players array.)
@@ -94,8 +94,8 @@ var Game = (function() {
     //populate the info panel (using simple private function)
     updateByID("player1-info_name", game.players[0].name);
     updateByID("player1-info_cash", game.players[0].cash);
-    updateByID("player2-info_name", game.players[1].name);
-    updateByID("player2-info_cash", game.players[1].cash);
+    //updateByID("player2-info_name", game.players[1].name);
+    //updateByID("player2-info_cash", game.players[1].cash);
   };
 
   //public function to handle taking of turn. Should:
@@ -113,8 +113,8 @@ var Game = (function() {
 
     //loss condition:
     //if current player drops below $0, they've lost
-    if (game.players[game.currentPlayer].cash < 0) {
-      alert("Sorry " + game.players[game.currentPlayer].name + ", you lose!");
+    if (game.players[game.currentPlayer].cash <= 0) {
+      alert(game.players[game.currentPlayer].name + "의 포인트 0점 으로 인한 게임을 종료합니다.");
     }
 
     //advance to next player
@@ -154,7 +154,7 @@ var Game = (function() {
     } else {
       var nextSquare = currentSquare + moves - totalSquares;
       currentPlayer.updateCash(currentPlayer.cash + 100);
-      console.log("$100 for passing start");
+      console.log("한 바퀴 완주에 따른 100포인트 부여");
     }
 
     //update current square in object (the string "square" plus the index of the next square)
@@ -184,12 +184,12 @@ var Game = (function() {
       currentPlayer.updateCash(currentPlayer.cash + 100);
       updateByID(
         "messagePara",
-        currentPlayer.name + ": You landed on start. Here's an extra $100"
+        currentPlayer.name + "이 시작 지점으로 돌아왔습니다. 포인트 부여 100점을 드립니다."
       );
     } else if (currentSquareObj.owner == "Unsolved") {
       //If the property is unowned, allow purchase:
       //check if owner can afford this square
-      if (currentPlayer.cash <= currentSquareObj.value) {
+      if (currentPlayer.cash < currentSquareObj.value) {
         updateByID(
           "messagePara",
           currentPlayer.name +
@@ -199,52 +199,34 @@ var Game = (function() {
       }
 
       //prompt to buy tile
-      var purchase = window.confirm(
+      var purchase = window.prompt(
         currentPlayer.name +
-          ": This property is unowned. Would you like to purchase this property for $" +
-          currentSquareObj.value +
-          "?"
+          "은 다음 자바 문제를 풀고 답을 하시오."
       );
       //if player chooses to purchase, update properties:
-      if (purchase) {
+      if (purchase == 1) {
         //update ownder of current square
-        currentSquareObj.owner = currentPlayer.id;
+        //currentSquareObj.owner = currentPlayer.id;
         //update cash in the player object
-        currentPlayer.updateCash(currentPlayer.cash - currentSquareObj.value);
+        currentPlayer.updateCash(currentPlayer.cash + currentSquareObj.value);
         //log a message to the game board
         updateByID(
           "messagePara",
-          currentPlayer.name + ": you now have $" + currentPlayer.cash
+          "성공! " + currentPlayer.name + "의 현재 포인트는" + currentPlayer.cash
         );
-        //update the owner listed on the board
-        updateByID(
-          currentSquareObj.squareID + "-owner",
-          "Owner: " + game.players[game.currentPlayer].name
-        );
-      }
-    } else if (currentSquareObj.owner == currentPlayer.id) {
-      //if property is owned by current player, continue
-      updateByID(
-        "messagePara",
-        currentPlayer.name + ": You own this property. Thanks for visiting!"
-      );
+      } else if (purchase != 1) {
+      		currentPlayer.updateCash(currentPlayer.cash - currentSquareObj.value);
+      	 	updateByID(
+        		"messagePara",
+        		"실패! " + currentPlayer.name + "의 현재 포인트는" + currentPlayer.cash
+      		);;
+    	}
     } else {
-      //charge rent
+      currentPlayer.updateCash(currentPlayer.cash - currentSquareObj.value);
       updateByID(
         "messagePara",
-        currentPlayer.name +
-          ": This property is owned by " +
-          currentSquareObj.owner +
-          ". You owe $" +
-          currentSquareObj.rent +
-          ". You now have $" +
-          currentPlayer.cash
+        "잘못된 입력입니다." + currentPlayer.name + "의 현재 포인트는" + currentPlayer.cash
       );
-
-      var owner = game.players.filter(function(player) {
-        return player.id == currentSquareObj.owner;
-      });
-      currentPlayer.updateCash(currentPlayer.cash - currentSquareObj.rent);
     }
   }
 
@@ -278,6 +260,42 @@ var Game = (function() {
     this.currentSquare = "square1";
     this.ownedSquares = [];
   }
+  
+  var questionList = {
+	  init: function() {
+		  questionList.selectQuestionList();
+	  },
+	  bind: function() {
+		  
+	  },
+	  selectQuestionList: function() {
+		  $.ajax({
+			  url: 'marbles.com',
+			  type: 'post',
+			  dataType : 'text',
+			  data: {},
+			  success : function(res) {
+				  questionList.drawQuestionList(res.questionMap);
+			  }
+		  });
+	  },
+	  drawQuestionList: function(data) {
+		  var html = '';
+		  $.each(data.questionList, function(i, v) {
+			html += '<tr>';
+            html += '	<td>'+v.pkQuestionSeq+'</td>';
+            html += '   <td>'+v.score+'</td>';
+            html += '   <td>'+v.type+'</td>';
+            html += '   <td>'+v.contents+'</td>';
+            html += '   <td>'+v.solution+'</td>';
+            html += '</tr>';
+		  });
+		  $("#tbody_questionList").html(html);
+	  }
+  }
+  $(function() {
+	  questionList.init();
+  });
 
   //Add a method to create a player token span and add it to appropriate square
   //Adding it as a prototype of the Player constructor function
