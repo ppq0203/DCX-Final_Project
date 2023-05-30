@@ -65,7 +65,7 @@ public class MypageController {
 			if(loginDto.getPkAuthSeq() == 1) {
 				// 관리자 권한인 경우
 				menuService.menuManagement((MenuDto)model.getAttribute("menuManageDto"));
-				return "content/mypage";
+				return "redirect:/mypage.com";
 			}
 			// 관리자 권한이 아닌 경우
 			return "redirect:/main.com";
