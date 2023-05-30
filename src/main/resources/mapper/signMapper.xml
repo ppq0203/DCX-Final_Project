@@ -8,20 +8,32 @@
 		<![CDATA[
 			INSERT INTO USER
 			(	
+				PK_AUTH_SEQ,
 				USER_ID,
 				PASSWORD,
 				NAME,
 				PHONE,
+				BIRTHDAY,
+				ADDRESS,
+				DETAILED_ADDRESS,
 				EMAIL,
+				USER_DIVN,
+				USE_YN,
 				REGIST_DT
 			)
 			VALUES
 			(	
+				#{pkAuthSeq},
 				#{userId},
 				#{password},
 				#{name},
 				#{phone},
+				#{birthday},
+				#{address},
+				#{detailedAddress},
 				#{email},
+				#{userDivn},
+				#{useYn},
 				SYSDATE()
 			)
 		]]>
