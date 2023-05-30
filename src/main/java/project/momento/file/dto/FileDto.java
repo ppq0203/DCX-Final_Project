@@ -11,6 +11,8 @@ public class FileDto {
 		
 	/*파일 고유 식별 번호*/
 	private int pkFileSeq;
+	/*유저 개인에게 부여되는 고유번호*/
+	private int pkUserSeq;
 	/*파일 이름*/
 	private String fileNm;
 	/*파일 사이즈*/
