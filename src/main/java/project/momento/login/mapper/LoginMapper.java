@@ -14,6 +14,15 @@ public interface LoginMapper {
 	
 	List<String> userList(LoginDto loginDto);
 	
+	void insertUser(LoginDto loginDto);
+	
+	void updateUser(LoginDto loginDto);
+	
+	void deleteUser(LoginDto loginDto);
+	
+	void selectUser(LoginDto loginDto);
+	
+	void userRole(LoginDto loginDto);
 //	public int getIDPassCheck(String id, String pwd);
 //
 //	public String getName(String myid);

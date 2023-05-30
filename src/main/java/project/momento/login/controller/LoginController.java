@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,6 +74,42 @@ public class LoginController {
 	{	
 		return null;
 	}
+	@RequestMapping(value="/users/select", produces="application/text;charset=utf-8")
+	public String selectUser(@PathVariable("PkUserSeq") int PkUserSeq, Model model, LoginDto loginDto){
+		
+		loginService.selectUser(loginDto);
+		loginDto.setPkUserSeq(1);
+		System.out.println(loginDto);
+		model.addAttribute("loginDto", loginDto);	
+		
+		return "redirect:/login.com";
+																									}
+	
+	@GetMapping("/users/{pkUserSeq}/update")
+    public String updateUser(@PathVariable("PkUserSeq") int PkUserSeq, Model model, LoginDto loginDto){
+		
+		loginDto.setPkUserSeq(PkUserSeq);
+		loginService.updateUser(loginDto);
+        model.addAttribute("signDto", loginDto);
+        return "content/update";
+    																								}
+
+	@GetMapping("/users/{pkUserSeq}/delete")
+    public String deleteUser(@PathVariable("pkUserSeq") int pkUserSeq, Model model, LoginDto loginDto){
+		
+		loginDto.setPkUserSeq(pkUserSeq);
+		loginService.deleteUser(loginDto);
+        model.addAttribute("signDto", loginDto);
+        return "content/delete";
+																									 }
+	@GetMapping("/users/{useYn}/userRole")
+    public String userRole(@PathVariable("useYn") String useYn, Model model, LoginDto loginDto){
+		
+		loginDto.setUseYn(useYn);
+		loginService.userRole(loginDto);
+        model.addAttribute("signDto", loginDto);
+        return "content/userRole";
+																							}
 }
 
 
