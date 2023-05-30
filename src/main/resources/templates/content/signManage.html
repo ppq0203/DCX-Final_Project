@@ -72,34 +72,30 @@
 											<span class="form-check-Y||N">수락/거절</span>
 											<span class="form-check-info">정보보기</span>
 											<hr>
-											<!--th:each="waitingStudent : ${waitingStudentList}"-->
 											<form action="">
-												<!--th:if="${waitingStudent.useYn == 'N'}"-->
-												<div class="form-check-student-list">
-													<div class="form-check-input-button" style="word-spacing: 7vw;">
-														<input class="form-check-input me-1" type="checkbox" value=""
-															aria-label="...">
-														<span class="form-check-input-name">아이디</span>
-														<!--th:text=${item.userId}-->
-														<span class="form-check-input-id">학생이름</span>
-														<!--th:text=${item.name}-->
-														<span class="form-check-input-email">학생이메일</span>
-														<!--th:text=${item.email}-->
-														<span class="form-check-input-date">가입일자</span>
-														<!--th:text=${item.registDt}-->
-														<div style="display: inline-flex;">
-															<button type="button" class="btn btn-light">수락</button>
-															<button type="button" class="btn btn-light">거절</button>
+												<tr th:each="waiting : ${wait}">
+													<div class="form-check-student-list">
+														<div class="form-check-input-button" style="word-spacing: 7vw;">
+															<input class="form-check-input me-1" type="checkbox" value=""
+																aria-label="...">
+															<span class="form-check-input-name" th:text="${waiting.userId}"></span>
+															<span class="form-check-input-id" th:text="${waiting.name}"></span>
+															<span class="form-check-input-email" th:text="${waiting.email}"></span>
+															<span class="form-check-input-date" th:text="${waiting.registDt}"></span>
+															<button type="button" class="btn btn-light" id="info">정보</button>
+	
 														</div>
-														<button type="button" class="btn btn-light" id="info">정보</button>
-
 													</div>
-												</div>
+												</tr>
 											</form>
 										</div>
-										<div class="form-check-next" style="display: flex;">
+										<div class="form-check-next" style="display: flex; float:left">
 											<button type="button" class="btn btn-light">이전</button>
 											<button type="button" class="btn btn-light">다음</button>
+										</div>
+										<div style="display: inline-flex; float: right">
+											<button type="button" class="btn btn-light">수락</button>
+											<button type="button" class="btn btn-light">거절</button>
 										</div>
 									</li>
 								</ul>

@@ -68,11 +68,6 @@ public class LoginController {
 		request.getSession().setAttribute("loginDto", null);
 		return "redirect:/login.com";
 	}
-	
-	public List<String>userList(HttpServletRequest request)
-	{	
-		return null;
-	}
 }
 
 

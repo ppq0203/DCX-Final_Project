@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpServletRequest;
+import project.momento.login.dto.LoginDto;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -28,7 +30,12 @@ public class SignManageController {
 	 * return contents/sign 받는값
 	 */
 	@RequestMapping(value="/signManage.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String SignManage( Model model) {
+	public String SignManage(Model model, SignDto signDto, HttpServletRequest request) {
+		List<String> wList = SignService.waitList(signDto);
+		//가입대기중인 계정을 모아 모델로 넘겨주기.
+		model.addAttribute("wait", wList);
+		
+		System.out.println(model.getAttribute("wait"));
 	    return "content/signManage";
 	}
 	

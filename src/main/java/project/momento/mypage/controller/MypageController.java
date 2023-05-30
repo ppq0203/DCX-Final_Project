@@ -48,7 +48,7 @@ public class MypageController {
 				return "content/studentScreen";
 			}
 			//관리자인 경우.
-			return "content/signManage";
+			return "redirect:/signManage.com";
 		}
 		// 로그인이 되어있지 않은 경우
 		return "redirect:/login.com";
