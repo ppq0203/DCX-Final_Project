@@ -51,7 +51,7 @@ public class MypageController {
 			return "content/signManage";
 		}
 		// 로그인이 되어있지 않은 경우
-		return "/login.com";
+		return "redirect:/login.com";
 	}
 	
 	@RequestMapping(value="/menumanagement.com", produces="application/text;charset=utf-8")
