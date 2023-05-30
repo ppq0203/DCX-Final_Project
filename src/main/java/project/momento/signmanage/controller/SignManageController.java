@@ -1,4 +1,4 @@
-package project.monento.signmanage.controller;
+package project.momento.signmanage.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +20,7 @@ import project.momento.sign.service.SignService;
 public class SignManageController {
 	
 	@Autowired
-	private SignService signService;
+	private SignService SignService;
 	
 	/*
 	 * 학생 회원 관리 이동
