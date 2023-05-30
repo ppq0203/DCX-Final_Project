@@ -23,9 +23,9 @@ public class studentScreenController {
 	private SignService SignService;
 	
 	/*
-	 * 회원가입 페이지 이동
+	 * 학생 화면 페이지 이동
 	 * param
-	 * return contents/sign 받는값
+	 * return contents/studentScreen 받는값
 	 */
 	@RequestMapping(value="/studentScreen.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String studentScreenMain( Model model) {

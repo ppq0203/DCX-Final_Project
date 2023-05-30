@@ -20,28 +20,23 @@
 	<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
 	<script th:src="@{/js/fontawesome/js/all.min.js}"></script>
+	<script th:src="@{/js/adminlte.min.js}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 	
-	<link rel="stylesheet" href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
 	<link rel="stylesheet" th:href="@{/css/plugins/fontawesome-free/css/all.min.css}">
 	<link rel="stylesheet" th:href="@{/css/plugins/fullcalendar/main.css}">
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}"> 
 
 </head>
+<body class="hold-transition">
 
-<body>
-	<!--Header 영역을 참조합니다.-->
-	<th:block th:replace="common/fragments/header :: headFragment"></th:block>
-	<th:block th:replace="common/fragments/leftside :: headFragment"></th:block>
-	<diV class="container-fluid">
-		<!--Content 내용 영역을 참조합니다-->
-		<div class="row">
-			<div class="col-12">
-				<th:block layout:fragment="content"></th:block>
-			</div>
-		</div>
-	</diV>
-	<!--Footer 영역을 참조합니다.-->
+	<div class="wrapper">
+		<th:block th:replace="common/fragments/header :: headFragment"></th:block>
+		<th:block th:replace="common/fragments/leftside :: leftFragment"></th:block>
+
+		<th:block layout:fragment="content"></th:block>
+
+	</div>
 </body>
 
 </html>
