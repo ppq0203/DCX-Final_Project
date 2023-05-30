@@ -5,7 +5,7 @@
 <!-- Heidisql연결후 입력 저장-->
 	
 		<!-- SELECT문-->
-	<select id="selectSubject" parameterType="project.momento.subject.dto.SubjectDto" resultType="arraylist">
+	<select id="selectSubject" parameterType="project.momento.subject.dto.SubjectDto" resultType="map">
 		<![CDATA[
 		SELECT 
 			PK_SUBJECT_SEQ AS pkSubjectSeq,

@@ -12,9 +12,9 @@ public class SubjectService {
 	@Autowired
 	private SubjectMapper subjectMapper;
 
-	public void selectSubject(SubjectDto subjectDto) {
+	public void selectSubject(String subStartDt, String subEndDt, int pkSubjectSeq) {
 		// TODO Auto-generated method stub
 		
-		subjectMapper.selectSubject(subjectDto);
+		subjectMapper.selectSubject(subStartDt, subEndDt, pkSubjectSeq);
 	}
 }
