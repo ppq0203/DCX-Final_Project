@@ -116,7 +116,7 @@ public class MypageController {
 				return "content/studentScreen";
 			}
 			//관리자인 경우.
-			return "content/mypage";
+			return "content/signManage";
 		}
 		return "content/login";
 		
