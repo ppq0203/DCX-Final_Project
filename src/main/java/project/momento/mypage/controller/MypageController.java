@@ -20,6 +20,7 @@ import project.momento.menu.dto.MenuDto;
 import project.momento.menu.service.MenuService;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
+import project.momento.sign.dto.SignDto;
 
 @Controller
 public class MypageController {
@@ -100,6 +101,25 @@ public class MypageController {
 		}
 		// 로그인이 되어있지 않은 경우
 		return "/main.com";
+	}
+	
+	@RequestMapping(value = "sign/update", produces="application/text;charset=utf-8")
+	public String signUpdate(LoginDto loginDto, HttpServletRequest request) {
+		LoginDto login = (LoginDto) request.getSession().getAttribute("loginDto");
+		
+		if(login != null)
+		{
+			//현재 로그인 된 계정이 관리자인지학생인지 체크.
+			if(login.getPkAuthSeq() != 1)
+			{
+				//학생일 경우.
+				return "content/studentScreen";
+			}
+			//관리자인 경우.
+			return "content/mypage";
+		}
+		return "content/login";
+		
 	}
 	
 }
