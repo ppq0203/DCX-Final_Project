@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
 
 <head>
 	<meta charset="utf-8">
@@ -23,141 +24,12 @@
 	<link rel="stylesheet" href="/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini">
-
-
-
+<th:block layout:fragment="content">
 
 	<!-- /.navbar -->
 
 	<!-- Main Sidebar Container -->
-	<aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-
-		<!-- Sidebar -->
-		<div class="sidebar">
-
-
-
-			<!-- SidebarSearch Form -->
-			<div class="form-inline">
-				<div class="input-group" data-widget="sidebar-search">
-					<input class="form-control form-control-sidebar" type="search" placeholder="Search"
-						aria-label="Search">
-					<div class="input-group-append">
-						<button class="btn btn-sidebar">
-							<i class="fas fa-search fa-fw"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<!-- Sidebar Menu -->
-			<nav class="mt-2">
-				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-					data-accordion="false">
-					<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-tachometer-alt"></i>
-							<p>
-								과목
-								<i class="right fas fa-angle-left"></i>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="../index.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>1.소프트웨공학기본</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="../index2.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Web</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="../index3.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>python</p>
-								</a>
-							</li>
-						</ul>
-					</li>
-
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-copy"></i>
-							<p>
-								참여
-								<i class="fas fa-angle-left right"></i>
-								<span class="badge badge-info right">6</span>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="layout/top-nav.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>1.자바페스티벌</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="layout/top-nav-sidebar.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>2.알고리즘</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="mailbox/compose.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Compose</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="mailbox/read-mail.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Read</p>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-book"></i>
-							<p>
-								기타
-								<i class="fas fa-angle-left right"></i>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="examples/invoice.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>1.출석</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="examples/profile.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>2.성적표</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="examples/e-commerce.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>3.본인정보</p>
-								</a>
-							</li>
-
-
-							<!-- /.sidebar-menu -->
-		</div>
-		<!-- /.sidebar -->
-	</aside>
-
+	
 
 	</div><!-- /.container-fluid -->
 	</section>
@@ -459,6 +331,5 @@
 				})
 			})
 		</script>
-</body>
-
+</th:block>
 </html>

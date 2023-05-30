@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -23,7 +24,7 @@ public class MainController {
 	 * 
 	 */
 	@RequestMapping(value="/main.com", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String goSignMain( Model model) {
+	public String goSignMain( Model model, HttpServletRequest request) {
 	    return "content/main";
 	}
 
