@@ -65,13 +65,13 @@ public class MypageController {
 			if(loginDto.getPkAuthSeq() == 1) {
 				// 관리자 권한인 경우
 				menuService.menuManagement((MenuDto)model.getAttribute("menuManageDto"));
-				return "/mypage.com";
+				return "content/mypage";
 			}
 			// 관리자 권한이 아닌 경우
-			return "/mypage.com";
+			return "redirect:/main.com";
 		}
 		// 로그인이 되어있지 않은 경우
-		return "/main.com";
+		return "redirect:/login.com";
 	}
 	
 //	@RequestMapping(value="/getmenu.com", produces="application/json;charset=utf-8") /* value주소 이름*/
