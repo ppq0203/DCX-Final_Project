@@ -12,7 +12,6 @@ public class ClassLoaderTestController {
 	@RequestMapping(value = "/loadtest")
     public String index() throws FileNotFoundException, ClassNotFoundException, IllegalAccessException, InstantiationException {
 		MyClassLoader myClassLoader = new MyClassLoader(ClassLoaderTestController.class.getClassLoader(), "11/22");
-
         Class clazz = myClassLoader.loadClass("Solution");
 
         Object myClass = clazz.newInstance();
@@ -21,7 +20,9 @@ public class ClassLoaderTestController {
         Arrays.stream(carClass.getDeclaredMethods())
         .forEach(method -> {
             System.out.println(method.getName());
-            System.out.println(method);
+            System.out.println(method.getParameterCount());
+            Arrays.stream(method.getParameterTypes())
+            .forEach(parameter -> { System.out.println(parameter.getName()); });
             System.out.println("================================================");
         });
         return "index";

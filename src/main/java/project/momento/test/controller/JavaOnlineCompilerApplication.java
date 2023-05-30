@@ -27,6 +27,7 @@ public class JavaOnlineCompilerApplication {
 			System.out.println("3");
 	    	Writer writer = new FileWriter(sourceFile);
 			System.out.println("4");
+	    	writer.write("import java.util.*;\n\n");
 	    	writer.write(code);
 	    	writer.close();
 	    	System.out.println(sourceFile.getPath());
