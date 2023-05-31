@@ -22,8 +22,6 @@ public class SignController {
 	@Autowired
 	private SignService SignService;
 	
-
-	
 	/*
 	 * 회원가입 페이지 이동
 	 * param

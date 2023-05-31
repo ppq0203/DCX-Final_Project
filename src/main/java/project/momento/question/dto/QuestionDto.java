@@ -26,9 +26,9 @@ public class QuestionDto {
 	
 	private String className;   
 	/*등록 아이디*/   
-	private String use_yn;
+	private String useYn;
 	
-	private String del_yn;
+	private String delYn;
 	
 	private String registId;   
 	/*등록 일자*/   

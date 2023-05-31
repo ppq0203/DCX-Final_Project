@@ -2,31 +2,41 @@
 <!--라이브러리 참조 : Thymeleaf & Thymeleaf Layout -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-    <!--공통 JS / CSS 영역을 관리하는 환경 영역-->
-    <head>
-       <title>Mo:mento</title>
-        <script th:src="@{/js/jquery/jquery-2.2.4.js}"></script>
-		<link th:href="@{css/bootstrap/bootstrap.css}" rel="stylesheet">
-		<link th:href="@{css/bootstrap/bootstrap-grid.min.css}" rel="stylesheet">
-		<link th:href="@{/css/bootstrap/bootstrap-reboot.min.css}" rel="stylesheet">
-		<link th:href="@{/css/fontawesome/css/all.min.css}" rel="stylesheet">
-		<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
-		<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-		<script th:src="@{/js/fontawesome/js/all.min.js}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    </head>
+<!--공통 JS / CSS 영역을 관리하는 환경 영역-->
 
-    <body>
-        <!--Header 영역을 참조합니다.-->
-        <th:block th:replace="common/fragments/header :: headFragment"></th:block>
-    	<diV class="container-fluid">
-        <!--Content 내용 영역을 참조합니다-->
-        	<div class="row">
-				<div class="col-12">
-        			<th:block layout:fragment="content"></th:block>
-        		</div>
-        	</div>
-		</diV>
-        <!--Footer 영역을 참조합니다.-->
-    </body>
+<head>
+	<title>Mo:mento</title>
+	<meta name="viewport"
+        content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<script th:src="@{/js/jquery/jquery-2.2.4.js}"></script>
+	<link th:href="@{css/bootstrap/bootstrap.css}" rel="stylesheet">
+	<link th:href="@{css/bootstrap/bootstrap-grid.min.css}" rel="stylesheet">
+	<link th:href="@{/css/bootstrap/bootstrap-reboot.min.css}" rel="stylesheet">
+	<link th:href="@{/css/fontawesome/css/all.min.css}" rel="stylesheet">
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
+	<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+	<script th:src="@{/js/fontawesome/js/all.min.js}"></script>
+	<script th:src="@{/js/adminlte.min.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+	
+	<link rel="stylesheet" th:href="@{/css/plugins/fontawesome-free/css/all.min.css}">
+	<link rel="stylesheet" th:href="@{/css/plugins/fullcalendar/main.css}">
+	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}"> 
+
+</head>
+<body class="hold-transition">
+
+	<div class="wrapper">
+		<th:block th:replace="common/fragments/header :: headFragment"></th:block>
+		<th:block th:replace="common/fragments/leftside :: leftFragment"></th:block>
+
+		<th:block layout:fragment="content"></th:block>
+
+	</div>
+</body>
+
 </html>

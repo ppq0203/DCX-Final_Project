@@ -12,7 +12,7 @@ import project.momento.sign.mapper.SignMapper;
 @Service
 public class SignService {
 	
-//	@Autowired
+	@Autowired
 	private SignMapper SignMapper;
 
 	public void insertUser(SignDto signDto) {
