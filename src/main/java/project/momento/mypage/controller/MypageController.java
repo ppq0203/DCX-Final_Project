@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpServletRequest;
 import project.momento.login.dto.LoginDto;
@@ -13,8 +17,6 @@ import project.momento.login.service.LoginService;
 import project.momento.menu.dto.MenuDto;
 import project.momento.menu.service.MenuService;
 import project.momento.page.Criteria;
-import project.momento.page.Paging;
-import project.momento.sign.dto.SignDto;
 
 @Controller
 public class MypageController {
@@ -32,26 +34,13 @@ public class MypageController {
 	 * 사이트에서 이동
 	 */
 	@RequestMapping(value="/mypage.com", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String Mypage(Criteria cri, Model model, HttpServletRequest request) {
-		// 세션에서 내 정보를 가져온다
+	public String Mypage(Criteria cri, Model model, HttpServletRequest request) { 
 		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
-		// 로그인이 되어있는지 확인
-		if(!(loginDto == null)) {
-			// 로그인이 되어있는 경우
-			List<MenuDto> menuList = menuService.getMenuList(loginDto.getPkAuthSeq());
-			System.out.println(menuList);
-			model.addAttribute("menuList", menuList);
-			//현재 로그인 된 계정이 관리자인지학생인지 체크.
-			if(loginDto.getPkAuthSeq() != 1)
-			{
-				//학생일 경우.
-				return "content/studentScreen";
-			}
-			//관리자인 경우.
-			return "redirect:/signManage.com";
+		if (!(loginDto == null)) {
+			return "content/mypage";
+		} else {
+			return "redirect:/login.com";
 		}
-		// 로그인이 되어있지 않은 경우
-		return "redirect:/login.com";
 	}
 	
 	@RequestMapping(value="/menumanagement.com", produces="application/text;charset=utf-8")
@@ -65,19 +54,19 @@ public class MypageController {
 			if(loginDto.getPkAuthSeq() == 1) {
 				// 관리자 권한인 경우
 				menuService.menuManagement((MenuDto)model.getAttribute("menuManageDto"));
-				return "redirect:/mypage.com";
+				return "/mypage.com";
 			}
 			// 관리자 권한이 아닌 경우
-			return "redirect:/main.com";
+			return "/mypage.com";
 		}
 		// 로그인이 되어있지 않은 경우
-		return "redirect:/login.com";
+		return "/main.com";
 	}
 	
 //	@RequestMapping(value="/getmenu.com", produces="application/json;charset=utf-8") /* value주소 이름*/
 //	public String GetMenu(Model model, HttpServletRequest request) {
-//		// 세션에서 내 정보를 가져온다
-//		// LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+////		// 세션에서 내 정보를 가져온다
+////		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
 //		LoginDto testDto = new LoginDto();
 //		testDto.setUserId("test");
 //		testDto.setPassword("asdf");
@@ -94,5 +83,16 @@ public class MypageController {
 //			return "/login.com";
 //		}
 //	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getmenu.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public List<MenuDto> GetMenu(Model model, HttpServletRequest request) {
+		// 세션에서 내 정보를 가져온다
+		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		List<MenuDto> menuList = menuService.getMenuList(loginDto.getPkAuthSeq());
+		model.addAttribute("menuList", menuList);
+		return menuList;			
+	}
+	
 	
 }
