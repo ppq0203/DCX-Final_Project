@@ -37,7 +37,12 @@ public class MypageController {
 	public String Mypage(Criteria cri, Model model, HttpServletRequest request) { 
 		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
 		if (!(loginDto == null)) {
-			return "content/mypage";
+			if(loginDto.getPkAuthSeq() == 1) {
+				// 관리자 권한인 경우
+				return "redirect:/signManage.com";
+			}
+			// 관리자 권한이 아닌 경우
+			return "redirect:/studentScreen.com";
 		} else {
 			return "redirect:/login.com";
 		}
