@@ -41,45 +41,50 @@ public class ClassLoaderTestController {
 	
 	@RequestMapping(value = "/dircheck")
     public String dircheck() {
+		// 폴더 경로
 		String strDirPath = "22/"; 
         File path = new File( strDirPath ); 
         File[] fList = path.listFiles();
     	
         for( int i = 0; i < fList.length; i++ ) { 
              
-            if( fList[i].isFile() ) { 
+            if( fList[i].isFile() ) {
+				// 솔루션 코드 수정한 파일 저장할 경로
             	String filePath = strDirPath + "Solution.java";
-            	InsertLineToFile inLine = new InsertLineToFile();
             	try {
+					InsertLineToFile inLine = new InsertLineToFile();
+					// 솔루션코드에 import java.util.*; 추가, class 앞에 public 추가
 					inLine.insertStringInFile(fList[i], filePath);
-
-            	
 	    	        // Create a Java compiler
 	    	        JavaCompiler compiler = javax.tools.ToolProvider.getSystemJavaCompiler();
 	    	        // Create a Java compilation task
 	    	        int compilationResult = compiler.run(null, null, null, filePath);
-	    	        System.out.println("compile finish");
-	//    	        System.out.println(compilationResult);
-
 					// load solution class
 	    	        MyClassLoader myClassLoader = new MyClassLoader(ClassLoaderTestController.class.getClassLoader(), strDirPath);
 	    	        Class clazz = myClassLoader.loadClass("Solution");
-					System.out.println("this err?");
-					
 					// solution class object create
 					Object myClass = clazz.newInstance();
-					
+					// 컴파일 성공시 아래코드 수행
 					if(compilationResult == 0)
 	    	        {
+						// 솔루션 파일명 앞에 문제넘버만 추출
 						String no = fList[i].getName().split("-")[0];
-//	    	        	System.out.println(no);
-	    	        	CSVReader reader;
+						// 넘버에 해당하는 솔루션의 함수명 가져와야함
+			//			String funcName = no에 해당하는 함수명
+						//
 						try {
-							reader = new CSVReader(new FileReader(strDirPath + "csv/input.csv"));
+							// input값으로 넣을 데이터들 csv파일로 load
+							CSVReader reader = new CSVReader(new FileReader(strDirPath + "csv/input.csv"));
 		    	            String [] nextLine;
+							// 데이터 한행씩 로드
 		    	            while ((nextLine = reader.readNext()) != null) {   // 2
-		    	                for (int l = 0; l < nextLine.length; l++) {
-//		    	                    System.out.println(l + " " + nextLine[l]);
+		    	                // input.csv에는 input만 들어있기때문에(nextLine.length = 1) l=0만 수행함
+								for (int l = 0; l < nextLine.length; l++) {
+									// 함수에 input data를 넣고 결과를 얻어내는 함수
+	//								Object out = myClassLoader.testLoadClass(myClass, funcName, nextLine[l]);
+									// 결과를 csv에 저장하는 코드 실행
+//									code
+									//
 		    	                    Object out = myClassLoader.testLoadClass(myClass, "twoSum", nextLine[l]);
 		    	                    Object out1 = myClassLoader.testLoadClass(myClass, "lengthOfLongestSubstring", nextLine[l]);
 		    	                    Object out2 = myClassLoader.testLoadClass(myClass, "findMedianSortedArrays", nextLine[l]);
@@ -92,22 +97,14 @@ public class ClassLoaderTestController {
 		    	                }
 		    	            }
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
+							// CSVReader에서 오류 발생했을때,
 							e.printStackTrace();
 						} // 1
 	    	        }
-				} catch (FileNotFoundException | ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InstantiationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+//					e1.printStackTrace();
 				}
             } 
             else if( fList[i].isDirectory() ) { 
