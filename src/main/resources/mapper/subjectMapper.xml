@@ -5,21 +5,12 @@
 <!-- Heidisql연결후 입력 저장-->
 	
 		<!-- SELECT문-->
-	<select id="selectSubject" parameterType="project.momento.subject.dto.SubjectDto" resultType="map">
+	<select id="selectSubject" parameterType="project.momento.subject.dto.SubjectDto" resultType="project.momento.subject.dto.SubjectDto">
 		<![CDATA[
 		SELECT 
-			PK_SUBJECT_SEQ AS pkSubjectSeq,
 			SUBJECT_NAME AS subjectName,
-			SUBJECT_STATE AS subjectState,
 			SUB_START_DT AS subStartDt,
-			SUB_END_DT AS subEndDt,
-			SUBJECT_TEATHER AS subjectTeather,
-			SUBJECT_TEST AS subjectTest,
-			SUBJECT_TEST_DT AS subjectTestDt,
-			REGIST_ID AS registId,
-			REGIST_DT AS registDt,
-			UPDATE_ID AS updateId,
-			UPDATE_DT AS updateDt
+			SUB_END_DT AS subEndDt
 		FROM 
 			SUBJECT
 		WHERE 

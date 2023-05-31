@@ -46,7 +46,7 @@
 	</update>
 		
 		<!-- SELECT문-->
-	<select id="selectUser" parameterType="project.momento.login.dto.LoginDto">
+	<select id="selectUser" parameterType="project.momento.login.dto.LoginDto" resultType="project.momento.login.dto.LoginDto">
 		<![CDATA[
 		SELECT 
 				PK_USER_SEQ AS pkUserSeq,
@@ -62,8 +62,8 @@
 				USER_DIVN AS userDivn,
 				USE_YN AS useYn,
 				REGIST_DT AS registDt 
-		FROM 
-				USER WHERE PK_USER_SEQ=#{PkUserSeq}
+		FROM USER
+		WHERE PK_USER_SEQ=#{pkUserSeq}
 		]]>
 	</select>
 		

@@ -16,13 +16,13 @@ public interface LoginMapper {
 	
 	void insertUser(LoginDto loginDto);
 	
-	void updateUser(LoginDto loginDto);
+	LoginDto updateUser(LoginDto loginDto);
 	
 	void deleteUser(LoginDto loginDto);
 	
-	void selectUser(LoginDto loginDto);
+	LoginDto selectUser(LoginDto loginDto);
 	
-	void userRole(LoginDto loginDto);
+	LoginDto userYn(LoginDto loginDto);
 //	public int getIDPassCheck(String id, String pwd);
 //
 //	public String getName(String myid);

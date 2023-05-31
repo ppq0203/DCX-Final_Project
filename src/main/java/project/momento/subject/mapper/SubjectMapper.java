@@ -2,11 +2,10 @@ package project.momento.subject.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import project.momento.subject.dto.SubjectDto;
+
 @Mapper
 public interface SubjectMapper {
 
-	void selectSubject(String subStartDt, String subEndDt, int pkSubjectSeq);
-	
-	
-	
-}
+	SubjectDto selectSubject(SubjectDto subjectDto);											
+				}

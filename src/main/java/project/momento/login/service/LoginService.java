@@ -32,24 +32,24 @@ public class LoginService {
 		
 		loginMapper.insertUser(loginDto);
 	}
-	public void updateUser(LoginDto loginDto) {
+	public LoginDto updateUser(LoginDto loginDto) {
 		// TODO Auto-generated method stub
 		
-		loginMapper.updateUser(loginDto);
+		return loginMapper.updateUser(loginDto);
 	}
 	public void deleteUser(LoginDto loginDto) {
 		// TODO Auto-generated method stub
 		
 		loginMapper.deleteUser(loginDto);
 	}
-	public void selectUser(LoginDto loginDto) {
+	public LoginDto selectUser(LoginDto loginDto) {
 		// TODO Auto-generated method stub
 		
-		loginMapper.selectUser(loginDto);
+		return loginMapper.selectUser(loginDto);
 	}
-	public void userRole(LoginDto loginDto) {
+	public LoginDto userYn(LoginDto loginDto) {
 		// TODO Auto-generated method stub
-		loginMapper.userRole(loginDto);
+		return loginMapper.userYn(loginDto);
 	}
 //	public int getIDPassCheck(String id, String pwd) {
 //		// TODO Auto-generated method stub
