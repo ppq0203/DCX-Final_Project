@@ -49,17 +49,6 @@ public class LoginController {
 		return "redirect:/login.com";
 	}
 
-	/**
-	 * 로그아웃 한다.
-	 * 
-	 * @return redirect:/loginMain
-	 * @exception Exception
-	 */
-	@GetMapping("/logout")
-	public String loginOut(HttpServletRequest request) {
-		request.getSession().setAttribute("loginDto", null);
-		return "redirect:/login.com";
-	}
 
 	public List<String> userList(HttpServletRequest request) {
 		return null;
