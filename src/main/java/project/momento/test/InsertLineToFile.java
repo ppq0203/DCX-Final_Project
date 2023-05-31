@@ -36,6 +36,7 @@ public class InsertLineToFile {
                 out.println("import java.util.*;\n");
                 //파일 내용을 한라인씩 읽어 삽입될 라인이 오면 문자열을 삽입
                 while ((thisLine = in.readLine()) != null) {
+                	thisLine = thisLine.replaceAll("^class", "public class");
                         out.println(thisLine);
                         i++;
                 }
