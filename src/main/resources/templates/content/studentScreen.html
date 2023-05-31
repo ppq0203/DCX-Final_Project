@@ -1,4 +1,92 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<small>
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle ml-3 mb-3" type="button" id="dropdownMenuButton1"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							다른과정으로 바로가기
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="#">빅데이터</a></li>
+							<li><a class="dropdown-item" href="#">개발과정</a></li>
+							<li><a class="dropdown-item" href="#">분석과정</a></li>
+						</ul>
+					</div>
+				</small>
+				<button type="button" class="btn btn-primary ml-3">강의일정</button>
+				<button type="button" class="btn btn-primary">복습영상</button>
+				<button type="button" class="btn btn-primary">테스트</button>
+				<button type="button" class="btn btn-primary">강의평가</button>
+
+
+			</section>
+			<section class="pl-4">
+				<p>강의 시간 -09:00</p>
+				<p>과제 시간 -09:00</p>
+			</section>
+			<section>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">날짜</th>
+							<th scope="col">강좌명</th>
+							<th scope="col">강의자료</th>
+							<th scope="col">과제제출</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td><input id="someDate" type="date"></td>
+							<td>client</td>
+							<td>client</td>
+							<td><input class="form-control" type="file" id="formFile"></td>
+
+
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td><input id="someDate" type="date"></td>
+							<td>client</td>
+							<td>client</td>
+							<td><input class="form-control" type="file" id="formFile"></td>
+
+
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td><input id="someDate" type="date"></td>
+							<td>@twitter</td>
+							<td>@mdo</td>
+							<td><input class="form-control" type="file" id="formFile"></td>
+
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td><input id="someDate" type="date"></td>
+							<td>@twitter</td>
+							<td>@mdo</td>
+							<td><input class="form-control" type="file" id="formFile"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+</th:block>
+<!--<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +94,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>학생 화면</title>
 
-	<!-- Google Font: Source Sans Pro -->
-	<!-- 다운로드 링크 -->
+	 Google Font: Source Sans Pro 
+	 다운로드 링크 
 	<link
 		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css"
 		rel="stylesheet" />
@@ -15,11 +103,11 @@
 
 	<link rel="stylesheet"
 		href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-	<!-- Font Awesome -->
+	 Font Awesome 
 	<link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-	<!-- fullCalendar -->
+	 fullCalendar 
 	<link rel="stylesheet" href="../plugins/fullcalendar/main.css">
-	<!-- Theme style -->
+	 Theme style 
 	<link rel="stylesheet" href="/css/adminlte.min.css">
 </head>
 
@@ -28,18 +116,18 @@
 
 
 
-	<!-- /.navbar -->
+	 /.navbar 
 
-	<!-- Main Sidebar Container -->
+	 Main Sidebar Container 
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 
 
-		<!-- Sidebar -->
+		 Sidebar 
 		<div class="sidebar">
 
 
 
-			<!-- SidebarSearch Form -->
+			 SidebarSearch Form 
 			<div class="form-inline">
 				<div class="input-group" data-widget="sidebar-search">
 					<input class="form-control form-control-sidebar" type="search" placeholder="Search"
@@ -52,12 +140,12 @@
 				</div>
 			</div>
 
-			<!-- Sidebar Menu -->
+			 Sidebar Menu 
 			<nav class="mt-2">
 				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
 					data-accordion="false">
-					<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+					 Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library 
 					<li class="nav-item">
 						<a href="#" class="nav-link">
 							<i class="nav-icon fas fa-tachometer-alt"></i>
@@ -153,19 +241,19 @@
 							</li>
 
 
-							<!-- /.sidebar-menu -->
+							 /.sidebar-menu 
 		</div>
-		<!-- /.sidebar -->
+		 /.sidebar 
 	</aside>
 
 
-	</div><!-- /.container-fluid -->
+	</div> /.container-fluid 
 	</section>
 
-	<!-- Main content -->
+	 Main content 
 	<section class="content">
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
+			 Content Header (Page header) 
 			<section class="content-header">
 				<small>
 					<div class="dropdown">
@@ -243,9 +331,9 @@
 			</section>
 
 
-			<!-- /.content -->
+			 /.content 
 		</div>
-		<!-- /.content-wrapper -->
+		 /.content-wrapper 
 
 		<footer class="main-footer">
 			<div class="float-right d-none d-sm-block">
@@ -255,28 +343,28 @@
 			reserved.
 		</footer>
 
-		<!-- Control Sidebar -->
+		 Control Sidebar 
 		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
+			 Control sidebar content goes here 
 		</aside>
-		<!-- /.control-sidebar -->
+		 /.control-sidebar 
 		</div>
-		<!-- ./wrapper -->
+		 ./wrapper 
 
-		<!-- jQuery -->
+		 jQuery 
 		<script src="../plugins/jquery/jquery.min.js"></script>
-		<!-- Bootstrap -->
+		 Bootstrap 
 		<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- jQuery UI -->
+		 jQuery UI 
 		<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
-		<!-- AdminLTE App -->
+		 AdminLTE App 
 		<script src="../dist/js/adminlte.min.js"></script>
-		<!-- fullCalendar 2.2.5 -->
+		 fullCalendar 2.2.5 
 		<script src="../plugins/moment/moment.min.js"></script>
 		<script src="../plugins/fullcalendar/main.js"></script>
-		<!-- AdminLTE for demo purposes -->
+		 AdminLTE for demo purposes 
 		<script src="../dist/js/demo.js"></script>
-		<!-- Page specific script -->
+		 Page specific script -->
 		<script>
 
 			// 선언한 TextBox에 DateTimePicker 위젯을 적용한다.
@@ -459,6 +547,6 @@
 				})
 			})
 		</script>
-</body>
+<!--</body>-->
 
 </html>
