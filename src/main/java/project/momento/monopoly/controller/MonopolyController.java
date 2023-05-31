@@ -1,6 +1,7 @@
 package project.momento.monopoly.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,8 @@ public class MonopolyController {
 	@ResponseBody
 	public ModelAndView selectQuestionList(QuestionDto questionDto) {
 		ModelAndView mv = new ModelAndView();
-		Map<String, Object> questionMap = new HashMap<String, Object>();
-		questionMap = questionService.selectQuestionList(questionDto);
-		mv.addObject("questionMap", questionMap);
+		List<QuestionDto> questionList = questionService.selectQuestionList();
+		mv.addObject("questionList", questionList);
 		mv.setViewName("content/marbles");
 		return mv;
 	}

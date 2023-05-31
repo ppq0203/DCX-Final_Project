@@ -261,41 +261,24 @@ var Game = (function() {
     this.ownedSquares = [];
   }
   
-  var questionList = {
-	  init: function() {
-		  questionList.selectQuestionList();
-	  },
-	  bind: function() {
-		  
-	  },
-	  selectQuestionList: function() {
-		  $.ajax({
-			  url: 'marbles.com',
-			  type: 'post',
-			  dataType : 'text',
-			  data: {},
-			  success : function(res) {
-				  questionList.drawQuestionList(res.questionMap);
-			  }
-		  });
-	  },
-	  drawQuestionList: function(data) {
-		  var html = '';
-		  $.each(data.questionList, function(i, v) {
-			html += '<tr>';
-            html += '	<td>'+v.pkQuestionSeq+'</td>';
-            html += '   <td>'+v.score+'</td>';
-            html += '   <td>'+v.type+'</td>';
-            html += '   <td>'+v.contents+'</td>';
-            html += '   <td>'+v.solution+'</td>';
-            html += '</tr>';
-		  });
-		  $("#tbody_questionList").html(html);
-	  }
+  function getQuestionList() {
+	  $.ajax({
+		  type: "POST",
+		  url: "content/marbles",
+		  datatype: "text"
+	  })
+	  
+	   .done(function (result) {
+		   console.log(result);
+		   $("#questionListContent").replaceWith(result);
+	   })
+	   .fail(function(jqXHR) {
+		   console.log(jqXHR);
+	   })
+	   .always(function() {
+		   console.log("요청, 응답 결과에 상관없이 항상 실행.")
+	   })
   }
-  $(function() {
-	  questionList.init();
-  });
 
   //Add a method to create a player token span and add it to appropriate square
   //Adding it as a prototype of the Player constructor function

@@ -16,10 +16,8 @@ public class QuestionService {
 	@Autowired
 	private QuestionMapper questionMapper;
 	
-	public Map<String, Object> selectQuestionList(QuestionDto questionDto) {
-		List<QuestionDto> questionList = questionMapper.selectQuestionList(questionDto);
-		Map<String, Object> questionMap = new HashMap<>();
-		questionMap.put("questionList", questionList);
-		return questionMap;
+	public List<QuestionDto> selectQuestionList() {
+		
+		return questionMapper.selectQuestionList();
 	}
 }
