@@ -30,7 +30,6 @@
 
 	<!-- Main Sidebar Container -->
 	
-
 	</div><!-- /.container-fluid -->
 	</section>
 
@@ -51,126 +50,104 @@
 							<li><a class="dropdown-item" href="#">분석과정</a></li>
 						</ul>
 					</div>
-				</small>
-				<button type="button" class="btn btn-primary">강의일정</button>
-				<button type="button" class="btn btn-primary">복습영상</button>
-				<button type="button" class="btn btn-primary">테스트</button>
-				<button type="button" class="btn btn-primary">강의평가</button>
+
+					<div class="content">
+						<div class="p-5">
+						<div class="row" >
+							<div class="col-9"><h3>공지사항</h3></div>
+							<div class="col-3"><h3>과제제출</h3></div>
+						</div>
+						
+					
 
 
-			</section>
-			<section>
-				<p>강의 시간 -09:00</p>
-				<p>과제 시간 -09:00</p>
-			</section>
-			<section>
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">날짜</th>
-							<th scope="col">강좌명</th>
-							<th scope="col">강의자료</th>
-							<th scope="col">과제제출</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td><input id="someDate" type="date"></td>
-							<td>client</td>
-							<td>client</td>
-							<td><input class="form-control" type="file" id="formFile"></td>
-
-
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td><input id="someDate" type="date"></td>
-							<td>client</td>
-							<td>client</td>
-							<td><input class="form-control" type="file" id="formFile"></td>
-
-
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td><input id="someDate" type="date"></td>
-							<td>@twitter</td>
-							<td>@mdo</td>
-							<td><input class="form-control" type="file" id="formFile"></td>
-
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td><input id="someDate" type="date"></td>
-							<td>@twitter</td>
-							<td>@mdo</td>
-							<td><input class="form-control" type="file" id="formFile"></td>
-
-						</tr>
-					</tbody>
-				</table>
-			</section>
+					<div class="content">
+							<div class="p-5">
+						<div class="row-cols-1">
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">날짜</th>
+										<th scope="col">과목명</th>
+										<th scope="col">강좌명</th>
+										<th scope="col">강의자료</th>
+										<th scope="col">과제제출</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td><button type="button" class="btn btn-link">2023-05-30</button></td>
+										<td><span>HTML</span></td>
+										<td><span>1</span></td>
+										<td><i class="fas fa-download"></i></td>
+										<td><button type="button" class="btn btn-primary">첨부</button>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td><button type="button" class="btn btn-link">2023-05-30</button></td>
+										<td><span>HTML</span></td>
+										<td><span>2</span></td>
+										<td><i class="fas fa-download"></i></td>
+										<td><button type="button" class="btn btn-primary">첨부</button>
+										</td>
 
 
-			<!-- /.content -->
-		</div>
-		<!-- /.content-wrapper -->
-
-		<footer class="main-footer">
-			<div class="float-right d-none d-sm-block">
-				<b>Version</b> 3.2.0
-			</div>
-			<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-			reserved.
-		</footer>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
-		</div>
-		<!-- ./wrapper -->
-
-		<!-- jQuery -->
-		<script src="../plugins/jquery/jquery.min.js"></script>
-		<!-- Bootstrap -->
-		<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- jQuery UI -->
-		<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
-		<!-- AdminLTE App -->
-		<script src="../dist/js/adminlte.min.js"></script>
-		<!-- fullCalendar 2.2.5 -->
-		<script src="../plugins/moment/moment.min.js"></script>
-		<script src="../plugins/fullcalendar/main.js"></script>
-		<!-- AdminLTE for demo purposes -->
-		<script src="../dist/js/demo.js"></script>
-		<!-- Page specific script -->
-		<script>
-
-			// 선언한 TextBox에 DateTimePicker 위젯을 적용한다.
-			$('#fromDate').datetimepicker({
-				language: 'ko', // 화면에 출력될 언어를 한국어로 설정한다.
-				pickTime: false, // 사용자로부터 시간 선택을 허용하려면 true를 설정하거나 pickTime 옵션을 생략한다.
-				defalutDate: new Date() // 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션을 생략한다.
-			});
-
-			$('#toDate').datetimepicker({
-				language: 'ko',
-				pickTime: false,
-				defalutDate: new Date()
-			});
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td><button type="button" class="btn btn-link">2023-05-30</button></td>
+										<td><span>HTML</span></td>
+										<td><span>3</span></td>
+										<td><i class="fas fa-download"></i></td>
+										<td><button type="button" class="btn btn-primary">첨부</button>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">4</th>
+										<td><button type="button" class="btn btn-link">날짜 링크 연결</button>
+										</td>
+										<td><span>Java</span></td>
+										<td><span>4</span></td>
+										<td><i class="fas fa-download"></i></td>
+										<td><button type="button" class="btn btn-primary">첨부</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
 
-			$(function () {
 
-				/* initialize the external events
-				 -----------------------------------------------------------------*/
-				function ini_events(ele) {
-					ele.each(function () {
+
+
+
+						<div class="container">
+							<div class="row">
+								<div class="col-9"></div>
+								<div class="col-3">강의시간 - 09:00~16:00</div>
+							</div>
+							<div class="row">
+								<div class="col-9"></div>
+								<div class="col-3">과제 시간- 16:00~18:00</div>
+							</div>
+						</div>
+
+
+
+
+
+
+						<script>
+							<!--드롭앤다운-->
+							var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+							var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+								return new bootstrap.Dropdown(dropdownToggleEl)
+							})
+
+
 
 						// create an Event Object (https://fullcalendar.io/docs/event-object)
 						// it doesn't need to have a start or end
