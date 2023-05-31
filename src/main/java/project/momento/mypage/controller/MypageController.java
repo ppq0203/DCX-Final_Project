@@ -34,12 +34,13 @@ public class MypageController {
 	 * 사이트에서 이동
 	 */
 	@RequestMapping(value="/mypage.com", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String Mypage(Criteria cri, Model model, HttpServletRequest request) {
-		LoginDto testDto = new LoginDto();
-		testDto.setUserId("test");
-		testDto.setPassword("asdf");
-		LoginDto loginDto = loginService.checkLogin(testDto);
-		return "content/mypage";
+	public String Mypage(Criteria cri, Model model, HttpServletRequest request) { 
+		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		if (!(loginDto == null)) {
+			return "content/mypage";
+		} else {
+			return "redirect:/login.com";
+		}
 	}
 	
 	@RequestMapping(value="/menumanagement.com", produces="application/text;charset=utf-8")
@@ -88,11 +89,9 @@ public class MypageController {
 	public List<MenuDto> GetMenu(Model model, HttpServletRequest request) {
 		// 세션에서 내 정보를 가져온다
 		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
-		// 로그인이 되어있는지 확인
 		List<MenuDto> menuList = menuService.getMenuList(loginDto.getPkAuthSeq());
-		System.out.println(menuList);
 		model.addAttribute("menuList", menuList);
-		return menuList;
+		return menuList;			
 	}
 	
 	
