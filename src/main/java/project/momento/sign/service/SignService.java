@@ -34,4 +34,9 @@ public class SignService {
 		return cnt;
 	}
 
+	public void signUser(SignDto signDto) {
+		// TODO Auto-generated method stub
+		SignMapper.signUser(signDto);
+	}
+
 }

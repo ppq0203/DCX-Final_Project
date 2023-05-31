@@ -39,4 +39,21 @@ public class SignManageController {
 	    return "content/signManage";
 	}
 	
+	@RequestMapping(value="/signUser.com", produces="application/text;charset=utf-8")
+	public void permitsign(Model model, SignDto signDto, HttpServletRequest request) {
+		//전체수락이 체크되지 않은 경우.
+//		if(request.getParameter("check"))
+//		{
+//			for(SignDto permit : request.getParameterValues(checklist))
+//			{
+//				SignService.insertUser(permit);
+//			}
+//		}
+//		//전체수락이 체크된 경우.
+//		else
+//		{
+//			SignService.signUser(signDto);
+//		}
+	}
+	
 }

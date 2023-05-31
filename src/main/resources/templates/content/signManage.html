@@ -76,7 +76,7 @@
 												<tr th:each="waiting : ${wait}">
 													<div class="form-check-student-list">
 														<div class="form-check-input-button" style="word-spacing: 7vw;">
-															<input class="form-check-input me-1" type="checkbox" value=""
+															<input class="form-check-input me-1" type="checkbox" th:value="${waiting}"
 																aria-label="...">
 															<span class="form-check-input-name" th:text="${waiting.userId}"></span>
 															<span class="form-check-input-id" th:text="${waiting.name}"></span>

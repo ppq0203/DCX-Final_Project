@@ -16,5 +16,7 @@ public interface SignMapper {
 	List<String> waitList(SignDto signDto);
 	//아이디 중복체크
 	int checkButton(SignDto signDto);
+
+	void signUser(SignDto signDto);
 	
 }
