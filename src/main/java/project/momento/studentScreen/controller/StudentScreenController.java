@@ -17,7 +17,7 @@ import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
 @Controller
-public class studentScreenController {
+public class StudentScreenController {
 	
 	@Autowired
 	private SignService SignService;
