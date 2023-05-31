@@ -1,17 +1,13 @@
 package project.momento.login.controller;
 
-import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -73,6 +69,55 @@ public class LoginController {
 	{	
 		return null;
 	}
+	@RequestMapping(value="/select.com", produces="application/text;charset=utf-8")
+	public String selectUser(Model model, LoginDto loginDto){
+		int pkUserSeq = loginDto.getPkUserSeq();
+		loginDto.setPkUserSeq(pkUserSeq);
+		// pkUserSeq 값이 존재하는 경우에만 로직 실행
+	    if (pkUserSeq > 0) {
+	        // loginService.selectUser() 메소드 호출 시 loginDto 전달
+	        loginService.selectUser(loginDto);
+
+	        model.addAttribute("loginDto", loginDto);
+	    }
+		
+		return "content/signManage";
+																									}
+	
+	@RequestMapping(value="/update.com", produces="application/text;charset=utf-8")
+    public String updateUser(Model model, LoginDto loginDto){
+		int pkUserSeq = loginDto.getPkUserSeq();
+		loginDto.setPkUserSeq(pkUserSeq);
+		// pkUserSeq 값이 존재하는 경우에만 로직 실행
+	    if (pkUserSeq > 0) {
+	        // loginService.updateUser() 메소드 호출 시 loginDto 전달
+		loginService.updateUser(loginDto);
+		
+        model.addAttribute("loginDto", loginDto);
+        					}
+        return "content/signManage";
+    																								}
+
+	@RequestMapping(value="/deleteUser.com", produces="application/text;charset=utf-8")
+    public String deleteUser(Model model, LoginDto loginDto){
+		int pkUserSeq = loginDto.getPkAuthSeq();
+		loginDto.setPkUserSeq(pkUserSeq);
+		// pkUserSeq 값이 존재하는 경우에만 로직 실행
+		if (pkUserSeq > 0) {
+	    // loginService.deleteUser() 메소드 호출 시 loginDto 전달
+		loginService.deleteUser(loginDto);
+        model.addAttribute("loginDto", loginDto);
+        					}
+        return "content/signManage";
+																									 }
+	@RequestMapping(value="/userRole.com", produces="application/text;charset=utf-8")
+    public String userRole(Model model, LoginDto loginDto){
+		String useYn = loginDto.getUseYn();
+		loginDto.setUseYn(useYn);
+		loginService.userYn(loginDto);
+        model.addAttribute("loginDto", loginDto);
+        return "content/signManage";
+																							}
 }
 
 
