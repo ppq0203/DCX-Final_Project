@@ -19,8 +19,6 @@ public class LoginService {
 	private LoginMapper loginMapper;
 
 	public LoginDto checkLogin(LoginDto loginDto) {
-		LoginDto user = loginMapper.checkLogin(loginDto);
-		System.out.println("In Service: " + user);
 		return loginMapper.checkLogin(loginDto);
 	}
 	

@@ -7,7 +7,7 @@
 	<!-- 만약 PK_MENU_SEQ가 NULL일 경우 메뉴를 생성하고 아닌 경우 들어온 값을 수정한다 -->
 	<insert id="menuManagement" parameterType="project.momento.menu.dto.MenuDto">
 		<![CDATA[
-			INSERT INTO menu
+			INSERT INTO MENU
 			(	
 				PK_MENU_SEQ,
 				PK_AUTH_SEQ,
@@ -53,25 +53,23 @@
 				UPDATE_DT = SYSDATE()
 		]]>
 	</insert>
-	
 	<!-- UPDATE문 -->
 	
 	<!-- SELECT문 -->
  	<select id="getUserMenuList" parameterType="int" resultType="project.momento.menu.dto.MenuDto" >
 		SELECT *
-		FROM menu
-		WHERE PK_AUTH_SEQ>=#{pkAuthSeq}
-		AND USE_YN == "Y"
+		FROM MENU
+		WHERE PK_AUTH_SEQ = #{pkAuthSeq}
+		AND USE_YN = "Y"
 		AND DEL_YN = "N"
 	</select>
 	
 	<select id="getAdminMenuList" parameterType="int" resultType="project.momento.menu.dto.MenuDto" >
 		SELECT *
-		FROM menu
-		WHERE PK_AUTH_SEQ>=#{pkAuthSeq}
+		FROM MENU
+		WHERE PK_AUTH_SEQ = #{pkAuthSeq}
 		AND DEL_YN = "N"
 	</select>
-	
 	
 	<!-- DELETE문 -->
 	
