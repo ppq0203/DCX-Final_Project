@@ -3,70 +3,19 @@
 	layout:decorate="~{common/layout/defaultLayout}">
 <th:block layout:fragment="content">
 	<!-- Modal -->
-	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-cented modal-xl">
+	<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="col-12 modal-header">
-					<h4 class="col-12 modal-title text-center">00:00:00</h4>
-					<!--<button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">-->
-						<!--<span aria-hidden="true">×</span>-->
-					</button>
+				<div class="modal-header">
+					<h3 class="modal-title" id="exampleModalLabel">모달테스트</h5>
 				</div>
-				<div class="modal-body">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-12">
-								<div class="col-12">
-									<span>01. 웹페이지를 작성할 다음 언어의 단어를 풀어 쓰고 그 역할에 대해 적으시오.</span>
-								</div>
-								<hr>
-							</div>
-							<div class="col-12 pl-2">
-								<span>1 HTML: Hyper Text Markup Language</span>
-							</div>
-							<div class="col-12 pl-2">
-								<span>2 CSS</span>
-							</div>
-							<div class="col-12 pl-2">
-								<span>3 JavaScript</span>
-							</div>
-							<div class="col-12 pl-2 mt-4 mb-4">
-								<textarea class="form-control form-control-lg" row="4" id="validationTextarea" placeholder="정답입력"
-									required></textarea>
-							</div>
-						</div>
-						<hr class="mt-4 mb-4">
-						<div class="row">
-							<div class="col-12">
-								<div class="col-12 mt-2">
-									<span>02. 각 번호의 명칭을 서술하시오.</span>
-								</div>
-								<hr>
-							</div>
-							<div class="col-12">
-								<div class="text-center mt-4">
-									<img src="..." class="rounded" alt="...">
-								</div>
-								<div class="col-12 pl-2 mt-4 mb-4">
-									<textarea class="form-control form-control-lg" id="validationTextarea" placeholder="정답입력"
-										required></textarea>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer justify-content-between">
-					<div class="col-12">
-						<div class="col-2 mx-auto">
-							<button type="button" class="btn btn-primary">Back</button>
-							<button type="button" class="btn btn-primary">Next</button>
-						</div>
-					</div>
+				<div class="modal-body">내용 입력 !!</div>
+				<div class="modal-footer">
+					<a class="btn" id="modalY" href="#">예</a>
+					<button class="btn" type="button" data-dismiss="modal">아니요</button>
 				</div>
 			</div>
-
 		</div>
-
 	</div>
 	<div class="content-wrapper">
 		<!-- Main content -->
@@ -84,27 +33,27 @@
 		<div class="col-10">
 			<div class="row">
 				<ul class="nav nav-tabs col-10" id="custom-tabs-one-tab" role="tablist">
-					<li class="nav-item col-2 pr-0">
-						<a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
+					<li class="nav-item col-2">
+						<a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
 							href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
 							aria-selected="false">Client</a>
 					</li>
-					<li class="nav-item col-2 p-0">
+					<li class="nav-item col-2">
 						<a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
 							href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
 							aria-selected="false">Server</a>
 					</li>
-					<li class="nav-item col-2 p-0">
+					<li class="nav-item col-2">
 						<a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
 							href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
 							aria-selected="false">Algorithrm</a>
 					</li>
-					<li class="nav-item col-2 p-0">
-						<a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
+					<li class="nav-item col-2">
+						<a class="nav-link active" id="custom-tabs-one-settings-tab" data-toggle="pill"
 							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
 							aria-selected="false">웹 프레임웍</a>
 					</li>
-					<li class="nav-item col-2 p-0">
+					<li class="nav-item col-2">
 						<a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
 							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
 							aria-selected="false">프로젝트</a>
@@ -151,10 +100,8 @@
 							</div>
 							<div class="col-md-2">
 								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-default" data-toggle="modal"
-									data-target="#modal-xl">
-									시작
-								</button>
+								<button class="btn btn-primary btn-modal" data-toggle="modal" id="testBtn"
+									data-target="#myModal">시작</button>
 							</div>
 						</div>
 						<hr class="m-2">
@@ -286,8 +233,10 @@
 			return new bootstrap.Dropdown(dropdownToggleEl)
 		})
 
-
-		document.querySelector("body > div > div.content-wrapper > section.content > div.container-fluid > div > div > div.card.card-primary.card-outline > div.card-body > button:nth-child(12)")
+		$('#testBtn').click(function(e){
+			e.preventDefault();
+			$('#testModal').modal("show");
+		});
 
 	</script>
 </th:block>

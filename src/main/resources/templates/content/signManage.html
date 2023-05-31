@@ -63,7 +63,7 @@
 								<ul class="list-group">
 									<li class="list-group-item" style="word-spacing: 7vw; height: 40vw;">
 										<div class="form-check-main" style="margin-left: 2vw;">
-											<input class="form-check-input me-1" type="checkbox" value=""
+											<input class="form-check-input me-1" id="permitall" name="permitall" type="checkbox" value=""
 												aria-label="...">
 											<span class="form-check-name">전체수락</span>
 											<span class="form-check-id">학생이름</span>
@@ -72,11 +72,11 @@
 <!--											<span class="form-check-Y||N">수락/거절</span>-->
 											<span class="form-check-info">정보보기</span>
 											<hr>
-											<form action="">
+											<form name="check" id="check" action="POST">
 												<tr th:each="waiting : ${wait}">
 													<div class="form-check-student-list">
 														<div class="form-check-input-button" style="word-spacing: 7vw;">
-															<input class="form-check-input me-1" type="checkbox" value=""
+															<input class="form-check-input me-1" name="permit" type="checkbox" th:value="${waiting}"
 																aria-label="...">
 															<span class="form-check-input-name" th:text="${waiting.userId}"></span>
 															<span class="form-check-input-id" th:text="${waiting.name}"></span>
@@ -89,13 +89,9 @@
 												</tr>
 											</form>
 										</div>
-										<div class="form-check-next" style="display: flex; float:left">
-											<button type="button" class="btn btn-light">이전</button>
-											<button type="button" class="btn btn-light">다음</button>
-										</div>
-										<div style="display: inline-flex; float: right">
-											<button type="button" class="btn btn-light">수락</button>
-											<button type="button" class="btn btn-light">거절</button>
+										<div class="row">
+											<button type="button" class="btn btn-light" id="sign-accect">수락</button>
+											<button type="button" class="btn btn-light" id="sign-false">거절</button>
 										</div>
 									</li>
 								</ul>
@@ -381,7 +377,22 @@
 		$('.list').click(function (e) {
 			탭열기(e.target.dataset.id)
 		})
+		$('#sign-accect').on('click', function(){
+			var permitall = $('#permitall');
+			var permit = $('input[name=permit]');
+			var check = $('#check');
+			var checklist = [];
+			
+			if(!permitall.is(':checked')){
+				$('input[name=permit]:checked').each(function(){
+					checklist.push($(this).val());
+				})
+				console.log(checklist)
+			}
+			
+		})
 	</script>
+	
 </th:block>
 
 </html>
