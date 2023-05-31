@@ -309,23 +309,18 @@
 
 </html>
 <script>
-	$.ajax({
-  type: "GET",
-  url: "/menu.json", // JSON 데이터가 있는 URL을 입력하세요.
-  dataType: "json",
-  success: function(data) {
-    // AJAX 요청이 성공했을 때 실행되는 함수입니다.
-    // 서버로부터 받아온 JSON 데이터는 'data' 매개변수로 전달됩니다.
-    // 이곳에서 JSON 데이터를 처리하고 화면에 표시하는 로직을 작성하세요.
-    
-    // 예시: JSON 데이터를 반복하여 각 항목의 이름을 콘솔에 출력합니다.
-    data.forEach(function(item) {
-      console.log(item.name);
-    });
-  },
-  error: function(xhr, status, error) {
-    // AJAX 요청이 실패했을 때 실행되는 함수입니다.
-    console.error(status + ": " + error);
-  }
-});
+	$(document).ready(function(){
+		$.ajax({
+  			type: "POST",
+			url: "getmenu.com",
+			dataType: "json",
+			success: function(data) {
+				console.log("통신성공");
+				console.log(data);
+  			},
+  			error: function() {
+    			console.log("통신에러");
+  			}
+		});
+	})
 </script>
