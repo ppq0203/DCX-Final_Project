@@ -20,6 +20,13 @@ public class MonopolyController {
 	@Autowired
 	private QuestionService questionService;
 	
+	@RequestMapping(value = "game.com", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView gameView() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("content/game");
+		return mv;
+	}
+	
 	@RequestMapping(value = "marble.com", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView questionList() {
 		ModelAndView mv = new ModelAndView();
