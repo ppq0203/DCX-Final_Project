@@ -1,18 +1,20 @@
 package project.momento.qna.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import jakarta.servlet.http.HttpServletRequest;
-import project.momento.login.dto.LoginDto;
-import project.momento.login.service.LoginService;
-import project.momento.menu.dto.MenuDto;
-import project.momento.menu.service.MenuService;
-import project.momento.page.Criteria;
+import project.momento.sign.dto.SignDto;
+import project.momento.sign.service.SignService;
 
 @Controller
 public class QnaController {
@@ -22,9 +24,7 @@ public class QnaController {
 	 */
 
 	@Autowired
-	private MenuService menuService;
-	@Autowired
-	private LoginService loginService;
+	private SignService SignService;
 
 	/*
 	 * 사이트에서 이동
@@ -71,5 +71,11 @@ public class QnaController {
 //			return "/login.com";
 //		}
 //	}
+	
+	@RequestMapping(value="/Qna.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String Qna( Model model) {
+	    return "content/qna";
+	}
+	
 
 }

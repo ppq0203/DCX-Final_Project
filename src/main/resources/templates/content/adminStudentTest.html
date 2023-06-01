@@ -10,7 +10,7 @@
 				<div class="col -10">
 					<div class="dropdown">
 						<span>
-							<h2>과목</h2>
+							<h2>테스트</h2>
 						</span>
 					</div>
 				</div>
@@ -18,51 +18,53 @@
 		</section>
 		<div class="col-10">
 			<div class="row">
-				<ul class="nav nav-tabs col-10" id="custom-tabs-one-tab" role="tablist">
+				<ul class="nav nav-tabs col-10 text-center" id="custom-tabs-one-tab" role="tablist">
 					<li class="nav-item col-2 pr-0">
-						<a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
+						<a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
 							href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
-							aria-selected="false">Client</a>
+							aria-selected="false">강의일정</a>
 					</li>
 					<li class="nav-item col-2 p-0">
 						<a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
 							href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
-							aria-selected="false">Server</a>
+							aria-selected="false">질문</a>
 					</li>
 					<li class="nav-item col-2 p-0">
 						<a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
 							href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
-							aria-selected="false">Algorithrm</a>
+							aria-selected="false">보충영상</a>
+					</li>
+					<li class="nav-item col-2 p-0">
+						<a class="nav-link active" id="custom-tabs-one-settings-tab" data-toggle="pill"
+							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
+							aria-selected="false">테스트</a>
 					</li>
 					<li class="nav-item col-2 p-0">
 						<a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
 							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
-							aria-selected="false">웹 프레임웍</a>
-					</li>
-					<li class="nav-item col-2 p-0">
-						<a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
-							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
-							aria-selected="false">프로젝트</a>
+							aria-selected="false">강의평가</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 		<div class="p-5">
-			<div class-="row">
-				<div class="col-12">
-					
+			<div class-="row mt-0">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<button class="btn btn-primary me-md-2" type="button">저장</button>
+					<button class="btn btn-primary ml-1" type="button">수정</button>
 				</div>
 			</div>
 			<div class="row-cols-1">
-				<table class="table">
+				<table class="table" id="addrow">
 					<thead>
 						<tr>
 							<th scope="col"></th>
 							<th scope="col">날짜</th>
 							<th scope="col">과목명</th>
 							<th scope="col">강좌명</th>
-							<th scope="col">강의등록</th>
-							<th scope="col">과제등록</th>
+							<th scope="col">테스트등록</th>
+							<th scope="col">행추가</th>
+							<th scope="col">행삭제</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -72,10 +74,20 @@
 							</td>
 							<td><span>HTML</span></td>
 							<td><span>1</span></td>
-							<td><button type="button" class="btn btn-primary">등록</button>
-							<td><button type="button" class="btn btn-primary">등록</button>
+							<td>
+								<div class="">
+									<input type="file">
+								</div>
 							</td>
-						</tr>
+							<td>
+								<div class="">
+									<input type="button" value='행추가' onclick="add_tr('table_body')">
+								</div>
+							</td>
+							<td>
+							<input type="button" value='행삭제' onclick="remove_tr(this)">
+							</td>
+						</td>
 					</tbody>
 				</table>
 			</div>
@@ -90,7 +102,34 @@
 			return new bootstrap.Dropdown(dropdownToggleEl)
 		})
 
+		function add_tr(table_id) {//행 추가
+			let table_body = document.getElementById(table_id);
+			let first_tr = table_body.firstElementChild;
+			let tr_clone = first_tr.cloneNode(true);//*1)복제된 node 반환
 
+			table_body.append(tr_clone);
+			clean_first_tr(table_body.firstElementChild);
+		}
+
+		function clean_first_tr(firstTr) {//값 초기화
+			let children = firstTr.children;//*2) 자식 요소가 포함된 HTMLCollection을 반환
+
+			children = Array.isArray(children) ? children : Object.values(children);//*3)
+			children.forEach(x => {
+				if (x !== firstTr.lastElementChild) {//마지막child가 아닐때
+					x.firstElementChild.value = '';//td의 첫번째 child > input값 초기화
+				}
+			});
+		}
+
+		function remove_tr(This) {//행 삭제
+			//*4)closet:현재 엘리멘트에서 가장 가까운 조상을 반환
+			if (This.closest('tbody').childElementCount == 1) {
+				alert("삭제할 수 없습니다.");
+			} else {
+				This.closest('tr').remove();//삭제
+			}
+		}
 
 	</script>
 </th:block>
