@@ -40,4 +40,6 @@ public class SignDto {
 	private String useYn;
 	/*가입한 날짜*/
 	private String registDt;
+	/*수강 상태(N: 퇴소, Y: 수강중, E: 수료)*/
+	private String classState;
 }

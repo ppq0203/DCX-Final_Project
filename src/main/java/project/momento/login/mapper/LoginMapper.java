@@ -27,6 +27,8 @@ public interface LoginMapper {
 //
 //	public String getName(String myid);
 
+	List<LoginDto> getTrainList();
+
 }	
 	
 	

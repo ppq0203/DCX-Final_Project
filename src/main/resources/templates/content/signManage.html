@@ -55,8 +55,8 @@
 					<div class="container mt-5">
 						<ul class="list nav justify-content-center">
 							<li class="tab-button" data-id="0">가입대기</li>
-							<li class="tab-button orange" data-id="1">훈련생</li>
-							<li class="tab-button" data-id="2">수료생</li>
+							<li class="tab-button call-trainee-list-button orange" data-id="1">훈련생</li>
+							<li class="tab-button call-graduate-list-button" data-id="2">수료생</li>
 						</ul>
 						<div class="tab-content">
 							<div class="col-md-12">
@@ -121,26 +121,9 @@
 											<span class="form-check-date">가입일자</span>
 											<span class="form-check-info">정보보기</span>
 											<hr>
-											<!--th:each="waitingStudent : ${waitingStudentList}"-->
-											<form action="">
-												<!--th:if="${waitingStudent.useYn == 'N'}"-->
-												<div class="form-check-student-list">
-													<div class="form-check-input-button" style="word-spacing: 7vw;">
-														<span class="form-check-input-name">아이디</span>
-														<!--th:text=${item.userId}-->
-														<span class="form-check-input-id">이름</span>
-														<!--th:text=${item.name}-->
-														<span class="form-check-input-email">이메일</span>
-														<!--th:text=${item.email}-->
-														<span class="form-check-input-attendance">00.0%</span>
-														<span class="form-check-input-date">가입일자</span>
-														<!--th:text=${item.registDt}-->
-														<button type="button" class="btn btn-light"
-															style="word-spacing: -1vw;">정보</button>
-
-													</div>
-												</div>
-											</form>
+											<table class="appendTrainee">
+												
+											</table>
 										</div>
 									</li>
 								</ul>
@@ -373,9 +356,26 @@
 			tab.removeClass('show');
 			tab.eq(숫자).addClass('show');
 		}
+		
+		function getTraineeList() {
+			$.ajax({
+				type:"POST",
+				url:"getTraineeList.com",
+				dataType:"json",
+				success: function (data){
+					console.log(data)
+					$.each
+				},
+				error: function (){
+				}
+			})
+		}
 
 		$('.list').click(function (e) {
-			탭열기(e.target.dataset.id)
+			탭열기(e.target.dataset.id);
+			if (e.target.dataset.id == 1) {
+				getTraineeList();
+			}
 		})
 		$('#sign-accect').on('click', function(){
 			var permitall = $('#permitall');

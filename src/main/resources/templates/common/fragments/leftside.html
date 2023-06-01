@@ -61,8 +61,7 @@
 				url: "getmenu.com",
 				dataType: "json",
 				success: function (data) {
-					console.log("통신성공");
-					console.log(data);
+					$(".append").empty();
 					str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
 					$.each(data, function (i) {
 						if (0 == data[i].upperMenuNo) {
@@ -77,27 +76,7 @@
 						}
 					});
 					str += '</ul>';
-					console.log(str);
 					$(".append").append(str);
-				},
-				error: function () {
-					console.log("통신에러");
-					if (!(data == null)) {
-						str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
-						$.each(data, function (i) {
-							if (0 == data[i].upperMenuNo) {
-								str += '<li class="nav-item">'
-									+ '<a href="#" class="nav-link">'
-									+ '<i class="nav-icon fas fa-tachometer-alt"></i>'
-									+ '<p>' + data[i].menuName + '</p>'
-									+ '<i class="right fas fa-angle-left"></i></a>'
-									+ recursive(data, data[i].pkMenuSeq)
-									+ '</li>';
-							}
-						});
-						str += '</ul>';
-						$(".append").append(str);
-					}
 				},
 				error: function () {
 				}

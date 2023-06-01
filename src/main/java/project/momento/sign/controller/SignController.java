@@ -57,7 +57,7 @@ public class SignController {
 	   
 		SignService.insertUser(signDto);
 		
-		return "redirect:/login.com";
+		return "redirect:/std/login/main";
 	}
 	
 }

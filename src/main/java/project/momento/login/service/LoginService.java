@@ -51,6 +51,11 @@ public class LoginService {
 		// TODO Auto-generated method stub
 		return loginMapper.userYn(loginDto);
 	}
+
+	public List<LoginDto> getTrainList() {
+		// TODO Auto-generated method stub
+		return loginMapper.getTrainList();
+	}
 //	public int getIDPassCheck(String id, String pwd) {
 //		// TODO Auto-generated method stub
 //		return 0;
