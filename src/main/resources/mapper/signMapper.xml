@@ -8,6 +8,7 @@
 		<![CDATA[
 			INSERT INTO USER
 			(	
+				PK_USER_SEQ,
 				PK_AUTH_SEQ,
 				USER_ID,
 				PASSWORD,
@@ -17,12 +18,11 @@
 				ADDRESS,
 				DETAILED_ADDRESS,
 				EMAIL,
-				USER_DIVN,
-				USE_YN,
 				REGIST_DT
 			)
 			VALUES
 			(	
+				ifnull(#{pkUserSeq}, null),
 				#{pkAuthSeq},
 				#{userId},
 				#{password},
@@ -32,25 +32,22 @@
 				#{address},
 				#{detailedAddress},
 				#{email},
-				#{userDivn},
-				#{useYn},
 				SYSDATE()
 			)
+			ON DUPLICATE KEY UPDATE
+			USE_YN = IF(USE_YN != 'D' ,'Y', 'D')
 		]]>
 	</insert>
 	
-	<!-- 가입허가 UPDATE문 -->		<!--USE_YN의 상태가 n인 데이터만 모아 Y로 바꿔주기.-->
-	<update id="userList" parameterType="project.momento.login.dto.LoginDto">
-		<foreach item="item" index="index" collection="userList">
-			UPDATE USER SET USE_YN = 'Y' WHERE USE_YN != 'D' AND USER_ID=#{item.userId}
-		</foreach>
-	</update>
+	<!-- 가입허가 SELECT문 -->		<!--USE_YN의 상태가 n인 데이터만 모아 리스트로 넘겨주기.-->
+	<select id="waitList" resultType="project.momento.sign.dto.SignDto">
+			select * from USER where USE_YN = 'N'
+	</select>
 	
 	<!-- 아이디 중복 체크      parameterType: 중복된 id가 있는지 보내는 ,  resultType: 중복된 id가 있거나 없다는 걸 알려주는  -->
  	<select id="checkButton" parameterType="project.momento.sign.dto.SignDto" resultType="int" >
-		SELECT COUNT(USER_ID) AS cnt FROM user WHERE USER_ID=#{userId} AND USE_YN != 'D' <!-- FROM뒤에는 사용하는 table이름 -->
+		SELECT COUNT(USER_ID) AS cnt FROM USER WHERE USER_ID=#{userId} AND USE_YN != 'D' <!-- FROM뒤에는 사용하는 table이름 -->
 	</select>
-	
 	
 	<!-- DELETE문 -->
 	

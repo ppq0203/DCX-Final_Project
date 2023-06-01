@@ -21,10 +21,14 @@ public class QuestionDto {
 	private String type;  
 	/*문제본문*/
 	private String contents;  
+	/*코드 형식*/
+	private String codeFormat;  
 	/*문제의 풀이*/   
 	private String solution;   
 	/*힌트*/   
-	private String change; 
+	private String chance; 
+	/*클래스명*/   
+	private String className; 
 	/*사용여부*/
 	private String useYn;
 	/*삭제여부*/

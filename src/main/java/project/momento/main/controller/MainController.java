@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import project.momento.login.dto.LoginDto;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -25,7 +26,12 @@ public class MainController {
 	 */
 	@RequestMapping(value="/main.com", produces="application/text;charset=utf-8") /* value주소 이름*/
 	public String goSignMain( Model model, HttpServletRequest request) {
-	    return "content/main";
+		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		if (!(loginDto == null)) {
+			return "content/main";
+		} else {
+			return "redirect:/login.com";
+		}
 	}
 
 

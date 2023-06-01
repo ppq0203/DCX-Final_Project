@@ -22,7 +22,7 @@
 				USE_YN AS useYn,
 				REGIST_DT AS registDt
 			FROM USER
-			WHERE USER_ID = #{userId} AND PASSWORD = #{password}
+			WHERE USER_ID = #{userId} AND PASSWORD = #{password} AND USE_YN = 'Y'
 		]]>
 	</select>
 	
