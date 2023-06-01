@@ -28,6 +28,7 @@ public class QnaController {
 
 	/*
 	 * 사이트에서 이동
+	 *
 	 */
 	/*
 	 * @RequestMapping(value="/mypage.com",
@@ -76,6 +77,5 @@ public class QnaController {
 	public String Qna( Model model) {
 	    return "content/qna";
 	}
-	
 
 }
