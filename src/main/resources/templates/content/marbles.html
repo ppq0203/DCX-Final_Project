@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- Default Layout Import-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+	
+<th:block layout:fragment="content">
+	<link th:href="@{/css/marble.css}" rel="stylesheet">
+	<script th:src="@{/js/marble.js}"></script>
+<body>	
+<div class="col-sm-offset-3 col-sm-9 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">게시판</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered dataTable">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>점수</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>정답</th>
+            </tr>
+            
+            <th:block th:each="question : ${questionList}">
+				<tr>
+					<td th:text="${ question.pkQuestionSeq }"></td>
+					<td th:text="${ question.score }"></td>
+					<td th:text="${ question.questionName }"></td>
+					<td th:text="${ question.contents }"></td>
+					<td th:text="${ question.solution }"></td>
+				</tr>
+			</th:block>
+            </thead>
+            <tbody id="tbody_boardList">
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</th:block>
+</html>

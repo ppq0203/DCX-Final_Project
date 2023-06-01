@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,27 +20,40 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	/*
-	 * 로그인 페이지 이동 param return contents/login
+	 * 관리자 로그인 화면 이동
+	 * return content/mng/login/login
 	 */
 
-	@RequestMapping(value = "/login.com", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String gologinMain(Model model) {
-		return "content/login";
+	@RequestMapping(value = "/mng/login/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String loginMngMain(Model model) {
+		
+		return "content/mng/login/login";
 	}
 	/*
-	 * 로그인 페이지 ->회원가입 페이지 이동 ->메인 페이지 이동 param loginUp return contents/loginUp
+	 * 학생 로그인 화면 이동
+	 * return content/std/login/login
 	 */
 
-	@RequestMapping(value = "/loginUp.com", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String loginUpMain(Model model, LoginDto loginDto, HttpServletRequest request) { // 입력값(id,pwd)를 loginDto에 넣기
+	@RequestMapping(value = "/std/login/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String loginStdMain(Model model) {
+		
+		return "content/std/login/login";
+	}
+	
+	/*
+	 * 로그인 체크
+	 * return contents/loginUp
+	 */
+	@RequestMapping(value = "/{userDivn}/login/form", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String loginForm(@PathVariable String userDivn, Model model, LoginDto loginDto, HttpServletRequest request) { // 입력값(id,pwd)를 loginDto에 넣기
 
 		LoginDto loginCheck = new LoginDto(); // loginDto 를 체크에넣기
 		loginCheck = loginService.checkLogin(loginDto);
 		if (loginCheck == null) { // loginCheck안에있는 id, pwd에 값이 없으면
-			return "content/login"; // 로그인화면
+			return "content/"+userDivn+"/login/login"; // 로그인화면
 		} else {
 			request.getSession().setAttribute("loginDto", loginCheck); // 아이디 세션에 저장
-			return "redirect:/main.com";
+			return "redirect:/"+userDivn+"/main";
 		}
 	}
 
