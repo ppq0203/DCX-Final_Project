@@ -1,0 +1,213 @@
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="/css/game.css">
+		<style>
+			.chess-board {
+				border-spacing: 0;
+				border-collapse: collapse;
+			}
+
+			.chess-board th {
+				padding: .5em;
+			}
+
+			.chess-board td {
+				border: 1px solid;
+				width: 5em;
+				height: 5em;
+				text-align: center;
+			}
+
+			.chess-board .light {
+				background: #eee;
+			}
+
+			.chess-board .dark {
+				background: #000;
+			}
+		</style>
+	</head>
+	<table class="chess-board">
+		<tbody>
+			<tr>
+				<th></th>
+				<th>1</th>
+				<th>2</th>
+				<th>3</th>
+				<th>4</th>
+				<th>5</th>
+				<th>6</th>
+				<th>7</th>
+				<th>8</th>
+			</tr>
+			<tr>
+				<th>8</th>
+				<td class="light"><button type="button" class="btn btn-default" data-toggle="modal"
+						data-target="#modal-xl">
+						문제
+					</button></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+			</tr>
+			<tr>
+				<th>7</th>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+			</tr>
+			<tr>
+				<th>6</th>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+			</tr>
+			<tr>
+				<th>5</th>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+			</tr>
+			<tr>
+				<th>4</th>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+			</tr>
+			<tr>
+				<th>3</th>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+			</tr>
+			<tr>
+				<th>2</th>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+			</tr>
+			<tr>
+				<th>1</th>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+				<td class="dark"></td>
+				<td class="light"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">문제명</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card card-outline card-info">
+						<div class="card-header">
+							<h3 class="card-title">
+								문제
+							</h3>
+						</div>
+
+						<div class="card-body p-0">
+							<p>이것은 문제입니다.</p>
+						</div>
+						<div class="card-footer">
+						</div>
+					</div>
+					<div class="card card-outline card-info">
+						<div class="card-header">
+							<h3 class="card-title">
+								풀이 작성
+							</h3>
+						</div>
+
+						<div class="card-body p-0">
+							<textarea id="codeMirrorDemo" class="p-3" style="display: none;">&lt;div class="info-box bg-gradient-info"&gt;
+  &lt;span class="info-box-icon"&gt;&lt;i class="far fa-bookmark"&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;div class="info-box-content"&gt;
+    &lt;span class="info-box-text"&gt;Bookmarks&lt;/span&gt;
+    &lt;span class="info-box-number"&gt;41,410&lt;/span&gt;
+    &lt;div class="progress"&gt;
+      &lt;div class="progress-bar" style="width: 70%"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="progress-description"&gt;
+      70% Increase in 30 Days
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+              </textarea>
+						</div>
+						<div class="card-footer">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<script>
+  $(function () {
+    // CodeMirror
+    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+      mode: "htmlmixed",
+      theme: "monokai"
+    });
+  })
+</script>
+</th:block>
+
+</html>
