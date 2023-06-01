@@ -20,24 +20,13 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	/*
-	 * 관리자 로그인 화면 이동
-	 * return content/mng/login/login
+	 * 로그인 화면 이동
+	 * return content/userDivn/login/login
 	 */
-
-	@RequestMapping(value = "/mng/login/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String loginMngMain(Model model) {
+	@RequestMapping(value = "/{userDivn}/login/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String loginMngMain(@PathVariable String userDivn, Model model) {
 		
-		return "content/mng/login/login";
-	}
-	/*
-	 * 학생 로그인 화면 이동
-	 * return content/std/login/login
-	 */
-
-	@RequestMapping(value = "/std/login/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String loginStdMain(Model model) {
-		
-		return "content/std/login/login";
+		return "content/"+userDivn+"/login/login";
 	}
 	
 	/*
