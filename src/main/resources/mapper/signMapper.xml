@@ -9,7 +9,6 @@
 			INSERT INTO USER
 			(	
 				PK_USER_SEQ,
-				PK_AUTH_SEQ,
 				USER_ID,
 				PASSWORD,
 				NAME,
@@ -23,7 +22,6 @@
 			VALUES
 			(	
 				ifnull(#{pkUserSeq}, null),
-				#{pkAuthSeq},
 				#{userId},
 				#{password},
 				#{name},
@@ -40,8 +38,8 @@
 	</insert>
 	
 	<!-- 가입 전체수락 UPDATE --> <!-- permitall 로 전체 수락이 되었을경우 일괄 update -->
-	<update id="signUser" parameterType="project.momento.sign.dto.SignDto">
-		UPDATE USER set USE_YN = 'Y' WHERE USE_YN != 'N'
+	<update id="signAlluser">
+		UPDATE USER set USE_YN = 'Y' WHERE USE_YN = 'N'
 	</update>
 	
 	<!-- 가입허가 SELECT문 -->		<!--USE_YN의 상태가 n인 데이터만 모아 리스트로 넘겨주기.-->

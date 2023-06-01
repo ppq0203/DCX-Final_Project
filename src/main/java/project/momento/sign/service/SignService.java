@@ -22,7 +22,7 @@ public class SignService {
 		SignMapper.insertUser(signDto);
 	}
 	
-	public List<String> waitList(SignDto signDto){
+	public List<SignDto> waitList(SignDto signDto){
 		return SignMapper.waitList(signDto);
 	}
 
@@ -34,9 +34,9 @@ public class SignService {
 		return cnt;
 	}
 
-	public void signUser(SignDto signDto) {
+	public void signAlluser() {
 		// TODO Auto-generated method stub
-		SignMapper.signUser(signDto);
+		SignMapper.signAlluser();
 	}
 
 }
