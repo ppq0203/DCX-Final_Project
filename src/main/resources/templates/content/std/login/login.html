@@ -1,0 +1,23 @@
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+
+<th:block layout:fragment="content">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<form class="form-signin" method="post" action="/std/login/form">
+					<h2 style=" text-align: center; padding: 50px;">로그인</h2>
+					<label for="inputEmail" class="sr-only">ID</label>
+					<input type="text" id="userId" name="userId" class="form-control mb-1" placeholder="아이디" required=""
+						autofocus="">
+					<label for="password" class="sr-only">Password</label>
+					<input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required="">
+					<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+					<button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/std/sign/main'">회원가입</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

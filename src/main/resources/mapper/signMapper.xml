@@ -17,6 +17,7 @@
 				ADDRESS,
 				DETAILED_ADDRESS,
 				EMAIL,
+				USER_DIVN,
 				REGIST_DT
 			)
 			VALUES
@@ -30,6 +31,7 @@
 				#{address},
 				#{detailedAddress},
 				#{email},
+				#{userDivn},
 				SYSDATE()
 			)
 			ON DUPLICATE KEY UPDATE

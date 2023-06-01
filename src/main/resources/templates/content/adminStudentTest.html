@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+<th:block layout:fragment="content">
+	<!-- Modal -->
+	<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="exampleModalLabel">모달테스트</h5>
+				</div>
+				<div class="modal-body">내용 입력 !!</div>
+				<div class="modal-footer">
+					<a class="btn" id="modalY" href="#">예</a>
+					<button class="btn" type="button" data-dismiss="modal">아니요</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content-wrapper">
+		<!-- Main content -->
+		<section class="content" style="background-color: aqua;height: 250px;">
+			<div class="p-2">
+				<div class="col -10">
+					<div class="dropdown">
+						<span>
+							<h2>과목</h2>
+						</span>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="col-10">
+			<div class="row">
+				<ul class="nav nav-tabs col-10" id="custom-tabs-one-tab" role="tablist">
+					<li class="nav-item col-2">
+						<a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
+							href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
+							aria-selected="false">Client</a>
+					</li>
+					<li class="nav-item col-2">
+						<a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
+							href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
+							aria-selected="false">Server</a>
+					</li>
+					<li class="nav-item col-2">
+						<a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+							href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
+							aria-selected="false">Algorithrm</a>
+					</li>
+					<li class="nav-item col-2">
+						<a class="nav-link active" id="custom-tabs-one-settings-tab" data-toggle="pill"
+							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
+							aria-selected="false">웹 프레임웍</a>
+					</li>
+					<li class="nav-item col-2">
+						<a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
+							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
+							aria-selected="false">프로젝트</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="col-12">
+			<div class="p-4">
+				<div class="col-7" "mr-1">
+					<input class="btn btn-primary" type="submit" value="강의일정">
+					<input class="btn btn-primary" type="submit" value="질문">
+					<input class="btn btn-primary" type="submit" value="복습영상">
+					<input class="btn btn-primary" type="submit" value="테스트">
+					<input class="btn btn-primary" type="submit" value="강의평가">
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12">
+			<div class="p-5 mb">
+				<div class="row">
+					<div class="col-6">
+						<h3>테스트</h3>
+						<hr>
+						<div class="row">
+							<div class="col-md-7 pl-5">
+								<h5>제목</h5>
+							</div>
+							<div class="col-md-3">
+								<h5>강사</h5>
+							</div>
+							<hr class="m-2">
+						</div>
+						<hr class="m-2">
+						<div class="row">
+							<div class="col-md-7 pl-5">
+								<span>html</span>
+							</div>
+							<div class="col-md-3">
+								<span>홍길동</span>
+							</div>
+							<div class="col-md-2">
+								<!-- Button trigger modal -->
+								<button class="btn btn-primary btn-modal" data-toggle="modal" id="testBtn"
+									data-target="#myModal">시작</button>
+							</div>
+						</div>
+						<hr class="m-2">
+						<div class="row">
+							<div class="col-md-7 pl-5">
+								<span>html</span>
+							</div>
+							<div class="col-md-3">
+								<span>홍길동</span>
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-secondary" disabled>종료</button>
+							</div>
+						</div>
+						<hr class="m-2">
+					</div>
+					<div class="col-6">
+						<h3>테스트결과</h3>
+						<hr>
+						<div class="row">
+							<div class="col-md-9 pl-5">
+								<h5>제목</h5>
+							</div>
+							<div class="col-md-3">
+								<h5>체점자</h5>
+							</div>
+							<hr>
+						</div>
+						<hr class="m-2">
+						<div class="row">
+							<div class="col-md-9 pl-5">
+								<a href="#" class="alert-link"><span>어쩌구 체점결과</span></a>
+							</div>
+							<div class="col-md-3">
+								<span>체점자</span>
+							</div>
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--<div class="content">
+							<div class="p-5">
+						<div class="row-cols-1">
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">날짜</th>
+										<th scope="col">과목명</th>
+										<th scope="col">강좌명</th>
+										<th scope="col">강의자료</th>
+										<th scope="col">과제제출</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td><button type="button" class="btn btn-link">2023-05-30</button></td>
+										<td><span>HTML</span></td>
+										<td><span>1</span></td>
+										<td><i class="fas fa-download"></i></td>
+										<td><button type="button" class="btn btn-primary">첨부</button>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td><button type="button" class="btn btn-link">2023-05-30</button></td>
+										<td><span>HTML</span></td>
+										<td><span>2</span></td>
+										<td><i class="fas fa-download"></i></td>
+										<td><button type="button" class="btn btn-primary">첨부</button>
+										</td>
+
+
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td><button type="button" class="btn btn-link">2023-05-30</button></td>
+										<td><span>HTML</span></td>
+										<td><span>3</span></td>
+										<td><i class="fas fa-download"></i></td>
+										<td><button type="button" class="btn btn-primary">첨부</button>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">4</th>
+										<td><button type="button" class="btn btn-link">날짜 링크 연결</button>
+										</td>
+										<td><span>Java</span></td>
+										<td><span>4</span></td>
+										<td><i class="fas fa-download"></i></td>
+										<td><button type="button" class="btn btn-primary">첨부</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+-->
+
+
+
+
+
+	<!--<div class="container">
+							<div class="row">
+								<div class="col-9"></div>
+								<div class="col-3">강의시간 - 09:00~16:00</div>
+							</div>
+							<div class="row">
+								<div class="col-9"></div>
+								<div class="col-3">과제 시간- 16:00~18:00</div>
+							</div>
+						</div>-->
+
+
+
+
+
+
+	<script>
+		<!--드롭앤다운-->
+		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+		var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+			return new bootstrap.Dropdown(dropdownToggleEl)
+		})
+
+		$('#testBtn').click(function(e){
+			e.preventDefault();
+			$('#testModal').modal("show");
+		});
+
+	</script>
+</th:block>
+
+</html>

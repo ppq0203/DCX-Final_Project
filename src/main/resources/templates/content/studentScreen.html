@@ -7,8 +7,8 @@
 		<!-- Main content -->
 		<section class="content" style="background-color: aqua;height: 250px;">
 			<div class="p-2">
-				<div class="col -10">
-					<div class="dropdown">
+				<div class="col">
+					<div class="">
 						<span>
 							<h2>과목</h2>
 						</span>
@@ -16,6 +16,7 @@
 				</div>
 			</div>
 		</section>
+		<!--client, server, 프로젝트 텝 영역-->
 		<div class="content">
 			<div class="row" "mb-4">
 				<ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
@@ -35,122 +36,196 @@
 							aria-selected="false">Algorithrm</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" id="custom-tabs-one-settings-tab" data-toggle="pill"
-							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
-							aria-selected="true">웹 프레임웍</a>
+						<a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+							href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
+							aria-selected="false">웹프레임 웍</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active" id="custom-tabs-one-settings-tab" data-toggle="pill"
 							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
 							aria-selected="true">프로젝트</a>
 					</li>
+				
 				</ul>
 			</div>
+		</div>
 
-
-			<div class="content">
-				<div class="p-4">
-					<div class="col-7" "mr-1">
-						<input class="btn btn-primary" type="submit" value="강의일정">
-						<input class="btn btn-primary" type="submit" value="복습영상">
-						<input class="btn btn-primary" type="submit" value="테스트">
-						<input class="btn btn-primary" type="submit" value="강의평가">
-					</div>
+		<!--강의,복습,태스트 버튼 영역-->
+		<div class="content">
+			<div class="p-4">
+				<div class="col-7 mr-1">
+					<input class="btn btn-primary m-1" type="submit" value="강의일정">
+					<input class="btn btn-primary m-1" type="submit" value="복습영상">
+					<input class="btn btn-primary m-1" type="submit" value="테스트">
+					<input class="btn btn-primary m-1" type="submit" value="강의평가">
 				</div>
 			</div>
+		</div>
 
-			<div class="content">
-				<div class="p-5">
-					<div class="row">
-						<div class="col-9">
-							<h3>공지사항</h3>
-						</div>
-						<div class="col-3">
-							<h3>과제제출</h3>
-						</div>
+		<!--공지 사항,과제제출-->
+		<div class="content">
+			<div class="p-5">
+				<div class="row">
+					<div class="col-2">
+						<h3>공지사항</h3>
+					</div>
+					<div class="col-2">
+						<h3></h3>
+					</div>
+					<div class="col-2">
+						<h5>more+</h5>
+					</div>
+					<div class="col-2">
+						<h3>과제제출</h3>
+					</div>
+					<div class="col-2">
+						<h3></h3>
+					</div>
+					<div class="col-2">
+						<h5>more+</h5>
 					</div>
 				</div>
-			</div>
-			<div class="content">
-				<div class="p-5">
-					<div class="row-cols-1">
+				<!--제목 ,id 영역-->
+				<div class="row">
+					<div class="col-6">
 						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col"></th>
-									<th scope="col">날짜</th>
-									<th scope="col">과목명</th>
-									<th scope="col">강좌명</th>
-									<th scope="col">강의자료</th>
-									<th scope="col">과제제출</th>
+									<th scope="col">제목</th>
+									<th scope="col">ID</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<th scope="row">1</th>
-									<td><button type="button" class="btn btn-link">2023-05-30</button>
-									</td>
-									<td><span>HTML</span></td>
-									<td><span>1</span></td>
-									<td><i class="fas fa-download"></i></td>
-									<td><button type="button" class="btn btn-primary">첨부</button>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td><button type="button" class="btn btn-link">2023-05-30</button>
-									</td>
-									<td><span>HTML</span></td>
-									<td><span>2</span></td>
-									<td><i class="fas fa-download"></i></td>
-									<td><button type="button" class="btn btn-primary">첨부</button>
-									</td>
-
-
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td><button type="button" class="btn btn-link">2023-05-30</button>
-									</td>
-									<td><span>HTML</span></td>
-									<td><span>3</span></td>
-									<td><i class="fas fa-download"></i></td>
-									<td><button type="button" class="btn btn-primary">첨부</button>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">4</th>
-									<td><button type="button" class="btn btn-link">날짜 링크 연결</button>
-									</td>
-									<td><span>Java</span></td>
-									<td><span>4</span></td>
-									<td><i class="fas fa-download"></i></td>
-									<td><button type="button" class="btn btn-primary">첨부</button>
-									</td>
+									<th scope="row">Client수업 공지 사항</th>
+									<td><span>가산_매니저</span></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-				</div>
-			</div>
-			<div class="container">
-				<div class="row">
-					<div class="col-9"></div>
-					<div class="col-3">강의시간 - 09:00~16:00</div>
-				</div>
-				<div class="row">
-					<div class="col-9"></div>
-					<div class="col-3">과제 시간- 16:00~18:00</div>
+
+					<!--과제 제출 밑 표 영역-->
+					<div class="col-6">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col"></th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
+
+		<!--강의 일정-->
+		<div class="content">
+			<div class="p-2">
+				<div class="row">
+					<div class="col-6">
+						<h3>강의 일정</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="content">
+			<div class="p-1">
+				<div class="row-cols-1">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">날짜</th>
+								<th scope="col">과목명</th>
+								<th scope="col">강좌명</th>
+								<th scope="col">강의자료</th>
+								<th scope="col">과제답안</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">1</th>
+								<td><button type="button" class="btn btn-link">2023-05-30</button>
+								</td>
+								<td><span>Client</span></td>
+								<td><span>1</span></td>
+								<td><i class="fas fa-download"></i>
+								</td>
+								<td><i class="fas fa-download"></i>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">2</th>
+								<td><button type="button" class="btn btn-link">2023-05-30</button>
+								</td>
+								<td><span>Client</span></td>
+								<td><span>2</span></td>
+								<td><i class="fas fa-download"></i>
+								</td>
+								<td><i class="fas fa-download"></i>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td><button type="button" class="btn btn-link">2023-05-30</button>
+								</td>
+								<td><span>Client</span></td>
+								<td><span>3</span></td>
+								<td><i class="fas fa-download"></i>
+								</td>
+								<td><i class="fas fa-download"></i>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">4</th>
+								<td><button type="button" class="btn btn-link">날짜 링크연결</button>
+								</td>
+								<td><span>Client</span></td>
+								<td><span>4</span></td>
+								<td><i class="fas fa-download"></i>
+								</td>
+								<td><i class="fas fa-download"></i>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-9"></div>
+				<div class="col-3">※강의시간 - 09:00~16:00</div>
+			</div>
+			<div class="row">
+				<div class="col-9"></div>
+				<div class="col-3">※과제 시간- 16:00~18:00</div>
+			</div>
+		</div>
 	</div>
+	</div>
+	</div>
+
+
+
+
 	<script>
-		//드롭앤다운
+		<!--드롭앤다운-->
 		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
 		var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
 			return new bootstrap.Dropdown(dropdownToggleEl)
 		})
+
+
+
 	</script>
 </th:block>
 

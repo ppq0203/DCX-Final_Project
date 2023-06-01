@@ -27,4 +27,9 @@ public class JspTestController {
 	        mav.addObject("list", testList);
 	        return mav;
 	    }
+	 @RequestMapping("/comTest")
+	    public String compiletest() throws Exception{
+	        
+	        return "content/compiletest";
+	    }
 }
