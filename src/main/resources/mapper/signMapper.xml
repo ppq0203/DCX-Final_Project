@@ -9,7 +9,6 @@
 			INSERT INTO USER
 			(	
 				PK_USER_SEQ,
-				PK_AUTH_SEQ,
 				USER_ID,
 				PASSWORD,
 				NAME,
@@ -24,7 +23,6 @@
 			VALUES
 			(	
 				ifnull(#{pkUserSeq}, null),
-				#{pkAuthSeq},
 				#{userId},
 				#{password},
 				#{name},
