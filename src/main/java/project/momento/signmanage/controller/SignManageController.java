@@ -44,7 +44,6 @@ public class SignManageController {
 	    return "content/signManage";
 	}
 	
-	
 	@ResponseBody //ajax로 가입 대기중인 데이터 컨트롤.
 	@RequestMapping(value="/waitUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
 	public List<SignDto> waitUser(Model model, HttpServletRequest request, SignDto signDto) {
