@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import project.momento.page.Criteria;
+import project.momento.page.Paging;
 import project.momento.subject.dto.SubjectDto;
 import project.momento.subject.service.SubjectService;
 
@@ -18,26 +21,24 @@ public class SubjectController {
 	private SubjectService subjectService;
 	
 	
-	@RequestMapping(value="/subject.com", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String selectSubject(Model model, SubjectDto subjectDto){
-//		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
-		//Dto에서 pkSubjectSeq를 가져와 subjectDto에 담는다.
-		subjectDto.setPkSubjectSeq(1);
-//		if(1>0) {
-			subjectService.selectSubject(subjectDto);
-			System.out.println(subjectDto);
-//			SubjectDto dto = subjectService.selectSubject(subjectDto);
-//			List<SubjectDto> list = new ArrayList<>();
-//			for (int i = 0; i < list.size(); i++) {
-//				list.add(dto);
-//				model.addAttribute("subjectList", list);
-//													}
-//			System.out.println(model);
-//							}
-		
-		
-
-		
-		return "content/calendar";
+	@RequestMapping(value="/mng/subject/main", produces="application/text;charset=utf-8") /* value주소 이름*/
+	public ModelAndView subjectMain(Criteria cri, Model model, SubjectDto subjectDto){
+		ModelAndView mv = new ModelAndView("content/mng/subject/subjectMain"); 
+		int total = 0;
+//		total = chartService.getProductListCount(cri);
+		// 페이징 객체
+        Paging paging = new Paging();
+        paging.setCri(cri);
+        paging.setTotalCount(total); 
+        System.out.println(paging);
+        System.out.println(cri);
+        mv.addObject("paging", paging);
+		return mv;
+	}
+	
+	@RequestMapping(value="/mng/subject/form", produces="application/text;charset=utf-8") /* value주소 이름*/
+	public ModelAndView subjectForm(Criteria cri, Model model, SubjectDto subjectDto){
+		ModelAndView mv = new ModelAndView("content/mng/subject/subjectForm"); 
+		return mv;
 	}
 }
