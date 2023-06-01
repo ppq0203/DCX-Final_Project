@@ -26,7 +26,31 @@ public class LoginService {
 	{
 		return loginMapper.userList(loginDto);
 	}
-
+	
+	public void insertUser(LoginDto loginDto) {
+		// TODO Auto-generated method stub
+		
+		loginMapper.insertUser(loginDto);
+	}
+	public LoginDto updateUser(LoginDto loginDto) {
+		// TODO Auto-generated method stub
+		
+		return loginMapper.updateUser(loginDto);
+	}
+	public void deleteUser(LoginDto loginDto) {
+		// TODO Auto-generated method stub
+		
+		loginMapper.deleteUser(loginDto);
+	}
+	public LoginDto selectUser(LoginDto loginDto) {
+		// TODO Auto-generated method stub
+		
+		return loginMapper.selectUser(loginDto);
+	}
+	public LoginDto userYn(LoginDto loginDto) {
+		// TODO Auto-generated method stub
+		return loginMapper.userYn(loginDto);
+	}
 //	public int getIDPassCheck(String id, String pwd) {
 //		// TODO Auto-generated method stub
 //		return 0;
