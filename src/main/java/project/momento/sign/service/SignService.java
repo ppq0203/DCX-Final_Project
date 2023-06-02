@@ -48,4 +48,14 @@ public class SignService {
 		SignMapper.signAlluser();
 	}
 
+	public void denyUser(SignDto signDto) {
+		// TODO Auto-generated method stub
+		SignMapper.denyUser(signDto);
+	}
+
+	public void denyAlluser() {
+		// TODO Auto-generated method stub
+		SignMapper.denyAlluser();
+	}
+
 }

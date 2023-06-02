@@ -81,7 +81,7 @@
 										</div>
 										<div class="row" style="display: inline-flex; float: right">
 											<button type="button" id="acceptbtn" name="acceptbtn" class="btn btn-light">수락</button>
-											<button type="button" class="btn btn-light">거절</button>
+											<button type="button" id="denybtn" name="denybtn" class="btn btn-light">거절</button>
 										</div>
 									</li>
 								</ul>
@@ -345,10 +345,10 @@
 		$('.list').click(function (e) {
 			탭열기(e.target.dataset.id)
 			if (e.target.dataset.id == 0) {
-				setTimeout(getWaitUser, 50);
+				setTimeout(getWaitUser, 100);
 			}
 			else if (e.target.dataset.id == 2) {
-				setTimeout(getGraUser, 50);
+				setTimeout(getGraUser, 100);
 			}
 		})
 		
@@ -409,7 +409,51 @@
 					}
 				});
 			}
-			setTimeout(getWaitUser, 50);
+			setTimeout(getWaitUser, 100);
+			console.log("클린업.");
+		})
+		
+		$('button[name="denybtn"]').click(function(){
+			//전체 수락이 체크되지 않았을때.
+			if(!$("input:checkbox[id='allpermit']").is(':checked')){
+				filterArr = [];
+				//체크 된 값들만 모아.
+				$("input[name='permitcheck']:checked").each(function(index, item){
+					$.each(waitArr, function(i){
+						if(waitArr[i].pkUserSeq == item.getAttribute("value")){
+							//배열에 넣어 넘기기.
+							filterArr.push(waitArr[i])
+						}
+					})
+				})
+				$.ajax({
+					type : "POST",
+					url : "denyUser.com",
+					contentType: 'application/json',
+					data : JSON.stringify(filterArr),
+					success : function(data){
+						console.log("실행됨.");
+					},
+					error : function(){
+						console.log("실패함.");
+					}
+				});
+			}
+			else{
+				$.ajax({
+					type : "GET",
+					url : "denyAlluser.com",
+					contentType: 'application/json',
+					data : {},
+					success : function(data){
+						console.log("실행됨.");
+					},
+					error : function(){
+						console.log("실패함.");
+					}
+				});
+			}
+			setTimeout(getWaitUser, 100);
 			console.log("클린업.");
 		})
 		

@@ -53,7 +53,7 @@ public class SignManageController {
 		return waitList;			
 	}
 
-	@ResponseBody //ajax로 가입 대기중인 데이터 컨트롤.
+	@ResponseBody //ajax로 가입 훈련생 데이터 컨트롤.
 	@RequestMapping(value="/stdUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
 	public List<SignDto> stdUser(Model model, HttpServletRequest request, SignDto signDto) {
 		// 세션에서 훈련생 정보를 가져온다
@@ -64,7 +64,7 @@ public class SignManageController {
 		return stdList;			
 	}
 	
-	@ResponseBody //ajax로 가입 대기중인 데이터 컨트롤.
+	@ResponseBody //ajax로 가입 수료생 데이터 컨트롤.
 	@RequestMapping(value="/graUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
 	public List<SignDto> graUser(Model model, HttpServletRequest request, SignDto signDto) {
 		// 세션에서 수료 정보를 가져온다
@@ -89,4 +89,20 @@ public class SignManageController {
 	public void permitAllsign() {
 		SignService.signAlluser();
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/denyUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST)
+	public void	denysign(@RequestBody List<SignDto> permits) {
+		for(SignDto permit : permits)
+		{
+			SignService.denyUser(permit);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/denyAlluser.com", produces="application/json;charset=utf-8", method=RequestMethod.GET)
+	public void denyAllsign() {
+		SignService.denyAlluser();
+	}
+	
 }

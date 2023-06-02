@@ -24,6 +24,10 @@ public interface SignMapper {
 
 	void signAlluser();
 
+	void denyUser(SignDto signDto);
+
+	void denyAlluser();
+
 	
 
 	
