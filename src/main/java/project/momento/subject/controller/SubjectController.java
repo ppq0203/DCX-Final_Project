@@ -1,6 +1,5 @@
 package project.momento.subject.controller;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,35 +14,6 @@ import project.momento.page.Paging;
 import project.momento.subject.dto.SubjectDto;
 import project.momento.subject.service.SubjectService;
 
-@Controller
-public class SubjectController {
-	
-	@Autowired
-	private SubjectService subjectService;
-	
-	
-	@RequestMapping(value="/mng/subject/main", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public ModelAndView subjectMain(Criteria cri, Model model, SubjectDto subjectDto){
-		ModelAndView mv = new ModelAndView("content/mng/subject/subjectMain"); 
-		int total = 0;
-//		total = chartService.getProductListCount(cri);
-		// 페이징 객체
-        Paging paging = new Paging();
-        paging.setCri(cri);
-        paging.setTotalCount(total); 
-        System.out.println(paging);
-        System.out.println(cri);
-        mv.addObject("paging", paging);
-		return mv;
-	}
-	
-	@RequestMapping(value="/mng/subject/form", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public ModelAndView subjectForm(Criteria cri, Model model, SubjectDto subjectDto){
-		ModelAndView mv = new ModelAndView("content/mng/subject/subjectForm"); 
-		return mv;
-	}
-}
-=======
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -77,4 +47,3 @@ public class SubjectController {
 	}
 	
 }
->>>>>>> refs/remotes/origin/Game_Front_kjh
