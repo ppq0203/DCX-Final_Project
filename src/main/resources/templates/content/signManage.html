@@ -69,28 +69,17 @@
 											<span class="form-check-id">학생이름</span>
 											<span class="form-check-email">학생이메일</span>
 											<span class="form-check-date">가입일자</span>
-											<span class="form-check-Y||N">수락/거절</span>
 											<span class="form-check-info">정보보기</span>
 											<hr>
 											<form name="check" id="check" action="POST">
 													<div class="form-check-student-list">
 														<div class="waitList" style="word-spacing: 7vw;">
-															<!--input class="form-check-input me-1" id="tstcheck" name="tstcheck" type="checkbox" th:value="${waiting}"
-																aria-label="...">
-															<span class="form-check-input-name" th:text="${waiting.userId}"></span>
-															<span class="form-check-input-id" th:text="${waiting.name}"></span>
-															<span class="form-check-input-email" th:text="${waiting.email}"></span>
-															<span class="form-check-input-date" th:text="${waiting.registDt}"></span>
-															<button type="button" class="btn btn-light" id="info">정보</button-->
+															
 														</div>
 													</div>
 											</form>
 										</div>
-										<div class="form-check-next" style="display: flex; float:left">
-											<button type="button" class="btn btn-light">이전</button>
-											<button type="button" class="btn btn-light">다음</button>
-										</div>
-										<div style="display: inline-flex; float: right">
+										<div class="row" style="display: inline-flex; float: right">
 											<button type="button" id="acceptbtn" name="acceptbtn" class="btn btn-light">수락</button>
 											<button type="button" class="btn btn-light">거절</button>
 										</div>
@@ -98,6 +87,16 @@
 								</ul>
 
 								<!-- /.col -->
+							</div>
+							<div class="form-check-next">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="col text-center">
+											<button type="button" class="btn btn-light">이전</button>
+											<button type="button" class="btn btn-light">다음</button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="tab-content show" style="text-align: center;">
@@ -117,29 +116,25 @@
 												<!--th:if="${waitingStudent.useYn == 'N'}"-->
 												<div class="form-check-student-list">
 													<div class="stdList" style="word-spacing: 7vw;">
-														<!--span class="form-check-input-name">아이디</span>
-														<th:text=${item.userId}>
-														<span class="form-check-input-id">이름</span>
-														<th:text=${item.name}>
-														<span class="form-check-input-email">이메일</span>
-														<th:text=${item.email}>
-														<span class="form-check-input-attendance">00.0%</span>
-														<span class="form-check-input-date">가입일자</span>
-														<th:text=${item.registDt}>
-														<button type="button" class="btn btn-light"
-															style="word-spacing: -1vw;">정보</button-->
+														
 													</div>
 												</div>
 											</form>
-										</div>
-										<div class="form-check-next" style="display: flex;">
-											<button type="button" class="btn btn-light">이전</button>
-											<button type="button" class="btn btn-light">다음</button>
 										</div>
 									</li>
 								</ul>
 
 								<!-- /.col -->
+							</div>
+							<div class="form-check-next">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="col text-center">
+											<button type="button" class="btn btn-light">이전</button>
+											<button type="button" class="btn btn-light">다음</button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="tab-content" style="text-align: center;">
@@ -160,30 +155,25 @@
 												<!--th:if="${waitingStudent.useYn == 'N'}"-->
 												<div class="form-check-student-list">
 													<div class="graList" style="word-spacing: 7vw;">
-														<!--span class="form-check-input-name">아이디</span>
-														<th:text=${item.userId}>
-														<span class="form-check-input-id">이름</span>
-														<th:text=${item.name}>
-														<span class="form-check-input-email">이메일</span>
-														<th:text=${item.email}>
-														<span class="form-check-input-attendance">00.0%</span>
-														<span class="form-check-input-date">수료일자</span>
-														<th:text=${item.registDt}>
-														<span class="form-check-input-job">취업여부</span>
-														<button type="button" class="btn btn-light">정보</button-->
-
+														
 													</div>
 												</div>
 											</form>
-										</div>
-										<div class="form-check-next" style="display: flex;">
-											<button type="button" class="btn btn-light">이전</button>
-											<button type="button" class="btn btn-light">다음</button>
 										</div>
 									</li>
 								</ul>
 
 								<!-- /.col -->
+							</div>
+							<div class="form-check-next">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="col text-center">
+											<button type="button" class="btn btn-light">이전</button>
+											<button type="button" class="btn btn-light">다음</button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
