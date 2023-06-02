@@ -1,18 +1,14 @@
 package project.momento.question.function;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-import javax.tools.JavaCompiler;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -23,7 +19,8 @@ public class TestcaseGenerator {
 	public static void testcaseGenrate()
 	{
 		// solution 코드들이 저장되어있는 dir경로
-		String solsPath = "question/java_sols/"; 
+//		String solsPath = "question/java_sols/";
+		String solsPath = "question/sol1/";
 		// 솔루션 코드 수정한 파일 저장할 경로
 		String fixSolPath = solsPath + "sol";
     	String className = "Solution";
@@ -63,9 +60,9 @@ public class TestcaseGenerator {
             		{
             			try {
 	                		// class파일 실행
-	            			Object myClass = CompileAndRun.classLoad(fixSolPath, className);
-	            			CompileAndRun.classRun(myClass, testcaseDtos, funcName, 3);
-	                		outputToCsv(questionNum, testcaseDtos, inOutCsvPath);
+            				Object myClass = CompileAndRun.classLoad(fixSolPath, className);
+            				CompileAndRun.classRun(myClass, testcaseDtos, funcName, 3);
+            			    outputToCsv(questionNum, testcaseDtos, inOutCsvPath);
 	            		} catch (Exception e) {
 	            			
 	            		} catch (OutOfMemoryError e) {}
@@ -126,13 +123,13 @@ public class TestcaseGenerator {
 		for (TestcaseDto testcaseDto : testcaseDtos)
 		{
 			entries[2] = testcaseDto.getOutput();
-			if (entries[2] != null)
+			if (entries[2] != null && entries[2].length() < 40)
 			{
 				entries[0] = Integer.toString(questionNum);
 				entries[1] = testcaseDto.getInput();
 		        writer.writeNext(entries);
-		        testcaseDto.setOutput(null);
 			}
+			testcaseDto.setOutput(null);
 		}
         writer.close();
 	}

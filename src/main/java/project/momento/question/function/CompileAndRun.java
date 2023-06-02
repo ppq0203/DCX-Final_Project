@@ -4,7 +4,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 import javax.tools.JavaCompiler;
 
@@ -23,25 +33,45 @@ public class CompileAndRun {
     		// 가져온 method가 실행을 원하는 method명과 일치하면 수행
     		if(method.getName().equals(funcName))
             {
-    			for (TestcaseDto testDto : testcaseDtos) {   // 
-    	        	Object out = funcRunOut(myClass, method, funcName, testDto.getInput());
-    	        	// option값이 3인 경우 solDto.output에 input에 대한 결과값 저장
-    	        	if(out != null && option == 3) {
-    	        		testDto.setOutput(out.toString());
-    	        		result = 3;
-    	        	}
-    	        }
+    			for (TestcaseDto testDto : testcaseDtos) {   //
+    				ExecutorService executor = Executors.newSingleThreadExecutor();
+    				Callable<Object> tesk  = () -> {
+    					Object obj = null;
+    					obj = funcRunOut(myClass, method, funcName, testDto.getInput());
+    		            return obj;
+    		        };
+    		        Future<Object> future = executor.submit(tesk);
+    		        Object out = null;
+    		        try {
+    		            // 최대 2초간 작업을 기다림
+    		            out = future.get(2, TimeUnit.SECONDS);
+    		        } catch (TimeoutException e) {
+    		            // 시간 초과 예외 처리
+    		        	System.out.println("TimeOut");
+    		        } catch (InterruptedException | ExecutionException e) {
+    		            // 다른 예외 처리
+//    		            e.printStackTrace();
+    		        }
+		            // 작업 취소
+		            future.cancel(true);
+		            executor.shutdownNow();
+    				// option값이 3인 경우 solDto.output에 input에 대한 결과값 저장
+    				if(out != null && option == 3) {
+    					testDto.setOutput(out.toString());
+    		        	result = option;
+    				}
+    			}
             }
         }
-        
         return result;
 	}
 	
 	public static Object classLoad(String fixSolPath, String className) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException 
 	{
 		MyClassLoader myClassLoader = new MyClassLoader(GenerateTestcaseController.class.getClassLoader(), fixSolPath);
-        Class clazz = myClassLoader.loadClass(className);
+        Class<?> clazz = myClassLoader.loadClass(className);
 		// solution class object create
+		@SuppressWarnings("deprecation")
 		Object myClass = clazz.newInstance();
 		return myClass;
 	}
@@ -51,7 +81,7 @@ public class CompileAndRun {
 	public static Object funcRunOut(Object obj, Method method, String methodName, String inputContent)
 	{
 		Object result = null;
-    	try {
+
     		String[] instr = inputContent.split(";");
     		// method의 매개변수 개수 저장
     		int parameterCount = method.getParameterCount();
@@ -63,8 +93,24 @@ public class CompileAndRun {
     			inputs[p] = MyParser.myParser(instr[p], parameter.getName());
     			p++;
     		}
-    		result = method.invoke(obj, inputs);
-    	} catch (Exception e) {System.out.println("para error");}
+    		try {
+				result = method.invoke(obj, inputs);
+				if(result.getClass().getName()=="[I")
+				{
+					List<Integer> list =  Arrays.stream((int[])result).boxed().collect(Collectors.toList());
+					result = list;
+				}
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+			}
+    	
 		return result;
 	}
 
