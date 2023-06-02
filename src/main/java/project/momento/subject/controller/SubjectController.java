@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.servlet.http.HttpServletRequest;
+import project.momento.login.dto.LoginDto;
+import project.momento.menu.dto.MenuDto;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
 import project.momento.subject.dto.SubjectDto;
@@ -40,5 +45,17 @@ public class SubjectController {
 	public ModelAndView subjectForm(Criteria cri, Model model, SubjectDto subjectDto){
 		ModelAndView mv = new ModelAndView("content/mng/subject/subjectForm"); 
 		return mv;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/getSubjectList", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public List<SubjectDto> GetMenu(Criteria cri, Model model, HttpServletRequest request) {
+		// 세션에서 내 정보를 가져온다
+		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		List<SubjectDto> resultList = subjectService.selectSubjectList(cri);
+		System.out.println(resultList);
+		model.addAttribute("resultList", resultList);
+		return resultList;			
 	}
 }

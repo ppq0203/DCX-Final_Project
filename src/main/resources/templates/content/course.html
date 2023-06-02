@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<!-- Main content -->
+		<section class="content" style="background-color: aqua;height: 250px;">
+			<div class="p-2">
+				<div class="col">
+					<div class="">
+						<span>
+							<h2>과정</h2>
+						</span>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--client, server, 프로젝트 텝 영역-->
+		<div class="row" "mb-5">
+			<ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home"
+						role="tab" aria-controls="custom-tabs-one-home" aria-selected="false">강의일정</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
+						href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
+						aria-selected="false">질문</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+						href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
+						aria-selected="false">보충영상</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+						href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
+						aria-selected="false">테스트</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" id="custom-tabs-one-settings-tab" data-toggle="pill"
+						href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
+						aria-selected="true">강의평가</a>
+				</li>
+
+			</ul>
+		</div>
+
+
+
+
+		<!--강의 일정-->
+		<div class="pt-5">
+			<div class="row">
+				<div class="col-7">
+					<h3>강의 일정</h3>
+				</div>
+				<div class="col-4">
+					<h3></h3>
+				</div>
+				<!--강의 일정  저장 수정 버튼-->
+				<div>
+					<input class="btn btn-primary mr-3 " type="submit" value="저장">
+				</div>
+				<div>
+					<input class="btn btn-primary  " type="submit" value="수정">
+				</div>
+			</div>
+		</div>
+
+
+		<!--강의 일정  표-->
+		<table class="table table-bordered text-center m-4">
+			<thead>
+				<tr>
+					<th style="width: 10px"></th>
+					<th style="width: 10px">날짜</th>
+					<th style="width: 10px">과목</th>
+					<th style="width: 10px">과목</th>
+					<th _msttexthash="9731020" _msthash="135">강좌명</th>
+					<th style="width: 30px">강의자료</th>
+					<th style="width: 10px">과제답안</th>
+					<th style="width: 10px"></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>
+						<button type="button" class="btn btn-link">2023-05-30</button>
+					</td>
+					<td>
+						<span>
+							<!-- 드롭 앤 다운 -->
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+							</div>
+						</span>
+					</td>
+					<td>
+						<span>
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+                           </div>
+						</span>
+					</td>
+
+					<td>
+						<span>1</span>
+					</td>
+					<td>
+						<input class="btn btn-primary m-1" style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<input class="btn btn-primary m-1 " style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<!-- + 아이콘  +추가 버튼 -->
+						<input class="btn btn-dark m-1 fa-solid fa-plus"  style="width: 7px; border-radius:100%;" type="submit" value="첨부">
+						
+					</td>
+				</tr>
+					<tr>
+					<th scope="row">2</th>
+					<td>
+						<button type="button" class="btn btn-link">2023-05-30</button>
+					</td>
+					<td>
+						<span>
+							<!-- 드롭 앤 다운 -->
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+							</div>
+						</span>
+					</td>
+					<td>
+						<span>
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+                           </div>
+						</span>
+					</td>
+
+					<td>
+						<span>2</span>
+					</td>
+					<td>
+						<input class="btn btn-primary m-1" style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<input class="btn btn-primary m-1 " style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<!-- + 아이콘  +추가 버튼 -->
+						<input class="btn btn-dark m-1 fa-solid fa-plus"  style="width: 7px; border-radius:100%;" type="submit" value="첨부">
+						
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>
+						<button type="button" class="btn btn-link">2023-05-30</button>
+					</td>
+					<td>
+						<span>
+							<!-- 드롭 앤 다운 -->
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+							</div>
+						</span>
+					</td>
+					<td>
+						<span>
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+                           </div>
+						</span>
+					</td>
+
+					<td>
+						<span>3</span>
+					</td>
+					<td>
+						<input class="btn btn-primary m-1" style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<input class="btn btn-primary m-1 " style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<!-- + 아이콘  +추가 버튼 -->
+						<input class="btn btn-dark m-1 fa-solid fa-plus"  style="width: 7px; border-radius:100%;" type="submit" value="첨부">
+						
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">4</th>
+					<td>
+						<button type="button" class="btn btn-link">2023-05-30</button>
+					</td>
+					<td>
+						<span>
+							<!-- 드롭 앤 다운 -->
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+							</div>
+						</span>
+					</td>
+					<td>
+						<span>
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+                           </div>
+						</span>
+					</td>
+
+					<td>
+						<span>4</span>
+					</td>
+					<td>
+						<input class="btn btn-primary m-1" style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<input class="btn btn-primary m-1 " style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<!-- + 아이콘  +추가 버튼 -->
+						<input class="btn btn-dark m-1 fa-solid fa-plus"  style="width: 7px; border-radius:100%;" type="submit" value="첨부">
+						
+					</td>
+				</tr>
+					<tr>
+					<th scope="row">5</th>
+					<td>
+						<button type="button" class="btn btn-link">2023-05-30</button>
+					</td>
+					<td>
+						<span>
+							<!-- 드롭 앤 다운 -->
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+							</div>
+						</span>
+					</td>
+					<td>
+						<span>
+							<div class="float-right">
+								<select class="custom-select" style="width: 75px;" data-sortorder="">
+									<option value="index" _msttexthash="264615" _msthash="140"> 과목 </option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+									<option value="sortData" _msttexthash="311038" _msthash="141"> 사용자 지정 데이터별 정렬
+									</option>
+								</select>
+                           </div>
+						</span>
+					</td>
+
+					<td>
+						<span>5</span>
+					</td>
+					<td>
+						<input class="btn btn-primary m-1" style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<input class="btn btn-primary m-1 " style="width: 75px;" type="submit" value="첨부">
+					</td>
+					<td>
+						<!-- + 아이콘  +추가 버튼 -->
+						<input class="btn btn-dark m-1 fa-solid fa-plus"  style="width: 7px; border-radius:100%;" type="submit" value="첨부">
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+<!-- 김정헌-->
+
+
+
+
+		<script>
+			<!--드롭앤다운-->
+			var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+			var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+				return new bootstrap.Dropdown(dropdownToggleEl)
+			})
+
+		</script>
+</th:block>
+
+</html>
