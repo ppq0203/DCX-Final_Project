@@ -70,7 +70,6 @@ public class SignManageController {
 		// 세션에서 수료 정보를 가져온다
 		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
 		List<SignDto> graList = SignService.graList(signDto);
-		System.out.println(graList);
 		//model.addAttribute("graList", graList);
 		return graList;			
 	}
