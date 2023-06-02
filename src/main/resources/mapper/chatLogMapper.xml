@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.momento.chatLog.mapper.CHAT_LOGMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+<!-- Heidisql연결후 입력 저장-->
+	<!-- SELECT문 -->
+	<select id="ChatLog" resultType="project.momento.chatlog.dto.ChatLogDto">
+		<![CDATA[
+			SELECT
+				CHART_STAMP AS chartStamp,
+				CHART_CONTENT AS chartContent,
+				CHART_STAMP_ROOM AS chartStampRoom,
+				CHART_CONTENT_ROOM AS chartContentRoom
+			FROM 
+				CHAT_LOG
+			WHERE
+				PK_CHAT_SEQ = #{pkChatSeq}
+		]]>
+	</select>
+	
+	<!-- INSERT문 -->
+	<insert id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
+		<![CDATA[
+			INSERT INTO CHAT_LOG
+			(
+				PK_CHAT_SEQ,
+				PK_USER_SEQ,
+				PK_ROOM_SEQ,
+				CHAT_STAMP,
+				CHAT_CONTENT,
+				CHAT_STAMP_ROOM,
+				CHAT_CONTENT_ROOM
+			) 
+			VALUES
+			(
+				ifnull(#{pkChatSeq}, null),
+				#{chatStamp},
+				#{chatContent},
+				#{chatStampRoom},
+				#{chatContentRoom}
+			)
+		]]>
+	</insert>
+	
+	<!-- DELETE문 -->
+	<delete id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
+		<![CDATA[
+			DELETE FROM CHAT_LOG
+			WHERE
+				PK_CHAT_LOG_SEQ = #{pkChatLogSeq}
+		]]>
+	</delete>
+	
+	<!-- UPDATE문 --> 
+	<update id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
+		<![CDATA[
+			UPDATE SET
+				CHART_LOG
+			WHERE
+				CHAT_STAMP_ROOM = #{chatStampRoom},
+				CHAT_CONTENT_ROOM = #{chatContentRoom}
+		]]>
+	</update>
+	
+</mapper>

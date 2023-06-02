@@ -11,22 +11,22 @@
 				ROOM_PWD AS roomPwd,
 				ROOM_TYPE AS roomType,
 				ROOM_PLAY AS roomPlay,
-				ROOM_PLAYTIME AS roomPlayTime,
+				ROOM_PLAYTIME AS roomPlaytime,
 				ROOM_NUMBER AS roomNumber,
 				ROOM_ID AS roomId,
 				ROOM_TIME AS roomTime,
-				ROOM_UPDATE AS roomUpDate
+				UPDATE_DT AS updateDt
 			FROM 
 				ROOM
 			WHERE
-				PK_ROOM_SEQ=#{pkRoomSeq}
+				PK_ROOM_SEQ = #{pkRoomSeq}
 		]]>
 	</select>
 	
 	<!-- INSERT문 -->
 	<insert id="Room" parameterType="project.momento.room.dto.RoomDto">
 		<![CDATA[
-			INSERT INTO USER
+			INSERT INTO ROOM
 			(
 				PK_ROOM_SEQ,
 				ROOM_NAME,
@@ -37,20 +37,20 @@
 				ROOM_NUMBER,
 				ROOM_ID,
 				ROOM_TIME,
-				ROOM_UPDATE
+				UPDATE_DT
 			) 
 			VALUES
 			(
-				ifnull(#{pkUserSeq}, null),
+				ifnull(#{pkRoomSeq}, null),
 				#{roomName},
 				#{roomPwd},
 				#{roomType},
 				#{rommPlay},
-				#{rommPlayTime},
+				#{rommPlaytime},
 				#{rommNumber},
 				#{roomId},
 				#{roomTime},
-				#{roomUpdate}
+				#{updateDt}
 			)
 		]]>
 	</insert>
@@ -58,28 +58,23 @@
 	<!-- DELETE문 -->
 	<delete id="Room" parameterType="project.momento.room.dto.RoomDto">
 		<![CDATA[
-			DELETE FROM
-				ROOM_NAME= #{roomName},
-				ROOM_PWD = #{roomPwd},
-				ROOM_TPYE = #{roomType},
-				ROOM_PLAY = #{rommPlay},
-				ROOM_PLAYTIME = #{rommPlayTime},
-				ROOM_NUMBER = #{rommNumber},
-				ROOM_ID = #{ROOM_ID},
-				ROOM_TIME = #{roomTime},
-				ROOM_UPDATE = #{roomUpdate}
+			DELETE FROM ROOM
 			WHERE
+				PK_ROOM_SEQ = #{pkRoomSeq}
 		]]>
 	</delete>
 	
-	<!-- UPDATE문 -->
+	<!-- UPDATE문 --> 
 	<update id="Room" parameterType="project.momento.room.dto.RoomDto">
 		<![CDATA[
-			UPDATE
-				ROOM_NAME= #{roomName}, 
-				ROOM_UPDATE = #{roomUpdate}
+			UPDATE SET
+				ROOM
 			WHERE
-				PK_USER_SEQ = #{pkUserSeq}
+				ROOM_NAME = #{rommName},
+				ROOM_TYPE = #{roomType},
+				ROOM_PLAY = #{roomPlay},
+				ROOM_PLAYTIME = #{roomPlaytime},
+				UPDATE_DT = #{updateDt}
 		]]>
 	</update>
 	
