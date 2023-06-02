@@ -169,22 +169,31 @@
 		function rowAdd() {
 			$(".detailDiv").append(
 				"<div class=\"form-group row-count\">" +
-				"<div class=\"row\">" +
-				"<div class=\"col-md-6\">" +
-				"<label for=\"attribute\">속성</label> <input type=\"text\" class=\"form-control\" id=\"attribute\"
-					name =\"attribute\" placeholder=\"속성\" required>" +
-			"</div>" +
-			"<div class=\"col-md-6\">" +
-			"<label for=\"value\">값</label>" +
-			"<input type=\"text\" class=\"form-control\" id=\"value\" name=\"value\" placeholder=\"값\" required>" +
-			"</div>" +
-			"</div>" +
-			"</div>"
+					"<div class=\"row\">" +
+						"<div class=\"col-md-6\">" +
+							"<label for=\"attribute\">속성</label> <input type=\"text\" class=\"form-control\" id=\"attribute\" name=\"attribute\" placeholder=\"속성\" required>" +
+						"</div>" +
+						"<div class=\"col-md-6\">" +
+							"<label for=\"value\">값</label>" +
+							"<input type=\"text\" class=\"form-control\" id=\"value\" name=\"value\" placeholder=\"값\" required>" +
+						"</div>" +
+					"</div>" +
+				"</div>"
 			);
 		}
 		function rowDel() {
 			$(".row-count").last().remove();
 		}
+		
+		
+		function errorMassage(){
+			Swal.fire({
+			  icon: 'error',
+			  title: '항목 선택',
+			  text: 'Something went wrong!'
+			})
+		}
+		
 
 	</script>
 </th:block>

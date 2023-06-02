@@ -2,123 +2,157 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/defaultLayout}">
 
-<th:block layout:fragment="content">
+<div layout:fragment="content">
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-cented modal-xl">
+			<div class="modal-content">
+				<div class="col-12 modal-header">
+					<h4 class="col-12 modal-title text-center">학생 정보</h4>
+					<!--<button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">-->
+					<!--<span aria-hidden="true">×</span>-->
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card-body box-profile">
+									<div class="text-center">
+										<img class="profile-user-img img-fluid img-circle"
+											src="../../dist/img/user4-128x128.jpg" alt="사진">
+									</div>
+									<h3 class="profile-username text-center">학생이름</h3>
+									<p class="text-muted text-center">이메일</p>
+									<ul class="list-group list-group-unbordered mb-3">
+										<li class="list-group-item">
+											<b>전화번호</b> <a class="float-right">000-0000-0000</a>
+										</li>
+										<li class="list-group-item">
+											<b>주소</b> <a class="float-right">서울 어딘가</a>
+										</li>
+										<li class="list-group-item">
+											<b>이메일</b> <a class="float-right">kdt@gmail.com</a>
+										</li>
+										<li class="list-group-item">
+											<b>선호역할</b> <a class="float-right">front</a>
+										</li>
+										<li class="list-group-item">
+											<b>과거직업</b> <a class="float-right">백수</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<div class="col-12">
+						<div class="col-1 mx-auto">
+							<button type="button" class="btn btn-primary">닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="content-wrapper">
 		<!-- Main content -->
-		<section class="content" style="background-color: aqua;height: 250px;">
-			<div class="p-2">
-				<div class="col -10">
-					<div class="dropdown">
-						<span>
-							<h2>테스트</h2>
-						</span>
+		<section class="content">
+			<div class="container">
+				<div class="row" "mt-4">
+					<div class="col-sm-">
+					</div>
+					<div class="col-sm-2">
+						<span>수료생</span>
 					</div>
 				</div>
 			</div>
 		</section>
-		<div class="col-10">
-			<div class="row">
-				<ul class="nav nav-tabs col-10 text-center" id="custom-tabs-one-tab" role="tablist">
-					<li class="nav-item col-2 pr-0">
-						<a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
-							href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
-							aria-selected="false">강의일정</a>
-					</li>
-					<li class="nav-item col-2 p-0">
-						<a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-							href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
-							aria-selected="false">질문</a>
-					</li>
-					<li class="nav-item col-2 p-0">
-						<a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
-							href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
-							aria-selected="false">보충영상</a>
-					</li>
-					<li class="nav-item col-2 p-0">
-						<a class="nav-link active" id="custom-tabs-one-settings-tab" data-toggle="pill"
-							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
-							aria-selected="false">테스트</a>
-					</li>
-					<li class="nav-item col-2 p-0">
-						<a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
-							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
-							aria-selected="false">강의평가</a>
-					</li>
-				</ul>
+		<div class-="row mt-0">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2 mb-2 mr-2">
+				<button class="btn btn-primary me-md-2" type="button">저장</button>
 			</div>
 		</div>
-		<div class="p-5">
-			<div class-="row mt-0">
-				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					<button class="btn btn-primary me-md-2" type="button">저장</button>
-					<button class="btn btn-primary ml-1" type="button">수정</button>
-				</div>
-			</div>
-			<div class="row-cols-1 text-center">
-				<table class="table" id="addrow">
-					<thead>
-						<tr>
-							<th scope="col"></th>
-							<th scope="col">날짜</th>
-							<th scope="col">과목명</th>
-							<th scope="col">강좌명</th>
-							<th scope="col">테스트등록</th>
-							<th scope="col">행추가</th>
-							<th scope="col">행삭제</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td><button type="button" class="btn btn-link">2023-05-30</button>
-							</td>
-							<td><span>HTML</span></td>
-							<td><span>1</span></td>
-							<td>
-								<label for="input-file">업로드</label>
-								<input type="file" id="input-file" style="display: none;">
-							</td>
-							<td>
-								<button onclick="javascript:rowAdd();" type="button" class="btn btn-primary">추가</button>
-							</td>
-							<td>
-								<button onclick="javascript:rowDel();" type="button" class="btn btn-danger">삭제</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		<div class="row-cols-1 text-center">
+			<table class="table">
+				<thead>
+					<tr>
+						<td>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="cbx_all">
+								</label>
+							</div>
+						</td>
+						<th scope="col">이름</th>
+						<th scope="col">이메일</th>
+						<th scope="col">수료일자</th>
+						<th scope="col">수료여부</th>
+						<th scope="col">학생정보</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" name="chk"
+									id="flexCheckDefault">
+								</label>
+							</div>
+						</td>
+						<td><span>이름</span></td>
+						<td><span>이메일</span></td>
+						<td><span>2023.05.20</span></td>
+						<td>
+							<select class="form-select form-select-lg mb-3 text-center"
+								aria-label=".form-select-lg example">
+								<option selected>수료</option>
+								<option value="1">미수료</option>
+							</select>
+						</td>
+						<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl">
+								상세보기
+							</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+
+		<div class="row">
+			<div class="col-5 p-3"></div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					<li class="page-item "><a class="page-link" href="#">Previous</a></li>
+					<li class="page-item "><a class="page-link" href="#">1</a></li>
+					<li class="page-item "><a class="page-link" href="#">2</a></li>
+					<li class="page-item "><a class="page-link" href="#">3</a></li>
+					<li class="page-item "><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
 		</div>
 	</div>
+</div>
+<script>
+	$(document).ready(function () {
+		$("#cbx_all").click(function () {
+			if ($("#cbx_all").is(":checked")) $("input[name=chk]").prop("checked", true);
+			else $("input[name=chk]").prop("checked", false);
+		});
 
+		$("input[name=chk]").click(function () {
+			var total = $("input[name=chk]").length;
+			var checked = $("input[name=chk]:checked").length;
 
-	<script>
-		<!--드롭앤다운-->
-		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-		var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-			return new bootstrap.Dropdown(dropdownToggleEl)
-		})
+			if (total != checked) $("#cbx_chkAll").prop("checked", false);
+			else $("#cbx_chkAll").prop("checked", true);
+		});
+	});
+</script>
 
-		function rowAdd() {
-			$(".detailDiv").append(
-				"<div class=\"form-group row-count\">" +
-					"<div class=\"row\">" +
-						"<div class=\"col-md-6\">" +
-							"<label for=\"attribute\">속성</label> <input type=\"text\" class=\"form-control\" id=\"attribute\" name=\"attribute\" placeholder=\"속성\" required>" +
-						"</div>" +
-						"<div class=\"col-md-6\">" +
-							"<label for=\"value\">값</label>" +
-							"<input type=\"text\" class=\"form-control\" id=\"value\" name=\"value\" placeholder=\"값\" required>" +
-						"</div>" +
-					"</div>" +
-				"</div>"
-			);
-		}
-		function rowDel() {
-			$(".row-count").last().remove();
-		}
+<!--유진상-->
 
-	</script>
 </th:block>
 
 </html>

@@ -49,8 +49,8 @@
 										<h4 class="col-12 modal-title text-center">자기소개</h4>
 									</div>
 								</div>
-								<textarea class="form-control form-control-lg " style="min-height: 340px;" id="validationTextarea"
-									placeholder="예시)어떤일을 해왔다" required></textarea>
+								<textarea class="form-control form-control-lg " style="min-height: 340px;"
+									id="validationTextarea" placeholder="예시)어떤일을 해왔다" required></textarea>
 							</div>
 
 						</div>
@@ -69,14 +69,10 @@
 	</div>
 	<div class="content-wrapper">
 		<!-- Main content -->
-		<section class="content" style="background-color: aqua;height: 250px;">
-			<div class="container">
-				<div class="row" "mt-4">
-					<div class="col-sm-">
-					</div>
-					<div class="col-sm-2">
-						<span>학생관리</span>
-					</div>
+		<section class="content">
+			<div class="col-12">
+				<div class="col-1">
+					<span>학생관리</span>
 				</div>
 			</div>
 		</section>
@@ -99,7 +95,7 @@
 						<th scope="col">이메일</th>
 						<th scope="col">가입일자</th>
 						<th scope="col">가입승인</th>
-						<th scope="col">학생정보</th>
+						<th scope="col">수료여부</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -120,16 +116,69 @@
 								<option value="1">거부</option>
 							</select>
 						</td>
-						<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl">
+						<td>
+							<!--<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl">
 								상세보기
-							</button></td>
+							</button>-->
+							<select class="form-select form-select-lg mb-3 text-center"
+								aria-label=".form-select-lg example">
+								<option selected>수료</option>
+								<option value="1">미수료</option>
+							</select>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 
+		<div class="row">
+			<div class="col-5 p-3 mb-4"></div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					<li class="page-item "><a class="page-link" href="#">Previous</a></li>
+					<li class="page-item "><a class="page-link" href="#">1</a></li>
+					<li class="page-item "><a class="page-link" href="#">2</a></li>
+					<li class="page-item "><a class="page-link" href="#">3</a></li>
+					<li class="page-item "><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="row-cols-1 text-center" style="margin-top: 7vw;">
+			<div class="container">
+				<div class="col-12">
+					<div class="col-1" style="margin-bottom: 3vw;">
+						<span>수료생 관리</span>
+					</div>
+				</div>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">이름</th>
+						<th scope="col">이메일</th>
+						<th scope="col">가입일자</th>
+						<th scope="col">출석률</th>
+						<th scope="col">학생정보</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><span>이름</span></td>
+						<td><span>이메일</span></td>
+						<td><span>2023.05.20</span></td>
+						<td>
+							<span>00.0%</span>
+						</td>
+						<td>
+							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl">
+								상세보기
+							</button>
 
-
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<div class="row">
 			<div class="col-5 p-3"></div>
 			<nav aria-label="Page navigation example">
