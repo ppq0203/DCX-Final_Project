@@ -2,7 +2,7 @@
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org">
 
 <!-- Head -->
-<div th:fragment="leftFragment">
+<th:block th:fragment="leftFragment">
 	<!-- Sidebar -->
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<div
@@ -11,36 +11,37 @@
 				<div class="os-viewport os-viewport-native-scrollbars-invisible">
 					<div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
 						<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-							<div class="info">
-								<a href="#" class="d-block"></a>
-								<img th:src="@{/img/headimg-2.jpg}" class="img-circle elevation-2"
-									alt="User Image">
+							<div class="image">
+								<img th:src="@{/img/headimg-2.jpg}" class="img-circle elevation-2" alt="User Image">
 							</div>
 							<div class="info">
 								<a href="#" th:utext="${session.loginDto.userId}" class="d-block"></a>
 							</div>
 						</div>
-						<nav class="mt-2 append">
-							<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-								data-accordion="false">
-							</ul>
-						</nav>
+						<div class="info">
+							<a href="#" th:utext="${session.loginDto.userId}" class="d-block"></a>
+						</div>
 					</div>
+					<nav class="mt-2 append">
+						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+							data-accordion="false">
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>
 	</aside>
 	<!-- Sidebar Menu -->
 	<script>
-		function recursive(data, x) {
+		function recursive(data, x, logo) {
 			var str = '<ul class="nav nav-treeview">';
 			$.each(data, function (i) {
 				if (x == data[i].upperMenuNo) {
 					str += '<li class="nav-item">'
 						+ '<a href="../index.html" class="nav-link">'
-						+ '<i class="far fa-circle nav-icon"></i>'
+						+ '<i class="far ' + logo + ' nav-icon"></i>'
 						+ '<p>' + data[i].menuName + '</p></a>'
-						+ recursive(data, data[i].pkMenuSeq)
+						+ recursive(data, data[i].pkMenuSeq, 'fa-dat-circle')
 						+ '</li>'
 				}
 			});
@@ -63,10 +64,10 @@
 							console.log(data[i].pkMenuSeq);
 							str += '<li class="nav-item">'
 								+ '<a href="#" class="nav-link">'
-								+ '<i class="nav-icon fas fa-tachometer-alt"></i>'
+								+ '<i class="nav-icon fas fa-th"></i>'
 								+ '<p>' + data[i].menuName + '</p>'
 								+ '<i class="right fas fa-angle-left"></i></a>'
-								+ recursive(data, data[i].pkMenuSeq)
+								+ recursive(data, data[i].pkMenuSeq, 'fa-circle')
 								+ '</li>';
 						}
 					});
@@ -98,6 +99,6 @@
 			});
 		})
 	</script>
-	</th:block>
+</th:block>
 
 </html>

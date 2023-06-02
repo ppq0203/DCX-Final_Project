@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,9 +27,9 @@ public class SubjectController {
 	private SubjectService subjectService;
 	
 	
-	@RequestMapping(value="/mng/subject/main", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public ModelAndView subjectMain(Criteria cri, Model model, SubjectDto subjectDto){
-		ModelAndView mv = new ModelAndView("content/mng/subject/subjectMain"); 
+	@RequestMapping(value="/{userDivn}/subject/main", produces="application/text;charset=utf-8") /* value주소 이름*/
+	public ModelAndView subjectMain(@PathVariable String userDivn, Criteria cri, Model model, SubjectDto subjectDto){
+		ModelAndView mv = new ModelAndView("content/"+userDivn+"/subject/subject"); 
 		int total = 0;
 //		total = chartService.getProductListCount(cri);
 		// 페이징 객체
