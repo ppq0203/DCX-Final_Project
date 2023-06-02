@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -60,8 +61,29 @@ public class TestcaseGenerator {
             		{
             			try {
 	                		// class파일 실행
-            				Object myClass = CompileAndRun.classLoad(fixSolPath, className);
-            				CompileAndRun.classRun(myClass, testcaseDtos, funcName, 3);
+							ExecutorService executor = Executors.newSingleThreadExecutor();
+							Callable<Object> tesk  = () -> {
+								Object obj = null;
+								Object myClass = CompileAndRun.classLoad(fixSolPath, className);
+								CompileAndRun.classRun(myClass, testcaseDtos, funcName, 3);
+								return obj;
+							};
+							Future<Object> future = executor.submit(tesk);
+							Object out = null;
+							try {
+								// 최대 30초간 작업을 기다림
+								out = future.get(30, TimeUnit.SECONDS);
+							} catch (TimeoutException e) {
+								// 시간 초과 예외 처리
+								System.out.println("TimeOut");
+								// 작업 취소
+								future.cancel(true);
+								executor.shutdownNow();
+							} catch (InterruptedException | ExecutionException e) {
+								// 다른 예외 처리
+							}
+
+
             			    outputToCsv(questionNum, testcaseDtos, inOutCsvPath);
 	            		} catch (Exception e) {
 	            			
