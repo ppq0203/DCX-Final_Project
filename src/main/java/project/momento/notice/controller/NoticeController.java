@@ -17,6 +17,7 @@ import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
 import project.momento.menu.dto.MenuDto;
 import project.momento.menu.service.MenuService;
+import project.momento.notice.dto.NoticeDto;
 import project.momento.notice.service.NoticeService;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
@@ -41,25 +42,44 @@ public class NoticeController {
 		
 		ModelAndView mv = new ModelAndView("content/mng/notice/noticeMain"); 
 		int total = 0;
-//		total = noticeService.getProductListCount(cri);
+		total = noticeService.selectNoticeListCount(cri);
 		// 페이징 객체
         Paging paging = new Paging();
         paging.setCri(cri);
-        paging.setTotalCount(total); 
-        System.out.println(paging);
-        System.out.println(cri);
+        paging.setTotalCount(total);
+        List<NoticeDto> resultList = noticeService.selectNoticeList(cri);
+		mv.addObject("resultList", resultList);
         mv.addObject("paging", paging);
 		return mv;
 		
 	}
 	
 	@RequestMapping(value="/{userDivn}/notice/form", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public ModelAndView noticeForm(Criteria cri, Model model, SubjectDto subjectDto){
-		ModelAndView mv = new ModelAndView("content/mng/notice/noticeForm"); 
+	public ModelAndView noticeForm(@PathVariable String userDivn, Criteria cri, Model model, NoticeDto noticeDto){
+		ModelAndView mv = new ModelAndView("content/"+userDivn+"/notice/noticeForm"); 
 		
 		
 		return mv;
 		
+	}
+	
+	@RequestMapping(value="/{userDivn}/notice/create", produces="application/text;charset=utf-8") /* value주소 이름*/
+	public String noticeSubmit(@PathVariable String userDivn, Criteria cri, Model model, NoticeDto noticeDto){
+		
+		System.out.println(noticeDto);
+		noticeService.insertNotice(noticeDto);
+		return "redirect:/"+userDivn+"/notice/main";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getNoticeList", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public List<NoticeDto> getNoticeList(Criteria cri, Model model, HttpServletRequest request, NoticeDto noticeDto) {
+		// 세션에서 내 정보를 가져온다
+		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		List<NoticeDto> resultList = noticeService.selectNoticeList(cri);
+		System.out.println(resultList);
+		model.addAttribute("resultList", resultList);
+		return resultList;			
 	}
 	
 	
