@@ -64,7 +64,7 @@ public class TestcaseGenerator {
 							ExecutorService executor = Executors.newSingleThreadExecutor();
 							Callable<Object> tesk  = () -> {
 								Object myClass = CompileAndRun.classLoad(fixSolPath, className);
-								CompileAndRun.classRun(myClass, testcaseDtos, funcName, 3);
+								CompileAndRun.classRun(myClass, testcaseDtos, funcName, -1);
 								outputToCsv(questionNum, testcaseDtos, inOutCsvPath);
 								return null;
 							};

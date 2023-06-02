@@ -6,14 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 import javax.tools.JavaCompiler;
@@ -36,14 +28,24 @@ public class CompileAndRun {
     			for (TestcaseDto testDto : testcaseDtos) {   //
     				try {
     					Object out = funcRunOut(myClass, method, funcName, testDto.getInput());
-    					// option값이 3인 경우 solDto.output에 input에 대한 결과값 저장
-    					if(out != null && option == 3) {
+    					// option값이 -1인 경우 solDto.output에 input에 대한 결과값 저장
+    					if(out != null && option == -1) {
     						testDto.setOutput(out.toString());
     						result = option;
     					}
+    					// option값이 0인 경우 유저의 결과와 저장되어있는 결과를 비교
+    					if(option == 0)
+    					{	
+    						// 유저결과와 저장되어있는 결과가 다르면 오답이므로 -1을 return
+    						if(testDto.getOutput().equals(out.toString()) != true)
+    							return -1;
+    					}
     				} catch(ArrayIndexOutOfBoundsException e) {
+    					result = -1;
     				} catch(NumberFormatException e) {
-    				} catch(Exception e) {e.printStackTrace();
+    					result = -1;
+    				} catch(Exception e) {
+    					result = -1;
     				}
     			}
             }
@@ -62,7 +64,7 @@ public class CompileAndRun {
 	}
 	
 
-	// 함수에 imput값을 넣고 수행했을때 output되는 값을 리턴 
+	// 함수에 input값을 넣고 수행했을때 output되는 값을 리턴 
 	public static Object funcRunOut(Object obj, Method method, String methodName, String inputContent)
 	{
 		Object result = null;

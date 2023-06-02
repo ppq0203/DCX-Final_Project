@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 public class MyClassLoader extends ClassLoader {
 
@@ -23,7 +21,7 @@ public class MyClassLoader extends ClassLoader {
     }
 
     @Override
-    public Class findClass(String name) throws ClassNotFoundException {
+    public Class<?> findClass(String name) throws ClassNotFoundException {
         String classFilePath = rootDir + File.separator + name.replace(".", File.separator) + ".class";
 
         try {
