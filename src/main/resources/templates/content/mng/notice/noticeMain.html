@@ -10,95 +10,81 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-6">
-							<h4 class="fas fa-plus-square">&nbsp;대쉬보드</h4>
+							<h4 class="fas fa-plus-square">&nbsp;공지사항 관리</h4>
 						</div>
 					</div>
 				</div>
 			</section>
 			<section class="content">
 				<div class="container-fluid">
-
 					<div class="row">
-
-						<section class="col-lg-7">
-							<div class="card card-primary resize-handle">
-							<div class="card-body p-0">
-
-								<div id="calendar" class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap">
-								</div>
-							</div>
-
-						</div>
-						</section>
-
-
-						<section class="col-lg-5 connectedSortable ui-sortable">
-
-							<div class="card" style="position: relative; left: 0px; top: 0px;">
-								<div class="card-header ui-sortable-handle" style="cursor: move;">
-									<h3 class="card-title">
-										<i class="fas fa-chart-pie mr-1"></i>
-										Sales
-									</h3>
+						<div class="col-12">
+							<div class="card card-primary card-outline">
+								<div class="card-header">
+									<h4 class="card-title">공지사항 목록</h4>
 									<div class="card-tools">
-										<ul class="nav nav-pills ml-auto">
-											<li class="nav-item">
-												<a class="nav-link active" href="#revenue-chart"
-													data-toggle="tab">Area</a>
+										<button onclick="location.href = '/mng/notice/form'" type="button" class="btn btn-primary btn-sm">
+											<span>등록</span>
+										</button>
+										<button type="button" class="btn btn-success btn-sm">
+											<span>수정</span>
+										</button>
+										<button type="button" class="btn btn-danger btn-sm">
+											<span>삭제</span>
+										</button>
+									</div>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table class="table table-sm table-bordered table-hover">
+										<thead>
+											<tr>
+												<th style="width:50px;">No.</th>
+												<th>제목</th>
+												<th>내용</th>
+												<th>등록자</th>
+												<th>등록일자</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+								<div class="card-footer">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-center">
+											<li class="page-item previous th-disabled"
+												th:classappend="${paging.prev == false} ? 'disabled'">
+												<a th:href="@{/chart.com(page=${paging.startPage - 1})}" tabindex="0"
+													class="page-link">Previous</a>
 											</li>
-											<li class="nav-item">
-												<a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+											<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+												<li class="page-item"
+													th:classappend="${paging.cri.page == pNo} ? 'active'">
+													<a th:href="@{/chart.com(page=${pNo})}" tabindex="0"
+														aria-controls="dataTable" class="page-link"
+														th:text="${pNo}"></a>
+												</li>
+											</div>
+											<li class="page-item next th-disabled"
+												th:classappend="${paging.next == false} ? 'disabled'">
+												<a th:href="@{/chart.com(page=${paging.endPage + 1})}" tabindex="0"
+													aria-controls="dataTable" class="page-link">Next</a>
 											</li>
 										</ul>
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="tab-content p-0">
-
-										<div class="chart tab-pane active" id="revenue-chart"
-											style="position: relative; height: 300px;">
-											<div class="chartjs-size-monitor">
-												<div class="chartjs-size-monitor-expand">
-													<div class=""></div>
-												</div>
-												<div class="chartjs-size-monitor-shrink">
-													<div class=""></div>
-												</div>
-											</div>
-											<canvas id="revenue-chart-canvas" height="300"
-												style="height: 300px; display: block; width: 377px;" width="377"
-												class="chartjs-render-monitor"></canvas>
-										</div>
-										<div class="chart tab-pane" id="sales-chart"
-											style="position: relative; height: 300px;">
-											<canvas id="sales-chart-canvas" height="0"
-												style="height: 0px; display: block; width: 0px;"
-												class="chartjs-render-monitor" width="0"></canvas>
-										</div>
-									</div>
+									</nav>
 								</div>
 							</div>
-
-
-						</section>
+						</div>
 
 					</div>
-
 				</div>
 			</section>
-			<section class="content">
-				<div class="row">
-					<div class="col-md-9">
-						
-
-					</div>
-
-				</div>
-			</section>
-		</div><!-- /.container-fluid -->
-	</div><!-- /.content -->
+		</div>
+	</div>
 	<script>
-		
+
 		$(document).ready(function () {
 			$(".resize-handle").on("resizestop", function (event, ui) { });
 			$(".resize-handle").resizable({
@@ -118,10 +104,10 @@
 				//minHeight, maxHeight, minWidth, maxWidth 최소,최대 크기지정 
 			});
 		})
-		
-		
+
+
 		$(function () {
-			
+
 			/* initialize the calendar
 			 -----------------------------------------------------------------*/
 			//Date for the calendar events (dummy data)
