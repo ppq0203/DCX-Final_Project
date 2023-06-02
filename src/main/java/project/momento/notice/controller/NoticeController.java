@@ -55,8 +55,9 @@ public class NoticeController {
 	
 	@RequestMapping(value="/{userDivn}/notice/form", produces="application/text;charset=utf-8") /* value주소 이름*/
 	public ModelAndView noticeForm(Criteria cri, Model model, SubjectDto subjectDto){
-		
 		ModelAndView mv = new ModelAndView("content/mng/notice/noticeForm"); 
+		
+		
 		return mv;
 		
 	}
