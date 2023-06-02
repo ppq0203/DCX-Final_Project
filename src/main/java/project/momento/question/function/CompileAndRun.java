@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,6 +14,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 import javax.tools.JavaCompiler;
 
@@ -65,29 +67,39 @@ public class CompileAndRun {
 	{
 		Object result = null;
 
-    		String[] instr = inputContent.split(";");
-    		// method의 매개변수 개수 저장
-    		int parameterCount = method.getParameterCount();
-    		// method의 매개변수들을 저장할 Object Array생성
-    		Object[] inputs = new Object[parameterCount];
-    		int p = 0;
-    		for (Class<?> parameter : method.getParameterTypes())
-    		{
-    			inputs[p] = MyParser.myParser(instr[p], parameter.getName());
-    			p++;
-    		}
-    		try {
-				result = method.invoke(obj, inputs);
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
+		String[] instr = inputContent.split(";");
+		// method의 매개변수 개수 저장
+		int parameterCount = method.getParameterCount();
+		// method의 매개변수들을 저장할 Object Array생성
+		Object[] inputs = new Object[parameterCount];
+		int p = 0;
+		for (Class<?> parameter : method.getParameterTypes())
+		{
+			inputs[p] = MyParser.myParser(instr[p], parameter.getName());
+			p++;
+		}
+		try {
+			result = method.invoke(obj, inputs);
+			if (result.getClass().getName() == "[I")
+			{
+				List<Integer> list =  Arrays.stream((int[])result).boxed().collect(Collectors.toList());
+				result = list;
 			}
+			if (result.toString().length() > 50)
+			{
+				result = null;
+			}
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+//				e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+//				e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+//				e.printStackTrace();
+		}
+    	
     	
 		return result;
 	}

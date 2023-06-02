@@ -63,16 +63,15 @@ public class TestcaseGenerator {
 	                		// class파일 실행
 							ExecutorService executor = Executors.newSingleThreadExecutor();
 							Callable<Object> tesk  = () -> {
-								Object obj = null;
 								Object myClass = CompileAndRun.classLoad(fixSolPath, className);
 								CompileAndRun.classRun(myClass, testcaseDtos, funcName, 3);
-								return obj;
+								outputToCsv(questionNum, testcaseDtos, inOutCsvPath);
+								return null;
 							};
 							Future<Object> future = executor.submit(tesk);
-							Object out = null;
 							try {
 								// 최대 30초간 작업을 기다림
-								out = future.get(30, TimeUnit.SECONDS);
+								future.get(30, TimeUnit.SECONDS);
 							} catch (TimeoutException e) {
 								// 시간 초과 예외 처리
 								System.out.println("TimeOut");
@@ -83,8 +82,6 @@ public class TestcaseGenerator {
 								// 다른 예외 처리
 							}
 
-
-            			    outputToCsv(questionNum, testcaseDtos, inOutCsvPath);
 	            		} catch (Exception e) {
 	            			
 	            		} catch (OutOfMemoryError e) {}
