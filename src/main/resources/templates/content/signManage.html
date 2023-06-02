@@ -159,18 +159,18 @@
 											<form action="">
 												<!--th:if="${waitingStudent.useYn == 'N'}"-->
 												<div class="form-check-student-list">
-													<div class="form-check-input-button" style="word-spacing: 7vw;">
-														<span class="form-check-input-name">아이디</span>
-														<!--th:text=${item.userId}-->
+													<div class="graList" style="word-spacing: 7vw;">
+														<!--span class="form-check-input-name">아이디</span>
+														<th:text=${item.userId}>
 														<span class="form-check-input-id">이름</span>
-														<!--th:text=${item.name}-->
+														<th:text=${item.name}>
 														<span class="form-check-input-email">이메일</span>
-														<!--th:text=${item.email}-->
+														<th:text=${item.email}>
 														<span class="form-check-input-attendance">00.0%</span>
 														<span class="form-check-input-date">수료일자</span>
-														<!--th:text=${item.registDt}-->
+														<th:text=${item.registDt}>
 														<span class="form-check-input-job">취업여부</span>
-														<button type="button" class="btn btn-light">정보</button>
+														<button type="button" class="btn btn-light">정보</button-->
 
 													</div>
 												</div>
@@ -357,6 +357,9 @@
 			if (e.target.dataset.id == 0) {
 				setTimeout(getWaitUser, 50);
 			}
+			else if (e.target.dataset.id == 2) {
+				setTimeout(getGraUser, 50);
+			}
 		})
 		
 		
@@ -460,6 +463,29 @@
 						$(".stdList").append('<span class="form-check-input-email">' + item.email + '</span>');
 						$(".stdList").append('<span class="form-check-input-date">' + item.registDt + '</span>');
 						$(".stdList").append("<button type='button' class='btn btn-light' id='info'>정보</button>")
+					});
+				},
+				error: function () {
+				}
+			});
+		}
+		
+		function getGraUser() {
+			
+			$(".graList").empty();
+			
+			$.ajax({
+				type: "POST",
+				url: "graUser.com",
+				dataType: "json",
+				success: function (data) {
+					$.each(data, function(index, item) { // 데이터 =item
+						//$(".stdList").append('<input class="form-check-input me-1" type="checkbox" id="permitcheck" name="permitcheck" value="' + item.pkUserSeq + '" aria-label="...">');
+						$(".graList").append('<span class="form-check-input-id">' + item.userId + '</span>');
+						$(".graList").append('<span class="form-check-input-name">' + item.name + '</span>');
+						$(".graList").append('<span class="form-check-input-email">' + item.email + '</span>');
+						$(".graList").append('<span class="form-check-input-date">' + item.registDt + '</span>');
+						$(".graList").append("<button type='button' class='btn btn-light' id='info'>정보</button>")
 					});
 				},
 				error: function () {

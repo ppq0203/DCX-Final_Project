@@ -30,6 +30,11 @@ public class SignService {
 		// TODO Auto-generated method stub
 		return SignMapper.stdList(signDto);
 	}
+	
+	public List<SignDto> graList(SignDto signDto) {
+		// TODO Auto-generated method stub
+		return SignMapper.graList(signDto);
+	}
 
 	//아이디 중복체크
 	public int checkButton(SignDto signDto) {
@@ -42,6 +47,5 @@ public class SignService {
 		// TODO Auto-generated method stub
 		SignMapper.signAlluser();
 	}
-
 
 }
