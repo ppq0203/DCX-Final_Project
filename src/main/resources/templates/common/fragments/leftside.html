@@ -2,311 +2,113 @@
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org">
 
 <!-- Head -->
-<th:block th:fragment="leftFragment">
+<div th:fragment="leftFragment">
 	<th:block th:if="${role == 'Admin'}">
 		<div>test</div>
 	</th:block>
-	<aside class="main-sidebar sidebar-dark-primary elevation-4">
-		<!-- Brand Logo -->
-
-		<!-- Sidebar -->
-		<div class="sidebar">
-			<!-- Sidebar user panel (optional) -->
-			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-				<div class="image">
-				</div>
-				<div class="info">
-					<a href="#" class="d-block">Alexander Pierce</a>
-				</div>
-			</div>
-
-			<!-- SidebarSearch Form -->
-			<div class="form-inline">
-				<div class="input-group" data-widget="sidebar-search">
-					<input class="form-control form-control-sidebar" type="search" placeholder="Search"
-						aria-label="Search">
-					<div class="input-group-append">
-						<button class="btn btn-sidebar">
-							<i class="fas fa-search fa-fw"></i>
-						</button>
+	<!-- Sidebar -->
+	<div>
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<div
+				class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden">
+				<div class="os-padding">
+					<div class="os-viewport os-viewport-native-scrollbars-invisible">
+						<div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
+							<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+								<div class="image">
+									<img src="#" class="img-circle elevation-2"
+										alt="User Image">
+								</div>
+								<div class="info">
+									<a href="#" class="d-block"></a>
+									<img src="../../../static/img/headimg-2.jpg" class="img-circle elevation-2"
+										alt="User Image">
+								</div>
+								<div class="info">
+									<a href="#" th:utext="${session.loginDto.userId}" class="d-block"></a>
+								</div>
+							</div>
+							<nav class="mt-2 append">
+								<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+									data-accordion="false">
+								</ul>
+							</nav>
+						</div>
 					</div>
 				</div>
 			</div>
+		</aside>
+	</div>
+	<!-- Sidebar Menu -->
+	<script>
+		function recursive(data, x) {
+			var str = '<ul class="nav nav-treeview">';
+			$.each(data, function (i) {
+				if (x == data[i].upperMenuNo) {
+					str += '<li class="nav-item">'
+						+ '<a href="../index.html" class="nav-link">'
+						+ '<i class="far fa-circle nav-icon"></i>'
+						+ '<p>' + data[i].menuName + '</p></a>'
+						+ recursive(data, data[i].pkMenuSeq)
+						+ '</li>'
+				}
+			});
+			str += '</ul>';
+			if (str == '<ul class="nav nav-treeview"></ul>') {
+				str = '';
+			}
+			return str
+		}
 
-			<!-- Sidebar Menu -->
-			<nav class="mt-2">
-				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-					data-accordion="false">
-					<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-					<li th:each="menu : ${menuList}" class="nav-item">
-						<a th:if="${menu.upperMenuNo == 0}" href="#" class="nav-link">
-							<i class="nav-icon fas fa-tachometer-alt"></i>
-							<p th:text="${menu.menuName}">
-								
-							</p>
-							<i class="right fas fa-angle-left"></i>
-						</a>
-						<ul class="nav nav-treeview">
-							<li th:each="menuLv2 : ${menuList}" class="nav-item">
-								<a th:if="${menu.pkMenuSeq == menuLv2.upperMenuNo}" href="../index.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p th:text="${menuLv2.menuName}"></p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li th:each="menuLv3 : ${menuList}" class="nav-item">
-										<a th:if="${menuLv2.pkMenuSeq == menuLv3.upperMenuNo}" href="../index.html" class="nav-link">
-											<i class="far fa-circle nav-icon"></i>
-											<p th:text="${menuLv3.menuName}"></p>
-										</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					
-					<!--<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-tachometer-alt"></i>
-							<p>
-								서초
-								<i class="right fas fa-angle-left"></i>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="../index.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>학생</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="../index2.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Dashboard v2</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="../index3.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Dashboard v3</p>
-								</a>
-							</li>
-						</ul>
-					</li>
-
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-copy"></i>
-							<p>
-								가산
-								<i class="fas fa-angle-left right"></i>
-								<span class="badge badge-info right">6</span>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="layout/top-nav.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Top Navigation</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="layout/top-nav-sidebar.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Top Navigation + Sidebar</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="layout/boxed.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>하생아아아아</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="layout/fixed-sidebar.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>아야요요</p>
-								</a>
-							</li>
-
-
-
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="tables/simple.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Simple Tables</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="tables/data.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>DataTables</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="tables/jsgrid.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>jsGrid</p>
-									</a>
-								</li>
-							</ul>
-					</li>
-					<li class="nav-header">EXAMPLES</li>
-					<li class="nav-item">
-						<a href="calendar.html" class="nav-link active">
-							<i class="nav-icon far fa-calendar-alt"></i>
-							<p>
-								Calendar
-								<span class="badge badge-info right">2</span>
-							</p>
-						</a>
-					</li>
-
-
-
-					<li class="nav-item">
-						<a href="mailbox/compose.html" class="nav-link">
-							<i class="far fa-circle nav-icon"></i>
-							<p>Compose</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="mailbox/read-mail.html" class="nav-link">
-							<i class="far fa-circle nav-icon"></i>
-							<p>Read</p>
-						</a>
-					</li>
-				</ul>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fas fa-book"></i>
-						<p>
-							광주
-							<i class="fas fa-angle-left right"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="examples/invoice.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Invoice</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="examples/profile.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Profile</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="examples/e-commerce.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>E-commerce</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="examples/projects.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Projects</p>
-							</a>
-						</li>
-
-
-
-						<li class="nav-item">
-							<a href="examples/contact-us.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Contact us</p>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="nav-icon far fa-plus-square"></i>
-						<p>
-							순천
-							<i class="fas fa-angle-left right"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>
-									학생1
-									<i class="fas fa-angle-left right"></i>
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="examples/login.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Login v1</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="examples/register.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Register v1</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="examples/forgot-password.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Forgot Password v1</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="examples/recover-password.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Recover Password v1</p>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-
-
-						<li class="nav-item">
-							<a href="examples/pace.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Pace</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="examples/blank.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Blank Page</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="../starter.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Starter Page</p>
-							</a>
-						</li>
-					</ul>
-				</li>-->
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fas fa-search"></i>
-						<p>
-							Search
-							<i class="fas fa-angle-left right"></i>
-						</p>
-					</a>
-
-
-
-
-					<!-- /.sidebar-menu -->
-		</div>
-		<!-- /.sidebar -->
-	</aside>
-</th:block>
+		$(document).ready(function () {
+			$.ajax({
+				type: "POST",
+				url: "getmenu.com",
+				dataType: "json",
+				success: function (data) {
+					console.log("통신성공");
+					console.log(data);
+					str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
+					$.each(data, function (i) {
+						if (0 == data[i].upperMenuNo) {
+							console.log(data[i].pkMenuSeq);
+							str += '<li class="nav-item">'
+								+ '<a href="#" class="nav-link">'
+								+ '<i class="nav-icon fas fa-tachometer-alt"></i>'
+								+ '<p>' + data[i].menuName + '</p>'
+								+ '<i class="right fas fa-angle-left"></i></a>'
+								+ recursive(data, data[i].pkMenuSeq)
+								+ '</li>';
+						}
+					});
+					str += '</ul>';
+					console.log(str);
+					$(".append").append(str);
+				},
+				error: function () {
+					console.log("통신에러");
+					if (!(data == null)) {
+						str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
+						$.each(data, function (i) {
+							if (0 == data[i].upperMenuNo) {
+								str += '<li class="nav-item">'
+									+ '<a href="#" class="nav-link">'
+									+ '<i class="nav-icon fas fa-tachometer-alt"></i>'
+									+ '<p>' + data[i].menuName + '</p>'
+									+ '<i class="right fas fa-angle-left"></i></a>'
+									+ recursive(data, data[i].pkMenuSeq)
+									+ '</li>';
+							}
+						});
+						str += '</ul>';
+						$(".append").append(str);
+					}
+				},
+				error: function () {
+				}
+			});
+		})
+	</script>
+	</th:block>
 
 </html>
