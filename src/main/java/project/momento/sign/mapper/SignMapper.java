@@ -14,9 +14,14 @@ public interface SignMapper {
 	void insertUser(SignDto signDto);
 	
 	List<SignDto> waitList(SignDto signDto);
+	
+	List<SignDto> stdList(SignDto signDto);
+	
 	//아이디 중복체크
 	int checkButton(SignDto signDto);
 
 	void signAlluser();
+
+	
 	
 }

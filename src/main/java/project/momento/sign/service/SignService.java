@@ -26,6 +26,10 @@ public class SignService {
 		return SignMapper.waitList(signDto);
 	}
 
+	public List<SignDto> stdList(SignDto signDto) {
+		// TODO Auto-generated method stub
+		return SignMapper.stdList(signDto);
+	}
 
 	//아이디 중복체크
 	public int checkButton(SignDto signDto) {
@@ -38,5 +42,6 @@ public class SignService {
 		// TODO Auto-generated method stub
 		SignMapper.signAlluser();
 	}
+
 
 }

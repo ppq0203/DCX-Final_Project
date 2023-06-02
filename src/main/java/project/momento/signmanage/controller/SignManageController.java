@@ -53,6 +53,17 @@ public class SignManageController {
 		model.addAttribute("waitList", waitList);
 		return waitList;			
 	}
+
+	@ResponseBody //ajax로 가입 대기중인 데이터 컨트롤.
+	@RequestMapping(value="/stdUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public List<SignDto> stdUser(Model model, HttpServletRequest request, SignDto signDto) {
+		// 세션에서 내 정보를 가져온다
+		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		List<SignDto> stdList = SignService.stdList(signDto);
+		System.out.println(stdList);
+		model.addAttribute("stdList", stdList);
+		return stdList;			
+	}
 	
 	@ResponseBody
 	@RequestMapping(value="/signUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST)
@@ -67,6 +78,5 @@ public class SignManageController {
 	@RequestMapping(value="/signAlluser.com", produces="application/json;charset=utf-8", method=RequestMethod.GET)
 	public void permitAllsign() {
 		SignService.signAlluser();
-		System.out.print("이게 되네.");
 	}
 }
