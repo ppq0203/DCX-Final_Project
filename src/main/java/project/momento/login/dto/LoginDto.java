@@ -36,5 +36,11 @@ public class LoginDto {
 	private String useYn;
 	/*가입한 날짜*/
 	private String registDt;
+	/*관리자 고유번호*/
+	private int pkManagerSeq;
+	/*수강상태*/
+    private String classState;
+	
+	
 
 }

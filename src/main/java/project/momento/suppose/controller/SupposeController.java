@@ -1,4 +1,4 @@
-package project.momento.qna.controller;
+package project.momento.suppose.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +18,7 @@ import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
 @Controller
-public class QnaController {
+public class SupposeController {
 
 	/*
 	 * @Autowired private SignService SignService;
@@ -32,9 +32,9 @@ public class QnaController {
 	 * param
 	 * return contents/userDivn/qna/qna 받는값
 	 */
-	@RequestMapping(value="/{userDivn}/qna/main", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String qnasMain(@PathVariable String userDivn, Model model) {
-		return "content/"+userDivn+"/qna/qna";
+	@RequestMapping(value="/{userDivn}/suppose/main", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String supposeMain(@PathVariable String userDivn, Model model) {
+		return "content/"+userDivn+"/suppose/suppose";
 	}
 
 }
