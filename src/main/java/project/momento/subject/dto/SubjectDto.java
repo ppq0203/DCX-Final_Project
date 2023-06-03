@@ -16,6 +16,8 @@ public class SubjectDto {
 	/*교육 상태(A: 준비, B: 진행, C: 종료)*/  
 	private String subjectState;
 	/*강의 시작일자*/  
+	private String subjectDt;
+	/*강의 시작일자*/  
 	private String subStartDt;
 	/*강의 종료일자*/  
 	private String subEndDt;
@@ -33,5 +35,18 @@ public class SubjectDto {
 	private String updateId;
 	/*수정 일자*/  
 	private String updateDt;
+	/*관리자 고유 식별 번호*/
+	private int pkManagerSeq;
+	/*학생 고유 식별 번호*/
+	private int pkUserSeq;
+	/*관리자 고유 식별 번호*/
+	private int[] pkManagerSeqArray;
+	/*학생 고유 식별 번호*/
+	private int[] pkUserSeqArray;
+	/*과목 명*/  
+	private String lectureName;
+	
+	
+	
 
 }

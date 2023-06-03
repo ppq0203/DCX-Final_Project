@@ -25,8 +25,43 @@
 		</section>
 		<!-- /.content -->
 	</div>
-	
-	
+	<script>
+		var calendarList = [];
+
+		$(document).ready(function () {
+
+			/* initialize the calendar
+			-----------------------------------------------------------------*/
+			//Date for the calendar events (dummy data)
+			var Calendar = FullCalendar.Calendar;
+			var Draggable = FullCalendar.Draggable;
+
+			var calendarEl = document.getElementById('calendar');
+
+			// initialize the external events
+			// -----------------------------------------------------------------
+			var calendar = new Calendar(calendarEl, {
+				headerToolbar: {
+					left: 'prev,next,today',
+					center: 'title',
+					right: 'dayGridMonth,timeGridWeek,timeGridDay'
+				},
+				themeSystem: 'bootstrap',
+				locale: "ko",
+				buttonText: {
+					today: '오늘',
+					month: '월간',
+					week: '주간',
+					day: '일간'
+				},
+				//Random default events
+				events: [],
+				editable: false,
+				droppable: false, // this allows things to be dropped onto the calendar !!!
+			})
+			calendar.render();
+		})();
+	</script>
 </th:block>
 
 

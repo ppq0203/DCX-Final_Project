@@ -27,6 +27,10 @@ public interface LoginMapper {
 //
 //	public String getName(String myid);
 
+	List<LoginDto> selectManagerList();
+
+	List<LoginDto> selectUserList();
+
 }	
 	
 	

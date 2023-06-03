@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
+import project.momento.menu.dto.MenuDto;
 
 @Controller
 public class LoginController {
@@ -50,7 +53,18 @@ public class LoginController {
 		session.invalidate();
 		return "redirect:/"+userDivn+"/login/main";
 	}
-
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/getManagerList", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public List<LoginDto> selectManagerList(Model model, HttpServletRequest request) {
+		// 세션에서 내 정보를 가져온다
+		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		List<LoginDto> resultList = loginService.selectManagerList();
+		model.addAttribute("resultList", resultList);
+		return resultList;			
+	}
+	
 
 	public List<String> userList(HttpServletRequest request) {
 		return null;
