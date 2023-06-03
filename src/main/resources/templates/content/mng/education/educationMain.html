@@ -32,51 +32,29 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">번호</th>
-						<th scope="col">제목</th>
-						<th scope="col">작성자</th>
-						<th scope="col">날짜</th>
-						<th scope="col">조회수</th>
+						<th scope="col">No.</th>
+						<th scope="col">교육명</th>
+						<th scope="col">선생님</th>
+						<th scope="col">기간</th>
+						<th scope="col">진행상태</th>
+						<th scope="col">수정</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td><span>시험 언제 보죠?</span></td>
-						<td><span>HTML</span></td>
-						<td><span>2023.05.20</span></td>
-						<td><span>1</span></td>
-					</tr>
-					<tr>
-						<th scope="row"></th>
-						<td><span>└> 뎃글 구현 해주세요 승주님</span></td>
-						<td><span>css</span></td>
-						<td><span>2023.05.20</span></td>
-						<td><span>1</span></td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td><span>질문있습니다</span></td>
-						<td><span>빅데이터</span></td>
-						<td><span>2023.05.30</span></td>
-						<td><span>1</span></td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td><span>물어볼것 있어요</span></td>
-						<td><span>HTML</span></td>
-						<td><span>2023.05.30</span></td>
-						<td><span>1</span></td>
-					</tr>
-					<tr>
-						<th scope="row">4</th>
-						<td><span>프로젝트</span></td>
-						<td><span>Java</span></td>
-						<td><span>2023.05.30</span></td>
-						<td><span>1</span></td>
+					<!-- 여기에 동적으로 생성되는 내용을 반복하여 추가할 수 있습니다 -->
+					<tr th:each="item, index : ${educationist}">
+						<td th:text="${index.index + 1}"></td>
+						<td th:text="${item.educationName}"></td>
+						<td th:text="${item.name}"></td>
+						<td th:text="${item.educationDt}"></td>
+						<td th:text="${item.educationState}"></td>
+						<td>
+							<a href="#" th:href="@{'/edit/' + ${item.pkEducationSeq}}">수정</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
+
 			<!-- /.card-body -->
 			<div class="card-footer">
 			</div>
@@ -89,18 +67,18 @@
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
 					<li class="page-item previous th-disabled" th:classappend="${paging.prev == false} ? 'disabled'">
-						<a th:href="@{/chart.com(page=${paging.startPage - 1})}" tabindex="0"
+						<a th:href="@{/mng/education/main(page=${paging.startPage - 1})}" tabindex="0"
 							class="page-link">Previous</a>
 					</li>
 					<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
 						<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
-							<a th:href="@{/chart.com(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+							<a th:href="@{/mng/education/main(page=${pNo})}" tabindex="0" aria-controls="dataTable"
 								class="page-link" th:text="${pNo}"></a>
 						</li>
 					</div>
 					<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
-						<a th:href="@{/chart.com(page=${paging.endPage + 1})}" tabindex="0" aria-controls="dataTable"
-							class="page-link">Next</a>
+						<a th:href="@{/mng/education/main(page=${paging.endPage + 1})}" tabindex="0"
+							aria-controls="dataTable" class="page-link">Next</a>
 					</li>
 				</ul>
 			</nav>
@@ -108,7 +86,7 @@
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-		<form action="/mng/subject/create" method="post">
+		<form action="/mng/education/create" name="educationInfo" method="post" onsubmit="return validation()">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
 					<div class="col-12 modal-header">
@@ -121,7 +99,7 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label>교육명</label>
-										<input name="subjectName" type="text" class="form-control">
+										<input name="educationName" type="text" class="form-control">
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -133,8 +111,8 @@
 													<i class="far fa-calendar-alt"></i>
 												</span>
 											</div>
-											<input name="subjectDt" type="text"
-												class="form-control float-right reservation" id="reservation">
+											<input name="educationDt" type="text" class="form-control float-right dateFormat"
+												id="educationDt">
 										</div>
 
 									</div>
@@ -178,12 +156,12 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label>학생 정보</label>
-										<select id="pkUserSeqArray" name="pkUserSeqArray"
-											class="duallistbox form-control" multiple="multiple"
+										<select class="duallistbox form-control" multiple="multiple"
 											th:field="*{resultList}" style="width: 100%;">
 											<option th:each="user : ${resultList}" th:value="${user.pkUserSeq}"
-												th:text="${user.name}"></option>
+												th:text="'이름: ' + ${user.name} + ' 생년월일: ' + ${user.birthday}"></option>
 										</select>
+										<input id="pkUserSeqArray" name="pkUserSeqArray" type="hidden">
 									</div>
 								</div>
 							</div>
@@ -201,7 +179,42 @@
 	</div>
 	<script>
 		var MANAGER_ARRAY = [];
+		function validation() {
+			var formData = $('.duallistbox').val();
+			console.log(formData)
+			document.educationInfo.pkUserSeqArray.value = formData
+			if (!document.educationInfo.educationName.value) {
+				alert("교육명을 입력하세요.");
+				return false;
+			}
 
+			if (!document.educationInfo.educationDt.value) {
+				alert("교육일정을 입력하세요.");
+				return false;
+			}
+			if (!document.educationInfo.pkManagerSeq.value) {
+				alert("담당자를 선택하세요.");
+				return false;
+			}
+			if (!document.educationInfo.lectureName.value) {
+				alert("과목를 입력하세요.");
+				return false;
+			}
+			if (!document.educationInfo.lectureDt.value) {
+				alert("기간을 선택하세요.");
+				return false;
+			}
+			if (!document.educationInfo.pkManagerSeqArray.value) {
+				alert("강사를 선택하세요.");
+				return false;
+			}
+			if (!document.educationInfo.pkUserSeqArray.value) {
+				alert("교육에 참여할 학생을 선택하세요.");
+				return false;
+			}
+
+			document.educationInfo.submit();
+		}
 		function rowDel(button) {
 			$(button).closest("tr").remove();
 		}
@@ -212,7 +225,7 @@
 				"<input name=\"lectureName\" type=\"text\" class=\"form-control\">" +
 				"</td>" +
 				"<td>" +
-				"<input name=\"lectureDt\" type=\"text\" class=\"form-control reservation\">" +
+				"<input name=\"lectureDt\" type=\"text\" class=\"form-control lectureDt dateFormat\">" +
 				"</td>" +
 				"<td>" +
 				"<select name=\"pkManagerSeqArray\" class=\"form-control select2\" style=\"width: 100%;\">" +
@@ -229,8 +242,19 @@
 				data: MANAGER_ARRAY,
 				theme: 'bootstrap4'
 			})
-			$('.reservation').daterangepicker()
+			$('.lectureDt').daterangepicker({
+				autoUpdateInput: false
+			})
+			$('.dateFormat').on('apply.daterangepicker', function (ev, picker) {
+				$(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+			});
+
+			$('.dateFormat').on('cancel.daterangepicker', function (ev, picker) {
+				$(this).val('');
+			});
 		}
+
+
 
 		$(document).ready(function () {
 
@@ -256,27 +280,13 @@
 				}
 			});
 
-			$('.reservation').daterangepicker();
-
-			// 이중 목록 상자 인스턴스 생성
-			var dualListbox = $('.duallistbox').bootstrapDualListbox();
-			
-			$('#your-dual-listbox-form').submit(function () {
-				var formData = $('.duallistbox').val(); //this will get as a string values from the right side Your dual listbox
-				$(function () {
-					$('#setState').val(formData); //this will change value of input id="setState"
-				});
-				$('#your-dual-listbox-form').submit(); //and here submit your form
-				return false;
+			$('#educationDt').daterangepicker({
+				autoUpdateInput: false
 			});
-			
-			
-			// setHelperSelectNamePostfix 함수 호출
-			dualListbox.bootstrapDualListbox('setHelperSelectNamePostfix', 'pkUserSeqArray', true);
+			//Bootstrap Duallistbox
+			$('.duallistbox').bootstrapDualListbox();
 
 			$('.modal').on('shown.bs.modal', function (e) {
-				// 모달이 열릴 때 실행되는 코드
-				$(this).find('form')[0].reset(); // 입력 필드 초기화
 				// 테이블 초기화
 				$(this).find('#lectTbody').empty();
 			});
@@ -287,9 +297,14 @@
 				// 테이블 초기화
 				$(this).find('#lectTbody').empty();
 			});
-			//Bootstrap Duallistbox
 
+			$('.dateFormat').on('apply.daterangepicker', function (ev, picker) {
+				$(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+			});
 
+			$('.dateFormat').on('cancel.daterangepicker', function (ev, picker) {
+				$(this).val('');
+			});
 
 		})
 
