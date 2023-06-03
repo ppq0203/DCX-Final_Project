@@ -4,7 +4,7 @@
 <mapper namespace="project.momento.room.mapper.RoomMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 <!-- Heidisql연결후 입력 저장-->
 	<!-- SELECT문 -->
-	<select id="Room" resultType="project.momento.room.dto.RoomDto">
+	<!--<select id="Room" resultType="project.momento.room.dto.RoomDto">
 		<![CDATA[
 			SELECT
 				ROOM_NAME AS roomName,
@@ -21,10 +21,10 @@
 			WHERE
 				PK_ROOM_SEQ = #{pkRoomSeq}
 		]]>
-	</select>
+	</select>-->
 	
 	<!-- INSERT문 -->
-	<insert id="Room" parameterType="project.momento.room.dto.RoomDto">
+	<!--<insert id="Room" parameterType="project.momento.room.dto.RoomDto">
 		<![CDATA[
 			INSERT INTO ROOM
 			(
@@ -53,19 +53,17 @@
 				#{updateDt}
 			)
 		]]>
-	</insert>
-	
+	</insert>-->
 	<!-- DELETE문 -->
-	<delete id="Room" parameterType="project.momento.room.dto.RoomDto">
+	<!--<delete id="Room" parameterType="project.momento.room.dto.RoomDto">
 		<![CDATA[
 			DELETE FROM ROOM
 			WHERE
 				PK_ROOM_SEQ = #{pkRoomSeq}
 		]]>
-	</delete>
-	
+	</delete>-->
 	<!-- UPDATE문 --> 
-	<update id="Room" parameterType="project.momento.room.dto.RoomDto">
+	<!--<update id="Room" parameterType="project.momento.room.dto.RoomDto">
 		<![CDATA[
 			UPDATE SET
 				ROOM
@@ -76,6 +74,6 @@
 				ROOM_PLAYTIME = #{roomPlaytime},
 				UPDATE_DT = #{updateDt}
 		]]>
-	</update>
+	</update>-->
 	
 </mapper>

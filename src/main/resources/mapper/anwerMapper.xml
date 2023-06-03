@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="project.momento.answer.mapper.ANSWERMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+<mapper namespace="project.momento.answer.mapper.AnswerMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 <!-- Heidisql연결후 입력 저장-->
 	<!-- SELECT문 -->
-	<select id="Answer" resultType="project.momento.answer.dto.AnswerDto">
+	<select id="selectAnswer" resultType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			SELECT
 				ANSWERU_SER AS AnswerSer,
@@ -22,7 +22,7 @@
 	</select>
 	
 	<!-- INSERT문 -->
-	<insert id="Answer" parameterType="project.momento.answer.dto.AnswerDto">
+	<insert id="insertAnswer" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			INSERT INTO ANSWER
 			(
@@ -55,7 +55,7 @@
 	</insert>
 	
 	<!-- DELETE문 -->
-	<delete id="Answer" parameterType="project.momento.answer.dto.AnswerDto">
+	<delete id="deleteAnswer" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			DELETE FROM ANSWER
 			WHERE
@@ -64,7 +64,7 @@
 	</delete>
 	
 	<!-- UPDATE문 --> 
-	<update id="Answer" parameterType="project.momento.answer.dto.AnswerDto">
+	<update id="updateAnswer" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			UPDATE SET
 				USER_ANSWER

@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
-/*방*/
-public class AnwerDto {
+/*풀이 답*/
+public class AnswerDto {
 	
 	/*제출답안에 부여되는 고우 번호*/
 	private int pkAnswerSeq;
