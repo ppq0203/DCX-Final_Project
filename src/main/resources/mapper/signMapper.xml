@@ -9,7 +9,6 @@
 			INSERT INTO USER
 			(	
 				PK_USER_SEQ,
-				PK_AUTH_SEQ,
 				USER_ID,
 				PASSWORD,
 				NAME,
@@ -18,12 +17,12 @@
 				ADDRESS,
 				DETAILED_ADDRESS,
 				EMAIL,
+				USER_DIVN,
 				REGIST_DT
 			)
 			VALUES
 			(	
 				ifnull(#{pkUserSeq}, null),
-				#{pkAuthSeq},
 				#{userId},
 				#{password},
 				#{name},
@@ -32,6 +31,7 @@
 				#{address},
 				#{detailedAddress},
 				#{email},
+				#{userDivn},
 				SYSDATE()
 			)
 			ON DUPLICATE KEY UPDATE

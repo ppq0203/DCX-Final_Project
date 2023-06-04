@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/defaultLayout}">
-
 <th:block layout:fragment="content">
+<<<<<<< HEAD
 <div class="content-wrapper">
 	<!-- Main content -->
 	<section class="content" >
@@ -14,23 +14,33 @@
 						<div class="card-body">
 							<!-- THE CALENDAR -->
 							<div id="calendar"></div>
+=======
+	<div class="content-wrapper">
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<!-- /.col -->
+					<div class="col-md-12">
+						<div class="card card-primary">
+							<div class="card-body">
+								<!-- THE CALENDAR -->
+								<div id="calendar"></div>
+							</div>
+							<!-- /.card-body -->
+>>>>>>> refs/remotes/origin/LMS_all
 						</div>
-						<!-- /.card-body -->
+						<!-- /.card -->
 					</div>
-					<!-- /.card -->
+					<!-- /.col -->
 				</div>
-				<!-- /.col -->
-			</div>
-			<!-- /.row -->
-		</div><!-- /.container-fluid -->
-	</section>
-	<!-- /.content -->
-</div>
-	<script>
-var calendarList = []; 
-  
-$( document ).ready(function() {
+				<!-- /.row -->
+			</div><!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
 	
+<<<<<<< HEAD
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 	//Date for the calendar events (dummy data)
@@ -82,6 +92,10 @@ calendarList = controlData;
 calendar.setOption('events', calendarList);
 });
 	</script>
+=======
+	
+>>>>>>> refs/remotes/origin/LMS_all
 </th:block>
+
 
 </html>
