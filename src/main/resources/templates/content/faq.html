@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+
+<div layout:fragment="content">
+	<!--모달창-->
+	<div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- 모달 내용 -->
+                <div class="modal-content">
+                    <div class="modal-header">
+						<h4 class="modal-title">메일 보내기</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="emailForm">
+                            <div class="form-group">
+                                <label for="email">받는 사람:</label>
+                                <input type="email" class="form-control" id="email" placeholder="이메일 주소를 입력하세요" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">제목:</label>
+                                <input type="text" class="form-control" id="subject" placeholder="제목을 입력하세요" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">메시지:</label>
+                                <textarea class="form-control" id="message" placeholder="메시지를 입력하세요" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-default">보내기</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+	<div class="content-wrapper">
+		<!-- Main content -->
+		<section class="content">
+			<div class="col-12" style="margin-bottom: 2vw;">
+				<div class="col-1 pt-3">
+					<h2>FAQ</h2>
+				</div>
+				<div align="right">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">문의하기</button>
+				</div>
+				
+			</div>
+		</section>
+		<div class="row">
+			<div class="col-12" id="accordion">
+				<div class="card card-primary card-outline">
+					<a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false">
+						<div class="card-header">
+							<h4 class="card-title w-100">
+								1. 이번 프로젝트 어떻게 생각하시나요?
+							</h4>
+						</div>
+					</a>
+					<div id="collapseOne" class="collapse" data-parent="#accordion" style="">
+						<div class="card-body">
+							망한거 같아요
+						</div>
+					</div>
+				</div>
+				<div class="card card-primary card-outline">
+					<a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
+						<div class="card-header">
+							<h4 class="card-title w-100">
+								2. 어쩌구
+							</h4>
+						</div>
+					</a>
+					<div id="collapseTwo" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							저쩌구
+						</div>
+					</div>
+				</div>
+				<div class="card card-primary card-outline">
+					<a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
+						<div class="card-header">
+							<h4 class="card-title w-100">
+								3. 뭘 해야할까요?
+							</h4>
+						</div>
+					</a>
+					<div id="collapseThree" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							뭘 해야할지 모르겠어요
+						</div>
+					</div>
+				</div>
+				<div class="card card-warning card-outline">
+					<a class="d-block w-100" data-toggle="collapse" href="#collapseFour">
+						<div class="card-header">
+							<h4 class="card-title w-100">
+								4. 집가고싶다
+							</h4>
+						</div>
+					</a>
+					<div id="collapseFour" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							집...
+						</div>
+					</div>
+				</div>
+				<div class="card card-warning card-outline">
+					<a class="d-block w-100" data-toggle="collapse" href="#collapseFive">
+						<div class="card-header">
+							<h4 class="card-title w-100">
+								5. 아 등록폼 언제 만들지?
+							</h4>
+						</div>
+					</a>
+					<div id="collapseFive" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							언젠가
+						</div>
+					</div>
+				</div>
+				<div class="card card-warning card-outline">
+					<a class="d-block w-100" data-toggle="collapse" href="#collapseSix">
+						<div class="card-header">
+							<h4 class="card-title w-100">
+								6. 내 주말..
+							</h4>
+						</div>
+					</a>
+					<div id="collapseSix" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
+						</div>
+					</div>
+				</div>
+				<div class="card card-danger card-outline">
+					<a class="d-block w-100" data-toggle="collapse" href="#collapseSeven">
+						<div class="card-header">
+							<h4 class="card-title w-100">
+								7. 오우 만들기 귀찮아...
+							</h4>
+						</div>
+					</a>
+					<div id="collapseSeven" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							그래도..만들어야지..?
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+</div>
+<script>
+	$(document).ready(function () {
+		$("#cbx_all").click(function () {
+			if ($("#cbx_all").is(":checked")) $("input[name=chk]").prop("checked", true);
+			else $("input[name=chk]").prop("checked", false);
+		});
+
+		$("input[name=chk]").click(function () {
+			var total = $("input[name=chk]").length;
+			var checked = $("input[name=chk]:checked").length;
+
+			if (total != checked) $("#cbx_chkAll").prop("checked", false);
+			else $("#cbx_chkAll").prop("checked", true);
+		});
+	});
+	$(document).ready(function () {
+            // 폼 제출 이벤트 처리
+            $("#emailForm").submit(function (event) {
+                event.preventDefault(); // 폼 제출 기본 동작 중단
+                var email = $("#email").val();
+                var subject = $("#subject").val();
+                var message = $("#message").val();
+                
+                // AJAX를 사용하여 PHP 스크립트에 데이터 전송
+                $.ajax({
+                    url: "send_email.php", // PHP 스크립트의 경로
+                    type: "POST",
+                    data: {
+                        email: email,
+                        subject: subject,
+                        message: message
+                    },
+                    success: function (response) {
+                        // 응답 처리
+                        alert(response); // 메일 전송 결과 알림
+                        $("#myModal").modal("hide"); // 모달 창 닫기
+                    }
+                });
+            });
+        });
+</script>
+
+<!--유진상-->
+
+</th:block>
+
+</html>

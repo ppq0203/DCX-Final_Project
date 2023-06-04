@@ -8,7 +8,7 @@
 		<div class="modal-dialog modal-dialog-cented modal-xl">
 			<div class="modal-content">
 				<div class="col-12 modal-header">
-					<h4 class="col-12 modal-title text-center">학생 정보</h4>
+					<h4 class="col-12 modal-title text-center">수료생 정보</h4>
 					<!--<button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">-->
 					<!--<span aria-hidden="true">×</span>-->
 					</button>
@@ -76,7 +76,7 @@
 				<div class="modal-footer justify-content-between">
 					<div class="col-12">
 						<div class="col-1 mx-auto">
-							<button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary">닫기</button>
 						</div>
 					</div>
 				</div>
@@ -88,7 +88,7 @@
 		<section class="content">
 			<div class="col-12">
 				<div class="col-1">
-					<span>학생관리</span>
+					<span>수료생 관리</span>
 				</div>
 			</div>
 		</section>
@@ -104,12 +104,13 @@
 						<td>
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox" value="" id="cbx_all">
+								</label>
 							</div>
 						</td>
 						<th scope="col">이름</th>
 						<th scope="col">이메일</th>
 						<th scope="col">가입일자</th>
-						<th scope="col">가입승인</th>
+						<th scope="col">수료여부</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -125,9 +126,9 @@
 						<td><span>이메일</span></td>
 						<td><span>2023.05.20</span></td>
 						<td>
-							<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-								<option selected>승인</option>
-								<option value="1">거부</option>
+							<select class="form-select form-select-lg mb-3 text-center" aria-label=".form-select-lg example">
+								<option selected>수료</option>
+								<option value="1">미수료</option>
 							</select>
 						</td>
 					</tr>
@@ -149,9 +150,9 @@
 		</div>
 		<div class="row-cols-1 text-center" style="margin-top: 7vw;">
 			<div class="container">
-				<div class="col-12">
-					<div class="col-1" style="margin-bottom: 3vw;">
-						<span>학생 리스트</span>
+				<div class="col-12 text-left">
+					<div class="col-12" style="margin-bottom: 3vw;">
+						<span>수료생 리스트</span>
 					</div>
 				</div>
 			</div>
@@ -161,8 +162,9 @@
 						<th scope="col">No.</th>
 						<th scope="col">이름</th>
 						<th scope="col">이메일</th>
-						<th scope="col">출석률</th>
-						<th scope="col">학생정보</th>
+						<th scope="col">수료일자</th>
+						<th scope="col">취업분야</th>
+						<th scope="col">수료생 정보</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -170,7 +172,8 @@
 						<td><span>1</span></td>
 						<td><span>이름</span></td>
 						<td><span>이메일</span></td>
-						<td><span>55%</span></td>
+						<td><span>2023.05.20</span></td>
+						<td><span>모름</span></td>
 						<td>
 							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl">
 								상세보기
