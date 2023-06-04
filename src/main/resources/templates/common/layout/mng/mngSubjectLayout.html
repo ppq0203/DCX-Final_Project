@@ -19,11 +19,11 @@
 	<link th:href="@{/plugins/select2/css/select2.min.css}" rel="stylesheet">
 	<link th:href="@{/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}" rel="stylesheet">
 	<link th:href="@{/plugins/daterangepicker/daterangepicker.css}" rel="stylesheet">
-	
+
 	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
-	
+
 	<script th:src="@{/js/adminlte.min.js}"></script>
 	<script th:src="@{/plugins/jquery-ui/jquery-ui.min.js}"></script>
 	<script th:src="@{/plugins/moment/moment.min.js}"></script>
@@ -38,8 +38,11 @@
 	<div class="wrapper">
 		<th:block th:replace="common/fragments/mng/mngHeader :: headFragment"></th:block>
 		<th:block th:replace="common/fragments/mng/mngLeft :: leftFragment"></th:block>
-		<th:block layout:fragment="content"></th:block>
-
+		<div class="content-wrapper" style="background-color: #fff;">
+			<th:block th:replace="common/fragments/mng/mngbanner :: bannerFragment"></th:block>
+			<th:block th:replace="common/fragments/mng/mngTab :: tabFragment"></th:block>
+			<th:block layout:fragment="content"></th:block>
+		</div>
 	</div>
 </body>
 

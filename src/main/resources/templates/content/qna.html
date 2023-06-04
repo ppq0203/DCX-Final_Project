@@ -1,19 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/defaultLayout}">
+	layout:decorate="~{common/layout/mng/mngDefaultLayout}">
 
 <div layout:fragment="content">
-	<div class="content-wrapper">
-		<!-- Main content -->
-		<section class="content" style="background-color: aqua;height: 250px;">
-			<div class="container">
-				<div class="row" "mt-4">
-					<div class="col-sm-">
-					</div>
-					<div class="col-sm-2">
-						<span>QnA</span>
-					</div>
+
+	<div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
+		aria-labelledby="custom-tabs-four-profile-tab">
+		<div class="row">
+			<div class="col-12 p-5">
+				<h2 class="p-2">강의일정</h2>
+				<div class="card-tools">
 				</div>
+				<!-- /.card-header -->
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">번호</th>
+							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
+							<th scope="col">날짜</th>
+							<th scope="col">조회수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td><span>시험 언제 보죠?</span></td>
+							<td><span>HTML</span></td>
+							<td><span>2023.05.20</span></td>
+							<td><span>1</span></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td><span>└> 뎃글 구현 해주세요 승주님</span></td>
+							<td><span>css</span></td>
+							<td><span>2023.05.20</span></td>
+							<td><span>1</span></td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td><span>질문있습니다</span></td>
+							<td><span>빅데이터</span></td>
+							<td><span>2023.05.30</span></td>
+							<td><span>1</span></td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td><span>물어볼것 있어요</span></td>
+							<td><span>HTML</span></td>
+							<td><span>2023.05.30</span></td>
+							<td><span>1</span></td>
+						</tr>
+						<tr>
+							<th scope="row">4</th>
+							<td><span>프로젝트</span></td>
+							<td><span>Java</span></td>
+							<td><span>2023.05.30</span></td>
+							<td><span>1</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- /.card-body -->
+				<div class="card-footer">
+				</div>
+			</div>
+
 			</div>
 		</section>
 		<div class="row-cols-1">
@@ -68,6 +119,36 @@
 
 
 
-</th:block>
+
+	<div class="row-cols-1">
+
+	</div>
+
+
+
+	<div class="row
+				p-3">
+		<div class="col-11"></div>
+		<button type="button col-1 " class="btn btn-dark">글 쓰기</button>
+
+	</div>
+
+
+
+	<div class="row">
+		<div class="col-5 p-3"></div>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<li class="page-item "><a class="page-link" href="#">Previous</a></li>
+				<li class="page-item "><a class="page-link" href="#">1</a></li>
+				<li class="page-item "><a class="page-link" href="#">2</a></li>
+				<li class="page-item "><a class="page-link" href="#">3</a></li>
+				<li class="page-item "><a class="page-link" href="#">Next</a></li>
+			</ul>
+		</nav>
+	</div>
+
+
+	</th:block>
 
 </html>

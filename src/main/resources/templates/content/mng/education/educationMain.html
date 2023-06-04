@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/mng/mngDeshboardLayout}">
+<!-- Main content -->
+<style>
+	.select2-selection__rendered {
+		line-height: 31px !important;
+	}
+
+	.select2-container .select2-selection--single {
+		height: 35px !important;
+	}
+
+	.select2-selection__arrow {
+		height: 34px !important;
+	}
+</style>
+<th:block layout:fragment="content">
+	<div class="row">
+		<div class="col-12 p-5">
+			<div class="row">
+				<div class="col-6">
+					<h2>교육목록</h2>
+				</div>
+				<div class="card-tools col-6 text-right">
+					<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary btn-sm">
+						<span>등록</span>
+					</button>
+				</div>
+			</div>
+			<!-- /.card-header -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">교육명</th>
+						<th scope="col">선생님</th>
+						<th scope="col">기간</th>
+						<th scope="col">진행상태</th>
+						<th scope="col">수정</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 여기에 동적으로 생성되는 내용을 반복하여 추가할 수 있습니다 -->
+					<tr th:each="item, index : ${educationist}">
+						<td th:text="${index.index + 1}"></td>
+						<td th:text="${item.educationName}"></td>
+						<td th:text="${item.name}"></td>
+						<td th:text="${item.educationDt}"></td>
+						<td th:text="${item.educationState}"></td>
+						<td>
+							<a href="#" th:href="@{'/edit/' + ${item.pkEducationSeq}}">수정</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item previous th-disabled" th:classappend="${paging.prev == false} ? 'disabled'">
+						<a th:href="@{/mng/education/main(page=${paging.startPage - 1})}" tabindex="0"
+							class="page-link">Previous</a>
+					</li>
+					<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+						<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
+							<a th:href="@{/mng/education/main(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+								class="page-link" th:text="${pNo}"></a>
+						</li>
+					</div>
+					<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
+						<a th:href="@{/mng/education/main(page=${paging.endPage + 1})}" tabindex="0"
+							aria-controls="dataTable" class="page-link">Next</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<form action="/mng/education/create" name="educationInfo" method="post" onsubmit="return validation()">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<h4 class="col-12 modal-title text-center">교육 등록</h4>
+						<input type="hidden">
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>교육명</label>
+										<input name="educationName" type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>교육 일정</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="far fa-calendar-alt"></i>
+												</span>
+											</div>
+											<input name="educationDt" type="text" class="form-control float-right dateFormat"
+												id="educationDt">
+										</div>
+
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>담당자</label>
+										<select id="pkManagerSeq" name="pkManagerSeq" class="form-control select2bs4"
+											style="width: 100%;" tabindex="-1" aria-hidden="true">
+										</select>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+
+										<div class="row">
+											<div class="col-6">
+												<label>과목 정보</label>
+											</div>
+											<div class="card-tools col-6 text-right">
+												<button onclick="javascript:rowAdd();" type="button"
+													class="btn btn-primary btn-sm">
+													<span>추가</span>
+												</button>
+											</div>
+										</div>
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col">과목</th>
+													<th scope="col">기간</th>
+													<th scope="col">강사</th>
+													<th scope="col">삭제</th>
+												</tr>
+											</thead>
+											<tbody id="lectTbody">
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>학생 정보</label>
+										<select class="duallistbox form-control" multiple="multiple"
+											th:field="*{resultList}" style="width: 100%;">
+											<option th:each="user : ${resultList}" th:value="${user.pkUserSeq}"
+												th:text="'이름: ' + ${user.name} + ' 생년월일: ' + ${user.birthday}"></option>
+										</select>
+										<input id="pkUserSeqArray" name="pkUserSeqArray" type="hidden">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">
+							<span>등록</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+		var MANAGER_ARRAY = [];
+		function validation() {
+			var formData = $('.duallistbox').val();
+			console.log(formData)
+			document.educationInfo.pkUserSeqArray.value = formData
+			if (!document.educationInfo.educationName.value) {
+				alert("교육명을 입력하세요.");
+				return false;
+			}
+
+			if (!document.educationInfo.educationDt.value) {
+				alert("교육일정을 입력하세요.");
+				return false;
+			}
+			if (!document.educationInfo.pkManagerSeq.value) {
+				alert("담당자를 선택하세요.");
+				return false;
+			}
+			if (!document.educationInfo.lectureName.value) {
+				alert("과목를 입력하세요.");
+				return false;
+			}
+			if (!document.educationInfo.lectureDt.value) {
+				alert("기간을 선택하세요.");
+				return false;
+			}
+			if (!document.educationInfo.pkManagerSeqArray.value) {
+				alert("강사를 선택하세요.");
+				return false;
+			}
+			if (!document.educationInfo.pkUserSeqArray.value) {
+				alert("교육에 참여할 학생을 선택하세요.");
+				return false;
+			}
+
+			document.educationInfo.submit();
+		}
+		function rowDel(button) {
+			$(button).closest("tr").remove();
+		}
+		function rowAdd() {
+			$("#lectTbody").append(
+				"<tr>" +
+				"<td>" +
+				"<input name=\"lectureName\" type=\"text\" class=\"form-control\">" +
+				"</td>" +
+				"<td>" +
+				"<input name=\"lectureDt\" type=\"text\" class=\"form-control lectureDt dateFormat\">" +
+				"</td>" +
+				"<td>" +
+				"<select name=\"pkManagerSeqArray\" class=\"form-control select2\" style=\"width: 100%;\">" +
+				"</select>" +
+				"</td>" +
+				"<td>" +
+				"<button onclick=\"javascript:rowDel(this);\" type=\"button\" class=\"btn btn-danger btn-sm\">" +
+				"<span>삭제</span>" +
+				"</button>" +
+				"</td>" +
+				"</tr>"
+			);
+			$('.select2').select2({
+				data: MANAGER_ARRAY,
+				theme: 'bootstrap4'
+			})
+			$('.lectureDt').daterangepicker({
+				autoUpdateInput: false
+			})
+			$('.dateFormat').on('apply.daterangepicker', function (ev, picker) {
+				$(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+			});
+
+			$('.dateFormat').on('cancel.daterangepicker', function (ev, picker) {
+				$(this).val('');
+			});
+		}
+
+
+
+		$(document).ready(function () {
+
+			$.ajax({
+				type: "POST",
+				url: "/getManagerList",
+				dataType: "json",
+				success: function (data) {
+					$.each(data, function (index, item) {
+						MANAGER_ARRAY.push(
+							{
+								"id": item.pkManagerSeq,
+								"text": item.name
+							}
+						);
+					});
+					$('#pkManagerSeq').select2({
+						data: MANAGER_ARRAY,
+						theme: 'bootstrap4'
+					})
+				},
+				error: function () {
+				}
+			});
+
+			$('#educationDt').daterangepicker({
+				autoUpdateInput: false
+			});
+			//Bootstrap Duallistbox
+			$('.duallistbox').bootstrapDualListbox();
+
+			$('.modal').on('shown.bs.modal', function (e) {
+				// 테이블 초기화
+				$(this).find('#lectTbody').empty();
+			});
+
+			$('.modal').on('hidden.bs.modal', function (e) {
+				// 모달이 닫힐 때 실행되는 코드
+				$(this).find('form')[0].reset(); // 입력 필드 초기화
+				// 테이블 초기화
+				$(this).find('#lectTbody').empty();
+			});
+
+			$('.dateFormat').on('apply.daterangepicker', function (ev, picker) {
+				$(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+			});
+
+			$('.dateFormat').on('cancel.daterangepicker', function (ev, picker) {
+				$(this).val('');
+			});
+
+		})
+
+	</script>
+</th:block>
+
+</html>
