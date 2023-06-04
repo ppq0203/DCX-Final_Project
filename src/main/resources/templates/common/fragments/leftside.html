@@ -15,11 +15,11 @@
 								<img th:src="@{/img/headimg-2.jpg}" class="img-circle elevation-2" alt="User Image">
 							</div>
 							<div class="info">
-								<a href="#" th:utext="${session.loginDto.userId}" class="d-block"></a>
+								<a href="#" th:if="${session.loginDto != null}" th:utext="${session.loginDto.userId}" class="d-block"></a>
 							</div>
 						</div>
 						<div class="info">
-							<a href="#" th:utext="${session.loginDto.userId}" class="d-block"></a>
+							<a href="#" th:if="${session.loginDto != null}" th:utext="${session.loginDto.userId}" class="d-block"></a>
 						</div>
 					</div>
 					<nav class="mt-2 append">
