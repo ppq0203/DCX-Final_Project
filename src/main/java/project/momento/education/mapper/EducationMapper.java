@@ -10,9 +10,14 @@ import project.momento.page.Criteria;
 @Mapper
 public interface EducationMapper {
 
-	EducationDto selectEducation(EducationDto subjectDto);
+	List<EducationDto> selectEducation(EducationDto subjectDto);
 
 	List<EducationDto> selectEducationList(Criteria cri);
 
 	int selectEducationCount(Criteria cri);
+
+	List<EducationDto> selectSubjectList(int pkEducationSeq);
+
+	List<EducationDto> selectEducationStudList(int pkEducationSeq);
+
 }

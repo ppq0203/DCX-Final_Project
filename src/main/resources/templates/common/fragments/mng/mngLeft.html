@@ -15,11 +15,11 @@
 								<img th:src="@{/img/headimg-2.jpg}" class="img-circle elevation-2" alt="User Image">
 							</div>
 							<div class="info">
-								<a href="#" th:utext="${session.loginDto.userId}" class="d-block"></a>
+								<a href="#" th:if="${session.loginDto != null}" th:utext="${session.loginDto.userId}" class="d-block"></a>
 							</div>
 						</div>
 						<div class="info">
-							<a href="#" th:utext="${session.loginDto.userId}" class="d-block"></a>
+							<a href="#" th:if="${session.loginDto != null}" th:utext="${session.loginDto.userId}" class="d-block"></a>
 						</div>
 					</div>
 					<nav class="mt-2 append">
@@ -58,9 +58,11 @@
 				url: "/getmenu.com",
 				dataType: "json",
 				success: function (data) {
+					$(".append").empty();
 					str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
 					$.each(data, function (i) {
 						if (0 == data[i].upperMenuNo) {
+							console.log(data[i].pkMenuSeq);
 							str += '<li class="nav-item">'
 								+ '<a href="#" class="nav-link">'
 								+ '<i class="nav-icon fas fa-th"></i>'
@@ -72,24 +74,6 @@
 					});
 					str += '</ul>';
 					$(".append").append(str);
-				},
-				error: function () {
-					if (!(data == null)) {
-						str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
-						$.each(data, function (i) {
-							if (0 == data[i].upperMenuNo) {
-								str += '<li class="nav-item">'
-									+ '<a href="#" class="nav-link">'
-									+ '<i class="nav-icon fas fa-tachometer-alt"></i>'
-									+ '<p>' + data[i].menuName + '</p>'
-									+ '<i class="right fas fa-angle-left"></i></a>'
-									+ recursive(data, data[i].pkMenuSeq)
-									+ '</li>';
-							}
-						});
-						str += '</ul>';
-						$(".append").append(str);
-					}
 				},
 				error: function () {
 				}

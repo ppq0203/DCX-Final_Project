@@ -3,17 +3,6 @@
 	layout:decorate="~{common/layout/mng/mngDeshboardLayout}">
 <!-- Main content -->
 <style>
-	.select2-selection__rendered {
-		line-height: 31px !important;
-	}
-
-	.select2-container .select2-selection--single {
-		height: 35px !important;
-	}
-
-	.select2-selection__arrow {
-		height: 34px !important;
-	}
 </style>
 <th:block layout:fragment="content">
 	<div class="row">
@@ -42,14 +31,18 @@
 				</thead>
 				<tbody>
 					<!-- 여기에 동적으로 생성되는 내용을 반복하여 추가할 수 있습니다 -->
-					<tr th:each="item, index : ${educationist}">
+					<tr th:each="item, index : ${educationList}">
 						<td th:text="${index.index + 1}"></td>
 						<td th:text="${item.educationName}"></td>
 						<td th:text="${item.name}"></td>
 						<td th:text="${item.educationDt}"></td>
 						<td th:text="${item.educationState}"></td>
 						<td>
-							<a href="#" th:href="@{'/edit/' + ${item.pkEducationSeq}}">수정</a>
+							<button data-toggle="modal" data-target="#modal-xl"
+								th:attr="pkEducationSeq=${item.pkEducationSeq}" type="button"
+								class="btn btn-info updateBtn">
+								<span>수정</span>
+							</button>
 						</td>
 					</tr>
 				</tbody>
@@ -99,7 +92,7 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label>교육명</label>
-										<input name="educationName" type="text" class="form-control">
+										<input id="educationName" name="educationName" type="text" class="form-control">
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -111,8 +104,8 @@
 													<i class="far fa-calendar-alt"></i>
 												</span>
 											</div>
-											<input name="educationDt" type="text" class="form-control float-right dateFormat"
-												id="educationDt">
+											<input id="educationDt" name="educationDt" type="text"
+												class="form-control float-right dateFormat">
 										</div>
 
 									</div>
@@ -123,6 +116,18 @@
 										<select id="pkManagerSeq" name="pkManagerSeq" class="form-control select2bs4"
 											style="width: 100%;" tabindex="-1" aria-hidden="true">
 										</select>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>학생정보</label>
+										<select id="pkUserSeq" name="pkUserSeq" multiple="multiple" class="form-control"
+											style="width: 100%;">
+											<option th:each="user : ${userList}" th:value="${user.pkUserSeq}"
+												th:text="${'이름: ' + user.name + ' 생년월일: ' + user.birthday}">
+											</option>
+										</select>
+
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -153,17 +158,7 @@
 										</table>
 									</div>
 								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<label>학생 정보</label>
-										<select class="duallistbox form-control" multiple="multiple"
-											th:field="*{resultList}" style="width: 100%;">
-											<option th:each="user : ${resultList}" th:value="${user.pkUserSeq}"
-												th:text="'이름: ' + ${user.name} + ' 생년월일: ' + ${user.birthday}"></option>
-										</select>
-										<input id="pkUserSeqArray" name="pkUserSeqArray" type="hidden">
-									</div>
-								</div>
+
 							</div>
 						</div>
 					</div>
@@ -177,8 +172,13 @@
 			</div>
 		</form>
 	</div>
+
 	<script>
 		var MANAGER_ARRAY = [];
+		var SUBJECT_ARRAY = [];
+		var EDUCATION_ARRAY = [];
+		var educateManagerBox;
+		var educateUserBox;
 		function validation() {
 			var formData = $('.duallistbox').val();
 			console.log(formData)
@@ -215,95 +215,180 @@
 
 			document.educationInfo.submit();
 		}
+
+
 		function rowDel(button) {
-			$(button).closest("tr").remove();
+			SUBJECT_ARRAY.splice($(button).attr('index'), 1);
+			arrayInit();
 		}
 		function rowAdd() {
-			$("#lectTbody").append(
-				"<tr>" +
-				"<td>" +
-				"<input name=\"lectureName\" type=\"text\" class=\"form-control\">" +
-				"</td>" +
-				"<td>" +
-				"<input name=\"lectureDt\" type=\"text\" class=\"form-control lectureDt dateFormat\">" +
-				"</td>" +
-				"<td>" +
-				"<select name=\"pkManagerSeqArray\" class=\"form-control select2\" style=\"width: 100%;\">" +
-				"</select>" +
-				"</td>" +
-				"<td>" +
-				"<button onclick=\"javascript:rowDel(this);\" type=\"button\" class=\"btn btn-danger btn-sm\">" +
-				"<span>삭제</span>" +
-				"</button>" +
-				"</td>" +
-				"</tr>"
-			);
-			$('.select2').select2({
-				data: MANAGER_ARRAY,
-				theme: 'bootstrap4'
-			})
-			$('.lectureDt').daterangepicker({
-				autoUpdateInput: false
-			})
-			$('.dateFormat').on('apply.daterangepicker', function (ev, picker) {
-				$(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+			SUBJECT_ARRAY.push({})
+			arrayInit();
+		}
+		function option() {
+			var options = "";
+			$.each(MANAGER_ARRAY, function (index, item) {
+				options += "<option value=\"" + item.pkManagerSeq + "\">" + item.name + "</option>";
+			});
+			console.log(options)
+			return options;
+		}
+		function arrayInit() {
+			// 오름 차순 정렬
+			$("#lectTbody").empty();
+			$('#pkUserSeq').val(null).trigger('change');
+			SUBJECT_ARRAY = SUBJECT_ARRAY.slice().sort(function (a, b) {
+				return a - b;
 			});
 
-			$('.dateFormat').on('cancel.daterangepicker', function (ev, picker) {
-				$(this).val('');
+			$.each(EDUCATION_ARRAY, function (index, item) {
+				var pkUserSeqArray = item.pkUserSeqArray;
+				var pkUserSeqArraySplit = pkUserSeqArray.split(",");
+				var pkUserSeqList = [];
+				for (var i = 0; i < pkUserSeqArraySplit.length; i++) {
+					var pkUserSeqInt = parseInt(pkUserSeqArraySplit[i]);
+					pkUserSeqList.push(pkUserSeqInt);
+				}
+				$("#educationName").val(item.educationName);
+				$("#educationDt").val(item.educationDt);
+				educateManagerBox.val(item.pkManagerSeq).trigger("change");
+				educateUserBox.val(pkUserSeqList).trigger("change");
+			});
+
+
+			$.each(SUBJECT_ARRAY, function (index, item) {
+				console.log(item.subjectName)
+				$("#lectTbody").append(
+					"<tr>" +
+					"<td>" +
+					"<input name=\"subjectName\" type=\"text\" class=\"form-control\" value=\"" + (item.subjectName === undefined ? "" : item.subjectName) + "\">" +
+					"</td>" +
+					"<td>" +
+					"<input name=\"subjectDt\" type=\"text\" class=\"form-control subjectDt dateFormat\">" +
+					"</td>" +
+					"<td>" +
+					"<select name=\"pkManagerSeqArray\" class=\"form-control managerSelect\" style=\"width: 100%;\">" +
+					option() +
+					"</select>" +
+					"</td>" +
+					"<td>" +
+					"<button index=\"" + index + "\" onclick=\"javascript:rowDel(this);\" type=\"button\" class=\"btn btn-danger btn-sm\">" +
+					"<span>삭제</span>" +
+					"</button>" +
+					"</td>" +
+					"</tr>"
+				);
+
+				var rangeDate = $('.subjectDt').daterangepicker({
+					linkedCalendars: false,
+					drops: 'up',
+					"locale": {
+						"format": "YYYY-MM-DD",
+						"separator": " ~ ",
+						"applyLabel": "적용",
+						"cancelLabel": "취소",
+						"fromLabel": "From",
+						"toLabel": "To",
+						"customRangeLabel": "Custom",
+						"daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+						"monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+					}
+				}, function (start, end, label) {
+					console.log('선택된 날짜: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+				}).last();
+				console.log(item.pkManagerSeq)
+				rangeDate.data('daterangepicker').setStartDate(item.subStartDt);
+				rangeDate.data('daterangepicker').setEndDate(item.subEndDt);
+
+				var managerSelect = $('.managerSelect').last();
+
+				managerSelect.val(item.pkManagerSeq).trigger("change");
+				console.log(item.pkManagerSeq == "" ? null : item.pkManagerSeq)
 			});
 		}
-
-
-
 		$(document).ready(function () {
 
 			$.ajax({
-				type: "POST",
-				url: "/getManagerList",
-				dataType: "json",
+				url: '/getUserList',
+				type: 'POST',
+				dataType: 'json',
 				success: function (data) {
-					$.each(data, function (index, item) {
-						MANAGER_ARRAY.push(
-							{
-								"id": item.pkManagerSeq,
-								"text": item.name
-							}
-						);
-					});
-					$('#pkManagerSeq').select2({
+
+					MANAGER_ARRAY = data.managerList;
+					USER_ARRAY = data.userList;
+
+					educateManagerBox = $('#pkManagerSeq').select2({
 						data: MANAGER_ARRAY,
+						dropdownParent: $('#modal-xl'),
 						theme: 'bootstrap4'
-					})
+					});
+					educateUserBox = $('#pkUserSeq').select2({
+						dropdownParent: $('#modal-xl'),
+						theme: 'bootstrap4'
+					});
 				},
-				error: function () {
+				error: function (xhr, status, error) {
+					console.log(error); // 에러 처리
 				}
 			});
 
 			$('#educationDt').daterangepicker({
-				autoUpdateInput: false
-			});
-			//Bootstrap Duallistbox
-			$('.duallistbox').bootstrapDualListbox();
-
+				linkedCalendars: false,
+				drops: 'down',
+				"locale": {
+					"format": "YYYY-MM-DD",
+					"separator": " ~ ",
+					"applyLabel": "적용",
+					"cancelLabel": "취소",
+					"fromLabel": "From",
+					"toLabel": "To",
+					"customRangeLabel": "Custom",
+					"daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+					"monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+				}
+			}, function (start, end, label) {
+				console.log('선택된 날짜: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+			})
 			$('.modal').on('shown.bs.modal', function (e) {
 				// 테이블 초기화
-				$(this).find('#lectTbody').empty();
+				//$(this).find('#lectTbody').empty();
 			});
 
 			$('.modal').on('hidden.bs.modal', function (e) {
 				// 모달이 닫힐 때 실행되는 코드
 				$(this).find('form')[0].reset(); // 입력 필드 초기화
 				// 테이블 초기화
-				$(this).find('#lectTbody').empty();
-			});
-
-			$('.dateFormat').on('apply.daterangepicker', function (ev, picker) {
-				$(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+				//$(this).find('#lectTbody').empty();
+				SUBJECT_ARRAY = [];
+				EDUCATION_ARRAY = [];
+				arrayInit();
 			});
 
 			$('.dateFormat').on('cancel.daterangepicker', function (ev, picker) {
 				$(this).val('');
+			});
+
+			$('.updateBtn').click(function () {
+				// AJAX 호출
+				$.ajax({
+					url: '/getsubjectList',
+					type: 'POST',
+					data: {
+						pkEducationSeq: $(this).attr('pkEducationSeq')
+					},
+					dataType: 'json',
+					success: function (data) {
+						SUBJECT_ARRAY = [];
+						EDUCATION_ARRAY = [];
+						SUBJECT_ARRAY = data.subjectList;
+						EDUCATION_ARRAY = data.educationList;
+
+						arrayInit();
+					},
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
 			});
 
 		})

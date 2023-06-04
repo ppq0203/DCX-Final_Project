@@ -1,6 +1,9 @@
 package project.momento.login.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,17 +57,20 @@ public class LoginController {
 		return "redirect:/"+userDivn+"/login/main";
 	}
 	
-	
 	@ResponseBody
-	@RequestMapping(value="/getManagerList", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
-	public List<LoginDto> selectManagerList(Model model, HttpServletRequest request) {
-		// 세션에서 내 정보를 가져온다
-		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
-		List<LoginDto> resultList = loginService.selectManagerList();
-		model.addAttribute("resultList", resultList);
-		return resultList;			
+	@RequestMapping(value="/getUserList", produces="application/json;charset=utf-8", method=RequestMethod.POST)
+	public Map<String, List<LoginDto>> getUserList(HttpServletRequest request) {
+	    LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+	    Map<String, List<LoginDto>> resultList = new HashMap<>();
+	    
+	    List<LoginDto> managerList = loginService.selectManagerList();
+	    resultList.put("managerList", managerList);
+	    
+	    List<LoginDto> userList = loginService.selectUserList();
+	    resultList.put("userList", userList);
+	    
+	    return resultList;
 	}
-	
 
 	public List<String> userList(HttpServletRequest request) {
 		return null;

@@ -13,21 +13,32 @@ import project.momento.page.Criteria;
 public class EducationService {
 	
 	@Autowired
-	private EducationMapper subjectMapper;
+	private EducationMapper educationMapper;
 
-	public EducationDto selectEducation(EducationDto subjectDto) {
+	public List<EducationDto> selectEducation(EducationDto subjectDto) {
 		// TODO Auto-generated method stub
 		
-		return subjectMapper.selectEducation(subjectDto);
+		return educationMapper.selectEducation(subjectDto);
 	}
 
 	public List<EducationDto> selectEducationList(Criteria cri) {
 		// TODO Auto-generated method stub
-		return subjectMapper.selectEducationList(cri);
+		return educationMapper.selectEducationList(cri);
 	}
 
 	public int selectEducationCount(Criteria cri) {
 		// TODO Auto-generated method stub
-		return subjectMapper.selectEducationCount(cri);
+		return educationMapper.selectEducationCount(cri);
 	}
+
+	public List<EducationDto> selectSubjectList(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		return educationMapper.selectSubjectList(pkEducationSeq);
+	}
+
+	public List<EducationDto> selectEducationStudList(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		return educationMapper.selectEducationStudList(pkEducationSeq);
+	}
+
 }
