@@ -29,6 +29,10 @@ public interface LoginMapper {
 
 	List<LoginDto> getTrainList();
 
+	List<LoginDto> selectManagerList();
+
+	List<LoginDto> selectUserList();
+
 }	
 	
 	

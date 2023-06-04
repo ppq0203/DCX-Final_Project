@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<!-- Main content -->
+		<section class="content" style="background-color: aqua;height: 250px;">
+			<div class="p-2">
+				<div class="col -10">
+					<div class="dropdown">
+						<span>
+							<h2>테스트</h2>
+						</span>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="col-10">
+			<div class="row">
+				<ul class="nav nav-tabs col-10 text-center" id="custom-tabs-one-tab" role="tablist">
+					<li class="nav-item col-2 pr-0">
+						<a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
+							href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
+							aria-selected="false">강의일정</a>
+					</li>
+					<li class="nav-item col-2 p-0">
+						<a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
+							href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
+							aria-selected="false">질문</a>
+					</li>
+					<li class="nav-item col-2 p-0">
+						<a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+							href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
+							aria-selected="false">보충영상</a>
+					</li>
+					<li class="nav-item col-2 p-0">
+						<a class="nav-link active" id="custom-tabs-one-settings-tab" data-toggle="pill"
+							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
+							aria-selected="false">테스트</a>
+					</li>
+					<li class="nav-item col-2 p-0">
+						<a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
+							href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
+							aria-selected="false">강의평가</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="p-5">
+			<div class-="row mt-0">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<button class="btn btn-primary me-md-2" type="button">저장</button>
+					<button class="btn btn-primary ml-1" type="button">수정</button>
+				</div>
+			</div>
+			<div class="row-cols-1 text-center">
+				<table class="table" id="addrow">
+					<thead>
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">날짜</th>
+							<th scope="col">과목명</th>
+							<th scope="col">강좌명</th>
+							<th scope="col">테스트등록</th>
+							<th scope="col">행추가</th>
+							<th scope="col">행삭제</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td><button type="button" class="btn btn-link">2023-05-30</button>
+							</td>
+							<td><span>HTML</span></td>
+							<td><span>1</span></td>
+							<td>
+								<label for="input-file">업로드</label>
+								<input type="file" id="input-file" style="display: none;">
+							</td>
+							<td>
+								<button onclick="javascript:rowAdd();" type="button" class="btn btn-primary">추가</button>
+							</td>
+							<td>
+								<button onclick="javascript:rowDel();" type="button" class="btn btn-danger">삭제</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		<!--드롭앤다운-->
+		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+		var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+			return new bootstrap.Dropdown(dropdownToggleEl)
+		})
+
+		function rowAdd() {
+			$(".detailDiv").append(
+				"<div class=\"form-group row-count\">" +
+					"<div class=\"row\">" +
+						"<div class=\"col-md-6\">" +
+							"<label for=\"attribute\">속성</label> <input type=\"text\" class=\"form-control\" id=\"attribute\" name=\"attribute\" placeholder=\"속성\" required>" +
+						"</div>" +
+						"<div class=\"col-md-6\">" +
+							"<label for=\"value\">값</label>" +
+							"<input type=\"text\" class=\"form-control\" id=\"value\" name=\"value\" placeholder=\"값\" required>" +
+						"</div>" +
+					"</div>" +
+				"</div>"
+			);
+		}
+		function rowDel() {
+			$(".row-count").last().remove();
+		}
+
+	</script>
+</th:block>
+
+</html>

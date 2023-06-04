@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/defaultLayout}">
-
 <th:block layout:fragment="content">
 	<div class="content-wrapper">
 		<!-- Main content -->
@@ -59,10 +58,11 @@
 				events: [],
 				editable: false,
 				droppable: false, // this allows things to be dropped onto the calendar !!!
-			});
+			})
 			calendar.render();
-
+		})();
 	</script>
 </th:block>
+
 
 </html>

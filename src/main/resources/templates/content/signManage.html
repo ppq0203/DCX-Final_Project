@@ -63,50 +63,58 @@
 								<ul class="list-group">
 									<li class="list-group-item" style="word-spacing: 7vw; height: 40vw;">
 										<div class="form-check-main" style="margin-left: 2vw;">
-											<input class="form-check-input me-1" id="permitall" name="permitall" type="checkbox" value=""
+											<input class="form-check-input me-1" id="allpermit" name="allpermit" type="checkbox" value=""
 												aria-label="...">
+											<input class="form-check-input me-1" id="permitall" name="permitall"
+												type="checkbox" value="" aria-label="...">
 											<span class="form-check-name">전체수락</span>
 											<span class="form-check-id">학생이름</span>
 											<span class="form-check-email">학생이메일</span>
 											<span class="form-check-date">가입일자</span>
-<!--											<span class="form-check-Y||N">수락/거절</span>-->
+											<span class="form-check-Y||N">수락/거절</span>
+											<!--<span class="form-check-Y||N">수락/거절</span>-->
 											<span class="form-check-info">정보보기</span>
 											<hr>
 											<form name="check" id="check" action="POST">
-												<tr th:each="waiting : ${wait}">
 													<div class="form-check-student-list">
-														<div class="form-check-input-button" style="word-spacing: 7vw;">
-															<input class="form-check-input me-1" name="permit" type="checkbox" th:value="${waiting}"
+														<div class="waitList" style="word-spacing: 7vw;">
+															<!--input class="form-check-input me-1" id="tstcheck" name="tstcheck" type="checkbox" th:value="${waiting}"
 																aria-label="...">
 															<span class="form-check-input-name" th:text="${waiting.userId}"></span>
 															<span class="form-check-input-id" th:text="${waiting.name}"></span>
 															<span class="form-check-input-email" th:text="${waiting.email}"></span>
 															<span class="form-check-input-date" th:text="${waiting.registDt}"></span>
-															<button type="button" class="btn btn-light" id="info">정보</button>
-	
+															<button type="button" class="btn btn-light" id="info">정보</button-->
+														<div class="form-check-input-button" style="word-spacing: 7vw;">
+															<input class="form-check-input me-1" name="permit"
+																type="checkbox" th:value="${waiting}" aria-label="...">
+															<span class="form-check-input-name"
+																th:text="${waiting.userId}"></span>
+															<span class="form-check-input-id"
+																th:text="${waiting.name}"></span>
+															<span class="form-check-input-email"
+																th:text="${waiting.email}"></span>
+															<span class="form-check-input-date"
+																th:text="${waiting.registDt}"></span>
+															<button type="button" class="btn btn-light"
+																id="info">정보</button>
+
 														</div>
 													</div>
-												</tr>
 											</form>
 										</div>
-										<div class="row">
-											<button type="button" class="btn btn-light" id="sign-accect">수락</button>
-											<button type="button" class="btn btn-light" id="sign-false">거절</button>
+										<div class="form-check-next" style="display: flex; float:left">
+											<button type="button" class="btn btn-light">이전</button>
+											<button type="button" class="btn btn-light">다음</button>
+										</div>
+										<div style="display: inline-flex; float: right">
+											<button type="button" id="acceptbtn" name="acceptbtn" class="btn btn-light">수락</button>
+											<button type="button" class="btn btn-light">거절</button>
 										</div>
 									</li>
 								</ul>
 
 								<!-- /.col -->
-							</div>
-							<div class="form-check-next">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="col text-center">
-											<button type="button" class="btn btn-light">이전</button>
-											<button type="button" class="btn btn-light">다음</button>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 						<div class="tab-content show" style="text-align: center;">
@@ -125,20 +133,14 @@
 												
 											</table>
 										</div>
+										<div class="form-check-next" style="display: flex;">
+											<button type="button" class="btn btn-light">이전</button>
+											<button type="button" class="btn btn-light">다음</button>
+										</div>
 									</li>
 								</ul>
 
 								<!-- /.col -->
-							</div>
-							<div class="form-check-next">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="col text-center">
-											<button type="button" class="btn btn-light">이전</button>
-											<button type="button" class="btn btn-light">다음</button>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 						<div class="tab-content" style="text-align: center;">
@@ -175,20 +177,14 @@
 												</div>
 											</form>
 										</div>
+										<div class="form-check-next" style="display: flex;">
+											<button type="button" class="btn btn-light">이전</button>
+											<button type="button" class="btn btn-light">다음</button>
+										</div>
 									</li>
 								</ul>
 
 								<!-- /.col -->
-							</div>
-							<div class="form-check-next">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="col text-center">
-											<button type="button" class="btn btn-light">이전</button>
-											<button type="button" class="btn btn-light">다음</button>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -373,30 +369,115 @@
 
 		$('.list').click(function (e) {
 			탭열기(e.target.dataset.id);
+			if (e.target.dataset.id == 0) {
+				getWaitUser();
+			}
 			if (e.target.dataset.id == 1) {
 				getTraineeList();
 			}
 		})
-		$('#sign-accect').on('click', function(){
+		$('#sign-accect').on('click', function () {
 			var permitall = $('#permitall');
 			var permit = $('input[name=permit]');
 			var check = $('#check');
 			var checklist = [];
-			
-			if(!permitall.is(':checked')){
-				$('input[name=permit]:checked').each(function(){
+
+			if (!permitall.is(':checked')) {
+				$('input[name=permit]:checked').each(function () {
 					checklist.push($(this).val());
 				})
 				console.log(checklist)
 			}
-			
 		})
+		
+		
+		var waitArr = [];
+		var filterArr = [];
+		
+		$('input:checkbox[id="allpermit"]').click(function(){
+			console.log("checked");
+			var checked = $('input:checkbox[id="allpermit"]').is(':checked');
+		
+			if(checked){
+				console.log("ifchecked");
+				$('input:checkbox[name="permitcheck"]').prop('checked',true);
+			}
+			else{
+				$('input:checkbox[name="permitcheck"]').prop('checked',false);
+			}
+		});
+		
+		$('button[name="acceptbtn"]').click(function(){
+			//전체 수락이 체크되지 않았을때.
+			if(!$("input:checkbox[id='allpermit']").is(':checked')){
+				filterArr = [];
+				//체크 된 값들만 모아.
+				$("input[name='permitcheck']:checked").each(function(index, item){
+					$.each(waitArr, function(i){
+						if(waitArr[i].pkUserSeq == item.getAttribute("value")){
+							//배열에 넣어 넘기기.
+							filterArr.push(waitArr[i])
+						}
+					})
+				})
+				$.ajax({
+					type : "POST",
+					url : "signUser.com",
+					contentType: 'application/json',
+					data : JSON.stringify(filterArr),
+					success : function(data){
+						console.log("실행됨.");
+					},
+					error : function(){
+						console.log("실패함.");
+					}
+				});
+			}
+			else{
+				$.ajax({
+					type : "GET",
+					url : "signAlluser.com",
+					contentType: 'application/json',
+					data : {},
+					success : function(data){
+						console.log("실행됨.");
+					},
+					error : function(){
+						console.log("실패함.");
+					}
+				});
+			}
+			getWaitUser();
+			console.log("클린업.");
+		})
+		
+		function getWaitUser() {
+			$(".waitList").empty();
+			$.ajax({
+				type: "POST",
+				url: "waitUser.com",
+				dataType: "json",
+				success: function (data) {
+					$.each(data, function(index, item) { // 데이터 =item
+						waitArr.push(item);
+						$(".waitList").append('<input class="form-check-input me-1" type="checkbox" id="permitcheck" name="permitcheck" value="' + item.pkUserSeq + '" aria-label="...">');
+						$(".waitList").append('<span class="form-check-input-id">' + item.userId + '</span>');
+						$(".waitList").append('<span class="form-check-input-name">' + item.name + '</span>');
+						$(".waitList").append('<span class="form-check-input-email">' + item.email + '</span>');
+						$(".waitList").append('<span class="form-check-input-date">' + item.registDt + '</span>');
+						$(".waitList").append("<button type='button' class='btn btn-light' id='info'>정보</button>")
+					});
+				},
+				error: function () {
+				}
+			});
+		}
+		
 	</script>
-	
 </th:block>
 
 </html>
-<!--<th:block layout:fragment="content">
+<th:block layout:fragment="content">
 	<th:block th:each ${item : userList}>
 		<ul class="list-group">
 			<li class="list-group-item">
@@ -433,7 +514,7 @@
 			</nav>
 		</div>
 	</th:block>
-</th:block>-->
+</th:block>
 
 
 </html>

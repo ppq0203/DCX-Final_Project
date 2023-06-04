@@ -1,11 +1,6 @@
 <!-- Default Layout Import-->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/emptyLayout}">
-
-<head>
-	<link href="css/login.css" rel="stylesheet">
-	</style>
-</head>
+	layout:decorate="~{common/layout/std/stdEmptyLayout}">
 
 <th:block layout:fragment="content">
 	<div class="container">
@@ -19,7 +14,7 @@
 					<label for="password" class="sr-only">Password</label>
 					<input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required="">
 					<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-					<button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/sign.com'">회원가입</button>
+					<button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/std/sign/main'">회원가입</button>
 				</form>
 			</div>
 		</div>

@@ -38,7 +38,7 @@ public class CalendarController {
 	 * calendar사이트로 이동
 	 */
 	@RequestMapping(value="/std/calendar", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public ModelAndView calendarStdMain(Criteria cri, Model model, ChartDto chartDto) {
+	public ModelAndView calendarMain(Criteria cri, Model model, ChartDto chartDto) {
 		ModelAndView mv = new ModelAndView("content/std/calendar/calendar"); 
 		return mv;
 	}

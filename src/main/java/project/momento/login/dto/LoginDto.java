@@ -38,5 +38,8 @@ public class LoginDto {
 	private String registDt;
 	/*수강 상태(N: 퇴소, Y: 수강중, E: 수료)*/
 	private String classState;
+	/*관리자 고유번호*/
+	private int pkManagerSeq;
+	
 
 }

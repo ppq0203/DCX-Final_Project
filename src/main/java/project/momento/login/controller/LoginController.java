@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
+import project.momento.menu.dto.MenuDto;
 
 @Controller
 public class LoginController {
@@ -20,24 +23,13 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	/*
-	 * 관리자 로그인 화면 이동
-	 * return content/mng/login/login
+	 * 로그인 화면 이동
+	 * return content/userDivn/login/login
 	 */
-
-	@RequestMapping(value = "/mng/login/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String loginMngMain(Model model) {
+	@RequestMapping(value = "/{userDivn}/login/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String loginMngMain(@PathVariable String userDivn, Model model) {
 		
-		return "content/mng/login/login";
-	}
-	/*
-	 * 학생 로그인 화면 이동
-	 * return content/std/login/login
-	 */
-
-	@RequestMapping(value = "/std/login/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String loginStdMain(Model model) {
-		
-		return "content/std/login/login";
+		return "content/"+userDivn+"/login/login";
 	}
 	
 	/*
@@ -46,7 +38,6 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/{userDivn}/login/form", produces = "application/text;charset=utf-8") /* value주소 이름 */
 	public String loginForm(@PathVariable String userDivn, Model model, LoginDto loginDto, HttpServletRequest request) { // 입력값(id,pwd)를 loginDto에 넣기
-
 		LoginDto loginCheck = new LoginDto(); // loginDto 를 체크에넣기
 		loginCheck = loginService.checkLogin(loginDto);
 		if (loginCheck == null) { // loginCheck안에있는 id, pwd에 값이 없으면
@@ -57,12 +48,23 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping(value = "/logout.com", produces = "application/text;charset=utf-8")
-	public String logout(HttpSession session, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/{userDivn}/login/out", produces = "application/text;charset=utf-8")
+	public String logout(@PathVariable String userDivn, HttpSession session, HttpServletRequest request) throws Exception {
 		session.invalidate();
-		return "redirect:/login.com";
+		return "redirect:/"+userDivn+"/login/main";
 	}
-
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/getManagerList", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public List<LoginDto> selectManagerList(Model model, HttpServletRequest request) {
+		// 세션에서 내 정보를 가져온다
+		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		List<LoginDto> resultList = loginService.selectManagerList();
+		model.addAttribute("resultList", resultList);
+		return resultList;			
+	}
+	
 
 	public List<String> userList(HttpServletRequest request) {
 		return null;
