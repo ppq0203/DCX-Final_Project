@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/mng/mngDefaultLayout}">
+<!-- Main content -->
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<div class="container-fluid">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-6">
+							<h4 class="fas fa-plus-square">&nbsp;강의 관리</h4>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card card-primary card-outline">
+								<div class="card-header">
+									<h4 class="card-title">강의 목록</h4>
+									<div class="card-tools">
+										<button onclick="location.href = '/mng/subject/form'" type="button"
+											class="btn btn-primary btn-sm">
+											<span>등록</span>
+										</button>
+										<button type="button" class="btn btn-success btn-sm">
+											<span>수정</span>
+										</button>
+										<button type="button" class="btn btn-danger btn-sm">
+											<span>삭제</span>
+										</button>
+									</div>
+
+
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table class="table table-sm table-bordered table-hover text-center">
+										<thead>
+											<tr>
+												<th style="width:50px;">No.</th>
+												<th>강의명</th>
+												<th>진행상태</th>
+												<th>시작일자</th>
+												<th>종료일자</th>
+												<th>강의자료</th>
+												<th>과제답안</th>
+												<th>강사</th>
+												<th>등록자</th>
+												<th>등록일자</th>
+											</tr>
+										</thead>
+										<td>1</td>
+										<td>html</td>
+										<td>1일차</td>
+										<td>2023.06.02</td>
+										<td>2023.12.31</td>
+										<td>
+											<div class="ml-1">
+												<label for="input-file"><i class="fas fa-upload"></i></label>
+												<input type="file" id="input-file" style="display: none;">
+											</div>
+										</td>
+										<td>
+											<div class="ml-1">
+												<label for="input-file"><i class="fas fa-upload"></i></label>
+												<input type="file" id="input-file" style="display: none;">
+											</div>
+										</td>
+										<td>윤재님</td>
+										<td>관리자</td>
+										<td>2023.12.31</td>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+								<div class="card-footer">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-center">
+											<li class="page-item previous th-disabled"
+												th:classappend="${paging.prev == false} ? 'disabled'">
+												<a th:href="@{/chart.com(page=${paging.startPage - 1})}" tabindex="0"
+													class="page-link">Previous</a>
+											</li>
+											<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+												<li class="page-item"
+													th:classappend="${paging.cri.page == pNo} ? 'active'">
+													<a th:href="@{/chart.com(page=${pNo})}" tabindex="0"
+														aria-controls="dataTable" class="page-link"
+														th:text="${pNo}"></a>
+												</li>
+											</div>
+											<li class="page-item next th-disabled"
+												th:classappend="${paging.next == false} ? 'disabled'">
+												<a th:href="@{/chart.com(page=${paging.endPage + 1})}" tabindex="0"
+													aria-controls="dataTable" class="page-link">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<script>
+
+		$(document).ready(function () {
+			$(".resize-handle").on("resizestop", function (event, ui) { });
+			$(".resize-handle").resizable({
+				resize: function (event, ui) { }
+			});
+			$(".resize-handle").resizable({
+				//함께 커질영역 
+				alsoResize: ".wrap-box",
+				//커질때 애니메이션 발생 
+				animate: true,
+				animateDuration: 300,
+				animateEasing: "swing",
+				//비율유지
+				aspectRatio: true,
+				//마우스 hover 아닐때 핸들러 숨기기
+				autoHide: true,
+				//minHeight, maxHeight, minWidth, maxWidth 최소,최대 크기지정 
+			});
+		})
+
+
+		$(function () {
+
+			/* initialize the calendar
+			 -----------------------------------------------------------------*/
+			//Date for the calendar events (dummy data)
+			var date = new Date()
+			var d = date.getDate(),
+				m = date.getMonth(),
+				y = date.getFullYear()
+
+			var Calendar = FullCalendar.Calendar;
+			var Draggable = FullCalendar.Draggable;
+
+			var containerEl = document.getElementById('external-events');
+			var calendarEl = document.getElementById('calendar');
+
+			// initialize the external events
+			// -----------------------------------------------------------------
+
+			var calendar = new Calendar(calendarEl, {
+				headerToolbar: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'dayGridMonth,timeGridWeek,timeGridDay'
+				},
+				themeSystem: 'bootstrap',
+				//Random default events
+				events: [
+					{
+						title: 'All Day Event',
+						start: new Date(y, m, 1),
+						backgroundColor: '#f56954', //red
+						borderColor: '#f56954', //red
+						allDay: true
+					},
+					{
+						title: 'Long Event',
+						start: new Date(y, m, d - 5),
+						end: new Date(y, m, d - 2),
+						backgroundColor: '#f39c12', //yellow
+						borderColor: '#f39c12' //yellow
+					},
+					{
+						title: 'Meeting',
+						start: new Date(y, m, d, 10, 30),
+						allDay: false,
+						backgroundColor: '#0073b7', //Blue
+						borderColor: '#0073b7' //Blue
+					},
+					{
+						title: 'Lunch',
+						start: new Date(y, m, d, 12, 0),
+						end: new Date(y, m, d, 14, 0),
+						allDay: false,
+						backgroundColor: '#00c0ef', //Info (aqua)
+						borderColor: '#00c0ef' //Info (aqua)
+					},
+					{
+						title: 'Birthday Party',
+						start: new Date(y, m, d + 1, 19, 0),
+						end: new Date(y, m, d + 1, 22, 30),
+						allDay: false,
+						backgroundColor: '#00a65a', //Success (green)
+						borderColor: '#00a65a' //Success (green)
+					},
+					{
+						title: 'Click for Google',
+						start: new Date(y, m, 28),
+						end: new Date(y, m, 29),
+						url: 'https://www.google.com/',
+						backgroundColor: '#3c8dbc', //Primary (light-blue)
+						borderColor: '#3c8dbc' //Primary (light-blue)
+					}
+				],
+				editable: false,
+				droppable: false, // this allows things to be dropped onto the calendar !!!
+				drop: function (info) {
+					// is the "remove after drop" checkbox checked?
+					if (checkbox.checked) {
+						// if so, remove the element from the "Draggable Events" list
+						info.draggedEl.parentNode.removeChild(info.draggedEl);
+					}
+				}
+			});
+
+			calendar.render();
+			// $('#calendar').fullCalendar()
+
+			/* ADDING EVENTS */
+			var currColor = '#3c8dbc' //Red by default
+			// Color chooser button
+		})
+	</script>
+</th:block>
+
+</html>

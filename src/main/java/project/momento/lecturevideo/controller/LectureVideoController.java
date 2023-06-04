@@ -1,4 +1,4 @@
-package project.momento.completestudent.controller;
+package project.momento.lecturevideo.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +17,7 @@ import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
 @Controller
-public class CompleteStudentController {
+public class LectureVideoController {
 	
 	@Autowired
 	private SignService SignService;
@@ -27,9 +27,9 @@ public class CompleteStudentController {
 	 * param
 	 * return contents/studentScreen 받는값
 	 */
-	@RequestMapping(value="/completeStudent.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String completeStudentController( Model model) {
-	    return "content/completeStudent";
+	@RequestMapping(value="/lecturevideo.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String LectureVideo( Model model) {
+	    return "content/LectureVideo";
 	}
 	
 }
