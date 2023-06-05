@@ -20,7 +20,8 @@
 				EMAIL AS email,
 				USER_DIVN AS userDivn,
 				USE_YN AS useYn,
-				REGIST_DT AS registDt
+				REGIST_DT AS registDt,
+				USER_IMG AS imgPath
 			FROM USER
 			WHERE USER_ID = #{userId} AND PASSWORD = #{password} AND USE_YN = 'Y'
 		]]>

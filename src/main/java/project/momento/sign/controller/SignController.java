@@ -1,9 +1,16 @@
 package project.momento.sign.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,11 +64,25 @@ public class SignController {
 	 * return main page
 	 */
 	@RequestMapping(value="/{userDivn}/sign/form", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String goSignUp(@PathVariable String userDivn, Model model, SignDto signDto, @RequestParam("imgFile") MultipartFile file) {
+	public String goSignUp(@PathVariable String userDivn, Model model, SignDto signDto, HttpServletRequest request) throws IOException{
+		
+		String img = request.getParameter("imgPath");
+		System.out.println(" [+] " + img);
+		String path = "";
+		if(img != "")
+		{
+			byte[] imageBytes = Base64.getDecoder().decode(img);
+			BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
+			Date now = new Date();
+			path = signDto.getUserId() + now + request.getParameter("imgFile");
+			
+			//업로드 될 디렉토리 URL
+//			ImageIO.write(bufImg, "png", new File("/img/this-should-be-linux-path/" + path));
+		}
+		
 		signDto.setUserDivn(userDivn);
+//		signDto.setImgPath(path);
 		SignService.insertUser(signDto);
-		Object test = file;
-		System.out.println(test);
 		return "redirect:/"+userDivn+"/login/main";
 	}
 	
