@@ -11,6 +11,8 @@ public class NoticeDto {
 	
 	/*유저 개인에게 부여되는 고유번호*/
 	private int pkNoticeSeq;
+	/*유저 개인에게 부여되는 고유번호*/
+	private String pkSubjectSeq;
 	/*파일 고유 식별 번호*/
 	private int pkFileSeq;
 	/*공지사항 제목*/

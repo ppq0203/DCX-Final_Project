@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpServletRequest;
 import project.momento.login.dto.LoginDto;
@@ -37,7 +35,7 @@ public class MypageController {
 	 */
 	@RequestMapping(value="/{userDivn}/profile", produces="application/text;charset=utf-8") /* value주소 이름*/
 	public String profileMain(@PathVariable String userDivn, Model model, HttpServletRequest request) { 
-		return "redirect:/"+userDivn+"/profile/profile";
+		return "content/"+userDivn+"/profile/profile";
 	}
 	
 	

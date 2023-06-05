@@ -1,13 +1,13 @@
 <!-- Default Layout Import-->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/emptyLayout}">
+	layout:decorate="~{common/layout/mng/mngEmptyLayout}">
 
 <th:block layout:fragment="content">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-6">
 				<form class="form-signin" method="post" action="/mng/login/form">
-					<h2 style=" text-align: center; padding: 50px;">로그인</h2>
+					<h2 style=" text-align: center; padding: 50px;">관리자 로그인</h2>
 					<label for="inputEmail" class="sr-only">ID</label>
 					<input type="text" id="userId" name="userId" class="form-control mb-1" placeholder="아이디" required=""
 						autofocus="">

@@ -18,31 +18,33 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="col-12">
-									<label type="input">제</label>
+									<input type="text" class="form-control" placeholder="제목 입력" aria-label="First name">
 								</div>
 								<hr>
 							</div>
-							<div class="col-12 pl-2">
-								<span>1 HTML: Hyper Text Markup Language</span>
-							</div>
-							<div class="col-12 pl-2">
-								<span>2 CSS</span>
-							</div>
-							<div class="col-12 pl-2">
-								<span>3 JavaScript</span>
-							</div>
 							<div class="col-12 pl-2 mt-4 mb-4">
 								<textarea class="form-control form-control-lg" row="4" id="validationTextarea"
-									placeholder="정답입력" required></textarea>
+									placeholder="문제입력" style="min-height: 340px;"></textarea>
+							</div>
+							<div class="col-12">
+								<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+									<label for="input-file">이미지 업로드</label>
+									<input type="file" id="input-file" style="display: none;">
+								</div>
 							</div>
 						</div>
-						<hr class="mt-4 mb-4">
 						<div class="row">
+							<div class="col-12 justify-content-between ml-1">
+								<div class="col-1 mx-auto">
+									<button type="button" class="btn btn-primary">추가</button>
+								</div>
+							</div>
+						</div>
+						<!--<div class="row">
 							<div class="col-12">
 								<div class="col-12 mt-2">
 									<span>02. 각 번호의 명칭을 서술하시오.</span>
 								</div>
-								<hr>
 							</div>
 							<div class="col-12">
 								<div class="text-center mt-4">
@@ -53,13 +55,13 @@
 										placeholder="정답입력" required></textarea>
 								</div>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
-				<div class="modal-footer justify-content-between">6
+				<div class="modal-footer justify-content-between">
 					<div class="col-12">
 						<div class="col-1 mx-auto">
-							<button type="button" class="btn btn-primary">제출</button>
+							<button type="button" class="btn btn-primary">등록</button>
 						</div>
 					</div>
 				</div>
@@ -140,7 +142,7 @@
 							<td>
 								<!--<label for="input-file">업로드</label>
 								<input type="file" id="input-file" style="display: none;">-->
-								<button  type="button" class="btn btn-success" data-toggle="modal"
+								<button type="button" class="btn btn-success" data-toggle="modal"
 									data-target="#modal-xl">등록</button>
 							</td>
 							<td>
@@ -182,6 +184,16 @@
 		function rowDel() {
 			$(".row-count").last().remove();
 		}
+		
+		
+		function errorMassage(){
+			Swal.fire({
+			  icon: 'error',
+			  title: '항목 선택',
+			  text: 'Something went wrong!'
+			})
+		}
+		
 
 	</script>
 </th:block>
