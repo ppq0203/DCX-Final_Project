@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpServletRequest;
+import project.momento.education.dto.EducationDto;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
 import project.momento.menu.dto.MenuDto;
@@ -21,7 +22,6 @@ import project.momento.notice.dto.NoticeDto;
 import project.momento.notice.service.NoticeService;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
-import project.momento.subject.dto.SubjectDto;
 
 @Controller
 public class NoticeController {

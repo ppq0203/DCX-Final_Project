@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.momento.education.mapper.EducationMapper">
+	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+	<!-- Heidisql연결후 입력 저장-->
+	<!-- SELECT문-->
+	<select id="selectEducation" parameterType="project.momento.education.dto.EducationDto" resultType="project.momento.education.dto.EducationDto">
+		<![CDATA[
+		SELECT
+		    A.PK_EDUCATION_SEQ       AS pkEducationSeq,
+		    A.PK_MANAGER_SEQ         AS pkManagerSeq,
+		    B.NAME                 AS name,
+		    A.EDUCATION_NAME           AS educationName,
+		    CASE A.EDUCATION_STATE
+		        WHEN 'A' THEN '준비'
+		        WHEN 'B' THEN '진행'
+		        WHEN 'C' THEN '완료'
+		        ELSE EDUCATION_STATE
+		    END                    AS educationState,
+		    CONCAT(DATE_FORMAT(A.SUB_START_DT, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(SUB_END_DT, '%Y-%m-%d')) AS educationDt,
+		    DATE_FORMAT(A.SUB_START_DT, '%Y-%m-%d') AS subStartDt,
+		    DATE_FORMAT(A.SUB_END_DT, '%Y-%m-%d') AS subEndDt,
+		    A.EDUCATION_TEST           AS educationTest,
+		    A.EDUCATION_TEST_DT        AS educationTestDt,
+		    A.REGIST_ID              AS registId,
+		    DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d') AS registDt,
+		    A.UPDATE_ID              AS updateId,
+		    A.UPDATE_DT              AS updateDt,
+		    (SELECT GROUP_CONCAT(PK_USER_SEQ SEPARATOR ',') FROM EDUCATION_STUD SA WHERE SA.PK_EDUCATION_SEQ = #{pkEducationSeq}) AS pkUserSeqArray
+		FROM EDUCATION A
+		INNER JOIN MANAGER B ON A.PK_MANAGER_SEQ = B.PK_MANAGER_SEQ
+		WHERE 1=1
+		AND A.PK_EDUCATION_SEQ = #{pkEducationSeq}
+		ORDER BY A.PK_EDUCATION_SEQ ASC
+		
+		]]>
+	</select>
+	<select id="selectEducationCount" parameterType="hashmap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM EDUCATION A
+		WHERE 1=1
+		ORDER BY A.PK_EDUCATION_SEQ ASC
+	</select>
+	<select id="selectEducationList" parameterType="hashmap" resultType="project.momento.education.dto.EducationDto">
+		SELECT
+		    A.PK_EDUCATION_SEQ       AS pkEducationSeq,
+		    A.PK_MANAGER_SEQ         AS pkManagerSeq,
+		    B.NAME					 AS name,
+		    A.EDUCATION_NAME         AS educationName,
+		    CASE A.EDUCATION_STATE
+		        WHEN 'A' THEN '준비'
+		        WHEN 'B' THEN '진행'
+		        WHEN 'C' THEN '완료'
+		        ELSE A.EDUCATION_STATE
+		    END 					AS educationState,
+		    CONCAT(DATE_FORMAT(A.SUB_START_DT, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(A.SUB_END_DT, '%Y-%m-%d')) AS educationDt,
+		    A.EDUCATION_TEST         AS educationTest,
+		    A.EDUCATION_TEST_DT      AS educationTestDt,
+		    A.REGIST_ID              AS registId,
+		    DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d') AS registDt,
+		    A.UPDATE_ID              AS updateId,
+		    A.UPDATE_DT              AS updateDt
+		FROM EDUCATION A
+		INNER JOIN MANAGER B
+		ON A.PK_MANAGER_SEQ = B.PK_MANAGER_SEQ
+		WHERE 1=1
+		ORDER BY A.PK_EDUCATION_SEQ ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	<select id="selectSubjectList" parameterType="int" resultType="project.momento.education.dto.EducationDto">
+		SELECT
+		    A.PK_SUBJECT_SEQ       	 AS pkSubjectSeq,
+		    A.PK_EDUCATION_SEQ       AS pkEducationSeq,
+		    A.PK_MANAGER_SEQ         AS pkManagerSeq,
+		    B.NAME					 AS name,
+		    A.SUBJECT_NAME         	 AS subjectName,
+		    CASE A.SUBJECT_STATE
+		        WHEN 'A' THEN '준비'
+		        WHEN 'B' THEN '진행'
+		        WHEN 'C' THEN '완료'
+		        ELSE A.SUBJECT_STATE
+		    END 					 AS subjectState,
+		    CONCAT(DATE_FORMAT(A.SUB_START_DT, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(A.SUB_END_DT, '%Y-%m-%d')) AS subjectDt,
+		    DATE_FORMAT(A.SUB_START_DT, '%Y-%m-%d') AS subStartDt,
+		    DATE_FORMAT(A.SUB_END_DT, '%Y-%m-%d') AS subEndDt,
+		    A.SUBJECT_TEST         	 AS subjectTest,
+		    A.SUBJECT_TEST_DT      	 AS subjectTestDt,
+		    A.REGIST_ID              AS registId,
+		    DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d') AS registDt,
+		    A.UPDATE_ID              AS updateId,
+		    A.UPDATE_DT              AS updateDt,
+		    (SELECT GROUP_CONCAT(PK_USER_SEQ SEPARATOR ',') FROM EDUCATION_STUD SA WHERE SA.PK_EDUCATION_SEQ = #{pkEducationSeq}) AS pkUserSeqArray
+		FROM SUBJECT A
+		INNER JOIN MANAGER B
+		ON A.PK_MANAGER_SEQ = B.PK_MANAGER_SEQ
+		WHERE 1=1
+		AND A.PK_EDUCATION_SEQ = #{pkEducationSeq}
+		ORDER BY A.PK_SUBJECT_SEQ ASC
+	</select>
+</mapper>
