@@ -154,7 +154,29 @@
 		WHERE 1=1
 		AND A.PK_EDUCATION_SEQ = #{pkEducationSeq}
 		ORDER BY A.PK_SUBJECT_SEQ ASC
-		</select>
+	</select>
+	<update  id="updateEducation" parameterType="project.momento.education.dto.EducationDto">
+		UPDATE EDUCATION
+	  SET
+	    PK_MANAGER_SEQ = #{pkManagerSeq},
+	    EDUCATION_NAME = #{educationName},
+	    SUB_START_DT = #{subStartDt},
+	    SUB_END_DT = #{subEndDt},
+	    UPDATE_ID = #{registId},
+	    UPDATE_DT = NOW()
+	  WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+	</update >
+	
+	<delete id="deleteEducationStud" parameterType="int">
+		DELETE FROM EDUCATION_STUD
+  		WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+	</delete>
+	
+	<delete id="deleteSubject" parameterType="int">
+		DELETE FROM SUBJECT
+  		WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+	</delete>
+	
 	<select id="getEducationList" parameterType="int" resultType="project.momento.subject.dto.SubjectDto">
 		<![CDATA[                 
 		SELECT   

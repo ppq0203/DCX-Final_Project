@@ -75,5 +75,20 @@ public class EducationService {
 	public List<Object> getEducationList(int pkUserSeq) {
 		return educationMapper.getEducationList(pkUserSeq);
 	}
+
+	public void updateEducation(EducationDto educationDto) {
+		educationMapper.updateEducation(educationDto);
+		
+	}
+
+	public void deleteEducationStud(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		educationMapper.deleteEducationStud(pkEducationSeq);
+	}
+
+	public void deleteSubject(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		educationMapper.deleteSubject(pkEducationSeq);
+	}
 	
 }

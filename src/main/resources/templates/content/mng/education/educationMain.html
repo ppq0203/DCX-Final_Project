@@ -12,7 +12,8 @@
 					<h2>교육목록</h2>
 				</div>
 				<div class="card-tools col-6 text-right">
-					<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary btn-sm">
+					<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary btn-sm"
+						data-action="create" onclick="changeButtonAction(this)">
 						<span>등록</span>
 					</button>
 				</div>
@@ -40,7 +41,7 @@
 						<td>
 							<button data-toggle="modal" data-target="#modal-xl"
 								th:attr="pkEducationSeq=${item.pkEducationSeq}" type="button"
-								class="btn btn-info updateBtn">
+								class="btn btn-info updateBtn" data-action="modify" onclick="changeButtonAction(this)">
 								<span>수정</span>
 							</button>
 						</td>
@@ -79,12 +80,13 @@
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-		<form action="/mng/education/create" name="educationInfo" method="post" onsubmit="return validation()">
+		<form id="educationInfo" name="educationInfo" method="post">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
 					<div class="col-12 modal-header">
 						<h4 class="col-12 modal-title text-center">교육 등록</h4>
 						<input type="hidden" id="pkUserSeqArray" name="pkUserSeqArray">
+						<input type="hidden" id="pkEducationSeq" name="pkEducationSeq" value="0">
 					</div>
 					<div class="modal-body">
 						<div class="container-fluid">
@@ -169,15 +171,15 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" divn="create" class="btn btn-primary modelBtn" onclick="validation(this)">
 							<span>등록</span>
 						</button>
-						<button type="submit" class="btn btn-danger">
-							<span>삭제</span>
-						</button>
-						<button type="submit" class="btn btn-info">
+						<button type="button" divn="update" class="btn btn-info modelBtn" onclick="validation(this)">
 							<span>수정</span>
+						</button>
+						<button type="button" divn="delete" class="btn btn-danger modelBtn" onclick="validation(this)">
+							<span>삭제</span>
 						</button>
 					</div>
 				</div>
@@ -191,21 +193,46 @@
 		var EDUCATION_ARRAY = [];
 		var educateManagerBox;
 		var educateUserBox;
-		function validation() {
-			var divn = true;
+
+		function validation(button) {
+			var validate = true;
 			$(".validate").each(function () {
 				var value = $(this).val();
 
 				// 선택되지 않은 값이나 입력값이 없는 경우 처리
 				if (value == "" || value == null || value == '') {
 					$(this).addClass("is-invalid");
-					divn = false;
+					validate = false;
 				}
 			});
-			if (!divn) {
+			if (!validate) {
 				return false;
 			} else {
-				//alert('sssssssssssss')
+				var divn = button.getAttribute("divn");
+				var form = document.getElementById("educationInfo"); // 여기에 폼의 실제 ID를 입력하세요
+
+				if (divn == "create") {
+					form.action = "/mng/education/create";
+				} else if (divn == "update") {
+					form.action = "/mng/education/update";
+				} else if (divn == "delete") {
+					form.action = "/mng/education/delete";
+				}
+
+				form.submit();
+			}
+		}
+		function changeButtonAction(button) {
+			var action = button.getAttribute("data-action");
+			var buttons = document.querySelectorAll("#modal-xl .modal-footer .btn-primary, #modal-xl .modal-footer .btn-info, #modal-xl .modal-footer .btn-danger");
+			buttons.forEach(function (btn) {
+				btn.style.display = "none"; // 모든 버튼 숨기기
+			});
+			if (action === "modify") {
+				document.querySelector("#modal-xl .modal-footer .btn-info").style.display = "block"; // 수정 버튼 표시
+				document.querySelector("#modal-xl .modal-footer .btn-danger").style.display = "block"; // 삭제 버튼 표시
+			} else if (action === "create") {
+				document.querySelector("#modal-xl .modal-footer .btn-primary").style.display = "block"; // 등록 버튼 표시
 			}
 		}
 		function changeSelect(event) {
@@ -230,7 +257,6 @@
 		function arrayInit() {
 			// 오름 차순 정렬
 			$("#lectTbody").empty();
-			$('#pkUserSeq').val(null).trigger('change');
 			SUBJECT_ARRAY = SUBJECT_ARRAY.slice().sort(function (a, b) {
 				return a - b;
 			});
@@ -272,7 +298,6 @@
 						"monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
 					}
 				}, function (start, end, label) {
-					console.log('선택된 날짜: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 
 				}).last();
 				var managerSelect = $('.managerSelect').last();
@@ -333,6 +358,7 @@
 			$('.modal').on('hidden.bs.modal', function (e) {
 				// 모달이 닫힐 때 실행되는 코드
 				$(this).find('form')[0].reset(); // 입력 필드 초기화
+				$('#pkUserSeq').val(null).trigger('change');
 				// 테이블 초기화
 				SUBJECT_ARRAY = [];
 				EDUCATION_ARRAY = [];
@@ -362,9 +388,10 @@
 								var pkUserSeqInt = parseInt(pkUserSeqArraySplit[i]);
 								pkUserSeqList.push(pkUserSeqInt);
 							}
+							$("#pkEducationSeq").val(item.pkEducationSeq);
 							$("#educationName").val(item.educationName);
 							$("#educationDt").val(item.educationDt);
-							$("#pkUserSeqArray").val(pkUserSeqList);
+							$("#pkUserSeq").val(pkUserSeqList);
 							educateManagerBox.val(item.pkManagerSeq).trigger("change");
 							educateUserBox.val(pkUserSeqList).trigger("change");
 						});

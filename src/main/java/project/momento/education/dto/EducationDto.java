@@ -12,6 +12,8 @@ public class EducationDto extends LoginDto {
 	
 	/*과목 고유 식별 번호*/
 	private int pkEducationSeq;
+	/*과목 고유 식별 번호*/
+	private int pkSubjectSeq;
 	/*교육 이름*/  
 	private String educationName;
 	/*교육 상태(A: 준비, B: 진행, C: 종료)*/  
