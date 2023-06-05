@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 
 import javax.tools.JavaCompiler;
 
-import project.momento.question.dto.TestcaseDto2;
-import project.momento.question.controller.GenerateTestcaseController;
+import project.momento.question.dto.TestcaseDto;
+import project.momento.question.controller.TestcaseController;
 
 public class CompileAndRun {
 
-	public static int classRun(Object myClass, List<TestcaseDto2> testcaseDtos, String funcName, int option)
+	public static int classRun(Object myClass, List<TestcaseDto> testcaseDtos, String funcName, int option)
 	{
 		int result = 0;
 		Class<?> objClass = myClass.getClass();
@@ -25,7 +25,7 @@ public class CompileAndRun {
     		// 가져온 method가 실행을 원하는 method명과 일치하면 수행
     		if(method.getName().equals(funcName))
             {
-    			for (TestcaseDto2 testDto : testcaseDtos) {   //
+    			for (TestcaseDto testDto : testcaseDtos) {   //
     				try {
     					Object out = funcRunOut(myClass, method, funcName, testDto.getInput());
     					// option값이 -1인 경우 solDto.output에 input에 대한 결과값 저장
@@ -63,7 +63,7 @@ public class CompileAndRun {
 	
 	public static Object classLoad(String fixSolPath, String className) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException 
 	{
-		MyClassLoader myClassLoader = new MyClassLoader(GenerateTestcaseController.class.getClassLoader(), fixSolPath);
+		MyClassLoader myClassLoader = new MyClassLoader(TestcaseController.class.getClassLoader(), fixSolPath);
         Class<?> clazz = myClassLoader.loadClass(className);
 		// solution class object create
 		@SuppressWarnings("deprecation")

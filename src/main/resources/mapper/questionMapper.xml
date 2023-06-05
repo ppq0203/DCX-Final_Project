@@ -21,12 +21,4 @@
              , UPDATE_DT
         FROM QUESTION ORDER BY RAND() LIMIT 1
     </select>
-
-    <select id="selectTestcaseList" parameterType="int" resultType="project.momento.question.dto.TestcaseDto2">
-        SELECT PK_QUESTION_SEQ
-            , INPUT
-            , OUTPUT
-        FROM TEST_CASE
-        WHERE PK_QUESTION_SEQ = #{qestionSeq}
-    </select>
 </mapper>

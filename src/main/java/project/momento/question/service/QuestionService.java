@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import project.momento.question.mapper.QuestionMapper;
 import project.momento.question.dto.QuestionDto;
-import project.momento.question.dto.TestcaseDto2;
 
 @Service
 public class QuestionService {
@@ -20,8 +19,4 @@ public class QuestionService {
 		return questionMapper.selectQuestionList();
 	}
 	
-	public List<TestcaseDto2> selectTestcaseList(int qestionSeq) {
-		
-		return questionMapper.selectTestcaseList(qestionSeq);
-	}
 }

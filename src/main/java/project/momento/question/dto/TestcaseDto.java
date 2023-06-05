@@ -1,4 +1,4 @@
-package project.momento.testcase.dto;
+package project.momento.question.dto;
 
 import org.springframework.context.annotation.PropertySource;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package project.momento.testcase.service;
+package project.momento.question.service;
 
 import java.lang.reflect.Member;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.momento.login.dto.LoginDto;
+import project.momento.question.dto.TestcaseDto;
+import project.momento.question.mapper.TestcaseMapper;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.mapper.SignMapper;
-import project.momento.testcase.dto.TestcaseDto;
-import project.momento.testcase.mapper.TestcaseMapper;
 
 @Service
 public class TestcaseService {
@@ -27,6 +27,10 @@ public class TestcaseService {
 		// TODO Auto-generated method stub
 		testcaseMapper.testCaseToDbDto(testcaseDto);
 	}
-
+	
+	public List<TestcaseDto> selectTestcaseList(int qestionSeq) {
+		
+		return testcaseMapper.selectTestcaseList(qestionSeq);
+	}
 
 }
