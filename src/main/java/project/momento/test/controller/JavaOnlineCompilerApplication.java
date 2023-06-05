@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.opencsv.CSVReader;
 
 import project.momento.question.dto.QuestionDto;
-import project.momento.question.dto.TestcaseDto;
+import project.momento.question.dto.TestcaseDto2;
 import project.momento.question.function.StringCodeCompile;
 import project.momento.question.service.QuestionService;
 
@@ -57,24 +57,24 @@ public class JavaOnlineCompilerApplication {
 				+ "    }\r\n"
 				+ "}\r\n"
 				+ "";
-		List<TestcaseDto> testcaseDtos = this.csvToInput("question/csv/num6sol.csv");
+		List<TestcaseDto2> testcaseDtos = this.csvToInput("question/csv/num6sol.csv");
 //		System.out.println(testcaseDtos.size());
 		int result = StringCodeCompile.stringCodeCompile(0, 0, "convert", testcaseDtos, code);
 		System.out.println(result);
         return "index";
 	}
 	
-	public List<TestcaseDto> csvToInput(String csvPath)
+	public List<TestcaseDto2> csvToInput(String csvPath)
 	{
-		List<TestcaseDto> inputDataList = new ArrayList<TestcaseDto>();
-		TestcaseDto solDto = null;
+		List<TestcaseDto2> inputDataList = new ArrayList<TestcaseDto2>();
+		TestcaseDto2 solDto = null;
 		try {
 			// input값으로 넣을 데이터들 csv파일로 load
 			CSVReader reader = new CSVReader(new FileReader(csvPath));
             String [] nextLine;
 			// 데이터 한행씩 로드
             while ((nextLine = reader.readNext()) != null) {   // 2
-            	solDto = new TestcaseDto();
+            	solDto = new TestcaseDto2();
                 // input.csv에는 input 하나만 들어있기때문에 nextLine[0]만 수행함
             	if (Integer.parseInt(nextLine[0]) == 6)
             	{
@@ -127,8 +127,8 @@ public class JavaOnlineCompilerApplication {
 				+ "    }\r\n"
 				+ "}\r\n"
 				+ "";
-		List<TestcaseDto> testcaseDtos = questionService.selectTestcaseList(6);
-		for (TestcaseDto t : testcaseDtos)
+		List<TestcaseDto2> testcaseDtos = questionService.selectTestcaseList(6);
+		for (TestcaseDto2 t : testcaseDtos)
 		{
 //			System.out.println(t.getInput().equals("3,3;6"));
 		}

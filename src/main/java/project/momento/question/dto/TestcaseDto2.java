@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
-public class TestcaseDto {
+public class TestcaseDto2 {
 	
 	/*문제에 부여되는 고유번호*/ 
 	private int pkQuestionSeq;

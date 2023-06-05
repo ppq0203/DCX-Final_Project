@@ -22,7 +22,7 @@
         FROM QUESTION ORDER BY RAND() LIMIT 1
     </select>
 
-    <select id="selectTestcaseList" parameterType="int" resultType="project.momento.question.dto.TestcaseDto">
+    <select id="selectTestcaseList" parameterType="int" resultType="project.momento.question.dto.TestcaseDto2">
         SELECT PK_QUESTION_SEQ
             , INPUT
             , OUTPUT

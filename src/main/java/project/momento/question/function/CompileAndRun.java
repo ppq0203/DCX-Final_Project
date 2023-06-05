@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 
 import javax.tools.JavaCompiler;
 
-import project.momento.question.dto.TestcaseDto;
+import project.momento.question.dto.TestcaseDto2;
 import project.momento.question.controller.GenerateTestcaseController;
 
 public class CompileAndRun {
 
-	public static int classRun(Object myClass, List<TestcaseDto> testcaseDtos, String funcName, int option)
+	public static int classRun(Object myClass, List<TestcaseDto2> testcaseDtos, String funcName, int option)
 	{
 		int result = 0;
 		Class<?> objClass = myClass.getClass();
@@ -25,7 +25,7 @@ public class CompileAndRun {
     		// 가져온 method가 실행을 원하는 method명과 일치하면 수행
     		if(method.getName().equals(funcName))
             {
-    			for (TestcaseDto testDto : testcaseDtos) {   //
+    			for (TestcaseDto2 testDto : testcaseDtos) {   //
     				try {
     					Object out = funcRunOut(myClass, method, funcName, testDto.getInput());
     					// option값이 -1인 경우 solDto.output에 input에 대한 결과값 저장

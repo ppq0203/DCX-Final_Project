@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -14,14 +17,16 @@ import java.util.ArrayList;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
-import project.momento.question.dto.TestcaseDto;
+import project.momento.question.dto.TestcaseDto2;
+import project.momento.testcase.dto.TestcaseDto;
 
 public class TestcaseGenerator {
+	
 	public static void testcaseGenrate()
 	{
 		// solution 코드들이 저장되어있는 dir경로
 //		String solsPath = "question/java_sols/";
-		String solsPath = "question/sol5/";
+		String solsPath = "question/sol1/";
 		// 솔루션 코드 수정한 파일 저장할 경로
 		String fixSolPath = solsPath + "sol";
     	String className = "Solution";
@@ -35,7 +40,7 @@ public class TestcaseGenerator {
     	File theDir = new File(fixSolPath);
 		if (!theDir.exists()) theDir.mkdirs();
 		// csv파일 로받은 input data를 List<SolutionDto>에 저장
-		List<TestcaseDto> testcaseDtos = csvToInput(inputCsvPath);
+		List<TestcaseDto2> testcaseDtos = csvToInput(inputCsvPath);
 		// csv파일 로받은 function 정보를 key=문제no, value=함수명 형태로 Map에 저장
     	Map<Integer, String> funcMap = csvToGetFuncName(funcNameCsvPath);
 		// input Data를 불러오지 못하면 중단
@@ -59,12 +64,14 @@ public class TestcaseGenerator {
             		// solution file의 필요한 코드추가후 컴파일 컴파일 성공시 0값 return
             		if(CompileAndRun.fileCompile(fList[i], fixSolPath) == 0)
             		{
+						System.out.println(fList[i].getName());
             			try {
 	                		// class파일 실행
 							ExecutorService executor = Executors.newSingleThreadExecutor();
 							Callable<Object> tesk  = () -> {
 								Object myClass = CompileAndRun.classLoad(fixSolPath, className);
 								CompileAndRun.classRun(myClass, testcaseDtos, funcName, -1);
+//								TestcaseGenerator tg = new TestcaseGenerator();
 								outputToCsv(questionNum, testcaseDtos, inOutCsvPath);
 								return null;
 							};
@@ -94,17 +101,17 @@ public class TestcaseGenerator {
 	}
 	
 	//	csv파일을 읽어와서 List<SolutionDto>에 input을 저장하는 함수
-	public static List<TestcaseDto> csvToInput(String csvPath)
+	public static List<TestcaseDto2> csvToInput(String csvPath)
 	{
-		List<TestcaseDto> inputDataList = new ArrayList<TestcaseDto>();
-		TestcaseDto solDto = null;
+		List<TestcaseDto2> inputDataList = new ArrayList<TestcaseDto2>();
+		TestcaseDto2 solDto = null;
 		try {
 			// input값으로 넣을 데이터들 csv파일로 load
 			CSVReader reader = new CSVReader(new FileReader(csvPath));
             String [] nextLine;
 			// 데이터 한행씩 로드
             while ((nextLine = reader.readNext()) != null) {   // 2
-            	solDto = new TestcaseDto();
+            	solDto = new TestcaseDto2();
                 // input.csv에는 input 하나만 들어있기때문에 nextLine[0]만 수행함
             	solDto.setInput(nextLine[0]);
             	inputDataList.add(solDto);
@@ -136,12 +143,12 @@ public class TestcaseGenerator {
 		return funcMap;
 	}
 	
-	public static void outputToCsv(int questionNum, List<TestcaseDto> testcaseDtos, String inOutCsvPath) throws IOException
+	public static void outputToCsv(int questionNum, List<TestcaseDto2> testcaseDtos, String inOutCsvPath) throws IOException
 	{
 		// 저장할 배열이 no, input, output 3개이므로 3개의 String 배열 생성
 		String[] entries = new String[3];
 		CSVWriter writer = new CSVWriter(new FileWriter(inOutCsvPath, true));
-		for (TestcaseDto testcaseDto : testcaseDtos)
+		for (TestcaseDto2 testcaseDto : testcaseDtos)
 		{
 			entries[2] = testcaseDto.getOutput();
 			if (entries[2] != null && entries[2].length() < 40)
@@ -153,5 +160,52 @@ public class TestcaseGenerator {
 			testcaseDto.setOutput(null);
 		}
         writer.close();
+	}
+	
+	public void outputToDB(int questionNum, List<TestcaseDto2> testcaseDtos) throws IOException
+	{
+		List<TestcaseDto> dbDtos = new ArrayList<TestcaseDto>();
+		TestcaseDto dbDto;
+		String outstr;
+		// 저장할 배열이 no, input, output 3개이므로 3개의 String 배열 생성
+		for (TestcaseDto2 testcaseDto : testcaseDtos)
+		{
+			outstr = testcaseDto.getOutput();
+			if (outstr != null && outstr.length() < 40)
+			{
+				dbDto = new TestcaseDto();
+				dbDto.setPkQuestionSeq(questionNum);
+				dbDto.setInput(testcaseDto.getInput());
+				dbDto.setOutput(outstr);
+				dbDtos.add(dbDto);
+			}
+			testcaseDto.setOutput(null);
+		}
+//		testcaseService.testCaseToDbList(dbDtos);
+	}
+	
+	public List<TestcaseDto> csvToDB(String csvPath)
+	{
+		List<TestcaseDto> inputDataList = new ArrayList<TestcaseDto>();
+		TestcaseDto solDto = null;
+		try {
+			// input값으로 넣을 데이터들 csv파일로 load
+			CSVReader reader = new CSVReader(new FileReader(csvPath));
+            String [] nextLine;
+			// 데이터 한행씩 로드
+            while ((nextLine = reader.readNext()) != null) {   // 2
+            	solDto = new TestcaseDto();
+            	System.out.println("no: "+Integer.parseInt(nextLine[0]) + "  in: " + nextLine[1] + "  out: "+nextLine[2]);
+            	solDto.setPkQuestionSeq(Integer.parseInt(nextLine[0]));
+            	solDto.setInput(nextLine[1]);
+            	solDto.setOutput(nextLine[2]);
+            	inputDataList.add(solDto);
+            }
+//            testcaseService.testCaseToDbList(inputDataList);
+		} catch (IOException e) {
+			// CSVReader에서 오류 발생했을때,
+			e.printStackTrace();
+		} // 1
+		return inputDataList;
 	}
 }

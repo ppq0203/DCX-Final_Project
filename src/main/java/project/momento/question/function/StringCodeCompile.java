@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.tools.JavaCompiler;
 
-import project.momento.question.dto.TestcaseDto;
+import project.momento.question.dto.TestcaseDto2;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class StringCodeCompile {
-	public static int stringCodeCompile(int roomNo, int UserNo, String functionName, List<TestcaseDto> testcaseDtos, String code)
+	public static int stringCodeCompile(int roomNo, int UserNo, String functionName, List<TestcaseDto2> testcaseDtos, String code)
 	{
 		int result = 0;
 		String directoryPath = roomNo + "/" + UserNo;
