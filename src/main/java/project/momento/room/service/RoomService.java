@@ -18,4 +18,12 @@ public class RoomService {
 	public List<RoomDto> findAllRooms() {
 		return mapper.findAllRooms();
 	}
+	
+	public List<RoomDto> findRoomByName(String roomName) {
+		return mapper.findRoomByName(roomName);
+	}
+	
+	public List<RoomDto> createRoomDTO(String roomName) {
+		return mapper.createRoom(roomName);
+	}
 }
