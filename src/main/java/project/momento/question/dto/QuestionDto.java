@@ -9,6 +9,7 @@ public class QuestionDto {
 	
 	/*문제에 부여되는 고유번호*/ 
 	private int pkQuestionSeq;
+	/*문제명*/ 
 	/*문제의 난이도*/   
 	private String questionName;
 	
@@ -19,15 +20,17 @@ public class QuestionDto {
 	private String type;  
 	/*문제본문*/
 	private String contents;  
+	/*코드 형식*/
+	private String codeFormat;  
 	/*문제의 풀이*/   
-	private String solution;
-	/*힌트*/
-	private String chance;
-	
-	private String className;   
-	/*등록 아이디*/   
+	private String solution;   
+	/*힌트*/   
+	private String chance; 
+	/*클래스명*/   
+	private String className; 
+	/*사용여부*/
 	private String useYn;
-	
+	/*삭제여부*/
 	private String delYn;
 	
 	private String registId;   

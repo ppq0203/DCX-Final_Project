@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +28,9 @@ public class SignController {
 	 * param
 	 * return contents/sign 받는값
 	 */
-	@RequestMapping(value="/sign.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String goSignMain( Model model) {
-	    return "content/sign";
+	@RequestMapping(value="/{userDivn}/sign/main", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String goSignMain(@PathVariable String userDivn, Model model) {
+	    return "content/"+userDivn+"/sign/sign";
 	}
 	
 	//아이디 중복 체크
@@ -52,12 +53,11 @@ public class SignController {
 	 * param 상세정보
 	 * return main page
 	 */
-	@RequestMapping(value="/signUp.com", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String goSignUp( Model model, SignDto signDto) {
-	   
+	@RequestMapping(value="/{userDivn}/sign/form", produces="application/text;charset=utf-8") /* value주소 이름*/
+	public String goSignUp(@PathVariable String userDivn, Model model, SignDto signDto) {
+		signDto.setUserDivn(userDivn);
 		SignService.insertUser(signDto);
-		
-		return "redirect:/login.com";
+		return "redirect:/"+userDivn+"/login/main";
 	}
 	
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.momento.subject.mapper.SubjectMapper">
+	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+	<!-- Heidisql연결후 입력 저장-->
+	<!-- SELECT문-->
+	<select id="selectSubject" parameterType="project.momento.subject.dto.SubjectDto" resultType="project.momento.subject.dto.SubjectDto">
+		<![CDATA[
+		SELECT 
+			SUBJECT_NAME AS subjectName,
+			SUB_START_DT AS subStartDt,
+			SUB_END_DT AS subEndDt
+		FROM 
+			SUBJECT
+		WHERE 
+			PK_SUBJECT_SEQ=#{pkSubjectSeq}
+		]]>
+	</select>
+	<select id="selectSubjectList" parameterType="hashmap" resultType="project.momento.subject.dto.SubjectDto">
+		SELECT
+			A.PK_SUBJECT_SEQ	AS pkSubjectSeq
+			, A.SUBJECT_NAME	AS subjectName
+			, A.SUBJECT_STATE	AS subjectState
+			, A.SUB_START_DT	AS subStartDt
+			, A.SUB_END_DT		AS subEndDt
+			, A.SUBJECT_TEACHER	AS subjectTeacher
+			, A.SUBJECT_TEST    AS subjectTest
+			, A.SUBJECT_TEST_DT AS subjectTestDt
+			, A.REGIST_ID       AS registId
+			, A.REGIST_DT       AS registDt
+			, A.UPDATE_ID       AS updateId
+			, A.UPDATE_DT       AS updateDt
+		FROM SUBJECT A
+		WHERE 1=1
+		<if test='keyword != null and keyword != ""'>
+			AND PROD_NAME LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+		<if test='prodType != null and prodType != ""'>
+			AND PROD_TYPE = #{prodType}
+	    </if>
+		ORDER BY A.PK_SUBJECT_SEQ ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+</mapper>

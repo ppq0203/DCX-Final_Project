@@ -11,12 +11,20 @@ public class NoticeDto {
 	
 	/*유저 개인에게 부여되는 고유번호*/
 	private int pkNoticeSeq;
+	/*유저 개인에게 부여되는 고유번호*/
+	private String pkSubjectSeq;
+	/*파일 고유 식별 번호*/
+	private int pkFileSeq;
 	/*공지사항 제목*/
 	private String title;
 	/*공지사항 내용*/
 	private String contents;
 	/*공지사항 비고*/
 	private String etc;
+	/*사용여부*/
+	private String useYn;
+	/*삭제여부*/
+	private String delYn;
 	/*등록 아이디*/
 	private String registId;
 	/*등록 일자*/
@@ -25,7 +33,5 @@ public class NoticeDto {
 	private String updateId;
 	/*수정 일자*/
 	private String updateDt;
-	/*파일 고유 식별 번호*/
-	private int pkFileSeq;
 
 }

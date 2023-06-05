@@ -22,7 +22,70 @@
 				USE_YN AS useYn,
 				REGIST_DT AS registDt
 			FROM USER
-			WHERE USER_ID = #{userId} AND PASSWORD = #{password}
+			WHERE USER_ID = #{userId} AND PASSWORD = #{password} AND USE_YN = 'Y'
 		]]>
 	</select>
+	
+	<!--UPDATE문-->
+	<update id="updateUser" parameterType="project.momento.login.dto.LoginDto">
+		<![CDATA[
+			 UPDATE USER
+        SET
+              USER_ID = #{userId},
+              PASSWORD = #{password},
+              NAME = #{name},
+              PHONE = #{phone},
+              BIRTHDAY = #{birthday},
+              ADDRESS = #{address},
+              DETAILED_ADDRESS = #{detailedAddress},
+              EMAIL = #{email}
+              
+        WHERE
+             PK_USER_SEQ = #{userId}
+		]]>
+	</update>
+		
+		<!-- SELECT문-->
+	<select id="selectUser" parameterType="project.momento.login.dto.LoginDto" resultType="project.momento.login.dto.LoginDto">
+		<![CDATA[
+		SELECT 
+				PK_USER_SEQ AS pkUserSeq,
+				PK_AUTH_SEQ AS pkAuthSeq,
+				USER_ID AS userId,
+				PASSWORD AS password,
+				NAME AS name,
+				PHONE AS phone,
+				BIRTHDAY AS birthday,
+				ADDRESS AS address,
+				DETAILED_ADDRESS AS detailedAddress,
+				EMAIL AS email,
+				USER_DIVN AS userDivn,
+				USE_YN AS useYn,
+				REGIST_DT AS registDt 
+		FROM USER
+		WHERE PK_USER_SEQ=#{pkUserSeq}
+		]]>
+	</select>
+		
+		<!-- DELETE문-->
+	<delete id="deleteUser" parameterType="project.momento.login.dto.LoginDto">
+		<![CDATA[
+		DELETE FROM USER 
+		WHERE 
+				PK_USER_SEQ=#{pkUserSeq}
+		]]>
+	</delete>
+		
+		<!--페이지사용여부-->
+	<update id="userYn" parameterType="project.momento.login.dto.LoginDto">
+		<![CDATA[
+			UPDATE USER
+			SET
+			      USE_YN = #{useYn},
+			      USER_DIVN = #{userDivn}
+			      
+			WHERE
+			      PK_USER_SEQ = #{pkUserSeq}
+		]]>
+	</update>
 </mapper>

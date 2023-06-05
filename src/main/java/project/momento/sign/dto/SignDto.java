@@ -16,6 +16,8 @@ public class SignDto {
 	
 	/*사용자 고유식별번호*/
 	private int pkUserSeq;
+	/*권한 고유 식별번호*/
+	private int pkAuthSeq;
 	/*사용자 아이디*/
 	private String userId;
 	/*사용자 비밀번호*/
@@ -32,11 +34,10 @@ public class SignDto {
 	private String detailedAddress;
 	/*이메일*/
 	private String email;
+	/*유저 구분(mng: 관리자, std: 학생)*/
+	private String userDivn;
 	/*사용유무(D: 삭제, H:휴면계정, Y:사용, N:미사용)*/
 	private String useYn;
 	/*가입한 날짜*/
 	private String registDt;
-	/*권한 고유 식별번호*/
-	private int pkAuthSeq;
-	
 }

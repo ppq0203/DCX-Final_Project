@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import project.momento.login.dto.LoginDto;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.mapper.SignMapper;
 
@@ -21,6 +22,9 @@ public class SignService {
 		SignMapper.insertUser(signDto);
 	}
 	
+	public List<String> waitList(SignDto signDto){
+		return SignMapper.waitList(signDto);
+	}
 
 
 	//아이디 중복체크
