@@ -15,7 +15,7 @@ public class EducationService {
 	@Autowired
 	private EducationMapper educationMapper;
 
-	public EducationDto selectEducation(EducationDto subjectDto) {
+	public List<EducationDto> selectEducation(EducationDto subjectDto) {
 		// TODO Auto-generated method stub
 		
 		return educationMapper.selectEducation(subjectDto);
@@ -30,9 +30,19 @@ public class EducationService {
 		// TODO Auto-generated method stub
 		return educationMapper.selectEducationCount(cri);
 	}
-
+	
 	public List<Object> getEducationList(int pkUserSeq) {
 		return educationMapper.getEducationList(pkUserSeq);
 	}
 	
+	public List<EducationDto> selectSubjectList(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		return educationMapper.selectSubjectList(pkEducationSeq);
+	}
+
+	public List<EducationDto> selectEducationStudList(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		return educationMapper.selectEducationStudList(pkEducationSeq);
+	}
+
 }
