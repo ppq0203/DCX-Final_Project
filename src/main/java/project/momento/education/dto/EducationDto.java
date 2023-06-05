@@ -42,8 +42,5 @@ public class EducationDto extends LoginDto {
 	private int pkUserSeq;
 	/*과목 명*/  
 	private String subjectName;
-	
-	
-	
 
 }

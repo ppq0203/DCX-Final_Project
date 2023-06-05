@@ -15,4 +15,6 @@ public interface EducationMapper {
 	List<EducationDto> selectEducationList(Criteria cri);
 
 	int selectEducationCount(Criteria cri);
+	
+	List<Object> getEducationList(int pkUserSeq);
 }

@@ -1,86 +1,125 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/homeLayout}">
+	layout:decorate="~{common/layout/std/stdDeshboardLayout}">
+<!-- Main content -->
 
 <th:block layout:fragment="content">
-	<!-- Main content -->
-	<section class="content">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-3">
-					<div class="sticky-top mb-3">
-						<div class="card">
-							<div class="card-header">
-								<h4 class="card-title">Draggable Events</h4>
-							</div>
-							<div class="card-body">
-								<!-- the events -->
-								<div id="external-events">
-									<div class="external-event bg-success">Lunch</div>
-									<div class="external-event bg-warning">Go home</div>
-									<div class="external-event bg-info">Do homework</div>
-									<div class="external-event bg-primary">Work on UI design</div>
-									<div class="external-event bg-danger">Sleep tight</div>
-									<div class="checkbox">
-										<label for="drop-remove">
-											<input type="checkbox" id="drop-remove">
-											remove after drop
-										</label>
-									</div>
-								</div>
-							</div>
-							<!-- /.card-body -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-6">
+							<h4 class="fas fa-plus-square">&nbsp;대쉬보드</h4>
 						</div>
-						<!-- /.card -->
-						<div class="card">
-							<div class="card-header">
-								<h3 class="card-title">Create Event</h3>
-							</div>
-							<div class="card-body">
-								<div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-									<ul class="fc-color-picker" id="color-chooser">
-										<li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
-										<li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
-										<li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
-										<li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
-										<li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
-									</ul>
-								</div>
-								<!-- /btn-group -->
-								<div class="input-group">
-									<input id="new-event" type="text" class="form-control" placeholder="Event Title">
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="container-fluid">
 
-									<div class="input-group-append">
-										<button id="add-new-event" type="button" class="btn btn-primary">Add</button>
-									</div>
-									<!-- /btn-group -->
+					<div class="row">
+
+						<section class="col-lg-7">
+							<div class="card card-primary resize-handle">
+							<div class="card-body p-0">
+
+								<div id="calendar" class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap">
 								</div>
-								<!-- /input-group -->
 							</div>
+
 						</div>
+						</section>
+
+
+						<section class="col-lg-5 connectedSortable ui-sortable">
+
+							<div class="card" style="position: relative; left: 0px; top: 0px;">
+								<div class="card-header ui-sortable-handle" style="cursor: move;">
+									<h3 class="card-title">
+										<i class="fas fa-chart-pie mr-1"></i>
+										Sales
+									</h3>
+									<div class="card-tools">
+										<ul class="nav nav-pills ml-auto">
+											<li class="nav-item">
+												<a class="nav-link active" href="#revenue-chart"
+													data-toggle="tab">Area</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="tab-content p-0">
+
+										<div class="chart tab-pane active" id="revenue-chart"
+											style="position: relative; height: 300px;">
+											<div class="chartjs-size-monitor">
+												<div class="chartjs-size-monitor-expand">
+													<div class=""></div>
+												</div>
+												<div class="chartjs-size-monitor-shrink">
+													<div class=""></div>
+												</div>
+											</div>
+											<canvas id="revenue-chart-canvas" height="300"
+												style="height: 300px; display: block; width: 377px;" width="377"
+												class="chartjs-render-monitor"></canvas>
+										</div>
+										<div class="chart tab-pane" id="sales-chart"
+											style="position: relative; height: 300px;">
+											<canvas id="sales-chart-canvas" height="0"
+												style="height: 0px; display: block; width: 0px;"
+												class="chartjs-render-monitor" width="0"></canvas>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</section>
+
 					</div>
+
 				</div>
-				<!-- /.col -->
-				<div class="col-md-9">
-					<div class="card card-primary">
-						<div class="card-body p-0">
-							<!-- THE CALENDAR -->
-							<div id="calendar"></div>
-						</div>
-						<!-- /.card-body -->
+			</section>
+			<section class="content">
+				<div class="row">
+					<div class="col-md-9">
+						
+
 					</div>
-					<!-- /.card -->
+
 				</div>
-				<!-- /.col -->
-			</div>
-			<!-- /.row -->
+			</section>
 		</div><!-- /.container-fluid -->
-	</section>
-	<!-- /.content -->
 	<script>
+		
+		$(document).ready(function () {
+			$(".resize-handle").on("resizestop", function (event, ui) { });
+			$(".resize-handle").resizable({
+				resize: function (event, ui) { }
+			});
+			$(".resize-handle").resizable({
+				//함께 커질영역 
+				alsoResize: ".wrap-box",
+				//커질때 애니메이션 발생 
+				animate: true,
+				animateDuration: 300,
+				animateEasing: "swing",
+				//비율유지
+				aspectRatio: true,
+				//마우스 hover 아닐때 핸들러 숨기기
+				autoHide: true,
+				//minHeight, maxHeight, minWidth, maxWidth 최소,최대 크기지정 
+			});
+		})
+		
+		
 		$(function () {
-
-
+			
 			/* initialize the calendar
 			 -----------------------------------------------------------------*/
 			//Date for the calendar events (dummy data)
@@ -93,23 +132,10 @@
 			var Draggable = FullCalendar.Draggable;
 
 			var containerEl = document.getElementById('external-events');
-			var checkbox = document.getElementById('drop-remove');
 			var calendarEl = document.getElementById('calendar');
 
 			// initialize the external events
 			// -----------------------------------------------------------------
-
-			new Draggable(containerEl, {
-				itemSelector: '.external-event',
-				eventData: function (eventEl) {
-					return {
-						title: eventEl.innerText,
-						backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
-						borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
-						textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
-					};
-				}
-			});
 
 			var calendar = new Calendar(calendarEl, {
 				headerToolbar: {
@@ -166,8 +192,8 @@
 						borderColor: '#3c8dbc' //Primary (light-blue)
 					}
 				],
-				editable: true,
-				droppable: true, // this allows things to be dropped onto the calendar !!!
+				editable: false,
+				droppable: false, // this allows things to be dropped onto the calendar !!!
 				drop: function (info) {
 					// is the "remove after drop" checkbox checked?
 					if (checkbox.checked) {
@@ -183,40 +209,6 @@
 			/* ADDING EVENTS */
 			var currColor = '#3c8dbc' //Red by default
 			// Color chooser button
-			$('#color-chooser > li > a').click(function (e) {
-				e.preventDefault()
-				// Save color
-				currColor = $(this).css('color')
-				// Add color effect to button
-				$('#add-new-event').css({
-					'background-color': currColor,
-					'border-color': currColor
-				})
-			})
-			$('#add-new-event').click(function (e) {
-				e.preventDefault()
-				// Get value and make sure it is not null
-				var val = $('#new-event').val()
-				if (val.length == 0) {
-					return
-				}
-
-				// Create events
-				var event = $('<div />')
-				event.css({
-					'background-color': currColor,
-					'border-color': currColor,
-					'color': '#fff'
-				}).addClass('external-event')
-				event.text(val)
-				$('#external-events').prepend(event)
-
-				// Add draggable funtionality
-				ini_events(event)
-
-				// Remove event from text input
-				$('#new-event').val('')
-			})
 		})
 	</script>
 </th:block>
