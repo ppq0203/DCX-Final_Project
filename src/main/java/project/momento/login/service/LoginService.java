@@ -32,10 +32,9 @@ public class LoginService {
 		
 		loginMapper.insertUser(loginDto);
 	}
-	public LoginDto updateUser(LoginDto loginDto) {
+	public void updateUser(LoginDto loginDto) {
 		// TODO Auto-generated method stub
-		
-		return loginMapper.updateUser(loginDto);
+		loginMapper.updateUser(loginDto);
 	}
 	public void deleteUser(LoginDto loginDto) {
 		// TODO Auto-generated method stub

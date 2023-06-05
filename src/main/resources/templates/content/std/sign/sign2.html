@@ -7,26 +7,25 @@
 	<div class="container">
 		<h2 style=" text-align: center; padding: 50px;">학생 정보</h2>
 		<form method="post" action="/update.com" name="userInfo" onsubmit="return checkValue()">
+			<input type="hidden" th:each="loginDto : ${loginDto}" value="hidden">
 			<div class="row">
 				<div class="col-sm-9">
 					<div class="col-sm-12">
 						<label for="userId" class="form-label">아이디</label>
-						<p th:each="loginDto : ${loginDto}"></p>
-        				<input id="userId" name="userId" type="text" class="form-control" placeholder=""
-							th:value="${loginDto.userId}" required="">
-						<button type="button" id="check_Button" class="btn btn-secondary">중복확인</button>
+						<input id="userId" name="userId" type="text" class="form-control" placeholder=""
+							th:value="${loginDto.userId}">
 						<div class="input-group">
-							
+
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<label for="password" class="form-label">비밀번호</label>
-        				<input id="password" name="password" type="password" class="form-control" placeholder=""
+						<input id="password" name="password" type="password" class="form-control" placeholder=""
 							th:value="${loginDto.password}" required="">
 					</div>
 					<div class="col-sm-12">
 						<label for="passwordChk" class="form-label">비밀번호 확인</label>
-						<input id="passwordChk" name="passwordChk" type="password" class="form-control" placeholder=""
+						<input id="passwordChk" type="password" class="form-control" placeholder=""
 							th:value="${loginDto.password}" required="">
 					</div>
 
@@ -43,8 +42,8 @@
 					</div>
 					<div class="col-sm-12">
 						<div class="custom-file mt-3 mb-3">
-							<input name="imgFile" type="file" class="custom-file-input" id="customFile">
-							<input name="imgPath" type="hidden" id="imgPath">
+							<input type="file" class="custom-file-input" id="customFile">
+							<input type="hidden" id="imgPath">
 							<label class="custom-file-label" for="customFile"></label>
 						</div>
 					</div>
@@ -53,29 +52,29 @@
 
 			<div class="col-sm-12">
 				<label for="name" class="form-label">이름</label>
-				<input id="name" name="name" type="text" class="form-control" placeholder=""
-							th:value="${loginDto.name}" required="">
+				<input id="name" name="name" type="text" class="form-control" placeholder="" th:value="${loginDto.name}"
+					required="">
 			</div>
 			<div class="col-sm-12">
 				<label for="phone" class="form-label">전화번호</label>
 				<input id="phone" name="phone" type="text" class="form-control" placeholder=""
-							th:value="${loginDto.phone}" required="">
+					th:value="${loginDto.phone}" required="">
 			</div>
 			<div class="col-sm-12">
 				<label for="email" class="form-label">이메일</label>
 				<input id="email" name="email" type="text" class="form-control" placeholder=""
-							th:value="${loginDto.email}" required="">
+					th:value="${loginDto.email}" required="">
 			</div>
 			<div class="col-sm-12">
 				<label for="birthday" class="form-label">생년월일</label>
 				<input id="birthday" name="birthday" type="text" class="form-control" placeholder=""
-							th:value="${loginDto.birthday}" required="">							
+					th:value="${loginDto.birthday}" required="">
 			</div>
 			<div class="col-sm-12">
 				<label for="address" class="form-label">주소</label>
 				<div class="input-group">
 					<input id="address" name="address" type="text" class="form-control" placeholder=""
-							th:value="${loginDto.address}" required="">
+						th:value="${loginDto.address}" required="">
 					<button type="button" id="addressBtn" onclick="sample6_execDaumPostcode()"
 						class="btn btn-secondary">주소찾기</button>
 				</div>
@@ -83,10 +82,10 @@
 			<div class="col-sm-12">
 				<label for="detailedAddress" class="form-label">상세주소</label>
 				<input id="detailedAddress" name="detailedAddress" type="text" class="form-control" placeholder=""
-							th:value="${loginDto.detailedAddress}" required="">
+					th:value="${loginDto.detailedAddress}" required="">
 			</div>
 			<div class="col-sm-12">
-				<button type="button" id="update_Button" class="btn btn-primary btn-lg btn-block mt-5" onclick="checkValue()">수정</button>
+				<button type="submit" class="btn btn-primary btn-lg btn-block mt-5">수정</button>
 			</div>
 		</form>
 	</div>
@@ -142,119 +141,56 @@
 				return false;
 			}
 			document.userInfo.submit();
-		
-		$(".custom-file-input").on("change", function (e) {
-			var fileName = $(this).val().split("\\").pop();
-			var filePath = $(this).val();
-			//input file 태그.
-			var file = $(".custom-file-input")[0].files[0];
-			//파일 경로.
-			var filePath = file.value;
-
-			console.log('파일 경로 : ' + e.target.result);
-			console.log('파일명 : ' + fileName);
-			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-			if (fileName != '') {
-				var reader = new FileReader();
-				reader.readAsDataURL(e.target.files[0]);
-				reader.onload = function (event) { //파일 로드한 값을 표현, e는 이벤트안에 result값이 파일의 정보 가지고 있음 
-					$('#preview').attr('src', event.target.result);
-					$('#imgPath').val(test);
-				}
-			}
-		});
-		// 아이디 중복체크
-		$("#check_Button").click(function () {
-			if (document.userInfo.userId.value == "") {//중복체크 null값 일때 표기
-				alert("아이디를 입력하세요.");
-				return false;
-			} else {
-				var id = $("#userId").val();
-				//아이디가 적혀있는지 확인하기
-				$.ajax({
-					type: "POST",
-					url: "/signChk.com",
-					async: false,
-					data: {id: id},
-					success: function (data) {
-						if (data >= 1) {
-							alert("사용중인 아이디");
-						} else {
-							alert("사용 가능한 아이디");
-						}//alert(data);//창띄우기
-					}
-				});
-			}
-		});
-		// 데이터 중복체크
-		$("#update_Button").click(function () {
-			if (document.userInfo.loginDto.value == document.getElementById(loginDto).value) {//중복체크 null값 일때 표기
-				alert("변경사항이 없으신가요.");
-				return false;
-			} else {
-				var loginDto = $("#loginDto").val();
-				//데이터 변경이 있는지 확인하기
-				$.ajax({
-            	type: "POST",
-            	url: "/update.com",
-            	data: { loginDto: loginDtoValue },
-            	success: function (data) {
-                alert("변경되었습니다.");
-                // 추가로 필요한 동작 수행 가능
-            },
-            	error: function () {
-                alert("변경 요청에 실패했습니다.");
-            }
-        });
-			}
-		});
-		function sample6_execDaumPostcode() {
-			new daum.Postcode({
-				oncomplete: function (data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					var addr = ''; // 주소 변수
-					var extraAddr = ''; // 참고항목 변수
-
-					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-						addr = data.roadAddress;
-					} else { // 사용자가 지번 주소를 선택했을 경우(J)
-						addr = data.jibunAddress;
-					}
-
-					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-					if (data.userSelectedType === 'R') {
-						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-							extraAddr += data.bname;
-						}
-						// 건물명이 있고, 공동주택일 경우 추가한다.
-						if (data.buildingName !== '' && data.apartment === 'Y') {
-							extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-						}
-						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-						if (extraAddr !== '') {
-							extraAddr = ' (' + extraAddr + ')';
-						}
-						// 조합된 참고항목을 해당 필드에 넣는다.
-						//document.getElementById("sample6_extraAddress").value = extraAddr;
-
-					} else {
-						//document.getElementById("sample6_extraAddress").value = '';
-					}
-
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					//document.getElementById('sample6_postcode').value = data.zonecode;
-					document.getElementById("address").value = addr;
-					// 커서를 상세주소 필드로 이동한다.
-					document.getElementById("detailedAddress").focus();
-				}
-			}).open();
 		}
+
+		
+			function sample6_execDaumPostcode() {
+				new daum.Postcode({
+					oncomplete: function (data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var addr = ''; // 주소 변수
+						var extraAddr = ''; // 참고항목 변수
+
+						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							addr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							addr = data.jibunAddress;
+						}
+
+						// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+						if (data.userSelectedType === 'R') {
+							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+							if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+								extraAddr += data.bname;
+							}
+							// 건물명이 있고, 공동주택일 경우 추가한다.
+							if (data.buildingName !== '' && data.apartment === 'Y') {
+								extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+							}
+							// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+							if (extraAddr !== '') {
+								extraAddr = ' (' + extraAddr + ')';
+							}
+							// 조합된 참고항목을 해당 필드에 넣는다.
+							//document.getElementById("sample6_extraAddress").value = extraAddr;
+
+						} else {
+							//document.getElementById("sample6_extraAddress").value = '';
+						}
+
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						//document.getElementById('sample6_postcode').value = data.zonecode;
+						document.getElementById("address").value = addr;
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById("detailedAddress").focus();
+					}
+				}).open();
+			}
 
 	</script>
 </th:block>
