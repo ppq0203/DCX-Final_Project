@@ -72,4 +72,8 @@ public class EducationService {
 		educationMapper.insertSubject(educationDto);
 	}
 
+	public List<Object> getEducationList(int pkUserSeq) {
+		return educationMapper.getEducationList(pkUserSeq);
+	}
+	
 }

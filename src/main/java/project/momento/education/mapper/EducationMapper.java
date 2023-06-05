@@ -25,5 +25,6 @@ public interface EducationMapper {
 	void insertEducationStud(EducationDto educationDto);
 
 	void insertSubject(EducationDto educationDto);
-
+	
+	List<Object> getEducationList(int pkUserSeq);
 }
