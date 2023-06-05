@@ -1,37 +1,33 @@
 package project.momento.notice.service;
 
-import java.lang.reflect.Member;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.momento.menu.dto.MenuDto;
-import project.momento.menu.mapper.MenuMapper;
-import project.momento.sign.dto.SignDto;
-import project.momento.sign.mapper.SignMapper;
+import project.momento.notice.dto.NoticeDto;
+import project.momento.notice.mapper.NoticeMapper;
+import project.momento.page.Criteria;
 
 @Service
 public class NoticeService {
 	
 	@Autowired
-	private MenuMapper menuMapper;
+	private NoticeMapper noticeMapper;
 	
-	// 메뉴를 생성, 수정, 삭제를 반영
-	public void menuManagement(MenuDto menuManageDto) {
-		menuMapper.menuManagement(menuManageDto);
+	public void insertNotice(NoticeDto noticeDto) {
+		// TODO Auto-generated method stub
+		noticeMapper.insertNotice(noticeDto);
 	}
-	
-	// 메뉴 목록을 불러오는 함수
-	public List<MenuDto> getMenuList(int pkAuthSeq) {
-		// 관리자인지 확인
-		if (pkAuthSeq != 1) {
-			// 관리자가 아닌 경우
-			return menuMapper.getUserMenuList(pkAuthSeq);
-		} else {
-			// 관리자인 경우
-			return menuMapper.getAdminMenuList(pkAuthSeq);
-		}
+
+	public List<NoticeDto> selectNoticeList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return noticeMapper.selectNoticeList(cri);
+	}
+
+	public int selectNoticeListCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return noticeMapper.selectNoticeListCount(cri);
 	}
 
 }
