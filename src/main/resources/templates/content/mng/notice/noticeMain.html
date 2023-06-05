@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/mng/mngDefaultLayout}">
+	layout:decorate="~{common/layout/mng/mngSubjectLayout}">
 <!-- Main content -->
 
 <th:block layout:fragment="content">
@@ -27,7 +27,7 @@
 						<!-- /.card-header -->
 						<div class="card-body">
 							<table class="table table-sm table-bordered table-hover">
-								<thead>
+								<div>
 									<tr>
 										<th style="width:50px;">No.</th>
 										<th>제목</th>
@@ -36,7 +36,7 @@
 										<th>등록일자</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id = "resultMng">
 								</tbody>
 							</table>
 						</div>
@@ -90,6 +90,35 @@
 				//minHeight, maxHeight, minWidth, maxWidth 최소,최대 크기지정 
 			});
 		})
+		
+		function getNoticeList(){
+			
+			$.ajax({
+				type: "POST",
+				url: "/getNoticeList",
+				dataType: "json",
+				success: function (data) {
+					console.log(data);
+					$.each(data, function(index, item){
+						yame = "";
+						yame += "<tr>";
+						yame += "<td>" + item.pkNoticeSeq + "</td>";
+						yame += "<td>" + item.title + "</td>";
+						yame += "<td>" + item.contents + "</td>";
+						yame += "<td>" + item.registId + "</td>";
+						yame += "<td>" + item.registDt + "</td>";
+						yame += "</tr>";
+						$("#resultMng").append(yame);
+					})	
+				},
+				error: function () {
+				}
+			});
+		}
+		
+		document.addEventListener("DOMContentLoaded", function(event) { 
+			getNoticeList()
+		});
 
 
 		$(function () {

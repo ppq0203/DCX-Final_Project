@@ -26,14 +26,12 @@
 
 
 </head>
-
 <body class="hold-transition">
 
 	<div class="wrapper">
-		<th:block th:replace="common/fragments/std/header :: headFragment"></th:block>
-		<th:block th:replace="common/fragments/std/leftside :: leftFragment"></th:block>
+		<th:block th:replace="common/fragments/mng/mngHeader :: headFragment"></th:block>
+		<th:block th:replace="common/fragments/mng/mngLeft :: leftFragment"></th:block>
 		<th:block layout:fragment="content"></th:block>
-
 	</div>
 </body>
 

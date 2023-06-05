@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/mng/mngDefaultLayout}">
 
 <!-- Head -->
 <th:block th:fragment="headFragment">
@@ -18,7 +19,7 @@
 					th:utext="${session.loginDto.name +' 님 환영 합니다.'}" href="#" role="button">
 					<span></span>
 				</a></li>
-			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="로그아웃" class="nav-link" href="/std/login/out" role="button">
+			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="로그아웃" class="nav-link" href="/mng/login/out" role="button">
 				</a>
 			</li>
 			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="마이페이지" class="nav-link" th:href="@{/{userDivn}/profile(userDivn = ${session.loginDto.userDivn})}" role="button"><i class="fas fa-sliders-h"></i>

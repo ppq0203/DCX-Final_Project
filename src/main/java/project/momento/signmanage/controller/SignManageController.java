@@ -38,7 +38,7 @@ public class SignManageController {
 	}
 	
 	@ResponseBody //ajax로 가입 훈련생 데이터 컨트롤.
-	@RequestMapping(value="getTraineeList.com", produces="application/json;charset=utf-8", method=RequestMethod.POST)
+	@RequestMapping(value="/getTraineeList.com", produces="application/json;charset=utf-8", method=RequestMethod.POST)
 	public List<LoginDto> GetTraineeList (Model model, HttpServletRequest request) {
 		List<LoginDto> TraineeList = loginService.getTrainList();
 		return TraineeList;
