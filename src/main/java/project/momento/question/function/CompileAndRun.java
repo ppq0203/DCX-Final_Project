@@ -36,15 +36,23 @@ public class CompileAndRun {
     					// option값이 0인 경우 유저의 결과와 저장되어있는 결과를 비교
     					if(option == 0)
     					{	
+    						System.out.println(testDto.getInput());
+    						System.out.println(testDto.getOutput());
+							System.out.println(out.toString());
     						// 유저결과와 저장되어있는 결과가 다르면 오답이므로 -1을 return
     						if(testDto.getOutput().equals(out.toString()) != true)
+    						{
     							return -1;
+    						}
     					}
     				} catch(ArrayIndexOutOfBoundsException e) {
+//    					e.printStackTrace();
     					result = -1;
     				} catch(NumberFormatException e) {
+//    					e.printStackTrace();
     					result = -1;
     				} catch(Exception e) {
+//    					e.printStackTrace();
     					result = -1;
     				}
     			}
