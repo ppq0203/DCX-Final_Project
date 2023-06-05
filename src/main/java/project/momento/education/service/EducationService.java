@@ -77,6 +77,16 @@ public class EducationService {
 	}
 
 	public void updateEducation(EducationDto educationDto) {
+		
+		// educationDt 값을 쪼개서 subStartDt와 subEndDt로 설정
+        String educationDt = educationDto.getEducationDt();
+        String[] dates = educationDt.split(" ~ ");
+        String subStartDt = dates[0];
+        String subEndDt = dates[1];
+
+        // 쪼개어진 값을 educationDto에 설정
+        educationDto.setSubStartDt(subStartDt);
+        educationDto.setSubEndDt(subEndDt);
 		educationMapper.updateEducation(educationDto);
 		
 	}
@@ -89,6 +99,11 @@ public class EducationService {
 	public void deleteSubject(int pkEducationSeq) {
 		// TODO Auto-generated method stub
 		educationMapper.deleteSubject(pkEducationSeq);
+	}
+
+	public void deleteEducation(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		educationMapper.deleteEducation(pkEducationSeq);
 	}
 	
 }

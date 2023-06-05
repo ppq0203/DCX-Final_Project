@@ -33,4 +33,6 @@ public interface EducationMapper {
 	void deleteEducationStud(int pkEducationSeq);
 
 	void deleteSubject(int pkEducationSeq);
+
+	void deleteEducation(int pkEducationSeq);
 }

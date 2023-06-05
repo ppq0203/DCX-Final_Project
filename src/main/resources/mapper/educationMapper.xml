@@ -167,6 +167,11 @@
 	  WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
 	</update >
 	
+	<delete id="deleteEducation" parameterType="int">
+		DELETE FROM EDUCATION
+  		WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+	</delete>
+	
 	<delete id="deleteEducationStud" parameterType="int">
 		DELETE FROM EDUCATION_STUD
   		WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
