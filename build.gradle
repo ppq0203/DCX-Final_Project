@@ -44,6 +44,10 @@ dependencies {
 	implementation 'jakarta.servlet:jakarta.servlet-api' //스프링부트 3.0 이상
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0' //스프링부트 3.0 이상
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1' //스프링부트 3.0 이상
+	
+	// https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'
+
 }
 
 tasks.named('test') {
