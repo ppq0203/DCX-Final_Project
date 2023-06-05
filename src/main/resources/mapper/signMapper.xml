@@ -59,16 +59,6 @@
 		select * from USER where USE_YN = 'N'
 	</select>
 	
-	<!-- 훈련생 SELECT --> <!-- 사용중이며 학생이고 재학중인 데이터만 모아리스트로. -->
-	<select id="stdList" resultType="project.momento.sign.dto.SignDto">
-		select * from USER where USE_YN = 'Y' AND USER_DIVN = 'std' AND CLASS_STATE = 'Y'
-	</select>
-	
-	<!-- 훈련생 SELECT --> <!-- 사용중이며 학생이고 재학중인 데이터만 모아리스트로. -->
-	<select id="graList" resultType="project.momento.sign.dto.SignDto">
-		select * from USER where USE_YN = 'Y' AND USER_DIVN = 'std' AND CLASS_STATE = 'E'
-	</select>
-	
 	<!-- 아이디 중복 체크      parameterType: 중복된 id가 있는지 보내는 ,  resultType: 중복된 id가 있거나 없다는 걸 알려주는  -->
  	<select id="checkButton" parameterType="project.momento.sign.dto.SignDto" resultType="int" >
 		SELECT COUNT(USER_ID) AS cnt FROM USER WHERE USER_ID=#{userId} AND USE_YN != 'D' <!-- FROM뒤에는 사용하는 table이름 -->

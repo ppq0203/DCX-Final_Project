@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpServletRequest;
-import project.momento.education.dto.EducationDto;
+//import project.momento.education.dto.EducationDto;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
 import project.momento.menu.dto.MenuDto;

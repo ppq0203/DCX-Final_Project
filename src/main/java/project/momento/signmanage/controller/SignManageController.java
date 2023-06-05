@@ -37,7 +37,7 @@ public class SignManageController {
 	    return "content/signManage";
 	}
 	
-	@ResponseBody
+	@ResponseBody //ajax로 가입 훈련생 데이터 컨트롤.
 	@RequestMapping(value="getTraineeList.com", produces="application/json;charset=utf-8", method=RequestMethod.POST)
 	public List<LoginDto> GetTraineeList (Model model, HttpServletRequest request) {
 		List<LoginDto> TraineeList = loginService.getTrainList();
@@ -52,26 +52,13 @@ public class SignManageController {
 		List<SignDto> waitList = SignService.waitList(signDto);
 		return waitList;			
 	}
-
-	@ResponseBody //ajax로 가입 훈련생 데이터 컨트롤.
-	@RequestMapping(value="/stdUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
-	public List<SignDto> stdUser(Model model, HttpServletRequest request, SignDto signDto) {
-		// 세션에서 훈련생 정보를 가져온다
-		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
-		List<SignDto> stdList = SignService.stdList(signDto);
-		System.out.println(stdList);
-		//model.addAttribute("stdList", stdList);
-		return stdList;			
-	}
 	
 	@ResponseBody //ajax로 가입 수료생 데이터 컨트롤.
-	@RequestMapping(value="/graUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
-	public List<SignDto> graUser(Model model, HttpServletRequest request, SignDto signDto) {
+	@RequestMapping(value="/getGraduList.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public List<LoginDto> getGraduList(Model model, HttpServletRequest request, SignDto signDto) {
 		// 세션에서 수료 정보를 가져온다
-		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
-		List<SignDto> graList = SignService.graList(signDto);
-		//model.addAttribute("graList", graList);
-		return graList;			
+		List<LoginDto> getGraduList = loginService.getGraduList();
+		return getGraduList;			
 	}
 	
 	@ResponseBody

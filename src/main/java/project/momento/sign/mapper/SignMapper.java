@@ -15,10 +15,6 @@ public interface SignMapper {
 	
 	List<SignDto> waitList(SignDto signDto);
 	
-	List<SignDto> stdList(SignDto signDto);
-	
-	List<SignDto> graList(SignDto signDto);
-	
 	//아이디 중복체크
 	int checkButton(SignDto signDto);
 

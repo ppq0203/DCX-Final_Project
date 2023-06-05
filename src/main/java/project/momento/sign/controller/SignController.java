@@ -1,5 +1,6 @@
 package project.momento.sign.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpServletRequest;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -54,10 +57,11 @@ public class SignController {
 	 * return main page
 	 */
 	@RequestMapping(value="/{userDivn}/sign/form", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String goSignUp(@PathVariable String userDivn, Model model, SignDto signDto) {
+	public String goSignUp(@PathVariable String userDivn, Model model, SignDto signDto, @RequestParam("imgFile") MultipartFile file) {
 		signDto.setUserDivn(userDivn);
 		SignService.insertUser(signDto);
-		
+		Object test = file;
+		System.out.println(test);
 		return "redirect:/"+userDivn+"/login/main";
 	}
 	
