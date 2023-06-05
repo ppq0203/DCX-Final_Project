@@ -1,32 +1,32 @@
 import java.util.*;
 
+// The idea is to have two conditions: 
+// One in which we will take the element into consideration, 
+// Second in which we won't take the element into consideration.
 public class Solution {
 
-    public boolean isMatch(String s, String p) {
-        boolean[][] cache = new boolean[s.length() + 1][p.length() + 1];
-
-        return dfs(cache, s, p, 0, 0);
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        helper(ans, 0, nums, list);
+        return ans;
     }
 
-    private boolean dfs(boolean[][] cache, String s, String p, int i, int j) {
-        if (cache[i][j] != false) return cache[i][j];
-
-        if (i >= s.length() && j >= p.length()) return true;
-
-        if (j >= p.length()) return false;
-
-        boolean match =
-            i < s.length() &&
-            (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
-
-        if (j + 1 < p.length() && p.charAt(j + 1) == '*') {
-            cache[i][j] =
-                dfs(cache, s, p, i, j + 2) ||
-                (match && dfs(cache, s, p, i + 1, j));
+    public void helper(
+        List<List<Integer>> ans,
+        int start,
+        int[] nums,
+        List<Integer> list
+    ) {
+        if (start >= nums.length) {
+            ans.add(new ArrayList<>(list));
         } else {
-            cache[i][j] = match && dfs(cache, s, p, i + 1, j + 1);
+            // add the element and start the  recursive call
+            list.add(nums[start]);
+            helper(ans, start + 1, nums, list);
+            // remove the element and do the backtracking call.
+            list.remove(list.size() - 1);
+            helper(ans, start + 1, nums, list);
         }
-
-        return cache[i][j];
     }
 }

@@ -21,7 +21,7 @@ public class TestcaseGenerator {
 	{
 		// solution 코드들이 저장되어있는 dir경로
 //		String solsPath = "question/java_sols/";
-		String solsPath = "question/sol1/";
+		String solsPath = "question/sol5/";
 		// 솔루션 코드 수정한 파일 저장할 경로
 		String fixSolPath = solsPath + "sol";
     	String className = "Solution";
@@ -80,6 +80,8 @@ public class TestcaseGenerator {
 								executor.shutdownNow();
 							} catch (InterruptedException | ExecutionException e) {
 								// 다른 예외 처리
+							} catch (OutOfMemoryError e) {
+								
 							}
 
 	            		} catch (Exception e) {
