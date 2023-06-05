@@ -44,10 +44,13 @@ public class EducationDto extends LoginDto {
 	private int pkUserSeq;
 	/*학생 고유 식별 번호*/
 	private String pkUserSeqArray;
+	/*학생 고유 식별 번호*/
+	private String pkManagerSeqArray;
 	/*과목 명*/  
 	private String subjectName;
-	
-	
-	
+	/*반환 SEQ*/
+	private int returnId;
+	/*과목 상태*/
+	private String subjectState;
 
 }

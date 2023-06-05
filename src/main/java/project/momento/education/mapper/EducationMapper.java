@@ -20,4 +20,10 @@ public interface EducationMapper {
 
 	List<EducationDto> selectEducationStudList(int pkEducationSeq);
 
+	int insertEducation(EducationDto educationDto);
+
+	void insertEducationStud(EducationDto educationDto);
+
+	void insertSubject(EducationDto educationDto);
+
 }

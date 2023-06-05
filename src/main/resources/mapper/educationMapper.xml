@@ -3,7 +3,64 @@
 <mapper namespace="project.momento.education.mapper.EducationMapper">
 	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 	<!-- Heidisql연결후 입력 저장-->
-	<!-- SELECT문-->
+	<insert id="insertEducation" parameterType="project.momento.education.dto.EducationDto" useGeneratedKeys="true" keyProperty="returnId">
+		INSERT INTO EDUCATION (
+        PK_MANAGER_SEQ,
+        EDUCATION_NAME,
+        SUB_START_DT,
+        SUB_END_DT,
+        EDUCATION_TEST,
+        EDUCATION_TEST_DT,
+        REGIST_ID,
+        REGIST_DT
+    ) VALUES (
+        #{pkManagerSeq},
+        #{educationName},
+        #{subStartDt},
+        #{subEndDt},
+        #{educationTest},
+        #{educationTestDt},
+        #{registId},
+        SYSDATE()
+    )
+		<selectKey keyProperty="returnId" resultType="java.lang.Integer" order="AFTER">
+        SELECT LAST_INSERT_ID() AS returnId
+    	</selectKey>
+	</insert>
+	<insert id="insertEducationStud" parameterType="project.momento.education.dto.EducationDto">
+    INSERT INTO EDUCATION_STUD (
+        PK_EDUCATION_SEQ,
+        PK_USER_SEQ,
+        REGIST_ID,
+        REGIST_DT
+    )
+    VALUES (
+        #{pkEducationSeq},
+        #{pkUserSeq},
+        #{registId},
+        SYSDATE()
+    )
+</insert>
+	<insert id="insertSubject" parameterType="project.momento.education.dto.EducationDto">
+	    INSERT INTO SUBJECT (
+	        PK_EDUCATION_SEQ,
+	        PK_MANAGER_SEQ,
+	        SUBJECT_NAME,
+	        SUB_START_DT,
+	        SUB_END_DT,
+	        REGIST_ID,
+	        REGIST_DT
+	    )
+	    VALUES (
+	        #{pkEducationSeq},
+	        #{pkManagerSeq},
+	        #{subjectName},
+	        #{subStartDt},
+	        #{subEndDt},
+	        #{registId},
+	        SYSDATE()
+	    )
+	</insert>
 	<select id="selectEducation" parameterType="project.momento.education.dto.EducationDto" resultType="project.momento.education.dto.EducationDto">
 		<![CDATA[
 		SELECT

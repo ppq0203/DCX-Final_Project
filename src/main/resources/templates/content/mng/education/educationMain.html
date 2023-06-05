@@ -84,7 +84,7 @@
 				<div class="modal-content">
 					<div class="col-12 modal-header">
 						<h4 class="col-12 modal-title text-center">교육 등록</h4>
-						<input type="hidden">
+						<input type="hidden" id="pkUserSeqArray" name="pkUserSeqArray">
 					</div>
 					<div class="modal-body">
 						<div class="container-fluid">
@@ -92,7 +92,8 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label>교육명</label>
-										<input id="educationName" name="educationName" type="text" class="form-control">
+										<input id="educationName" name="educationName" type="text"
+											class="form-control validate">
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -105,7 +106,7 @@
 												</span>
 											</div>
 											<input id="educationDt" name="educationDt" type="text"
-												class="form-control float-right dateFormat">
+												class="form-control float-right dateFormat validate">
 										</div>
 
 									</div>
@@ -113,15 +114,20 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label>담당자</label>
-										<select id="pkManagerSeq" name="pkManagerSeq" class="form-control select2bs4"
-											style="width: 100%;" tabindex="-1" aria-hidden="true">
+										<select id="pkManagerSeq" name="pkManagerSeq"
+											class="form-control select2bs4 validate" style="width: 100%;" tabindex="-1"
+											aria-hidden="true">
+											<option th:each="manager : ${managerList}"
+												th:value="${manager.pkManagerSeq}" th:text="${manager.name}">
+											</option>
 										</select>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<label>학생정보</label>
-										<select id="pkUserSeq" name="pkUserSeq" multiple="multiple" class="form-control"
+										<select id="pkUserSeq" name="pkUserSeq" multiple="multiple"
+											class="form-control validate" onchange="changeSelect(event)"
 											style="width: 100%;">
 											<option th:each="user : ${userList}" th:value="${user.pkUserSeq}"
 												th:text="${'이름: ' + user.name + ' 생년월일: ' + user.birthday}">
@@ -162,10 +168,16 @@
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer justify-content-between">
+					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="submit" class="btn btn-primary">
 							<span>등록</span>
+						</button>
+						<button type="submit" class="btn btn-danger">
+							<span>삭제</span>
+						</button>
+						<button type="submit" class="btn btn-info">
+							<span>수정</span>
 						</button>
 					</div>
 				</div>
@@ -180,43 +192,26 @@
 		var educateManagerBox;
 		var educateUserBox;
 		function validation() {
-			var formData = $('.duallistbox').val();
-			console.log(formData)
-			document.educationInfo.pkUserSeqArray.value = formData
-			if (!document.educationInfo.educationName.value) {
-				alert("교육명을 입력하세요.");
-				return false;
-			}
+			var divn = true;
+			$(".validate").each(function () {
+				var value = $(this).val();
 
-			if (!document.educationInfo.educationDt.value) {
-				alert("교육일정을 입력하세요.");
+				// 선택되지 않은 값이나 입력값이 없는 경우 처리
+				if (value == "" || value == null || value == '') {
+					$(this).addClass("is-invalid");
+					divn = false;
+				}
+			});
+			if (!divn) {
 				return false;
+			} else {
+				//alert('sssssssssssss')
 			}
-			if (!document.educationInfo.pkManagerSeq.value) {
-				alert("담당자를 선택하세요.");
-				return false;
-			}
-			if (!document.educationInfo.lectureName.value) {
-				alert("과목를 입력하세요.");
-				return false;
-			}
-			if (!document.educationInfo.lectureDt.value) {
-				alert("기간을 선택하세요.");
-				return false;
-			}
-			if (!document.educationInfo.pkManagerSeqArray.value) {
-				alert("강사를 선택하세요.");
-				return false;
-			}
-			if (!document.educationInfo.pkUserSeqArray.value) {
-				alert("교육에 참여할 학생을 선택하세요.");
-				return false;
-			}
-
-			document.educationInfo.submit();
 		}
-
-
+		function changeSelect(event) {
+			var select2Value = $(event.target).val();
+			$("#pkUserSeqArray").val(select2Value);
+		}
 		function rowDel(button) {
 			SUBJECT_ARRAY.splice($(button).attr('index'), 1);
 			arrayInit();
@@ -230,7 +225,6 @@
 			$.each(MANAGER_ARRAY, function (index, item) {
 				options += "<option value=\"" + item.pkManagerSeq + "\">" + item.name + "</option>";
 			});
-			console.log(options)
 			return options;
 		}
 		function arrayInit() {
@@ -241,33 +235,17 @@
 				return a - b;
 			});
 
-			$.each(EDUCATION_ARRAY, function (index, item) {
-				var pkUserSeqArray = item.pkUserSeqArray;
-				var pkUserSeqArraySplit = pkUserSeqArray.split(",");
-				var pkUserSeqList = [];
-				for (var i = 0; i < pkUserSeqArraySplit.length; i++) {
-					var pkUserSeqInt = parseInt(pkUserSeqArraySplit[i]);
-					pkUserSeqList.push(pkUserSeqInt);
-				}
-				$("#educationName").val(item.educationName);
-				$("#educationDt").val(item.educationDt);
-				educateManagerBox.val(item.pkManagerSeq).trigger("change");
-				educateUserBox.val(pkUserSeqList).trigger("change");
-			});
-
-
 			$.each(SUBJECT_ARRAY, function (index, item) {
-				console.log(item.subjectName)
 				$("#lectTbody").append(
 					"<tr>" +
 					"<td>" +
-					"<input name=\"subjectName\" type=\"text\" class=\"form-control\" value=\"" + (item.subjectName === undefined ? "" : item.subjectName) + "\">" +
+					"<input index=\"" + index + "\" key=\"subjectName\" name=\"subjectName\" type=\"text\" class=\"form-control subjectName validate\" value=\"" + (item.subjectName === undefined ? "" : item.subjectName) + "\">" +
 					"</td>" +
 					"<td>" +
-					"<input name=\"subjectDt\" type=\"text\" class=\"form-control subjectDt dateFormat\">" +
+					"<input index=\"" + index + "\" key=\"subjectDt\" name=\"subjectDt\" type=\"text\" class=\"form-control subjectDt validate\">" +
 					"</td>" +
 					"<td>" +
-					"<select name=\"pkManagerSeqArray\" class=\"form-control managerSelect\" style=\"width: 100%;\">" +
+					"<select index=\"" + index + "\" key=\"pkManagerSeq\" name=\"pkManagerSeqArray\" class=\"form-control managerSelect validate\" style=\"width: 100%;\">" +
 					option() +
 					"</select>" +
 					"</td>" +
@@ -295,15 +273,18 @@
 					}
 				}, function (start, end, label) {
 					console.log('선택된 날짜: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+
 				}).last();
-				console.log(item.pkManagerSeq)
+				var managerSelect = $('.managerSelect').last();
+				managerSelect.val(item.pkManagerSeq).trigger("change");
 				rangeDate.data('daterangepicker').setStartDate(item.subStartDt);
 				rangeDate.data('daterangepicker').setEndDate(item.subEndDt);
-
-				var managerSelect = $('.managerSelect').last();
-
-				managerSelect.val(item.pkManagerSeq).trigger("change");
-				console.log(item.pkManagerSeq == "" ? null : item.pkManagerSeq)
+			});
+			$(".subjectName, .subjectDt, .managerSelect").change(function () {
+				var index = $(this).attr('index');
+				var value = $(this).val();
+				var key = $(this).attr('key');
+				SUBJECT_ARRAY[index][key] = value;
 			});
 		}
 		$(document).ready(function () {
@@ -347,25 +328,15 @@
 					"monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
 				}
 			}, function (start, end, label) {
-				console.log('선택된 날짜: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 			})
-			$('.modal').on('shown.bs.modal', function (e) {
-				// 테이블 초기화
-				//$(this).find('#lectTbody').empty();
-			});
 
 			$('.modal').on('hidden.bs.modal', function (e) {
 				// 모달이 닫힐 때 실행되는 코드
 				$(this).find('form')[0].reset(); // 입력 필드 초기화
 				// 테이블 초기화
-				//$(this).find('#lectTbody').empty();
 				SUBJECT_ARRAY = [];
 				EDUCATION_ARRAY = [];
 				arrayInit();
-			});
-
-			$('.dateFormat').on('cancel.daterangepicker', function (ev, picker) {
-				$(this).val('');
 			});
 
 			$('.updateBtn').click(function () {
@@ -382,7 +353,21 @@
 						EDUCATION_ARRAY = [];
 						SUBJECT_ARRAY = data.subjectList;
 						EDUCATION_ARRAY = data.educationList;
-
+						$.each(EDUCATION_ARRAY, function (index, item) {
+							var pkUserSeqArray = item.pkUserSeqArray;
+							console.log(pkUserSeqArray)
+							var pkUserSeqArraySplit = pkUserSeqArray.split(",");
+							var pkUserSeqList = [];
+							for (var i = 0; i < pkUserSeqArraySplit.length; i++) {
+								var pkUserSeqInt = parseInt(pkUserSeqArraySplit[i]);
+								pkUserSeqList.push(pkUserSeqInt);
+							}
+							$("#educationName").val(item.educationName);
+							$("#educationDt").val(item.educationDt);
+							$("#pkUserSeqArray").val(pkUserSeqList);
+							educateManagerBox.val(item.pkManagerSeq).trigger("change");
+							educateUserBox.val(pkUserSeqList).trigger("change");
+						});
 						arrayInit();
 					},
 					error: function (xhr, status, error) {

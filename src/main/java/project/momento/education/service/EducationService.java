@@ -41,4 +41,35 @@ public class EducationService {
 		return educationMapper.selectEducationStudList(pkEducationSeq);
 	}
 
+	public int insertEducation(EducationDto educationDto) {
+		// educationDt 값을 쪼개서 subStartDt와 subEndDt로 설정
+        String educationDt = educationDto.getEducationDt();
+        String[] dates = educationDt.split(" ~ ");
+        String subStartDt = dates[0];
+        String subEndDt = dates[1];
+
+        // 쪼개어진 값을 educationDto에 설정
+        educationDto.setSubStartDt(subStartDt);
+        educationDto.setSubEndDt(subEndDt);
+		
+		return educationMapper.insertEducation(educationDto);
+	}
+
+	public void insertEducationStud(EducationDto educationDto) {
+		// TODO Auto-generated method stub
+		educationMapper.insertEducationStud(educationDto);
+	}
+
+	public void insertSubject(EducationDto educationDto) {
+		// educationDt 값을 쪼개서 subStartDt와 subEndDt로 설정
+        String subjectDt = educationDto.getSubjectDt();
+        String[] dates = subjectDt.split(" ~ ");
+        String subStartDt = dates[0];
+        String subEndDt = dates[1];
+
+        educationDto.setSubStartDt(subStartDt);
+        educationDto.setSubEndDt(subEndDt);
+		educationMapper.insertSubject(educationDto);
+	}
+
 }
