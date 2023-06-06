@@ -35,7 +35,7 @@
 	</style>
 	<div class="container-lg">
 		<!-- Main content -->
-		<section class="content">
+		<section class="content pt-4">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-9">
@@ -149,7 +149,6 @@
 
 			</div>
 		</div>
-
 	<script>
 		$(function () {
 			// CodeMirror
@@ -179,6 +178,31 @@
 		}
     /*]]>*/
 	</script>
-</th:block>
+	<!-- 진상 script -->
+	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+		console.log(1);
+			var count = 25;
+
+			// 생성된 템플릿을 타임리프 템플릿 영역에 추가
+			
+			var line_length = Math.sqrt(count);
+			var gameroom_left_classes = document.getElementsByClassName('light_black');
+			var all_rooms_length = 510;
+			var one_room_length = all_rooms_length / line_length;
+			console.log(all_rooms_length);
+			console.log(one_room_length);
+			for (var i = 0; i < gameroom_left_classes.length; i++) {
+				gameroom_left_classes[i].style.width = one_room_length + "px";
+			}
+
+	</script>
+	</th:block>
 
 </html>
