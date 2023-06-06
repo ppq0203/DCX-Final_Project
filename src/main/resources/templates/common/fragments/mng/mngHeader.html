@@ -18,7 +18,7 @@
 					th:utext="${session.loginDto.name +' 님 환영 합니다.'}" href="#" role="button">
 					<span></span>
 				</a></li>
-			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="로그아웃" class="nav-link" href="/logout" role="button">
+			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="로그아웃" class="nav-link" th:href="@{/{userDivn}/login/out(userDivn = ${session.loginDto.userDivn})}" role="button">
 				</a>
 			</li>
 			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="마이페이지" class="nav-link" th:href="@{/{userDivn}/profile(userDivn = ${session.loginDto.userDivn})}" role="button"><i class="fas fa-sliders-h"></i>

@@ -76,13 +76,13 @@
 								str += '</ul></li>'
 							}
 							str += '<li class="nav-item">'
-								+ '<a href="../index.html" class="nav-link">'
+								+ '<a href="#" class="nav-link">'
 								+ '<i class="far fa-circle nav-icon"></i>'
 								+ '<p>' + subjectList[i].subjectState + '</p></a>'
 								+ '<ul class="nav nav-treeview">'
 						}
 						str += '<li class="nav-item">'
-							+ '<a href="../index.html" class="nav-link">'
+							+ '<a href="/std/' + subjectList[i].pkEducationSeq + '/' + subjectList[i].pkSubjectSeq + '/qna/main" class="nav-link">'
 							+ '<i class="far fa-dat-circle nav-icon"></i>'
 							+ '<p>' + subjectList[i].subjectName + '</p></a></li>'
 					});
@@ -99,6 +99,7 @@
 						}
 					});
 					str += '</ul>';
+					console.log(str);
 					$(".append").append(str);
 				},
 				error: function (error) {
@@ -107,31 +108,31 @@
 			});
 		};
 		
-		function getSubject(){
-			$.ajax({
-				type: "POST",
-				url: "/getall.com",
-				dataType: "json",
-				success: function (data) {
-					str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
-					$.each(data, function (i) {
-						if (0 == data[i].upperMenuNo) {
-							str += '<li class="nav-item">'
-								+ '<a href="#" class="nav-link">'
-								+ '<i class="nav-icon fas fa-th"></i>'
-								+ '<p>' + data[i].menuName + '</p>'
-								+ '<i class="right fas fa-angle-left"></i></a>'
-								+ recursive(data, data[i].pkMenuSeq, 'fa-circle')
-								+ '</li>';
-						}
-					});
-					str += '</ul>';
-					$(".append").append(str);
-				},
-				error: function () {
-				}
-			});
-		};
+//		function getSubject(){
+//			$.ajax({
+//				type: "POST",
+//				url: "/getall.com",
+//				dataType: "json",
+//				success: function (data) {
+//					str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
+//					$.each(data, function (i) {
+//						if (0 == data[i].upperMenuNo) {
+//							str += '<li class="nav-item">'
+//								+ '<a href="#" class="nav-link">'
+//								+ '<i class="nav-icon fas fa-th"></i>'
+//								+ '<p>' + data[i].menuName + '</p>'
+//								+ '<i class="right fas fa-angle-left"></i></a>'
+//								+ recursive(data, data[i].pkMenuSeq, 'fa-circle')
+//								+ '</li>';
+//						}
+//					});
+//					str += '</ul>';
+//					$(".append").append(str);
+//				},
+//				error: function () {
+//				}
+//			});
+//		};
 		
 		$(document).ready(function(){
 			$(".append").empty();
