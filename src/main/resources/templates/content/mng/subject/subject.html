@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/std/stdSubjectLayout}">
+	layout:decorate="~{common/layout/mng/mngSubjectLayout}">
 
-<div layout:fragment="content">
-
+<th:block layout:fragment="content">
 	<div class="row">
-		<div class="col-12 p-5">
+		<div class="col-6 p-5">
 			<div class="row">
-				<div class="col-6">
-					<h2>Q&A</h2>
+				<div>
+					<h2 class="p-2">공지사항</h2>
 				</div>
 				<div class="card-tools col-6 text-right">
-					<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary btn-sm">
+					<button data-toggle="modal" data-target="#modal-xl" type="button" class="mt-3 btn btn-primary btn-sm">
 						<span>등록</span>
 					</button>
 				</div>
@@ -20,48 +19,98 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">번호</th>
-						<th scope="col">제목</th>
-						<th scope="col">작성자</th>
+						<th style="width:50px;">No.</th>
+						<th>제목</th>
+						<th>등록자</th>
+						<th>등록일자</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+		<div class="col-6 p-5">
+			<h2 class="p-2">과제제출</h2>
+			<!-- /.card-header -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="width:50px;">No.</th>
+						<th>제목</th>
+						<th>등록자</th>
+						<th>등록일자</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+		<div class="col-12 p-5">
+			<h2 class="p-2">강의정보</h2>
+			<div class="card-tools">
+			</div>
+			<!-- /.card-header -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col"></th>
 						<th scope="col">날짜</th>
-						<th scope="col">조회수</th>
+						<th scope="col">과목명</th>
+						<th scope="col">강좌명</th>
+						<th scope="col">강의자료</th>
+						<th scope="col">과제답안</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<th scope="row">1</th>
-						<td><span>시험 언제 보죠?</span></td>
-						<td><span>HTML</span></td>
-						<td><span>2023.05.20</span></td>
+						<td><button type="button" class="btn btn-link">2023-05-30</button>
+						</td>
+						<td><span>Client</span></td>
 						<td><span>1</span></td>
-					</tr>
-					<tr>
-						<th scope="row"></th>
-						<td><span>└> 뎃글 구현 해주세요 승주님</span></td>
-						<td><span>css</span></td>
-						<td><span>2023.05.20</span></td>
-						<td><span>1</span></td>
+						<td><i class="fas fa-download"></i>
+						</td>
+						<td><i class="fas fa-download"></i>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row">2</th>
-						<td><span>질문있습니다</span></td>
-						<td><span>빅데이터</span></td>
-						<td><span>2023.05.30</span></td>
-						<td><span>1</span></td>
+						<td><button type="button" class="btn btn-link">2023-05-30</button>
+						</td>
+						<td><span>Client</span></td>
+						<td><span>2</span></td>
+						<td><i class="fas fa-download"></i>
+						</td>
+						<td><i class="fas fa-download"></i>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row">3</th>
-						<td><span>물어볼것 있어요</span></td>
-						<td><span>HTML</span></td>
-						<td><span>2023.05.30</span></td>
-						<td><span>1</span></td>
+						<td><button type="button" class="btn btn-link">2023-05-30</button>
+						</td>
+						<td><span>Client</span></td>
+						<td><span>3</span></td>
+						<td><i class="fas fa-download"></i>
+						</td>
+						<td><i class="fas fa-download"></i>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row">4</th>
-						<td><span>프로젝트</span></td>
-						<td><span>Java</span></td>
-						<td><span>2023.05.30</span></td>
-						<td><span>1</span></td>
+						<td><button type="button" class="btn btn-link">날짜 링크연결</button>
+						</td>
+						<td><span>Client</span></td>
+						<td><span>4</span></td>
+						<td><i class="fas fa-download"></i>
+						</td>
+						<td><i class="fas fa-download"></i>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -69,48 +118,20 @@
 			<div class="card-footer">
 			</div>
 		</div>
-
-	</div>
-
-	<div class="row
-				p-3">
-		<div class="col-11"></div>
-		<button type="button" class="btn btn-dark">글 쓰기</button>
-
-	</div>
-
-	<div class="row">
-		<div class="col-5 p-3"></div>
-		<nav aria-label="Page navigation example">
-			<ul class="pagination">
-				<li class="page-item "><a class="page-link" href="#">Previous</a></li>
-				<li class="page-item "><a class="page-link" href="#">1</a></li>
-				<li class="page-item "><a class="page-link" href="#">2</a></li>
-				<li class="page-item "><a class="page-link" href="#">3</a></li>
-				<li class="page-item "><a class="page-link" href="#">Next</a></li>
-			</ul>
-		</nav>
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-		<form action="/std/qna/create" method="post">
+		<form action="/mng/notice/create" method="post">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
 					<div class="col-12 modal-header">
-						<h4 class="col-12 modal-title text-center">Q&A</h4>
-						<input type="hidden">
+						<h4 class="col-12 modal-title text-center">공지사항</h4>
+						<input type="hidden" name="pkEducationSeq" th:value="${session.subjectDto.pkEducationSeq}">
+						<input type="hidden" name="registId" th:value="${session.loginDto.userId}">
 					</div>
 					<div class="modal-body">
 						<div class="container-fluid">
 							<div class="row">
-								<div class="col-sm-12">
-									<div class="form-group">
-										<label>과목</label>
-										<select name="pkSubjectSeq" class="appendSubject">
-											
-										</select>
-									</div>
-								</div>
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label>제목</label>
@@ -139,32 +160,16 @@
 	</div>
 	<script>
 		var SUBJECT_ARRAY = [];
-		function getSubject(){
-			$.ajax({
-				type: "POST",
-				url: "/getSubject",
-				dataType: "json",
-				success: function (data) {
-					$(".appendSubject").empty();
-					$.each(data, function (i) {
-						console.log(data[i]);
-						$(".appendSubject").append('<option value="' + data[i].pkSubjectSeq + '">' + data[i].subjectName + '</option>');
-					});
-				}
-			})
-		};
-		
 		$(document).ready(function () {
 			// Summernote
 			$('#summernote').summernote({
 				tabsize: 2,
 				height: 300
 			});
-			
+
 			$('.modal').on('shown.bs.modal', function (e) {
 				// 모달이 열릴 때 실행되는 코드
 				$(this).find('form')[0].reset(); // 입력 필드 초기화
-				getSubject();
 			});
 
 			$('.modal').on('hidden.bs.modal', function (e) {
@@ -196,6 +201,6 @@
 
 
 	</script>
-	</th:block>
+</th:block>
 
 </html>

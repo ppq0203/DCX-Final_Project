@@ -4,20 +4,16 @@
 	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 	<insert id="insertNotice" parameterType="project.momento.notice.dto.NoticeDto">
 		INSERT INTO NOTICE(
-			PK_FILE_SEQ
-			, PK_SUBJECT_SEQ
+			PK_EDUCATION_SEQ
 			, TITLE
 			, CONTENTS
-			, ETC
 			, REGIST_ID
 			, REGIST_DT
 			
 		)VALUES(
-			#{pkFileSeq}
-			,#{pkSubjectSeq}
+			#{pkEducationSeq}
 			,#{title}
 			,#{contents}
-			,#{etc}
 			,#{registId}
 			, SYSDATE()
 		)

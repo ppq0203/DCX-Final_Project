@@ -10,18 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpServletRequest;
-import project.momento.education.dto.EducationDto;
 import project.momento.login.dto.LoginDto;
-import project.momento.login.service.LoginService;
-import project.momento.menu.dto.MenuDto;
-import project.momento.menu.service.MenuService;
 import project.momento.notice.dto.NoticeDto;
 import project.momento.notice.service.NoticeService;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
+import project.momento.subject.dto.SubjectDto;
 
 @Controller
 public class NoticeController {
@@ -63,12 +59,11 @@ public class NoticeController {
 		
 	}
 	
-	@RequestMapping(value="/{userDivn}/notice/create", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String noticeSubmit(@PathVariable String userDivn, Criteria cri, Model model, NoticeDto noticeDto){
-		
-		System.out.println(noticeDto);
+	@RequestMapping(value="/mng/notice/create", produces="application/text;charset=utf-8") /* value주소 이름*/
+	public String noticeSubmit(NoticeDto noticeDto, HttpServletRequest request){
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		noticeService.insertNotice(noticeDto);
-		return "redirect:/"+userDivn+"/notice/main";
+		return "redirect:/mng/" + subjectDto.getPkSubjectSeq() + "/subject/main";
 	}
 	
 	@ResponseBody

@@ -26,7 +26,7 @@ public class QnaController {
 	 */
 	@RequestMapping(value="/{userDivn}/{pkEducationSeq}/{pkSubjectSeq}/qna/main", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String qnasMain(@PathVariable String userDivn, @PathVariable int pkEducationSeq, @PathVariable int pkSubjectSeq, Model model) {
-		System.out.println("In qnasMain");
+		System.out.println("In qnasMain(userDivn: " + userDivn + ", pkEducationSeq: " + pkEducationSeq + ", pkSubjectSeq: " + pkSubjectSeq + ")");
 		return "content/"+userDivn+"/qna/qna";
 	}
 	
