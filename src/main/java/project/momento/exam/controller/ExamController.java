@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
+import project.momento.subject.dto.SubjectDto;
+import project.momento.subject.service.SubjectService;
 
 @Controller
 public class ExamController {
 	
 	@Autowired
 	private SignService SignService;
+	private SubjectService subjectService;
 	
 	/*
 	 * 테스트 관리 화면 이동
@@ -29,7 +32,8 @@ public class ExamController {
 	 * return contents/sign 받는값
 	 */
 	@RequestMapping(value="/{userDivn}/exam/main", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String examMain(@PathVariable String userDivn, Model model) {
+	public String examMain(@PathVariable String userDivn, Model model, SubjectDto subjectDto) {
+//		List<SubjectDto> examInfo = subjectService.subjectInfo(subjectDto);
 	    return "content/"+userDivn+"/exam/exam";
 	}
 	
