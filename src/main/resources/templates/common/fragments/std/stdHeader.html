@@ -18,10 +18,10 @@
 					th:utext="${session.loginDto.name +' 님 환영 합니다.'}" href="#" role="button">
 					<span></span>
 				</a></li>
-			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="로그아웃" class="nav-link" href="/std/login/out" role="button">
+			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="로그아웃" class="nav-link" href="/logout" role="button">
 				</a>
 			</li>
-			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="마이페이지" class="nav-link" href="/std/profile" role="button"><i class="fas fa-sliders-h"></i>
+			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="마이페이지" class="nav-link" href="/mypage.com" role="button"><i class="fas fa-sliders-h"></i>
 				</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" data-widget="fullscreen" href="#" role="button"> <i
