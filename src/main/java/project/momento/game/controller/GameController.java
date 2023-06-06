@@ -21,8 +21,9 @@ public class GameController {
 	@RequestMapping(value = "/game", method=RequestMethod.GET)
 	public ModelAndView gameMain(HttpServletRequest request) { 
 		ModelAndView mav = new ModelAndView();
-		List<QuestionDto> salaryList = questionMapper.selectQuestionList();
-		mav.addObject("salaryList", salaryList);
+		List<QuestionDto> questionList = questionMapper.selectQuestionList();
+		System.out.println(questionList.size());
+		mav.addObject("questionList", questionList);
 		mav.setViewName("content/game"); // view 지정
 		return mav;
 	}

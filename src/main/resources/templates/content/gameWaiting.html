@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Gnjoy</title>
-    <link rel="stylesheet" type="text/css" href="1.css">
-    <style>
+<html lang="ko">
+	<head>
+  	<meta charset="UTF-8">
+  	<title>Gnjoy</title>
+  	<link rel="stylesheet" type="text/css" href="1.css">
+		 <style>
 			@font-face {
 				 font-family: 'DungGeunMo';
 				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
@@ -47,12 +47,12 @@
         		padding: 10px;
 				height : 70px;
       		}
-
+			
 			/*content*/
-			/*Tab*/
+			/*Tab*/ 
 			content#tabwrap{
 				background: #F2EDD7;
-				border-radius: 10px; 				/*테두리 둥글게*/
+				border-radius: 10px; 				/*테두리 둥글게*/ 
 				width: 95%;
 				height : 97%;
 				position: absolute;
@@ -92,7 +92,7 @@
 				background: #007351;
 				color: white;
 				border : 1px solid #007351
-			}
+			}			
 
 			.all, .team, .solo{
 				display: none;
@@ -110,12 +110,12 @@
 
 			.menu1.on ~ .all{display: block;}
 			.menu2.on ~ .team{display: block;}
-			.menu3.on ~ .solo{display: block;}
+			.menu3.on ~ .solo{display: block;}			 
 
 			.all{background: #00C484; color: #00539C;}
 			.team{background: #00C484; color: #161B21;}
 			.solo{background: #00C484; color: #161B21;}
-
+			 
 			 .fillter{
 				 width : 100%;
 				 height : 39px;
@@ -123,7 +123,7 @@
 			 }
 			 .fillterbtn {
 				width : 90px;
-				height : 25px;
+				height : 25px;				
 				text-align : center;
 				margin : 5px;
 				margin-bottom: 2.5px;
@@ -139,7 +139,7 @@
 				width : 610px;
 				float: center;
 				font-family: 'DungGeunMo';
-			 }
+			 }			 
 			.M_gameroom_left {
 				width : 285px;
 				height : 100px;
@@ -222,7 +222,7 @@
 				border-top: 3px dotted #FFC04D;
 				color : #FFC04D;
 				margin: 0px;
-
+				
 			 }
 			.hr_S_dotted {
 				border-top: 3px dotted #0070c0;
@@ -243,7 +243,7 @@
 				 vertical-align : center;
 				 padding : 0px;
 				 margin : 5px;
-
+				 
 			 }
 			 .game_down{
 				 width : 175px;
@@ -253,7 +253,7 @@
 				 text-align : left ;
 				 color : black;
 				 vertical-align : bottom;
-				 padding : 0px;
+				 padding : 0px;				 
 			 }
 			.startbtn{
 				 width : 70px;
@@ -301,8 +301,8 @@
 				 height : 90px;
 				 margin : 0px;
 				 padding : 0px;
-				 float : right;
-			 }
+				 float : right; 
+			 }			 
 			/*side*/
 			.side_User{
 	        	width: 220px;
@@ -317,7 +317,7 @@
     			border-radius: 5px;
 				background-color : #c55a11;
 			}
-
+	      				 
 			/*button icon*/
 			 .btnlogoutimg{
 				background-image : url('logouticon.png');
@@ -342,7 +342,7 @@
 				background-color : #c55a11;
 				font-size: 40px;
 				font-family: 'DungGeunMo';
-
+				 
 			 }
 			 .btnlogout p{
 	        	text-align: center;
@@ -350,7 +350,7 @@
 				background-color : #c55a11;
 				font-size: 22px;
 				font-family: 'DungGeunMo';
-
+				 
 			 }
 			 /*modal*/
 			 #modalWrap {
@@ -384,95 +384,164 @@
 				}
 
 	    </style>
-	<script>
-    	console.log(1);
-        
-    </script>
-</head>
-<body>
-<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
-    <div id="header"></div>
 
-    <!--side right -->
-    <div id="sidebar">
-        <div class="side_User"></div>
-        <button class="btnlogout"><p>같이하기</p></button>
-        <button class="btnlogout" type="button"><p>혼자하기</p></button>
-        <button class="btnlogout"><p>나가기</p></button>
-    </div>
+	</head>
+	<body>
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+      		<div id="header"></div>
+			
+			<!--side right -->
+			    <div id="sidebar">
+					<div class="side_User"></div>
+					<button class="btnlogout"><p>같이하기</p></button>	
+					<button class="btnlogout" type="button"><p>혼자하기</p></button>	
+					<button class="btnlogout"><p>나가기</p></button>		
+				</div>
+			
+			<!--content game -->
+      		<div id="content">
+        		<div id="tabwrap">
+                	<button class="menu1 on">전체</button>
+                	<button class="menu2">팀</button>
+					<button class="menu3">개인</button>
 
-    <!--content game -->
-    <div id="content">
-        <div id="tabwrap">
-            <button class="menu1 on">전체</button>
-            <button class="menu2">팀</button>
-            <button class="menu3">개인</button>
-
-            <div class="all">
-                <div class="fillter">
-                    <button class="fillterbtn"><p>빈방순▼</p></button>
-                    <button class="fillterbtn"><p>난이도순▼</p></button>
-                </div>
-                <div class="gameroom">
-                    <div class="M_gameroom_left">
-                        <div class="left">
-                            <button class="startbtn" type="button">START</button>
-                            <br> Team_03 | 팀전 <br><br> 3팀 | 2명 <br>
-                        </div>
-                    </div>
-                    <div class="M_gameroom_left"></div>
-                    <div class="M_gameroom_left"></div>
-                    <div class="M_gameroom_left"></div>
-                    <div class="M_gameroom_left"></div>
-                    <div class="M_gameroom_left"></div>
-                    <div class="M_gameroom_left"></div>
-                    <div class="M_gameroom_left"></div>
-                    <div class="M_gameroom_left"></div>
-                    <div class="M_gameroom_left"></div>
-
-                </div>
-
-            </div>
-            <div id="footer"></div>
-        </div>
-
-
-
+                	<div class="all">
+						<div class="fillter">
+							<button class="fillterbtn"><p>빈방순▼</p></button>
+                    		<button class="fillterbtn"><p>난이도순▼</p></button>
+						</div>
+						<div class="gameroom">
+							<div class="M_gameroom_left">
+								<div class="left">
+									<button class="startbtn" type="button">START</button>
+									<br> Team_03 | 팀전 <br><br> 3팀 | 2명 <br>
+								</div>
+							</div>
+							<!--<div class="M_gameroom_left">
+								<div class="right">
+									<button class="startbtn" type="button">START</button>
+									<br> Team_04 | 팀전 <br><br> 2팀 | 4명 <br>
+								</div>
+							</div>
+							<div class="M_gameroom_left">
+								<div class="left">
+									<button class="startbtn2" type="button">START</button>
+									<br> Solo_02 | 개인전<br><br> 4명 <br>
+								</div>
+							</div>								
+							<div class="M_gameroom_left">
+								<div class="left">
+									<button class="startbtn2" type="button">START</button>
+									<br> Solo_03 | 개인전<br><br> 2명 <br>
+								</div>							
+							</div>							
+							<div class="M_gameroom_left">
+								<div class="left">
+									<button class="startbtn3" type="button">PLAY</button>
+									<br> Team_02 | 팀전 <br><br> 3팀 | 2명 <br>
+								</div>
+							</div>
+							<div class="M_gameroom_left">
+								<div class="right">
+									<button class="startbtn3" type="button">PLAY</button>
+									<br> Solo_01 | 개인전<br><br> 4명 <br>
+								</div>	
+							</div>
+							<div class="M_gameroom_left">
+								<div class="right">
+									<button class="startbtn3" type="button">PLAY</button>
+									<br> Solo_01 | 개인전<br><br> 4명 <br>
+								</div>	
+							</div>-->
+							
+							<div class="binroom_left"></div>
+						</div>
+						
+                	</div>
+					
+                	<div class="team">
+						<div class="fillter">
+							<button class="fillterbtn"><p>빈방순▼</p></button>
+                    		<button class="fillterbtn"><p>난이도순▼</p></button>
+						</div>
+						<div class="gameroom">
+							<div class="M_gameroom_left">
+								<div class="left">
+									<button class="startbtn" type="button">START</button>
+									<br> Team_03 | 팀전 <br><br> 3팀 | 2명 <br>
+								</div>
+							</div>
+							<div class="M_gameroom_right">
+								<div class="left">
+									<button class="startbtn" type="button">START</button>
+									<br> Team_04 | 팀전 <br><br> 2팀 | 4명 <br>
+								</div>
+							</div>
+							<div class="G_gameroom_left">
+								<div class="left">
+									<button class="startbtn3" type="button">PLAY</button>
+									<br> Team_02 | 팀전 <br><br> 3팀 | 2명 <br>
+								</div>
+							</div>
+							<div class="binroom_right"></div>
+							<div class="binroom_left"></div>
+							<div class="binroom_right"></div>
+							<div class="binroom_left"></div>
+							<div class="binroom_right"></div>
+                	</div>
+				    <div class="solo">
+						<div class="S_gameroom_left">
+							<div class="left">
+								<button class="startbtn2" type="button">START</button>
+								<br> Solo_02 | 개인전<br><br> 4명 <br>
+							</div>
+						</div>								
+						<div class="S_gameroom_right">
+							<div class="left">
+								<button class="startbtn2" type="button">START</button>
+								<br> Solo_03 | 개인전<br><br> 2명 <br>
+							</div>							
+						</div>
+							<div class="G_gameroom_left">
+								<div class="right">
+									<button class="startbtn3" type="button">PLAY</button>
+									<br> Solo_01 | 개인전<br><br> 4명 <br>
+								</div>	
+							</div>
+						<div class="binroom_right"></div>
+						<div class="binroom_left"></div>
+						<div class="binroom_right"></div>
+						<div class="binroom_left"></div>
+						<div class="binroom_right"></div>
+                </div>		
+			</div>
+			<div id="footer"></div>
+		</div>
+		
 
 		
-        <!--java script-->
-        <script th:inline="javascript">
-        	console.log(1);
-	        var count = 36;
-	        var line_length = Math.sqrt(count);
-	        var gameroom_left_classes = document.getElementsByClassName('M_gameroom_left');
-	        var all_rooms_length = 510;
-	        var one_room_length = all_rooms_length/line_length;
-			console.log(all_rooms_length);
-			console.log(one_room_length);
-	        for (var i=0; i<gameroom_left_classes.length; i++) {
-	        	gameroom_left_classes[i].style.width = one_room_length+"px";
-	        }
-        </script>
-<!--        <script>-->
-<!--		/*tab*/-->
-<!--		$(".menu1").click(function(){-->
-<!--			$(this).addClass('on');-->
-<!--			$(".menu2").removeClass("on");-->
-<!--			$(".menu3").removeClass("on");-->
-<!--		})-->
+		
+		
+		<!--java script-->
+		<script>
+		/*tab*/
+		$(".menu1").click(function(){
+			$(this).addClass('on');
+			$(".menu2").removeClass("on");
+			$(".menu3").removeClass("on");
+		})
 
-<!--		$(".menu2").click(function(){-->
-<!--			$(this).addClass('on');-->
-<!--			$(".menu1").removeClass("on");-->
-<!--			$(".menu3").removeClass("on");-->
-<!--		})-->
-<!--		$(".menu3").click(function(){-->
-<!--			$(this).addClass('on');-->
-<!--			$(".menu1").removeClass("on");-->
-<!--			$(".menu2").removeClass("on");-->
-<!--		})-->
+		$(".menu2").click(function(){
+			$(this).addClass('on');
+			$(".menu1").removeClass("on");
+			$(".menu3").removeClass("on");
+		})
+		$(".menu3").click(function(){
+			$(this).addClass('on');
+			$(".menu1").removeClass("on");
+			$(".menu2").removeClass("on");
+		})
 
-<!--		</script>-->
-</body>
+		</script>
+	</body>
 </html>
