@@ -34,14 +34,14 @@
 	</style>
 	<div class="container-lg">
 		<!-- Main content -->
-		<section class="content">
+		<section class="content pt-4">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-9">
 						<div class="card">
 							<table class="chess-board">
 								<tbody>
-									<tr>
+									<!--<tr>
 										<th></th>
 										<th>1</th>
 										<th>2</th>
@@ -49,66 +49,33 @@
 										<th>4</th>
 										<th>5</th>
 										<th>6</th>
-									</tr>
-									<tr>
-										<th>8</th>
+									</tr>-->
+									<tr class="light_black">
+										<!--<th>1</th>-->
 										<td class="light"><button type="button" class="btn btn-default"
 												data-toggle="modal" data-target="#modal-xl">
 												문제
 											</button></td>
+										<td class="dark"><button type="button" class="btn btn-default"
+												data-toggle="modal" data-target="#modal-xl">
+												문제
+											</button></td>
+										<!--<td class="light"></td>
 										<td class="dark"></td>
 										<td class="light"></td>
 										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-									</tr>
-									<tr>
-										<th>7</th>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-									</tr>
-									<tr>
-										<th>6</th>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-									</tr>
-									<tr>
-										<th>5</th>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-									</tr>
-									<tr>
-										<th>4</th>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-									</tr>
-									<tr>
-										<th>3</th>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
 									</tr>
 									<tr>
 										<th>2</th>
+										<td class="dark"></td>
+										<td class="light"></td>
+										<td class="dark"></td>
+										<td class="light"></td>
+										<td class="dark"></td>
+										<td class="light"></td>
+									</tr>
+									<tr>
+										<th>3</th>
 										<td class="light"></td>
 										<td class="dark"></td>
 										<td class="light"></td>
@@ -117,7 +84,7 @@
 										<td class="dark"></td>
 									</tr>
 									<tr>
-										<th>1</th>
+										<th>4</th>
 										<td class="dark"></td>
 										<td class="light"></td>
 										<td class="dark"></td>
@@ -125,6 +92,24 @@
 										<td class="dark"></td>
 										<td class="light"></td>
 									</tr>
+									<tr>
+										<th>5</th>
+										<td class="light"></td>
+										<td class="dark"></td>
+										<td class="light"></td>
+										<td class="dark"></td>
+										<td class="light"></td>
+										<td class="dark"></td>
+									</tr>
+									<tr>
+										<th>6</th>
+										<td class="dark"></td>
+										<td class="light"></td>
+										<td class="dark"></td>
+										<td class="light"></td>
+										<td class="dark"></td>
+										<td class="light"></td>
+									</tr>-->
 								</tbody>
 							</table>
 						</div>
@@ -219,7 +204,8 @@
 						</div>
 
 						<div class="card-body p-0">
-							<textarea th:text="${question.codeFormat}" id="codeMirrorDemo" class="p-3" style="display: none;"> </textarea>
+							<textarea th:text="${question.codeFormat}" id="codeMirrorDemo" class="p-3"
+								style="display: none;"> </textarea>
 						</div>
 						<div class="card-footer">
 						</div>
@@ -244,7 +230,21 @@
 					theme: "monokai"
 				});
 			})
-			
+			console.log(1);
+				var count = 25;
+
+				// 생성된 템플릿을 타임리프 템플릿 영역에 추가
+				
+				var line_length = Math.sqrt(count);
+				var gameroom_left_classes = document.getElementsByClassName('light_black');
+				var all_rooms_length = 510;
+				var one_room_length = all_rooms_length / line_length;
+				console.log(all_rooms_length);
+				console.log(one_room_length);
+				for (var i = 0; i < gameroom_left_classes.length; i++) {
+					gameroom_left_classes[i].style.width = one_room_length + "px";
+				}
+
 		</script>
 	</th:block>
 
