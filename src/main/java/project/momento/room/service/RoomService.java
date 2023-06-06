@@ -41,8 +41,7 @@ public class RoomService {
 	} // 전체 방 찾기
 	
 	public RoomDto findRoomById(String id) {
-		System.out.println(id);
-		System.out.println(roomDtoMap.size());
+		
 		for (String key : roomDtoMap.keySet()) {
 			System.out.println(key);
 		}
