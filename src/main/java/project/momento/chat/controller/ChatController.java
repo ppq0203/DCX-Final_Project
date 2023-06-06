@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Log4j2
 public class ChatController {
     
-    @GetMapping("/chat")
+    @GetMapping("/chatting")
     public String chatGET(){
 
         log.info("@ChatController, chat GET()");
