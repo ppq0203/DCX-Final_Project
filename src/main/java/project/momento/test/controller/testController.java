@@ -31,6 +31,7 @@ public class testController {
 	 */
 	@RequestMapping(value = "/test", produces = "application/text;charset=utf-8") /* value주소 이름 */
 	public String testList(Model model) {
+		//tmp
 		List testList = new ArrayList();
 		for(int i =0; i < 37; i++)
 		{
