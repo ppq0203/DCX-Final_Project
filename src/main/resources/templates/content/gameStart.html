@@ -7,6 +7,12 @@
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<script th:src="@{/js/dice.js}"></script>
 	<style>
+		.gamesize{
+			width :976px;
+			height : 700px;
+			background: url("./images/shanghai.jpg");
+			
+		}
 		.chess-board {
 			border-spacing: 0;
 			border-collapse: collapse;
@@ -32,7 +38,7 @@
 			background: #000;
 		}
 	</style>
-	<div class="container-lg">
+	<div class="container">
 		<!-- Main content -->
 		<section class="content">
 			<div class="container-fluid">
@@ -193,12 +199,12 @@
 	</div>
 
 
-<th:block th:each="question : ${questionList}">
+
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 th:text="${question.pkQuestionSeq} + '번째 문제'" class="modal-title"></h4>
+					<h4 class="modal-title">문제명</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
@@ -206,11 +212,13 @@
 				<div class="modal-body">
 					<div class="card card-outline card-info">
 						<div class="card-header">
-							<h3 th:text="${ question.questionName }" class="card-title"></h3>
+							<h3 class="card-title">
+								문제
+							</h3>
 						</div>
 
 						<div class="card-body p-0">
-							<p th:text="${ question.contents }"></p>
+							<p>이것은 문제입니다.</p>
 						</div>
 						<div class="card-footer">
 						</div>
@@ -223,7 +231,20 @@
 						</div>
 
 						<div class="card-body p-0">
-							<textarea th:text="${question.codeFormat}" id="codeMirrorDemo" class="p-3" style="display: none;"> </textarea>
+							<textarea id="codeMirrorDemo" class="p-3" style="display: none;">&lt;div class="info-box bg-gradient-info"&gt;
+  &lt;span class="info-box-icon"&gt;&lt;i class="far fa-bookmark"&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;div class="info-box-content"&gt;
+    &lt;span class="info-box-text"&gt;Bookmarks&lt;/span&gt;
+    &lt;span class="info-box-number"&gt;41,410&lt;/span&gt;
+    &lt;div class="progress"&gt;
+      &lt;div class="progress-bar" style="width: 70%"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="progress-description"&gt;
+      70% Increase in 30 Days
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+              </textarea>
 						</div>
 						<div class="card-footer">
 						</div>
