@@ -10,9 +10,8 @@ public class QuestionDto {
 	/*문제에 부여되는 고유번호*/ 
 	private int pkQuestionSeq;
 	/*문제명*/ 
-	/*문제의 난이도*/   
 	private String questionName;
-	
+	/*문제의 난이도*/   
 	private String level;
 	/*문제의 점수*/
 	private int score;
@@ -32,7 +31,7 @@ public class QuestionDto {
 	private String useYn;
 	/*삭제여부*/
 	private String delYn;
-	
+	/*등록 아이디*/
 	private String registId;   
 	/*등록 일자*/   
 	private String registDt;   
