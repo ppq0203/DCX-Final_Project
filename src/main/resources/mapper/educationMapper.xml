@@ -92,6 +92,7 @@
 		
 		]]>
 	</select>
+	
 	<select id="selectEducationCount" parameterType="hashmap" resultType="int">
 		SELECT
 			COUNT(*)
@@ -99,6 +100,7 @@
 		WHERE 1=1
 		ORDER BY A.PK_EDUCATION_SEQ ASC
 	</select>
+	
 	<select id="selectEducationList" parameterType="hashmap" resultType="project.momento.education.dto.EducationDto">
 		SELECT
 		    A.PK_EDUCATION_SEQ       AS pkEducationSeq,
@@ -125,6 +127,24 @@
 		ORDER BY A.PK_EDUCATION_SEQ ASC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
+	
+	<select id="getEducationList" parameterType="int" resultType="project.momento.subject.dto.SubjectDto">
+		<![CDATA[                 
+		SELECT   
+			C.PK_EDUCATION_SEQ AS pkEducationSeq,
+			B.EDUCATION_NAME AS subjectState,
+			C.SUBJECT_NAME AS subjectName,
+			C.PK_SUBJECT_SEQ AS pkSubjectSeq
+		FROM EDUCATION_STUD A
+		JOIN EDUCATION B
+		ON A.PK_EDUCATION_SEQ = B.PK_EDUCATION_SEQ
+		JOIN SUBJECT C
+		ON A.PK_EDUCATION_SEQ = C.PK_EDUCATION_SEQ
+		WHERE A.PK_USER_SEQ = #{pkUserSeq}
+		ORDER BY A.PK_EDUCATION_SEQ, C.SUB_START_DT
+		]]>
+	</select>
+
 	<select id="selectSubjectList" parameterType="int" resultType="project.momento.education.dto.EducationDto">
 		SELECT
 		    A.PK_SUBJECT_SEQ       	 AS pkSubjectSeq,
@@ -155,6 +175,7 @@
 		AND A.PK_EDUCATION_SEQ = #{pkEducationSeq}
 		ORDER BY A.PK_SUBJECT_SEQ ASC
 	</select>
+	
 	<update  id="updateEducation" parameterType="project.momento.education.dto.EducationDto">
 		UPDATE EDUCATION
 	  SET
@@ -182,20 +203,4 @@
   		WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
 	</delete>
 	
-	<select id="getEducationList" parameterType="int" resultType="project.momento.subject.dto.SubjectDto">
-		<![CDATA[                 
-		SELECT   
-			C.PK_EDUCATION_SEQ AS pkEducationSeq,
-			B.EDUCATION_NAME AS subjectState,
-			C.SUBJECT_NAME AS subjectName,
-			C.PK_SUBJECT_SEQ AS pkSubjectSeq
-		FROM EDUCATION_STUD A
-		JOIN EDUCATION B
-		ON A.PK_EDUCATION_SEQ = B.PK_EDUCATION_SEQ
-		JOIN SUBJECT C
-		ON A.PK_EDUCATION_SEQ = C.PK_EDUCATION_SEQ
-		WHERE A.PK_USER_SEQ = #{pkUserSeq}
-		ORDER BY A.PK_EDUCATION_SEQ, C.SUB_START_DT
-		]]>
-	</select>
 </mapper>

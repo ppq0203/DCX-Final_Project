@@ -4,212 +4,193 @@
 <!-- Main content -->
 
 <th:block layout:fragment="content">
-		<div class="container-fluid">
-			<section class="content-header">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-sm-6">
-							<h4 class="fas fa-plus-square">&nbsp;대쉬보드</h4>
+	<!-- Main content -->
+	<section class="content">
+		<div class="p-2">
+			<div class="col -10">
+				<div class="dropdown">
+					<span>
+						<h2>마이페이지</h2>
+					</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="content">
+		<div class="row p-4">
+			<div class="card card-primary card-outline col-6 m-1">
+				<div class="card-header m-5">
+					<h3 class="card-title">
+						<i class="far fa-chart-bar"></i>
+						<font> 막대 차트 </font>
+					</h3>
+
+				</div>
+				<div class="card-body">
+					<div id="bar-chart" style="height: 300px; padding: 0px; position: relative;">
+						<canvas class="flot-base" width="433" height="300"
+							style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 433px; height: 300px;"></canvas>
+						<canvas class="flot-overlay" width="433" height="300"
+							style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 433px; height: 300px;"></canvas>
+						<div class="flot-svg"
+							style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; pointer-events: none;">
+							<svg style="width: 100%; height: 100%;">
+								<g class="flot-x-axis flot-x1-axis xAxis x1Axis"
+									style="position: absolute; inset: 0px;">
+									<text x="85.72274502840908" y="294" class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: center;">2월</text><text
+										x="162.81676136363635" y="294" class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: center;">3월</text><text
+										x="234.55823863636363" y="294" class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: center;">4월</text><text
+										x="304.0609463778409" y="294" class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: center;">5월</text><text
+										x="21.210271661931813" y="294" class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: center;">1월</text><text
+										x="368.61394708806813" y="294" class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: center;">6월</text>
+								</g>
+								<g class="flot-y-axis flot-y1-axis yAxis y1Axis"
+									style="position: absolute; inset: 0px;"><text x="8.9521484375" y="269"
+										class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: right;">0</text><text x="8.9521484375"
+										y="205.5" class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: right;">5</text><text x="1" y="15"
+										class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: right;">20</text><text x="1" y="142"
+										class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: right;">10</text><text x="1" y="78.5"
+										class="flot-tick-label tickLabel"
+										style="position: absolute; text-align: right;">15</text></g>
+							</svg>
 						</div>
 					</div>
 				</div>
-			</section>
-			<section class="content">
-				<div class="container-fluid">
 
+			</div>
+			<!--1-2 번 컨테이너  테이플-->
+			<div class="card card-primary card-outline col m-1">
+				<div class="card-body ">
 					<div class="row">
-
-						<section class="col-lg-7">
-							<div class="card card-primary resize-handle">
-							<div class="card-body p-0">
-
-								<div id="calendar" class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap">
-								</div>
-							</div>
-
+						<div class="col-md-3 ml-0 pl-0">
+							<i class="fas fa-crown fa-lg fa-5x"></i>
 						</div>
-						</section>
-
-
-						<section class="col-lg-5 connectedSortable ui-sortable">
-
-							<div class="card" style="position: relative; left: 0px; top: 0px;">
-								<div class="card-header ui-sortable-handle" style="cursor: move;">
-									<h3 class="card-title">
-										<i class="fas fa-chart-pie mr-1"></i>
-										Sales
-									</h3>
-									<div class="card-tools">
-										<ul class="nav nav-pills ml-auto">
-											<li class="nav-item">
-												<a class="nav-link active" href="#revenue-chart"
-													data-toggle="tab">Area</a>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-											</li>
-										</ul>
-									</div>
+						<div class="col-md-9">
+							<div class="row">
+								<div class="col-md-2">
+									<span>순위:</span>
 								</div>
-								<div class="card-body">
-									<div class="tab-content p-0">
-
-										<div class="chart tab-pane active" id="revenue-chart"
-											style="position: relative; height: 300px;">
-											<div class="chartjs-size-monitor">
-												<div class="chartjs-size-monitor-expand">
-													<div class=""></div>
-												</div>
-												<div class="chartjs-size-monitor-shrink">
-													<div class=""></div>
-												</div>
-											</div>
-											<canvas id="revenue-chart-canvas" height="300"
-												style="height: 300px; display: block; width: 377px;" width="377"
-												class="chartjs-render-monitor"></canvas>
-										</div>
-										<div class="chart tab-pane" id="sales-chart"
-											style="position: relative; height: 300px;">
-											<canvas id="sales-chart-canvas" height="0"
-												style="height: 0px; display: block; width: 0px;"
-												class="chartjs-render-monitor" width="0"></canvas>
-										</div>
-									</div>
+								<div class="col-md-4">
+									<span>2</span>
 								</div>
 							</div>
-
-
-						</section>
-
+							<div class="row">
+								<div class="col-md-2 mt-2 pt-2">
+									<span>점수:</span>
+								</div>
+								<div class="col-md-4 mt-2 pt-2">
+									<span>1111점</span>
+								</div>
+							</div>
+						</div>
 					</div>
-
-				</div>
-			</section>
-			<section class="content">
-				<div class="row">
-					<div class="col-md-9">
-						
-
+					<div class="form-group">
+						<label class="col-12 col-form-label text-left mt-4 pt-4" for="inputDescription">상세사항</label>
+						<textarea id="inputDescription" class="form-control" rows="4"
+							style="min-height: 119px;"></textarea>
 					</div>
-
 				</div>
-			</section>
-		</div><!-- /.container-fluid -->
+
+			</div>
+
+		</div>
+		<!--1번 row-->
+		<!--출결률-->
+		<div class="row p-4">
+			<div class="card card-primary card-outline col-md-5 m-1 ">
+				<h3 class="card-title"></h3>
+
+				<div class="d-flex justify-content-center pt-4">
+					<div class="progress-group">
+						<div class="progress-group">나의 출결률
+							<span class="float-right"><b>87.5%</b>(105/120일)</span>
+							<div class="progress progress-sm" style="width: 30vw;">
+								<div class="progress-bar bg-primary" style="width: 87%"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-body table-responsive">
+					<table class="table table-hover text-nowrap text-center">
+						<thead>
+							<tr>
+								<th>날짜</th>
+								<th>출석</th>
+								<th>지각</th>
+								<th>조퇴</th>
+								<th>외출</th>
+								<th>결석</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>2023-06-02</td>
+								<td>0</td>
+								<td>1</td>
+								<td>0</td>
+								<td><span class="tag tag-success">2</span>
+								</td>
+								<td>1</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!--2-2 번 컨테이너 달력   테이블-->
+			</div>
+			<div class="card card-primary card-outline col-md-6 m-1">
+				<div class="card-body">
+					<div id="calendar"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
-		
-		$(document).ready(function () {
-			$(".resize-handle").on("resizestop", function (event, ui) { });
-			$(".resize-handle").resizable({
-				resize: function (event, ui) { }
-			});
-			$(".resize-handle").resizable({
-				//함께 커질영역 
-				alsoResize: ".wrap-box",
-				//커질때 애니메이션 발생 
-				animate: true,
-				animateDuration: 300,
-				animateEasing: "swing",
-				//비율유지
-				aspectRatio: true,
-				//마우스 hover 아닐때 핸들러 숨기기
-				autoHide: true,
-				//minHeight, maxHeight, minWidth, maxWidth 최소,최대 크기지정 
-			});
+		<!--드롭앤다운-->
+		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+		var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+			return new bootstrap.Dropdown(dropdownToggleEl)
 		})
-		
-		
-		$(function () {
-			
-			/* initialize the calendar
-			 -----------------------------------------------------------------*/
-			//Date for the calendar events (dummy data)
-			var date = new Date()
-			var d = date.getDate(),
-				m = date.getMonth(),
-				y = date.getFullYear()
 
-			var Calendar = FullCalendar.Calendar;
-			var Draggable = FullCalendar.Draggable;
-
-			var containerEl = document.getElementById('external-events');
-			var calendarEl = document.getElementById('calendar');
-
-			// initialize the external events
-			// -----------------------------------------------------------------
-
-			var calendar = new Calendar(calendarEl, {
-				headerToolbar: {
+		$(document).ready(function () {
+			$('#calendar').fullCalendar({
+				header: {
 					left: 'prev,next today',
 					center: 'title',
-					right: 'dayGridMonth,timeGridWeek,timeGridDay'
+					right: 'month,agendaWeek,agendaDay'
 				},
-				themeSystem: 'bootstrap',
-				//Random default events
+				defaultView: 'month', // 기본 뷰 설정 (월간)
+				editable: true, // 이벤트 편집 가능 여부
 				events: [
 					{
-						title: 'All Day Event',
-						start: new Date(y, m, 1),
-						backgroundColor: '#f56954', //red
-						borderColor: '#f56954', //red
-						allDay: true
+						title: '이벤트 1',
+						start: '2023-06-01'
 					},
 					{
-						title: 'Long Event',
-						start: new Date(y, m, d - 5),
-						end: new Date(y, m, d - 2),
-						backgroundColor: '#f39c12', //yellow
-						borderColor: '#f39c12' //yellow
+						title: '이벤트 2',
+						start: '2023-06-05',
+						end: '2023-06-07'
 					},
 					{
-						title: 'Meeting',
-						start: new Date(y, m, d, 10, 30),
-						allDay: false,
-						backgroundColor: '#0073b7', //Blue
-						borderColor: '#0073b7' //Blue
-					},
-					{
-						title: 'Lunch',
-						start: new Date(y, m, d, 12, 0),
-						end: new Date(y, m, d, 14, 0),
-						allDay: false,
-						backgroundColor: '#00c0ef', //Info (aqua)
-						borderColor: '#00c0ef' //Info (aqua)
-					},
-					{
-						title: 'Birthday Party',
-						start: new Date(y, m, d + 1, 19, 0),
-						end: new Date(y, m, d + 1, 22, 30),
-						allDay: false,
-						backgroundColor: '#00a65a', //Success (green)
-						borderColor: '#00a65a' //Success (green)
-					},
-					{
-						title: 'Click for Google',
-						start: new Date(y, m, 28),
-						end: new Date(y, m, 29),
-						url: 'https://www.google.com/',
-						backgroundColor: '#3c8dbc', //Primary (light-blue)
-						borderColor: '#3c8dbc' //Primary (light-blue)
+						title: '이벤트 3',
+						start: '2023-06-09T12:30:00'
 					}
-				],
-				editable: false,
-				droppable: false, // this allows things to be dropped onto the calendar !!!
-				drop: function (info) {
-					// is the "remove after drop" checkbox checked?
-					if (checkbox.checked) {
-						// if so, remove the element from the "Draggable Events" list
-						info.draggedEl.parentNode.removeChild(info.draggedEl);
-					}
-				}
+				]
 			});
+		});
 
-			calendar.render();
-			// $('#calendar').fullCalendar()
 
-			/* ADDING EVENTS */
-			var currColor = '#3c8dbc' //Red by default
-			// Color chooser button
-		})
 	</script>
 </th:block>
 

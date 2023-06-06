@@ -24,13 +24,15 @@ public class QnaController {
 	 * param
 	 * return contents/userDivn/qna/qna 받는값
 	 */
-	@RequestMapping(value="/{userDivn}/qna/main", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String qnasMain(@PathVariable String userDivn, Model model) {
+	@RequestMapping(value="/{userDivn}/{pkEducationSeq}/{pkSubjectSeq}/qna/main", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String qnasMain(@PathVariable String userDivn, @PathVariable int pkEducationSeq, @PathVariable int pkSubjectSeq, Model model) {
+		System.out.println("In qnasMain(userDivn: " + userDivn + ", pkEducationSeq: " + pkEducationSeq + ", pkSubjectSeq: " + pkSubjectSeq + ")");
 		return "content/"+userDivn+"/qna/qna";
 	}
 	
 	@RequestMapping(value="/std/qna/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String insertQna(@PathVariable String userDivn, Model model, QnaDto qnaDto) {
+		System.out.println("In insertQna");
 		qnaService.insertQna(qnaDto);
 		return "content/std/qna/qna";
 	}

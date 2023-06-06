@@ -30,7 +30,11 @@ public class EducationService {
 		// TODO Auto-generated method stub
 		return educationMapper.selectEducationCount(cri);
 	}
-
+	
+	public List<Object> getEducationList(int pkUserSeq) {
+		return educationMapper.getEducationList(pkUserSeq);
+	}
+	
 	public List<EducationDto> selectSubjectList(int pkEducationSeq) {
 		// TODO Auto-generated method stub
 		return educationMapper.selectSubjectList(pkEducationSeq);
@@ -40,7 +44,7 @@ public class EducationService {
 		// TODO Auto-generated method stub
 		return educationMapper.selectEducationStudList(pkEducationSeq);
 	}
-
+	
 	public int insertEducation(EducationDto educationDto) {
 		// educationDt 값을 쪼개서 subStartDt와 subEndDt로 설정
         String educationDt = educationDto.getEducationDt();
@@ -70,10 +74,6 @@ public class EducationService {
         educationDto.setSubStartDt(subStartDt);
         educationDto.setSubEndDt(subEndDt);
 		educationMapper.insertSubject(educationDto);
-	}
-
-	public List<Object> getEducationList(int pkUserSeq) {
-		return educationMapper.getEducationList(pkUserSeq);
 	}
 
 	public void updateEducation(EducationDto educationDto) {
