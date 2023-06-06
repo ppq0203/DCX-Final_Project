@@ -13,8 +13,6 @@ public class RoomLog {
 	private int pkRoomLogSeq;
 	/*방에 부여되는 고유번호*/
 	private int pkRoomSeq;
-	/*방 입장하는 게임 참가 유저*/
-	private int roomLogId;
 	/*게임 관전 유저*/
 	private int roomLogObserver;
 
