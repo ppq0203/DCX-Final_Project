@@ -17,8 +17,6 @@
 			#container {
 				width: 976px;
 				height: 700px;
-				background-image : url('gameStart.png');
-				background-size : auto ;
 			}
 			#header {
         		padding: 10px;
@@ -143,7 +141,7 @@
 				 float : right;
 				 border : 1.5px solid white;
 			 }		
-	      	.			 
+	      				 
 			/*button icon*/
 			.btnstart{
 				width: 220px;
@@ -188,7 +186,7 @@
 	    </style>
 
 	</head>
-	<body>
+	<body th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 		<div id="container">
       		<div id="header"></div>
 			

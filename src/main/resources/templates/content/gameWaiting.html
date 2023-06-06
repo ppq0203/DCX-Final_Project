@@ -17,8 +17,6 @@
 			#container {
 				width: 976px;
 				height: 700px;
-				background-image : url('gameStart.png');
-				background-size : auto ;
 			}
 			#header {
         		padding: 10px;
@@ -319,7 +317,7 @@
     			border-radius: 5px;
 				background-color : #c55a11;
 			}
-	      	.			 
+	      				 
 			/*button icon*/
 			 .btnlogoutimg{
 				background-image : url('logouticon.png');
@@ -389,7 +387,7 @@
 
 	</head>
 	<body>
-		<div id="container">
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
       		<div id="header"></div>
 			
 			<!--side right -->
@@ -419,38 +417,44 @@
 									<br> Team_03 | 팀전 <br><br> 3팀 | 2명 <br>
 								</div>
 							</div>
-							<div class="M_gameroom_right">
+							<!--<div class="M_gameroom_left">
 								<div class="right">
 									<button class="startbtn" type="button">START</button>
 									<br> Team_04 | 팀전 <br><br> 2팀 | 4명 <br>
 								</div>
 							</div>
-							<div class="S_gameroom_left">
+							<div class="M_gameroom_left">
 								<div class="left">
 									<button class="startbtn2" type="button">START</button>
 									<br> Solo_02 | 개인전<br><br> 4명 <br>
 								</div>
 							</div>								
-							<div class="S_gameroom_right">
+							<div class="M_gameroom_left">
 								<div class="left">
 									<button class="startbtn2" type="button">START</button>
 									<br> Solo_03 | 개인전<br><br> 2명 <br>
 								</div>							
 							</div>							
-							<div class="G_gameroom_left">
+							<div class="M_gameroom_left">
 								<div class="left">
 									<button class="startbtn3" type="button">PLAY</button>
 									<br> Team_02 | 팀전 <br><br> 3팀 | 2명 <br>
 								</div>
 							</div>
-							<div class="G_gameroom_right">
+							<div class="M_gameroom_left">
 								<div class="right">
 									<button class="startbtn3" type="button">PLAY</button>
 									<br> Solo_01 | 개인전<br><br> 4명 <br>
 								</div>	
 							</div>
+							<div class="M_gameroom_left">
+								<div class="right">
+									<button class="startbtn3" type="button">PLAY</button>
+									<br> Solo_01 | 개인전<br><br> 4명 <br>
+								</div>	
+							</div>-->
+							
 							<div class="binroom_left"></div>
-							<div class="binroom_right"></div>
 						</div>
 						
                 	</div>
