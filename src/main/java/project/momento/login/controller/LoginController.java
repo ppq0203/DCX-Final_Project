@@ -109,8 +109,8 @@ public class LoginController {
 	public String userRole(Model model, LoginDto loginDto) {
 		String useYn = loginDto.getUseYn();
 		loginDto.setUseYn(useYn);
-		loginService.userYn(loginDto);
-		model.addAttribute("loginDto", loginDto);
+		LoginDto dto = loginService.userYn(loginDto);
+		model.addAttribute("loginDto", dto);
 		return "content/std/sign/sign2";
 	}
 }
