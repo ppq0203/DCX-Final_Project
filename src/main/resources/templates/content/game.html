@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/emptyLayout}">
 <th:block layout:fragment="content">
-
+	<script th:inline="javascript">
+		var size=/*[[${questionList.size}]]*/0;
+	</script>
 	<link rel="stylesheet" type="text/css" href="/css/game.css">
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<script th:src="@{/js/dice.js}"></script>
@@ -41,7 +43,7 @@
 					<div class="col-9">
 						<div class="card">
 							<div class="chess-board">
-								<div th:each="n, m : ${questionList}">
+								<div class="question_col" th:each="n, m : ${questionList}">
 									<p th:text="${n.pkQuestionSeq}"></p>
 									<button type="button" class="btn btn-default" th:onclick='loadQuestion([[${n}]])'
 										data-toggle="modal" data-target="#modal-xl">
@@ -188,13 +190,13 @@
 			});
 		})
 		console.log(1);
-			var count = 25;
-
+			var count = 36;
+			
 			// 생성된 템플릿을 타임리프 템플릿 영역에 추가
 			
 			var line_length = Math.sqrt(count);
-			var gameroom_left_classes = document.getElementsByClassName('light_black');
-			var all_rooms_length = 510;
+			var gameroom_left_classes = document.getElementsByClassName('question_col');
+			var all_rooms_length = 828;
 			var one_room_length = all_rooms_length / line_length;
 			console.log(all_rooms_length);
 			console.log(one_room_length);
