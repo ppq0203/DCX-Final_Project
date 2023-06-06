@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpServletRequest;
-import project.momento.education.dto.EducationDto;
+//import project.momento.education.dto.EducationDto;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
 import project.momento.menu.dto.MenuDto;
@@ -48,7 +48,7 @@ public class NoticeController {
         paging.setCri(cri);
         paging.setTotalCount(total);
         List<NoticeDto> resultList = noticeService.selectNoticeList(cri);
-		mv.addObject("resultList", resultList);
+//		mv.addObject("resultList", resultList);
         mv.addObject("paging", paging);
 		return mv;
 		
@@ -58,16 +58,17 @@ public class NoticeController {
 	public ModelAndView noticeForm(@PathVariable String userDivn, Criteria cri, Model model, NoticeDto noticeDto){
 		ModelAndView mv = new ModelAndView("content/"+userDivn+"/notice/noticeForm"); 
 		
-		
 		return mv;
 		
 	}
 	
 	@RequestMapping(value="/{userDivn}/notice/create", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String noticeSubmit(@PathVariable String userDivn, Criteria cri, Model model, NoticeDto noticeDto){
+	public String noticeSubmit(@PathVariable String userDivn, Criteria cri, Model model, HttpServletRequest request, NoticeDto noticeDto){
 		
-		System.out.println(noticeDto);
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		noticeDto.setRegistId(loginDto.getUserId());
 		noticeService.insertNotice(noticeDto);
+		System.out.println(noticeDto);
 		return "redirect:/"+userDivn+"/notice/main";
 	}
 	
@@ -75,7 +76,7 @@ public class NoticeController {
 	@RequestMapping(value="/getNoticeList", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
 	public List<NoticeDto> getNoticeList(Criteria cri, Model model, HttpServletRequest request, NoticeDto noticeDto) {
 		// 세션에서 내 정보를 가져온다
-		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+//		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
 		List<NoticeDto> resultList = noticeService.selectNoticeList(cri);
 		System.out.println(resultList);
 		model.addAttribute("resultList", resultList);

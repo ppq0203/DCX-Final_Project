@@ -24,6 +24,8 @@ import project.momento.exam.service.ExamService;
 import project.momento.file.service.FileService;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
+import project.momento.subject.dto.SubjectDto;
+import project.momento.subject.service.SubjectService;
 
 @Controller
 public class ExamController {
@@ -32,7 +34,9 @@ public class ExamController {
 	private ExamService examService;
 	@Autowired
 	private FileService fileService;
-
+	@Autowired
+	private SubjectService subjectService;
+	
 	/*
 	 * 테스트 관리 화면 이동 param return contents/sign 받는값
 	 */

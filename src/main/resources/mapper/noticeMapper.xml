@@ -21,47 +21,37 @@
 			,#{registId}
 			, SYSDATE()
 		)
+		ON DUPLICATE KEY UPDATE
+			UPDATE_ID = #{registId},
+			UPDATE_DT = SYSDATE();
 	</insert>
 	
 	<select id="selectNoticeListCount" parameterType="hashmap" resultType="int">
-		<!--SELECT
+		SELECT
 			COUNT(*)
-		FROM product A
+		FROM NOTICE
 		WHERE 1=1
-		<if test='keyword != null and keyword != ""'>
-			AND PROD_NAME LIKE CONCAT('%', #{keyword}, '%')
-	    </if>
-		<if test='prodType != null and prodType != ""'>
-			AND PROD_TYPE = #{prodType}
-	    </if>
-		ORDER BY A.PK_PROD_SEQ ASC-->
+		ORDER BY PK_NOTICE_SEQ ASC
 	</select>
 	
 	<select id="selectNoticeList" parameterType="hashmap" resultType="project.momento.notice.dto.NoticeDto">
-		<!--SELECT
-			A.PK_RESULT_DETAIL_SEQ					AS pkResultDetailSeq
-			, A.PK_PROD_SEQ							AS pkProdSeq
-			, A.PK_RESULT_SEQ						AS pkResultSeq
-			, A.PK_USER_SEQ							AS pkUserSeq
-			, B.PROD_NAME							AS prodName
-			, B.PROD_TYPE							AS prodType
-			, B.PROD_KEYWORD						AS prodKeyword
-			, B.PROD_PRICE							AS prodPrice
-			, B.PROD_IMG							AS prodImg
-			, B.REGIST_ID							AS registId
-			, DATE_FORMAT(A.REGIST_DT,'%Y-%m-%d')	AS registDt
-		FROM result_detail A
-		INNER JOIN product B
-		ON A.PK_PROD_SEQ = B.PK_PROD_SEQ
+		SELECT
+			PK_NOTICE_SEQ							AS pkNoticeSeq
+			, PK_FILE_SEQ							AS pkFileSeq
+			, PK_SUBJECT_SEQ						AS pkSubjectSeq
+			, TITLE									AS title
+			, CONTENTS								AS contents
+			, ETC									AS etc
+			, USE_YN								AS useYn
+			, DEL_YN								AS delYn
+			, REGIST_ID								AS registId
+			, DATE_FORMAT(REGIST_DT,'%Y-%m-%d')		AS registDt
+			, UPDATE_ID								AS updateId
+			, DATE_FORMAT(UPDATE_DT,'%Y-%m-%d')		AS updateDt
+			
+		FROM NOTICE
 		WHERE 1=1
-		AND A.PK_USER_SEQ = #{pkUserSeq}
-		<if test='keyword != null and keyword != ""'>
-			AND PROD_NAME LIKE CONCAT('%', #{keyword}, '%')
-	    </if>
-		<if test='prodType != null and prodType != ""'>
-			AND PROD_TYPE = #{prodType}
-	    </if>
-		ORDER BY A.PK_PROD_SEQ ASC
-		LIMIT #{pageStart}, #{perPageNum}-->
+		ORDER BY PK_NOTICE_SEQ ASC
+		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 </mapper>

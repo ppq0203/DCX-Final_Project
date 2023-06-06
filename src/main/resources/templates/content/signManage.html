@@ -71,37 +71,11 @@
 											<span class="form-check-id">학생이름</span>
 											<span class="form-check-email">학생이메일</span>
 											<span class="form-check-date">가입일자</span>
-											<span class="form-check-Y||N">수락/거절</span>
-											<!--<span class="form-check-Y||N">수락/거절</span>-->
 											<span class="form-check-info">정보보기</span>
 											<hr>
-											<form name="check" id="check" action="POST">
-													<div class="form-check-student-list">
-														<div class="waitList" style="word-spacing: 7vw;">
-															<!--input class="form-check-input me-1" id="tstcheck" name="tstcheck" type="checkbox" th:value="${waiting}"
-																aria-label="...">
-															<span class="form-check-input-name" th:text="${waiting.userId}"></span>
-															<span class="form-check-input-id" th:text="${waiting.name}"></span>
-															<span class="form-check-input-email" th:text="${waiting.email}"></span>
-															<span class="form-check-input-date" th:text="${waiting.registDt}"></span>
-															<button type="button" class="btn btn-light" id="info">정보</button-->
-														<div class="form-check-input-button" style="word-spacing: 7vw;">
-															<input class="form-check-input me-1" name="permit"
-																type="checkbox" th:value="${waiting}" aria-label="...">
-															<span class="form-check-input-name"
-																th:text="${waiting.userId}"></span>
-															<span class="form-check-input-id"
-																th:text="${waiting.name}"></span>
-															<span class="form-check-input-email"
-																th:text="${waiting.email}"></span>
-															<span class="form-check-input-date"
-																th:text="${waiting.registDt}"></span>
-															<button type="button" class="btn btn-light"
-																id="info">정보</button>
-
-														</div>
-													</div>
-											</form>
+											<table class="waitList">
+												
+											</table>
 										</div>
 										<div class="form-check-next" style="display: flex; float:left">
 											<button type="button" class="btn btn-light">이전</button>
@@ -156,26 +130,9 @@
 											<span class="form-check-job">취업여부</span>
 											<span class="form-check-info">정보보기</span>
 											<hr>
-											<!--th:each="waitingStudent : ${waitingStudentList}"-->
-											<form action="">
-												<!--th:if="${waitingStudent.useYn == 'N'}"-->
-												<div class="form-check-student-list">
-													<div class="form-check-input-button" style="word-spacing: 7vw;">
-														<span class="form-check-input-name">아이디</span>
-														<!--th:text=${item.userId}-->
-														<span class="form-check-input-id">이름</span>
-														<!--th:text=${item.name}-->
-														<span class="form-check-input-email">이메일</span>
-														<!--th:text=${item.email}-->
-														<span class="form-check-input-attendance">00.0%</span>
-														<span class="form-check-input-date">수료일자</span>
-														<!--th:text=${item.registDt}-->
-														<span class="form-check-input-job">취업여부</span>
-														<button type="button" class="btn btn-light">정보</button>
-
-													</div>
-												</div>
-											</form>
+											<table class="appendGradu">
+												
+											</table>
 										</div>
 										<div class="form-check-next" style="display: flex;">
 											<button type="button" class="btn btn-light">이전</button>
@@ -352,13 +309,49 @@
 		}
 		
 		function getTraineeList() {
+			$(".appendTrainee").empty();
 			$.ajax({
 				type:"POST",
 				url:"getTraineeList.com",
 				dataType:"json",
 				success: function (data){
 					console.log(data)
-					$.each
+					$.each(data, function(index, item){
+						trInsert = ""
+						trInsert += '<tr>';
+						trInsert += '<td class="form-check-input-id">' + item.userId + '</td>';
+						trInsert += '<td class="form-check-input-name">' + item.name + '</td>';
+						trInsert += '<td class="form-check-input-email">' + item.email + '</td>';
+						trInsert += '<td class="form-check-input-date">' + item.registDt + '</td>';
+						trInsert += '<button type="button" class="btn btn-light" id="info">정보</button>';
+						trInsert += '</tr>';
+						$(".appendTrainee").append(trInsert);
+					})
+				},
+				error: function (){
+				}
+			})
+		}
+		
+		function getGraduList() {
+			$(".appendGradu").empty();
+			$.ajax({
+				type:"POST",
+				url:"getGraduList.com",
+				dataType:"json",
+				success: function (data){
+					console.log(data)
+					$.each(data, function(index, item){
+						trInsert = ""
+						trInsert += '<tr>';
+						trInsert += '<td class="form-check-input-id">' + item.userId + '</td>';
+						trInsert += '<td class="form-check-input-name">' + item.name + '</td>';
+						trInsert += '<td class="form-check-input-email">' + item.email + '</td>';
+						trInsert += '<td class="form-check-input-date">' + item.registDt + '</td>';
+						trInsert += '<button type="button" class="btn btn-light" id="info">정보</button>';
+						trInsert += '</tr>'
+						$(".appendGradu").append(trInsert);
+					})
 				},
 				error: function (){
 				}
@@ -372,6 +365,9 @@
 			}
 			if (e.target.dataset.id == 1) {
 				getTraineeList();
+			}
+			if (e.target.dataset.id == 2){
+				getGraduList();
 			}
 		})
 		
@@ -439,15 +435,12 @@
 					contentType: 'application/json',
 					data : {},
 					success : function(data){
-						console.log("실행됨.");
 					},
 					error : function(){
-						console.log("실패함.");
 					}
 				});
 			}
 			getWaitUser();
-			console.log("클린업.");
 		})
 		
 		function getWaitUser() {
@@ -459,12 +452,16 @@
 				success: function (data) {
 					$.each(data, function(index, item) { // 데이터 =item
 						waitArr.push(item);
-						$(".waitList").append('<input class="form-check-input me-1" type="checkbox" id="permitcheck" name="permitcheck" value="' + item.pkUserSeq + '" aria-label="...">');
-						$(".waitList").append('<span class="form-check-input-id">' + item.userId + '</span>');
-						$(".waitList").append('<span class="form-check-input-name">' + item.name + '</span>');
-						$(".waitList").append('<span class="form-check-input-email">' + item.email + '</span>');
-						$(".waitList").append('<span class="form-check-input-date">' + item.registDt + '</span>');
-						$(".waitList").append("<button type='button' class='btn btn-light' id='info'>정보</button>")
+						trInsert = ""
+						trInsert += '<tr>';
+						trInsert += '<td><input class="form-check-input me-1" type="checkbox" id="permitcheck" name="permitcheck" value="' + item.pkUserSeq + '" aria-label="..."></td>';
+						trInsert += '<td class="form-check-input-id">' + item.userId + '</td>';
+						trInsert += '<td class="form-check-input-name">' + item.name + '</td>';
+						trInsert += '<td class="form-check-input-email">' + item.email + '</td>';
+						trInsert += '<td class="form-check-input-date">' + item.registDt + '</td>';
+						trInsert += '<td><button type="button" class="btn btn-light" id="info">정보</button></td>';
+						trInsert += '</tr>'
+						$(".waitList").append(trInsert);
 					});
 				},
 				error: function () {

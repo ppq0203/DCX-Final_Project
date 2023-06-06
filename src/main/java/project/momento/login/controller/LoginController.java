@@ -34,29 +34,29 @@ public class LoginController {
 		
 		return "content/"+userDivn+"/login/login";
 	}
-	
+
 	/*
-	 * 로그인 체크
-	 * return contents/loginUp
+	 * 로그인 체크 return contents/loginUp
 	 */
 	@RequestMapping(value = "/{userDivn}/login/form", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String loginForm(@PathVariable String userDivn, Model model, LoginDto loginDto, HttpServletRequest request) { // 입력값(id,pwd)를 loginDto에 넣기
+	public String loginForm(@PathVariable String userDivn, Model model, LoginDto loginDto, HttpServletRequest request) { // 입력값(id,pwd)를																														// 넣기
 		LoginDto loginCheck = new LoginDto(); // loginDto 를 체크에넣기
 		loginCheck = loginService.checkLogin(loginDto);
 		if (loginCheck == null) { // loginCheck안에있는 id, pwd에 값이 없으면
-			return "content/"+userDivn+"/login/login"; // 로그인화면
+			return "content/" + userDivn + "/login/login"; // 로그인화면
 		} else {
 			request.getSession().setAttribute("loginDto", loginCheck); // 아이디 세션에 저장
-			return "redirect:/"+userDivn+"/main";
+			return "redirect:/" + userDivn + "/main";
 		}
 	}
 
 	@RequestMapping(value = "/{userDivn}/login/out", produces = "application/text;charset=utf-8")
-	public String logout(@PathVariable String userDivn, HttpSession session, HttpServletRequest request) throws Exception {
+	public String logout(@PathVariable String userDivn, HttpSession session, HttpServletRequest request)
+			throws Exception {
 		session.invalidate();
-		return "redirect:/"+userDivn+"/login/main";
+		return "redirect:/" + userDivn + "/login/main";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value="/getUserList", produces="application/json;charset=utf-8", method=RequestMethod.POST)
 	public Map<String, List<LoginDto>> getUserList(HttpServletRequest request) {
@@ -71,51 +71,38 @@ public class LoginController {
 	    
 	    return resultList;
 	}
+	
 
 	public List<String> userList(HttpServletRequest request) {
 		return null;
 	}
 
 	@RequestMapping(value = "/select.com", produces = "application/text;charset=utf-8")
-	public String selectUser(Model model, LoginDto loginDto) {
-		int pkUserSeq = loginDto.getPkUserSeq();
-		loginDto.setPkUserSeq(pkUserSeq);
+	public String selectUser(Model model, LoginDto loginDto, HttpServletRequest request) {
+		loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		int pkUserSeq=loginDto.getPkUserSeq();
 		// pkUserSeq 값이 존재하는 경우에만 로직 실행
 		if (pkUserSeq > 0) {
-			// loginService.selectUser() 메소드 호출 시 loginDto 전달
-			loginService.selectUser(loginDto);
-
-			model.addAttribute("loginDto", loginDto);
+			// loginService.selectUser() 메소드 호출 시 loginDto 전달해서 로직 후 dto로 리턴
+			LoginDto dto = loginService.selectUser(loginDto);
+			model.addAttribute(dto);
 		}
 
-		return "content/signManage";
+		return "content/std/sign/sign2";
 	}
 
 	@RequestMapping(value = "/update.com", produces = "application/text;charset=utf-8")
-	public String updateUser(Model model, LoginDto loginDto) {
+	public String updateUser(Model model, LoginDto loginDto, HttpServletRequest request) {
+		// 세션에 있는 pkUserSeq 가져와서 loginDto에 담기
+		LoginDto beforeDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		loginDto.setPkUserSeq(beforeDto.getPkUserSeq());
+		// loginDto에 있는 pkUserSeq를 가져와서 조건이 맞다면 로직 실행
 		int pkUserSeq = loginDto.getPkUserSeq();
-		loginDto.setPkUserSeq(pkUserSeq);
-		// pkUserSeq 값이 존재하는 경우에만 로직 실행
 		if (pkUserSeq > 0) {
 			// loginService.updateUser() 메소드 호출 시 loginDto 전달
 			loginService.updateUser(loginDto);
-
-			model.addAttribute("loginDto", loginDto);
 		}
-		return "content/signManage";
-	}
-
-	@RequestMapping(value = "/deleteUser.com", produces = "application/text;charset=utf-8")
-	public String deleteUser(Model model, LoginDto loginDto) {
-		int pkUserSeq = loginDto.getPkAuthSeq();
-		loginDto.setPkUserSeq(pkUserSeq);
-		// pkUserSeq 값이 존재하는 경우에만 로직 실행
-		if (pkUserSeq > 0) {
-			// loginService.deleteUser() 메소드 호출 시 loginDto 전달
-			loginService.deleteUser(loginDto);
-			model.addAttribute("loginDto", loginDto);
-		}
-		return "content/signManage";
+		return "content/std/sign/sign2";
 	}
 
 	@RequestMapping(value = "/userRole.com", produces = "application/text;charset=utf-8")
@@ -124,6 +111,6 @@ public class LoginController {
 		loginDto.setUseYn(useYn);
 		loginService.userYn(loginDto);
 		model.addAttribute("loginDto", loginDto);
-		return "content/signManage";
+		return "content/std/sign/sign2";
 	}
 }

@@ -145,16 +145,20 @@
 			var file = $(".custom-file-input")[0].files[0];
 			//파일 경로.
 			var filePath = file.value;
-
+			
 			console.log('파일 경로 : ' + e.target.result);
 			console.log('파일명 : ' + fileName);
 			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+			console.log(file)
 			if (fileName != '') {
 				var reader = new FileReader();
 				reader.readAsDataURL(e.target.files[0]);
-				reader.onload = function (event) { //파일 로드한 값을 표현, e는 이벤트안에 result값이 파일의 정보 가지고 있음 
+				reader.onload = function (event) { //파일 로드한 값을 표현, e는 이벤트안에 result값이 파일의 정보 가지고 있음
+					console.log(event);
 					$('#preview').attr('src', event.target.result);
-					$('#imgPath').val(test);
+					var ttt = document.getElementById('preview').getAttribute('src').split(',')[1];
+					$('#imgPath').val(ttt);
+					console.log($('#imgPath')[0]);
 				}
 			}
 		});

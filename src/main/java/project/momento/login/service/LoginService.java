@@ -32,10 +32,9 @@ public class LoginService {
 		
 		loginMapper.insertUser(loginDto);
 	}
-	public LoginDto updateUser(LoginDto loginDto) {
+	public void updateUser(LoginDto loginDto) {
 		// TODO Auto-generated method stub
-		
-		return loginMapper.updateUser(loginDto);
+		loginMapper.updateUser(loginDto);
 	}
 	public void deleteUser(LoginDto loginDto) {
 		// TODO Auto-generated method stub
@@ -66,6 +65,11 @@ public class LoginService {
 	public List<LoginDto> selectUserList() {
 		// TODO Auto-generated method stub
 		return loginMapper.selectUserList();
+	}
+
+	public List<LoginDto> getGraduList() {
+		// TODO Auto-generated method stub
+		return loginMapper.getGraduList();
 	}
 //	public int getIDPassCheck(String id, String pwd) {
 //		// TODO Auto-generated method stub
