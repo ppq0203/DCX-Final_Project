@@ -53,31 +53,31 @@
 		}
 
 		$(document).ready(function () {
-			$.ajax({
-				type: "POST",
-				url: "/getmenu.com",
-				dataType: "json",
-				success: function (data) {
-					$(".append").empty();
-					str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
-					$.each(data, function (i) {
-						if (0 == data[i].upperMenuNo) {
-							console.log(data[i].pkMenuSeq);
-							str += '<li class="nav-item">'
-								+ '<a href="#" class="nav-link">'
-								+ '<i class="nav-icon fas fa-th"></i>'
-								+ '<p>' + data[i].menuName + '</p>'
-								+ '<i class="right fas fa-angle-left"></i></a>'
-								+ recursive(data, data[i].pkMenuSeq, 'fa-circle')
-								+ '</li>';
-						}
-					});
-					str += '</ul>';
-					$(".append").append(str);
-				},
-				error: function () {
-				}
-			});
+			//$.ajax({
+			//	type: "POST",
+			//	url: "/getmenu.com",
+			//	dataType: "json",
+			//	success: function (data) {
+			//		$(".append").empty();
+			//		str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
+			//		$.each(data, function (i) {
+			//			if (0 == data[i].upperMenuNo) {
+			//				console.log(data[i].pkMenuSeq);
+			//				str += '<li class="nav-item">'
+			//					+ '<a href="#" class="nav-link">'
+			//					+ '<i class="nav-icon fas fa-th"></i>'
+			//					+ '<p>' + data[i].menuName + '</p>'
+			//					+ '<i class="right fas fa-angle-left"></i></a>'
+			//					+ recursive(data, data[i].pkMenuSeq, 'fa-circle')
+			//					+ '</li>';
+			//			}
+			//		});
+			//		str += '</ul>';
+			//		$(".append").append(str);
+			//	},
+			//	error: function () {
+			//	}
+			//});
 		})
 	</script>
 </th:block>
