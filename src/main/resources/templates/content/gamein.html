@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+  	<meta charset="UTF-8">
+  	<title>Gnjoy</title>
+  	<link rel="stylesheet" type="text/css" href="1.css">
+		 <style>
+			@font-face {
+				 font-family: 'DungGeunMo';
+				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+				 font-weight: normal;
+				 font-style: normal;
+			}
+			p{
+				 margin: 0px;
+			}
+			#container {
+				width: 976px;
+				height: 700px;
+				background-image : url('gameStart.png');
+				background-size : auto ;
+			}
+			#header {
+        		padding: 10px;
+				height : 70px;
+      		}
+	      	#content {
+	        	width: 665px;
+				height: 560px;
+	        	padding: 10px;
+	        	float: left;
+				margin-right : 5px;
+				margin-left : 10px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				border-radius: 10px;
+	      	}
+	      	#sidebar {
+	        	width: 250px;
+				height: 570px;
+	        	padding: 5px;
+	        	float: right;
+				margin-left : 5px;
+				margin-right : 5px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				position: relative;
+				border-radius: 10px;
+	      	}
+			#footer {
+        		padding: 10px;
+				height : 70px;
+      		}
+			
+			/*content*/
+			/*Tab*/ 
+			.user-all{
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 450px;
+				height : 450px;
+				float : center;
+				vertical-align : center;
+			  	position: absolute;
+			  	top: 22%;
+			 	left: 10%;
+				margin: -50px 0 0 -50px;
+				padding: 5px;
+				font-family: 'DungGeunMo';
+			}
+			.user1{
+				background : #FFC04D;
+				border-radius: 10px; 
+				width: 200px;
+				height : 200px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+			 }
+			.user2{
+				background : #FF652A;
+				border-radius: 10px; 
+				width: 200px;
+				height : 200px;
+				margin : 5px ; 
+				padding : 5px;
+				float : right;
+			 }
+			.user3{
+				background : #1F71C2;
+				border-radius: 10px; 
+				width: 200px;
+				height : 200px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+			 }
+			.user4{
+				background : #9BDB6B;
+				border-radius: 10px; 
+				width: 200px;
+				height : 200px;
+				margin : 5px ; 
+				padding : 5px;
+				float : right;
+			 }
+
+
+			/*side*/
+			.gameinfo{
+				width: 220px;
+				height: 150px;
+	        	padding: 5px;
+	        	float: center;
+				margin : 5px;
+				background-color : white;
+				border : 3px solid white;
+			 }
+			 
+			.chat-veiw{
+	        	width: 220px;
+				height: 200px;
+	        	padding: 5px;
+	        	float: center;
+				margin : 5px;
+				border : 3px solid white;
+			}
+			.chat-input{
+				width: 220px;
+				height: 23px;
+				padding: 5px;
+	        	float: center;
+				margin : 5px;
+				border : 3px solid white;
+			 }
+			 chat-input .who{
+				 width : 40px;
+				 height : 20px;
+				 float : left;
+				 border : 1.5px solid white;
+			 }
+			 chat-input .write{
+				 width : 160px;
+				 height : 200px;
+				 float : right;
+				 border : 1.5px solid white;
+			 }		
+	      	.			 
+			/*button icon*/
+			.btnstart{
+				width: 220px;
+				height: 35px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px;
+				border-radius: 5px;
+				background-color : #c55a11;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : #c55a11;
+			}
+			 
+			.btn{
+				width: 220px;
+				height: 50px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px 5px 5px 10px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : #FFC04D;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : #c55a11;
+			}			 
+			.btnlogout{
+				width: 220px;
+				height: 50px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px 5px 5px 10px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : gray;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : 'Darkgary';
+			}
+
+	    </style>
+
+	</head>
+	<body>
+		<div id="container">
+      		<div id="header"></div>
+			
+			<!--side right -->
+			    <div id="sidebar">
+					<div class="gameinfo"></div>
+					<div class="chat-veiw"></div>
+					<div class="chat-input">
+						<div class="who"></div>
+						<div class="write"></div>
+					</div>
+					<button class="btn" type="button">시작</button>	
+					<button class="btnlogout" type="button">나가기</button>		
+				</div>
+			
+			<!--content game -->
+      		<div id="content">
+				<div class="user-all">
+					<div class="user1"></div>
+					<div class="user2"></div>
+					<div class="user3"></div>
+					<div class="user4"></div>
+				</div>
+			<div id="footer"></div>
+		</div>
+		</div>
+	</body>
+</html>
