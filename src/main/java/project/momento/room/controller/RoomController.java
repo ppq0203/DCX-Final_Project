@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import project.momento.room.service.RoomService; // 임시
+
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/chat")
 @Log4j2
+@RequestMapping(value = "/chat")
 public class RoomController {
 
-	private final RoomMapper mapper;
+	private final RoomService service;
 	
 	
 	// 채팅방 목록 조회
@@ -27,27 +29,28 @@ public class RoomController {
 	public ModelAndView rooms() {
 		
 		log.info(" # All Chat Rooms");
-		ModelAndView mv = new ModelAndView("chat/rooms");
+		ModelAndView mv = new ModelAndView("content/rooms");
 		
-		mv.addObject("list", mapper.findAllRooms());
+		mv.addObject("list", service.findAllRooms());
 		
 		return mv;
 	}
 	
 	// 채팅방 개설
 	@PostMapping(value = "/room")
-	public ModelAndView create(String roomName) {
+	public String create(@RequestParam String name, RedirectAttributes rttr) {
 		
-		ModelAndView mv = new ModelAndView("chat/room");
+		log.info("# Create Chat Room , name: " + name);
+		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
 		
-		mv.addObject("list", mapper.createRoom(roomName));
-		
-		return mv;
+        return "redirect:/chat/rooms";
 	}
 	
 	// 채팅방 조회
 	@GetMapping("/room")
-	public void findRoom(String roomName, Model model) {
-		model.addAttribute("room", mapper.findRoomByName(roomName));
+	public void getRoom(String roomId, Model model) {
+        log.info("# get Chat Room, roomID : " + roomId);
+
+        model.addAttribute("room", service.findRoomById(roomId));
 	}
 }
