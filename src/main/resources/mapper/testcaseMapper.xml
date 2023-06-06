@@ -13,21 +13,18 @@
 			,#{output}
 		)
 	</insert>
-	
-	<insert id="testCaseToDbList" parameterType="java.util.List">
-		INSERT INTO TEST_CASE(
-			PK_QUESTION_SEQ
-			,INPUT
-			,OUTPUT
-		)VALUES(
-		<foreach item="item" index="index" collection="list">
-			#{pkQuestionSeq}
-			,#{input}
-			,#{output}
-		)
-		</foreach>
+	<!-- testMapper.xml -->
+	<insert id="testCaseToDbList" parameterType="java.util.ArrayList">
+		INSERT INTO TEST_CASE (
+        PK_QUESTION_SEQ,
+        INPUT,
+        OUTPUT
+    )
+    VALUES
+		<foreach item="item" index="index" collection="list" separator=",">
+        (#{item.pkQuestionSeq}, #{item.input}, #{item.output})
+    </foreach>
 	</insert>
-
 
 	<select id="selectTestcaseList" parameterType="int" resultType="project.momento.question.dto.TestcaseDto">
 		SELECT PK_QUESTION_SEQ

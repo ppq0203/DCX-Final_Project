@@ -1,6 +1,7 @@
 package project.momento.question.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,13 +21,37 @@ public class TestcaseController {
 	@Autowired
 	private TestcaseService testcaseService;
 	
-	// 테스트케이스 생성하는 함수실행
-	@RequestMapping(value = "/make/testcase")
-    public String makeTestcase() {
-		// 테스트케이스 생성기
-//		TestcaseGenerator.testcaseGenrate();
-        return "index";
-	}
+	
+//	//참고코드
+//	void temp()
+//	{
+//		List<TestcaseDto> testcaseList = new ArrayList<TestcaseDto>();
+//		TestcaseDto testcase1 = new TestcaseDto();
+//		testcase1.setPkQuestionSeq(1);
+//		testcase1.setInput("input1");
+//		testcase1.setOutput("output1");
+//		testcaseList.add(testcase1);
+//		
+//		TestcaseDto testcase2 = new TestcaseDto();
+//		testcase2.setPkQuestionSeq(1);
+//		testcase2.setInput("input2");
+//		testcase2.setOutput("output2");
+//		testcaseList.add(testcase2);
+//		
+//		// DTO 하나씩 꺼내서 넣을 때
+//		for (TestcaseDto testcaseDto : testcaseList) {
+//			testcaseService.testCaseToDbDto(testcaseDto);
+//		}		
+//		// List로 집어 넣을 때 
+//		testcaseService.testCaseToDbList(testcaseList);
+//	}
+//	// 테스트케이스 생성하는 함수실행
+//	@RequestMapping(value = "/make/testcase")
+//    public String makeTestcase() {
+//		// 테스트케이스 생성기
+////		TestcaseGenerator.testcaseGenrate();
+//        return "index";
+//	}
 	
 	// csv로 생성되어있는 테스트케이스를 DB에 넣는 함수실행
 	@RequestMapping(value="/tg")

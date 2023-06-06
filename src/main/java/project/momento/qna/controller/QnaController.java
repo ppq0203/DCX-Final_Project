@@ -1,21 +1,13 @@
 package project.momento.qna.controller;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import project.momento.sign.dto.SignDto;
-import project.momento.sign.service.SignService;
+import project.momento.qna.dto.QnaDto;
+import project.momento.qna.service.QnaService;
 
 @Controller
 public class QnaController {
@@ -25,7 +17,7 @@ public class QnaController {
 	 */
 
 	@Autowired
-	private SignService SignService;
+	private QnaService qnaService;
 
 	/*
 	 * Q&A 페이지 이동
@@ -35,6 +27,12 @@ public class QnaController {
 	@RequestMapping(value="/{userDivn}/qna/main", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String qnasMain(@PathVariable String userDivn, Model model) {
 		return "content/"+userDivn+"/qna/qna";
+	}
+	
+	@RequestMapping(value="/std/qna/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String insertQna(@PathVariable String userDivn, Model model, QnaDto qnaDto) {
+		qnaService.insertQna(qnaDto);
+		return "content/std/qna/qna";
 	}
 
 }

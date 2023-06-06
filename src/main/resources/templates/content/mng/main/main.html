@@ -4,99 +4,96 @@
 <!-- Main content -->
 
 <th:block layout:fragment="content">
-		<div class="container-fluid">
-			<section class="content-header">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-sm-6">
-							<h4 class="fas fa-plus-square">&nbsp;대쉬보드</h4>
-						</div>
+	<div class="container-fluid">
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-6">
+						<h4 class="fas fa-plus-square">&nbsp;대쉬보드</h4>
 					</div>
 				</div>
-			</section>
-			<section class="content">
-				<div class="container-fluid">
+			</div>
+		</section>
+		<section class="content">
+			<div class="container-fluid">
 
-					<div class="row">
+				<div class="row">
 
-						<section class="col-lg-7">
-							<div class="card card-primary resize-handle">
+					<section class="col-lg-12">
+						<div class="card card-primary resize-handle">
 							<div class="card-body p-0">
-
 								<div id="calendar" class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap">
 								</div>
 							</div>
-
 						</div>
-						</section>
+					</section>
 
+					<!--차트?-->
+					<section class="col-lg-5 connectedSortable ui-sortable">
 
-						<section class="col-lg-5 connectedSortable ui-sortable">
-
-							<div class="card" style="position: relative; left: 0px; top: 0px;">
-								<div class="card-header ui-sortable-handle" style="cursor: move;">
-									<h3 class="card-title">
-										<i class="fas fa-chart-pie mr-1"></i>
-										Sales
-									</h3>
-									<div class="card-tools">
-										<ul class="nav nav-pills ml-auto">
-											<li class="nav-item">
-												<a class="nav-link active" href="#revenue-chart"
-													data-toggle="tab">Area</a>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-											</li>
-										</ul>
-									</div>
+						<div class="card" style="position: relative; left: 0px; top: 0px;">
+							<div class="card-header ui-sortable-handle" style="cursor: move;">
+								<h3 class="card-title">
+									<i class="fas fa-chart-pie mr-1"></i>
+									Sales
+								</h3>
+								<div class="card-tools">
+									<ul class="nav nav-pills ml-auto">
+										<li class="nav-item">
+											<a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+										</li>
+									</ul>
 								</div>
-								<div class="card-body">
-									<div class="tab-content p-0">
+							</div>
+							<div class="card-body">
+								<div class="tab-content p-0">
 
-										<div class="chart tab-pane active" id="revenue-chart"
-											style="position: relative; height: 300px;">
-											<div class="chartjs-size-monitor">
-												<div class="chartjs-size-monitor-expand">
-													<div class=""></div>
-												</div>
-												<div class="chartjs-size-monitor-shrink">
-													<div class=""></div>
-												</div>
+									<div class="chart tab-pane active" id="revenue-chart"
+										style="position: relative; height: 300px;">
+										<div class="chartjs-size-monitor">
+											<div class="chartjs-size-monitor-expand">
+												<div class=""></div>
 											</div>
-											<canvas id="revenue-chart-canvas" height="300"
-												style="height: 300px; display: block; width: 377px;" width="377"
-												class="chartjs-render-monitor"></canvas>
+											<div class="chartjs-size-monitor-shrink">
+												<div class=""></div>
+											</div>
 										</div>
-										<div class="chart tab-pane" id="sales-chart"
-											style="position: relative; height: 300px;">
-											<canvas id="sales-chart-canvas" height="0"
-												style="height: 0px; display: block; width: 0px;"
-												class="chartjs-render-monitor" width="0"></canvas>
-										</div>
+										<canvas id="revenue-chart-canvas" height="300"
+											style="height: 300px; display: block; width: 377px;" width="377"
+											class="chartjs-render-monitor"></canvas>
+									</div>
+									<div class="chart tab-pane" id="sales-chart"
+										style="position: relative; height: 300px;">
+										<canvas id="sales-chart-canvas" height="0"
+											style="height: 0px; display: block; width: 0px;"
+											class="chartjs-render-monitor" width="0"></canvas>
 									</div>
 								</div>
 							</div>
+						</div>
 
 
-						</section>
-
-					</div>
-
-				</div>
-			</section>
-			<section class="content">
-				<div class="row">
-					<div class="col-md-9">
-						
-
-					</div>
+					</section>
 
 				</div>
-			</section>
-		</div><!-- /.container-fluid -->
+
+			</div>
+		</section>
+		<section class="content">
+			<div class="row">
+				<div class="col-md-9">
+
+
+				</div>
+
+			</div>
+		</section>
+	</div><!-- /.container-fluid -->
 	<script>
-		
+
 		$(document).ready(function () {
 			$(".resize-handle").on("resizestop", function (event, ui) { });
 			$(".resize-handle").resizable({
@@ -116,10 +113,10 @@
 				//minHeight, maxHeight, minWidth, maxWidth 최소,최대 크기지정 
 			});
 		})
-		
-		
+
+
 		$(function () {
-			
+
 			/* initialize the calendar
 			 -----------------------------------------------------------------*/
 			//Date for the calendar events (dummy data)

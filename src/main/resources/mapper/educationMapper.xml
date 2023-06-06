@@ -3,7 +3,64 @@
 <mapper namespace="project.momento.education.mapper.EducationMapper">
 	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 	<!-- Heidisql연결후 입력 저장-->
-	<!-- SELECT문-->
+	<insert id="insertEducation" parameterType="project.momento.education.dto.EducationDto" useGeneratedKeys="true" keyProperty="returnId">
+		INSERT INTO EDUCATION (
+        PK_MANAGER_SEQ,
+        EDUCATION_NAME,
+        SUB_START_DT,
+        SUB_END_DT,
+        EDUCATION_TEST,
+        EDUCATION_TEST_DT,
+        REGIST_ID,
+        REGIST_DT
+    ) VALUES (
+        #{pkManagerSeq},
+        #{educationName},
+        #{subStartDt},
+        #{subEndDt},
+        #{educationTest},
+        #{educationTestDt},
+        #{registId},
+        SYSDATE()
+    )
+		<selectKey keyProperty="returnId" resultType="java.lang.Integer" order="AFTER">
+        SELECT LAST_INSERT_ID() AS returnId
+    	</selectKey>
+	</insert>
+	<insert id="insertEducationStud" parameterType="project.momento.education.dto.EducationDto">
+    INSERT INTO EDUCATION_STUD (
+        PK_EDUCATION_SEQ,
+        PK_USER_SEQ,
+        REGIST_ID,
+        REGIST_DT
+    )
+    VALUES (
+        #{pkEducationSeq},
+        #{pkUserSeq},
+        #{registId},
+        SYSDATE()
+    )
+</insert>
+	<insert id="insertSubject" parameterType="project.momento.education.dto.EducationDto">
+	    INSERT INTO SUBJECT (
+	        PK_EDUCATION_SEQ,
+	        PK_MANAGER_SEQ,
+	        SUBJECT_NAME,
+	        SUB_START_DT,
+	        SUB_END_DT,
+	        REGIST_ID,
+	        REGIST_DT
+	    )
+	    VALUES (
+	        #{pkEducationSeq},
+	        #{pkManagerSeq},
+	        #{subjectName},
+	        #{subStartDt},
+	        #{subEndDt},
+	        #{registId},
+	        SYSDATE()
+	    )
+	</insert>
 	<select id="selectEducation" parameterType="project.momento.education.dto.EducationDto" resultType="project.momento.education.dto.EducationDto">
 		<![CDATA[
 		SELECT
@@ -97,5 +154,48 @@
 		WHERE 1=1
 		AND A.PK_EDUCATION_SEQ = #{pkEducationSeq}
 		ORDER BY A.PK_SUBJECT_SEQ ASC
+	</select>
+	<update  id="updateEducation" parameterType="project.momento.education.dto.EducationDto">
+		UPDATE EDUCATION
+	  SET
+	    PK_MANAGER_SEQ = #{pkManagerSeq},
+	    EDUCATION_NAME = #{educationName},
+	    SUB_START_DT = #{subStartDt},
+	    SUB_END_DT = #{subEndDt},
+	    UPDATE_ID = #{registId},
+	    UPDATE_DT = NOW()
+	  WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+	</update >
+	
+	<delete id="deleteEducation" parameterType="int">
+		DELETE FROM EDUCATION
+  		WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+	</delete>
+	
+	<delete id="deleteEducationStud" parameterType="int">
+		DELETE FROM EDUCATION_STUD
+  		WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+	</delete>
+	
+	<delete id="deleteSubject" parameterType="int">
+		DELETE FROM SUBJECT
+  		WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+	</delete>
+	
+	<select id="getEducationList" parameterType="int" resultType="project.momento.subject.dto.SubjectDto">
+		<![CDATA[                 
+		SELECT   
+			C.PK_EDUCATION_SEQ AS pkEducationSeq,
+			B.EDUCATION_NAME AS subjectState,
+			C.SUBJECT_NAME AS subjectName,
+			C.PK_SUBJECT_SEQ AS pkSubjectSeq
+		FROM EDUCATION_STUD A
+		JOIN EDUCATION B
+		ON A.PK_EDUCATION_SEQ = B.PK_EDUCATION_SEQ
+		JOIN SUBJECT C
+		ON A.PK_EDUCATION_SEQ = C.PK_EDUCATION_SEQ
+		WHERE A.PK_USER_SEQ = #{pkUserSeq}
+		ORDER BY A.PK_EDUCATION_SEQ, C.SUB_START_DT
+		]]>
 	</select>
 </mapper>

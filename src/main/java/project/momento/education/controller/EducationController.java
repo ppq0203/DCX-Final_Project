@@ -80,17 +80,90 @@ public class EducationController {
 	}
 
 	@RequestMapping(value = "/mng/education/create", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String educationCreate(Criteria cri, Model model, EducationDto educationDto) {
+	public String educationCreate(Criteria cri, Model model, EducationDto educationDto, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("content/mng/education/educationMain");
-		System.out.println(educationDto);
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		educationDto.setRegistId(loginDto.getUserId());
+		
+		educationService.insertEducation(educationDto);
+		int returnId = educationDto.getReturnId();
+		
+		String[] pkUserSeqArray = educationDto.getPkUserSeqArray().split(",");
+		System.out.println(pkUserSeqArray);
+		
+		for(int i = 0; i < pkUserSeqArray.length; i++) {
+			EducationDto educationDto2 = new EducationDto();
+			educationDto2.setPkUserSeq(Integer.parseInt(pkUserSeqArray[i]));
+			educationDto2.setPkEducationSeq(returnId);
+			educationDto2.setRegistId(loginDto.getUserId());
+			educationService.insertEducationStud(educationDto2);
+		}
+		String[] pkManagerSeqArray = educationDto.getPkManagerSeqArray().split(",");
+		String[] subjectName = educationDto.getSubjectName().split(",");
+		String[] subjectDt = educationDto.getSubjectDt().split(",");
+		
+		for(int i = 0; i < pkManagerSeqArray.length; i++) {
+			EducationDto educationDto3 = new EducationDto();
+			educationDto3.setPkManagerSeq(Integer.parseInt(pkManagerSeqArray[i]));
+			educationDto3.setSubjectName(subjectName[i]);
+			educationDto3.setSubjectDt(subjectDt[i]);
+			educationDto3.setPkEducationSeq(returnId);
+			educationDto3.setRegistId(loginDto.getUserId());
+			educationService.insertSubject(educationDto3);
+		}
+		return "redirect:/mng/education/main";
+	}
+	
+	@RequestMapping(value = "/mng/education/update", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String educationUpdate(Criteria cri, Model model, EducationDto educationDto, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("content/mng/education/educationMain");
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		educationDto.setRegistId(loginDto.getUserId());
+		
+		educationService.updateEducation(educationDto);
+		String[] pkUserSeqArray = educationDto.getPkUserSeqArray().split(",");
+		educationService.deleteEducationStud(educationDto.getPkEducationSeq());
+		for(int i = 0; i < pkUserSeqArray.length; i++) {
+			EducationDto educationDto2 = new EducationDto();
+			educationDto2.setPkUserSeq(Integer.parseInt(pkUserSeqArray[i]));
+			educationDto2.setPkEducationSeq(educationDto.getPkEducationSeq());
+			educationDto2.setRegistId(loginDto.getUserId());
+			educationService.insertEducationStud(educationDto2);
+		}
+		
+		String[] pkManagerSeqArray = educationDto.getPkManagerSeqArray().split(",");
+		String[] subjectName = educationDto.getSubjectName().split(",");
+		String[] subjectDt = educationDto.getSubjectDt().split(",");
+		
+		educationService.deleteSubject(educationDto.getPkEducationSeq());
+		for(int i = 0; i < pkManagerSeqArray.length; i++) {
+			EducationDto educationDto3 = new EducationDto();
+			educationDto3.setPkManagerSeq(Integer.parseInt(pkManagerSeqArray[i]));
+			educationDto3.setSubjectName(subjectName[i]);
+			educationDto3.setSubjectDt(subjectDt[i]);
+			educationDto3.setPkEducationSeq(educationDto.getPkEducationSeq());
+			educationDto3.setRegistId(loginDto.getUserId());
+			educationService.insertSubject(educationDto3);
+		}
+		return "redirect:/mng/education/main";
+	}
+	
+	@RequestMapping(value = "/mng/education/delete", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String educationDelete(Criteria cri, Model model, EducationDto educationDto, HttpServletRequest request) {
+		
+		ModelAndView mv = new ModelAndView("content/mng/education/educationMain");
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		educationDto.setRegistId(loginDto.getUserId());
+		
+		educationService.deleteEducation(educationDto.getPkEducationSeq());
+		educationService.deleteEducationStud(educationDto.getPkEducationSeq());
+		educationService.deleteSubject(educationDto.getPkEducationSeq());
+		
 		return "redirect:/mng/education/main";
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/getEducationList", produces = "application/json;charset=utf-8", method = RequestMethod.POST) /*
-																															 * value주소
-																															 * 이름
-																															 */
+	@RequestMapping(value = "/getEducationList", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	public List<EducationDto> GetEducationList(Criteria cri, Model model, HttpServletRequest request) {
 		// 세션에서 내 정보를 가져온다
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
