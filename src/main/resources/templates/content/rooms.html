@@ -6,7 +6,10 @@
         <div class="container">
             <div>
                 <ul th:each="room : ${list}">
-                    <li><a th:href="@{/chat/room(roomId=${room.roomName})}">[[${room.roomName}]]</a></li>
+                    <li><form th:action="@{/chat/room}" method="get">
+                    <input type="text" name="roomId">
+                    <input type="submit">
+                    </form>[[${room.roomName}]]</li>
                 </ul>
             </div>
         </div>

@@ -41,12 +41,17 @@ public class RoomService {
 	} // 전체 방 찾기
 	
 	public RoomDto findRoomById(String id) {
+		System.out.println(id);
+		System.out.println(roomDtoMap.size());
+		for (String key : roomDtoMap.keySet()) {
+			System.out.println(key);
+		}
 		return roomDtoMap.get(id);
 	} // ID로 방 찾기 (검색기능)
 	
 	public RoomDto createRoomDto(String name) {
 		RoomDto room = RoomDto.create(name);
-		roomDtoMap.put(room.getPkRoomSeq(), room);
+		roomDtoMap.put(room.getRoomName(), room);
 		
 		return room;
 	} // 방 생성

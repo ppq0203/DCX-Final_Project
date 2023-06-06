@@ -6,7 +6,7 @@
 
         <div class="container">
             <div class="col-6">
-                <h1>[[${room.name}]]</h1>
+                <h1>[[${room.roomName}]]</h1>
             </div>
             <div>
                 <div id="msgArea" class="col"></div>
@@ -31,7 +31,7 @@
         <script th:inline="javascript">
             $(document).ready(function(){
 
-                var roomName = [[${room.name}]];
+                var roomName = [[${room.roomName}]];
                 var roomId = [[${room.roomId}]];
                 var username = [[${#authentication.principal.username}]];
 

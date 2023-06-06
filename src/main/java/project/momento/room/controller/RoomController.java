@@ -46,11 +46,14 @@ public class RoomController {
         return "redirect:/chat/rooms";
 	}
 	
-	// 채팅방 조회
+	// 채팅방 들어갈 시
 	@GetMapping("/room")
-	public void getRoom(String roomId, Model model) {
+	public ModelAndView getRoom(String roomId) {
         log.info("# get Chat Room, roomID : " + roomId);
-
-        model.addAttribute("room", service.findRoomById(roomId));
+		ModelAndView mv = new ModelAndView("content/room");
+		
+		mv.addObject("room", service.findRoomById(roomId));
+		mv.addObject("roomId", roomId);
+		return mv;
 	}
 }
