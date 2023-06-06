@@ -31,8 +31,21 @@ public class TestcaseController {
 	 * return contents/studentScreen 받는값
 	 */
 	@RequestMapping(value="/testcaseToDb", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String TestCaseToDb(Model model, List<TestcaseDto> testcaseList) {
+	public String TestCaseToDb(Model model, ArrayList<TestcaseDto> testcaseList) {
 	    
+
+		TestcaseDto testcase1 = new TestcaseDto();
+		testcase1.setPkQuestionSeq(1);
+		testcase1.setInput("input1");
+		testcase1.setOutput("output1");
+		testcaseList.add(testcase1);
+
+		TestcaseDto testcase2 = new TestcaseDto();
+		testcase2.setPkQuestionSeq(1);
+		testcase2.setInput("input2");
+		testcase2.setOutput("output2");
+		testcaseList.add(testcase2);
+		
 		// DTO 하나씩 꺼내서 넣을 때
 		for (TestcaseDto testcaseDto : testcaseList) {
 			testcaseService.testCaseToDbDto(testcaseDto);
