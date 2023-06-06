@@ -34,10 +34,14 @@ public class SignDto {
 	private String detailedAddress;
 	/*이메일*/
 	private String email;
-	/*유저 구분(A: 관리자, B: 학생)*/
+	/*유저 구분(mng: 관리자, std: 학생)*/
 	private String userDivn;
 	/*사용유무(D: 삭제, H:휴면계정, Y:사용, N:미사용)*/
 	private String useYn;
 	/*가입한 날짜*/
 	private String registDt;
+	/*수강 상태(N: 퇴소, Y: 수강중, E: 수료)*/
+	private String classState;
+	/*이미지 경로*/
+	private String imgPath;
 }

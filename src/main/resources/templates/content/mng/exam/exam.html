@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/mng/mngSubjectLayout}">
+
+<div layout:fragment="content">
+	<div class="row">
+		<div class="col-12">
+			<div class="p-5">
+				<div class="row">
+					<div class="col-6">
+						<h2 class="p-2">테스트</h2>
+						<div class="card-tools">
+						</div>
+						<!-- /.card-header -->
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">번호</th>
+									<th scope="col">제목</th>
+									<th scope="col">강사</th>
+									<th scope="col">test</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td><span>HTML</span></td>
+									<td><span>여기다</span></td>
+									<td><button type="button" class="btn btn-default" data-toggle="modal"
+											data-target="#modal-xl">
+											시작
+										</button></td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td><span>HTML</span></td>
+									<td><span>000</span></td>
+									<td><button type="button" class="btn btn-default" data-toggle="modal"
+											data-target="#modal-xl">
+											시작
+										</button></td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td><span>HTML</span></td>
+									<td><span>000</span></td>
+									<td><button type="button" class="btn btn-default" data-toggle="modal"
+											data-target="#modal-xl">
+											시작
+										</button></td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- /.card-body -->
+						<div class="card-footer">
+						</div>
+					</div>
+					<div class="col-6">
+						<h2 class="p-2">테스트결과</h2>
+						<div class="card-tools">
+						</div>
+						<!-- /.card-header -->
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">번호</th>
+									<th scope="col">제목</th>
+									<th scope="col">결과</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td><span>HTML</span></td>
+									<td><a href="#" class="alert-link"><span>어쩌구 체점결과</span></a></td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td><span>HTML</span></td>
+									<td><a href="#" class="alert-link"><span>어쩌구 체점결과</span></a></td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td><span>HTML</span></td>
+									<td><a href="#" class="alert-link"><span>어쩌구 체점결과</span></a></td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- /.card-body -->
+						<div class="card-footer">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-cented modal-xl">
+			<div class="modal-content">
+				<div class="col-12 modal-header">
+					<h4 class="col-12 modal-title text-center">00:00:00</h4>
+					<!--<button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">-->
+					<!--<span aria-hidden="true">×</span>-->
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="col-12">
+									<span>01. 웹페이지를 작성할 다음 언어의 단어를 풀어 쓰고 그 역할에 대해 적으시오.</span>
+								</div>
+								<hr>
+							</div>
+							<div class="col-12 pl-2">
+								<span>1 HTML: Hyper Text Markup Language</span>
+							</div>
+							<div class="col-12 pl-2">
+								<span>2 CSS</span>
+							</div>
+							<div class="col-12 pl-2">
+								<span>3 JavaScript</span>
+							</div>
+							<div class="col-12 pl-2 mt-4 mb-4">
+								<textarea class="form-control form-control-lg" row="4" id="validationTextarea"
+									placeholder="정답입력" required></textarea>
+							</div>
+						</div>
+						<hr class="mt-4 mb-4">
+						<div class="row">
+							<div class="col-12">
+								<div class="col-12 mt-2">
+									<span>02. 각 번호의 명칭을 서술하시오.</span>
+								</div>
+								<hr>
+							</div>
+							<div class="col-12">
+								<div class="text-center mt-4">
+									<img src="..." class="rounded" alt="...">
+								</div>
+								<div class="col-12 pl-2 mt-4 mb-4">
+									<textarea class="form-control form-control-lg" row="4" id="validationTextarea"
+										placeholder="정답입력" required></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">6
+					<div class="col-12">
+						<div class="col-1 mx-auto">
+							<button type="button" class="btn btn-primary">제출</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</th:block>
+
+</html>

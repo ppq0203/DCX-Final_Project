@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+
+<th:block layout:fragment="content">
+	<div class="container">
+		<h2 style=" text-align: center; padding: 50px;">학생 회원가입</h2>
+		<form method="post" action="/std/sign/form" name="userInfo" onsubmit="return checkValue()">
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="col-sm-12">
+						<label for="userId" class="form-label">아이디</label>
+						<div class="input-group">
+							<input id="userId" name="userId" type="text" class="form-control" placeholder="">
+							<button type="button" id="check_Button" class="btn btn-secondary">중복확인</button>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<label for="password" class="form-label">비밀번호</label>
+						<input id="password" name="password" type="password" class="form-control" placeholder=""
+							value="" required="">
+					</div>
+					<div class="col-sm-12">
+						<label for="passwordChk" class="form-label">비밀번호 확인</label>
+						<input id="passwordChk" name="passwordChk" type="password" class="form-control" placeholder=""
+							value="" required="">
+					</div>
+
+
+
+				</div>
+				<div class="col-sm-3">
+					<div class="col-sm-12">
+						<img id="preview" class="card-img-top"
+							data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
+							alt="Thumbnail [100%x225]"
+							src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_187e691ce44%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_187e691ce44%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+							data-holder-rendered="true" style="height: 10rem; width: 100%; display: block;">
+					</div>
+					<div class="col-sm-12">
+						<div class="custom-file mt-3 mb-3">
+							<input name="imgFile" type="file" class="custom-file-input" id="customFile">
+							<input name="imgPath" type="hidden" id="imgPath">
+							<label class="custom-file-label" for="customFile"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12">
+				<label for="name" class="form-label">이름</label>
+				<input id="name" name="name" type="text" class="form-control" placeholder="" value="" required="">
+			</div>
+			<div class="col-sm-12">
+				<label for="phone" class="form-label">전화번호</label>
+				<input id="phone" name="phone" type="text" class="form-control" placeholder="" value="" required="">
+			</div>
+			<div class="col-sm-12">
+				<label for="email" class="form-label">이메일</label>
+				<input id="email" name="email" type="text" class="form-control" placeholder="" value="" required="">
+			</div>
+			<div class="col-sm-12">
+				<label for="birthday" class="form-label">생년월일</label>
+				<input id="birthday" name="birthday" type="date" class="form-control" placeholder="" value=""
+					required="">
+			</div>
+			<div class="col-sm-12">
+				<label for="userId" class="form-label">주소</label>
+				<div class="input-group">
+					<input id="address" name="address" type="text" class="form-control" placeholder="">
+					<button type="button" id="addressBtn" onclick="sample6_execDaumPostcode()"
+						class="btn btn-secondary">주소찾기</button>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<label for="detailedAddress" class="form-label">상세주소</label>
+				<input id="detailedAddress" name="detailedAddress" type="text" class="form-control" placeholder=""
+					value="" required="">
+			</div>
+			<div class="col-sm-12">
+				<button class="btn btn-primary btn-lg btn-block mt-5" type="button" onclick="checkValue()">회원가입</button>
+			</div>
+		</form>
+	</div>
+
+
+	<!-- 입력한 값을 전송하기 위해 form 태그를 사용한다 -->
+	<!-- 값(파라미터) 전송은 POST 방식, 전송할 페이지는 JoinPro.jsp -->
+
+
+
+	<script type="text/javascript">
+
+		// 필수 입력정보인 아이디, 비밀번호가 입력되었는지 확인하는 함수
+		function checkValue() {
+			if (document.userInfo.userId.value == "") {
+				alert("아이디를 입력하세요.");
+				return false;
+			}
+
+			if (!document.userInfo.password.value) {
+				alert("비밀번호를 입력하세요.");
+				return false;
+			}
+
+			// 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
+			if (document.userInfo.password.value != document.userInfo.passwordChk.value) {
+				alert("비밀번호를 동일하게 입력하세요.");
+				return false;
+			}
+
+			if (!document.userInfo.name.value) {
+				alert("이름을 입력하세요.");
+				return false;
+			}
+
+			if (!document.userInfo.phone.value) {
+				alert("전화번호를 입력하세요.");
+				return false;
+			}
+
+			if (!document.userInfo.email.value) {
+				alert("이메일을 입력하세요.");
+				return false;
+			}
+			if (!document.userInfo.birthday.value) {
+				alert("생년월일을 입력하세요.");
+				return false;
+			}
+			if (!document.userInfo.address.value) {
+				alert("주소를 입력하세요.");
+				return false;
+			}
+			if (!document.userInfo.detailedAddress.value) {
+				alert("상세주소를 입력하세요.");
+				return false;
+			}
+			document.userInfo.submit();
+		}
+		$(".custom-file-input").on("change", function (e) {
+			var fileName = $(this).val().split("\\").pop();
+			var filePath = $(this).val();
+			//input file 태그.
+			var file = $(".custom-file-input")[0].files[0];
+			//파일 경로.
+			var filePath = file.value;
+			
+			console.log('파일 경로 : ' + e.target.result);
+			console.log('파일명 : ' + fileName);
+			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+			console.log(file)
+			if (fileName != '') {
+				var reader = new FileReader();
+				reader.readAsDataURL(e.target.files[0]);
+				reader.onload = function (event) { //파일 로드한 값을 표현, e는 이벤트안에 result값이 파일의 정보 가지고 있음
+					console.log(event);
+					$('#preview').attr('src', event.target.result);
+					var ttt = document.getElementById('preview').getAttribute('src').split(',')[1];
+					$('#imgPath').val(ttt);
+					console.log($('#imgPath')[0]);
+				}
+			}
+		});
+		// 아이디 중복체크
+		$("#check_Button").click(function () {
+			if (document.userInfo.userId.value == "") {//중복체크 null값 일때 표기
+				alert("아이디를 입력하세요.");
+				return false;
+			} else {
+				var id = $("#userId").val();
+				//아이디가 적혀있는지 확인하기
+				$.ajax({
+					type: "POST",
+					url: "/signChk.com",
+					async: false,
+					data: {id: id},
+					success: function (data) {
+						if (data >= 1) {
+							alert("사용중인 아이디");
+						} else {
+							alert("사용 가능한 아이디");
+						}//alert(data);//창띄우기
+					}
+				});
+			}
+		});
+
+		function sample6_execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function (data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+					var extraAddr = ''; // 참고항목 변수
+
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+					if (data.userSelectedType === 'R') {
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+						}
+						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+						if (extraAddr !== '') {
+							extraAddr = ' (' + extraAddr + ')';
+						}
+						// 조합된 참고항목을 해당 필드에 넣는다.
+						//document.getElementById("sample6_extraAddress").value = extraAddr;
+
+					} else {
+						//document.getElementById("sample6_extraAddress").value = '';
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					//document.getElementById('sample6_postcode').value = data.zonecode;
+					document.getElementById("address").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById("detailedAddress").focus();
+				}
+			}).open();
+		}
+
+	</script>
+</th:block>
+
+</html>

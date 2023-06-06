@@ -22,16 +22,30 @@ public class SignService {
 		SignMapper.insertUser(signDto);
 	}
 	
-	public List<String> waitList(SignDto signDto){
+	public List<SignDto> waitList(SignDto signDto){
 		return SignMapper.waitList(signDto);
 	}
-
 
 	//아이디 중복체크
 	public int checkButton(SignDto signDto) {
 		// TODO Auto-generated method stub
 		int cnt = SignMapper.checkButton(signDto);
 		return cnt;
+	}
+
+	public void signAlluser() {
+		// TODO Auto-generated method stub
+		SignMapper.signAlluser();
+	}
+
+	public void denyUser(SignDto signDto) {
+		// TODO Auto-generated method stub
+		SignMapper.denyUser(signDto);
+	}
+
+	public void denyAlluser() {
+		// TODO Auto-generated method stub
+		SignMapper.denyAlluser();
 	}
 
 }

@@ -1,12 +1,10 @@
 package project.momento.question.dto;
 
 import org.springframework.context.annotation.PropertySource;
-
 import lombok.Data;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
-/*문제관리*/
 public class QuestionDto {
 	
 	/*문제에 부여되는 고유번호*/ 
@@ -33,7 +31,7 @@ public class QuestionDto {
 	private String useYn;
 	/*삭제여부*/
 	private String delYn;
-	/*등록 아이디*/   
+	/*등록 아이디*/
 	private String registId;   
 	/*등록 일자*/   
 	private String registDt;   
@@ -41,5 +39,5 @@ public class QuestionDto {
 	private String updateId;   
 	/*수정 일자*/   
 	private String updateDt;
-
+	
 }

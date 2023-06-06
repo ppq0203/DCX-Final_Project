@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.momento.question.mapper.QuestionMapper">
+    <select id="selectQuestionList" resultType="project.momento.question.dto.QuestionDto">
+        SELECT PK_QUESTION_SEQ
+        	 , QUESTION_NAME
+             , LEVEL
+             , SCORE
+             , TYPE
+             , CONTENTS
+             , CODE_FORMAT
+             , SOLUTION
+             , CHANCE
+             , CLASS_NAME
+             , USE_YN
+             , DEL_YN
+             , REGIST_ID
+             , REGIST_DT
+             , UPDATE_ID
+             , UPDATE_DT
+        FROM QUESTION
+       	WHERE LEVEL = #{selectedLevel}
+    </select>
+</mapper>

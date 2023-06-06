@@ -36,5 +36,12 @@ public class LoginDto {
 	private String useYn;
 	/*가입한 날짜*/
 	private String registDt;
+	/*수강 상태(N: 퇴소, Y: 수강중, E: 수료)*/
+	private String classState;
+	/*관리자 고유번호*/
+	private int pkManagerSeq;
+	/*이미지 경*/
+	private String imgPath;
+	
 
 }

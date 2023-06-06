@@ -56,7 +56,7 @@
 	<!-- UPDATE문 -->
 	
 	<!-- SELECT문 -->
- 	<select id="getUserMenuList" parameterType="int" resultType="project.momento.menu.dto.MenuDto" >
+ 	<select id="getUserMenuList" parameterType="int" resultType="hashmap" >
 		SELECT *
 		FROM MENU
 		WHERE PK_AUTH_SEQ = #{pkAuthSeq}
@@ -64,7 +64,7 @@
 		AND DEL_YN = "N"
 	</select>
 	
-	<select id="getAdminMenuList" parameterType="int" resultType="project.momento.menu.dto.MenuDto" >
+	<select id="getAdminMenuList" parameterType="int" resultType="hashmap" >
 		SELECT *
 		FROM MENU
 		WHERE PK_AUTH_SEQ = #{pkAuthSeq}

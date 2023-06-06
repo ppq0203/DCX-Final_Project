@@ -4,7 +4,8 @@
 <mapper namespace="project.momento.chatLog.mapper.ChatLogMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 <!-- Heidisql연결후 입력 저장-->
 	<!-- SELECT문 -->
-	<select id="selectChatLog" resultType="project.momento.chatlog.dto.ChatLogDto">
+	<!--영복 코드 <select id="selectChatLog" resultType="project.momento.chatlog.dto.ChatLogDto">-->
+	<!--<select id="ChatLog" resultType="project.momento.chatlog.dto.ChatLogDto">
 		<![CDATA[
 			SELECT
 				CHART_STAMP AS chartStamp,
@@ -16,10 +17,11 @@
 			WHERE
 				PK_CHAT_SEQ = #{pkChatSeq}
 		]]>
-	</select>
+	</select>-->
 	
 	<!-- INSERT문 -->
-	<insert id="insertChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
+	<!--영복 코드<insert id="insertChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">-->
+	<!--<insert id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
 		<![CDATA[
 			INSERT INTO CHAT_LOG
 			(
@@ -40,19 +42,21 @@
 				#{chatContentRoom}
 			)
 		]]>
-	</insert>
+	</insert>-->
 	
 	<!-- DELETE문 -->
-	<delete id="deleteChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
+	<!--영복 코드<delete id="deleteChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">-->
+	<!--<delete id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
 		<![CDATA[
 			DELETE FROM CHAT_LOG
 			WHERE
 				PK_CHAT_LOG_SEQ = #{pkChatLogSeq}
 		]]>
-	</delete>
+	</delete>-->
 	
 	<!-- UPDATE문 --> 
-	<update id="updateChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
+	<!--영복 코드<update id="updateChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">-->
+	<!--<update id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
 		<![CDATA[
 			UPDATE SET
 				CHART_LOG
@@ -60,6 +64,6 @@
 				CHAT_STAMP_ROOM = #{chatStampRoom},
 				CHAT_CONTENT_ROOM = #{chatContentRoom}
 		]]>
-	</update>
+	</update>-->
 	
 </mapper>
