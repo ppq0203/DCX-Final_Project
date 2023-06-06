@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import project.momento.answer.dto.AnswerDto;
+import project.momento.answer.service.AnswerService;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
 import project.momento.menu.dto.MenuDto;
@@ -25,6 +27,8 @@ public class testController {
 
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private AnswerService answerService;
 	/*
 	 * 로그인 화면 이동
 	 * return content/userDivn/login/login
@@ -39,6 +43,19 @@ public class testController {
 		System.out.println(testList);
 		return "content/std/test/test";
 	}
+	
+	@RequestMapping(value = "/ybtest", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String ybtest() {
+		AnswerDto asDto = new AnswerDto();
+		asDto.setPkQuesTionSeq(0);
+		asDto.setPkUserSeq(0);
+		asDto.setAnswerUser("answeor");
+		asDto.setAnswerOX("O");
+		answerService.insertAnswer(asDto);
+		System.out.println();
+		return "index";
+	}
+	
 	
 	
 }

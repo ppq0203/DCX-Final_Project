@@ -7,6 +7,7 @@
 	<select id="selectRoomLog" resultType="project.momento.roomlog.dto.RoomLogDto">
 		<![CDATA[
 			SELECT
+				PK_ROOM_LOG_SEQ AS PkRoomLogSeq,
 				OBSERVER AS obsever
 			FROM
 				ROOM_LOG
@@ -16,38 +17,37 @@
 	</select>
 	
 	<!-- INSERT문 -->
-	<insert id="insertRoomLog" parameterType="project.momento.answer.dto.AnswerDto">
+	<insert id="insertRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
 		<![CDATA[
 			INSERT INTO ANSWER
 			(
 				PK_ROOM_LOG_SEQ,
-				OBSERVER,
+				OBSERVER
 			) 
 			VALUES
 			(
 				ifnull(#{pkRoomLogSeq}, null),
 				#{observer}
 			)
-			OBSERVER = 
-			
 		]]>
 	</insert>
 	
 	<!-- DELETE문 -->
-	<delete id="deleteRoomLog" parameterType="project.momento.answer.dto.RoomLogDto">
+	<delete id="deleteRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
 		<![CDATA[
-			DELETE FROM ANSWER
-			WHERE
-				PK_ANSWER_SEQ = #{pkAnswerSeq}
+			DELETE FROM ROOM_LOG
+			WHERE 
+				PK_ROOM_LOG_SEQ = #{pkRoomLogSeq}
 		]]>
 	</delete>
 	
 	<!-- UPDATE문 --> 
-	<update id="updateRoomLog" parameterType="project.momento.answer.dto.AnswerDto">
+	<update id="updateRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
 		<![CDATA[
 			UPDATE SET
-				USER_ANSWER
+				ROOM_LOG
 			WHERE
+				PK_ROOM_LOG_SEQ = #{pkRoomLogSeq}
 		]]>
 	</update>
 	
