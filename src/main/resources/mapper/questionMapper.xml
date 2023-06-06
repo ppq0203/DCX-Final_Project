@@ -20,6 +20,6 @@
              , UPDATE_ID
              , UPDATE_DT
         FROM QUESTION
-       	WHERE LEVEL = #{selectedLevel}
+        LIMIT 36
     </select>
 </mapper>
