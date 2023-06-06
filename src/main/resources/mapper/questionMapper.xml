@@ -19,6 +19,7 @@
              , REGIST_DT
              , UPDATE_ID
              , UPDATE_DT
-        FROM QUESTION ORDER BY RAND() LIMIT 1
+        FROM QUESTION
+       	WHERE LEVEL = #{selectedLevel}
     </select>
 </mapper>

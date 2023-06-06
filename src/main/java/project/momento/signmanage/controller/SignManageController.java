@@ -37,8 +37,8 @@ public class SignManageController {
 	    return "content/signManage";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="getTraineeList.com", produces="application/json;charset=utf-8", method=RequestMethod.POST)
+	@ResponseBody //ajax로 가입 훈련생 데이터 컨트롤.
+	@RequestMapping(value="/getTraineeList.com", produces="application/json;charset=utf-8", method=RequestMethod.POST)
 	public List<LoginDto> GetTraineeList (Model model, HttpServletRequest request) {
 		List<LoginDto> TraineeList = loginService.getTrainList();
 		return TraineeList;
@@ -47,11 +47,18 @@ public class SignManageController {
 	@ResponseBody //ajax로 가입 대기중인 데이터 컨트롤.
 	@RequestMapping(value="/waitUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
 	public List<SignDto> waitUser(Model model, HttpServletRequest request, SignDto signDto) {
-		// 세션에서 내 정보를 가져온다
+		// 세션에서 대기자 정보를 가져온다
 		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
 		List<SignDto> waitList = SignService.waitList(signDto);
-		model.addAttribute("waitList", waitList);
 		return waitList;			
+	}
+	
+	@ResponseBody //ajax로 가입 수료생 데이터 컨트롤.
+	@RequestMapping(value="/getGraduList.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public List<LoginDto> getGraduList(Model model, HttpServletRequest request, SignDto signDto) {
+		// 세션에서 수료 정보를 가져온다
+		List<LoginDto> getGraduList = loginService.getGraduList();
+		return getGraduList;			
 	}
 	
 	@ResponseBody
@@ -67,6 +74,21 @@ public class SignManageController {
 	@RequestMapping(value="/signAlluser.com", produces="application/json;charset=utf-8", method=RequestMethod.GET)
 	public void permitAllsign() {
 		SignService.signAlluser();
-		System.out.print("이게 되네.");
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/denyUser.com", produces="application/json;charset=utf-8", method=RequestMethod.POST)
+	public void	denysign(@RequestBody List<SignDto> permits) {
+		for(SignDto permit : permits)
+		{
+			SignService.denyUser(permit);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/denyAlluser.com", produces="application/json;charset=utf-8", method=RequestMethod.GET)
+	public void denyAllsign() {
+		SignService.denyAlluser();
+	}
+	
 }

@@ -33,6 +33,8 @@ public interface LoginMapper {
 
 	List<LoginDto> selectUserList();
 
+	List<LoginDto> getGraduList();
+
 }	
 	
 	
