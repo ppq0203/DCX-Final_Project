@@ -19,6 +19,27 @@
 		)
 	</insert>
 	
+	<select id="getNoticeList" parameterType="int" resultType="project.momento.notice.dto.NoticeDto">
+		<![CDATA[
+			SELECT 
+				PK_NOTICE_SEQ,
+				PK_EDUCATION_SEQ,
+				TITLE,
+				CONTENTS,
+				USE_YN,
+				DEL_YN,
+				REGIST_ID,
+				DATE_FORMAT(REGIST_DT,'%Y-%m-%d') AS REGIST_DT,
+				UPDATE_ID,
+				UPDATE_DT
+			FROM NOTICE
+			WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+			OR PK_EDUCATION_SEQ = 0
+			ORDER BY REGIST_DT DESC
+			LIMIT 5
+		]]>
+	</select>
+	
 	<select id="selectNoticeListCount" parameterType="hashmap" resultType="int">
 		<!--SELECT
 			COUNT(*)

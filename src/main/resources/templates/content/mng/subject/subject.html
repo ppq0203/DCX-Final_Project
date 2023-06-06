@@ -24,12 +24,21 @@
 						<th>등록자</th>
 						<th>등록일자</th>
 					</tr>
+					<th:block th:if="${noticeList != null}">
+						<tr th:each="notice, noticeStat : ${noticeList}">
+							<td th:text="${noticeStat.count}">no</td>
+							<td th:if="${#strings.length(notice.title) <= 10}" th:text="${notice.title}">title</td>
+							<td th:unless="${#strings.length(notice.title) <= 10}" th:text="${#strings.append(#strings.substring(notice.title,0,10),'...')}">title</td>
+							<td th:text="${notice.registId}">registId</td>
+							<td th:text="${notice.registDt}">registDt</td>
+						</tr>						
+					</th:block>
 				</thead>
 				<tbody>
 				</tbody>
 			</table>
 			<!-- /.card-body -->
-			<div class="card-footer">
+			<div th:unless="${noticeList != null}" class="card-footer">
 			</div>
 		</div>
 		<div class="col-6 p-5">
