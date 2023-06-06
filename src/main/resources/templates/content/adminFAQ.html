@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/defaultLayout}">
+
+<th:block layout:fragment="content">
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- 모달 내용 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">faq 수정</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<form id="faqForm">
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="subject">제목:</label>
+							<input type="text" class="form-control" id="subject" placeholder="제목을 입력하세요" required>
+						</div>
+						<div class="form-group">
+							<label for="message">내용:</label>
+							<textarea class="form-control" id="message" placeholder="내용을 입력하세요" required></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-default">등록</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="content-wrapper">
+		<!-- Main content -->
+		<section class="content">
+			<div class="p-2">
+				<div class="col -10">
+					<div class="dropdown">
+						<span>
+							<h2>FAQ 등록 페이지</h2>
+						</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="p-5">
+			<div class-="row mt-0">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<button class="btn btn-primary me-md-2" type="button">행추가</button>
+					<button class="btn btn-primary ml-1" type="button">행삭제</button>
+				</div>
+			</div>
+			<div class="row-cols-1 text-center">
+				<table class="table" id="addrow">
+					<thead>
+						<tr>
+							<td>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="cbx_all">
+								</div>
+							</td>
+							<th scope="col">No.</th>
+							<th scope="col">제목</th>
+							<th scope="col">내용</th>
+							<th scope="col">수정</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="cbx_all">
+								</div>
+							</td>
+							<th scope="row">1</th>
+							<td><span>1. 이번 프로젝트 어떻게 생각하시나요?</span></td>
+							<td><span>망한거 같아요</span></td>
+							<td><button type="button" class="btn btn-primary" data-toggle="modal"
+									data-target="#myModal">수정</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		<!--드롭앤다운-->
+		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+		var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+			return new bootstrap.Dropdown(dropdownToggleEl)
+		})
+
+		/*function rowAdd() {
+			$(".detailDiv").append(
+				"<div class=\"form-group row-count\">" +
+				"<div class=\"row\">" +
+				"<div class=\"col-md-6\">" +
+				"<label for=\"attribute\">속성</label> <input type=\"text\" class=\"form-control\" id=\"attribute\"
+					name =\"attribute\" placeholder=\"속성\" required>" +
+			"</div>" +
+			"<div class=\"col-md-6\">" +
+			"<label for=\"value\">값</label>" +
+			"<input type=\"text\" class=\"form-control\" id=\"value\" name=\"value\" placeholder=\"값\" required>" +
+			"</div>" +
+			"</div>" +
+			"</div>"
+			);
+		}
+		function rowDel() {
+			$(".row-count").last().remove();
+		}
+
+
+		function errorMassage() {
+			Swal.fire({
+				icon: 'error',
+				title: '항목 선택',
+				text: 'Something went wrong!'
+			})
+		}*/
+
+
+	</script>
+</th:block>
+
+</html>

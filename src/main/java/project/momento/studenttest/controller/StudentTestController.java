@@ -28,7 +28,7 @@ public class StudentTestController {
 	 * return contents/studentScreen 받는값
 	 */
 	@RequestMapping(value="/studentTest.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String studentScreenMain( Model model) {
+	public String FAQ( Model model) {
 	    return "content/studentTest";
 	}
 	

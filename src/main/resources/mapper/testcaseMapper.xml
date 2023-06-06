@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.momento.testcase.mapper.TestcaseMapper">
+	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+	<insert id="testCaseToDbDto" parameterType="project.momento.testcase.dto.TestcaseDto">
+		INSERT INTO TEST_CASE(
+			PK_QUESTION_SEQ
+			,INPUT
+			,OUTPUT
+		)VALUES(
+			#{pkQuestionSeq}
+			,#{input}
+			,#{output}
+		)
+	</insert>
+	<!-- testMapper.xml -->
+	<insert id="testCaseToDbList" parameterType="java.util.ArrayList">
+		INSERT INTO TEST_CASE (
+        PK_QUESTION_SEQ,
+        INPUT,
+        OUTPUT
+    )
+    VALUES
+		<foreach item="item" index="index" collection="list" separator=",">
+        (#{item.pkQuestionSeq}, #{item.input}, #{item.output})
+    </foreach>
+	</insert>
+</mapper>

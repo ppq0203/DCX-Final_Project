@@ -57,6 +57,7 @@ public class SignController {
 	public String goSignUp(@PathVariable String userDivn, Model model, SignDto signDto) {
 		signDto.setUserDivn(userDivn);
 		SignService.insertUser(signDto);
+		
 		return "redirect:/"+userDivn+"/login/main";
 	}
 	

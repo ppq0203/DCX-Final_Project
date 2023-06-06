@@ -1,5 +1,6 @@
 package project.momento.mypage.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpServletRequest;
+import project.momento.education.service.EducationService;
 import project.momento.login.dto.LoginDto;
-import project.momento.login.service.LoginService;
-import project.momento.menu.dto.MenuDto;
 import project.momento.menu.service.MenuService;
-import project.momento.page.Criteria;
+import project.momento.subject.service.SubjectService;
 
 @Controller
 public class MypageController {
@@ -27,9 +25,11 @@ public class MypageController {
 	 */
 	
 	@Autowired
-	private MenuService menuService;
+	private EducationService educationService;
 	@Autowired
-	private LoginService loginService;
+	private SubjectService subjectService;
+	@Autowired
+	private MenuService menuService;
 
 	/*
 	 * 사용자 정보 화면 이동
@@ -37,19 +37,21 @@ public class MypageController {
 	 */
 	@RequestMapping(value="/{userDivn}/profile", produces="application/text;charset=utf-8") /* value주소 이름*/
 	public String profileMain(@PathVariable String userDivn, Model model, HttpServletRequest request) { 
-		return "redirect:/"+userDivn+"/profile/profile";
+		return "content/"+userDivn+"/profile/profile";
 	}
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/getmenu.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
-	public List<MenuDto> GetMenu(Model model, HttpServletRequest request) {
+	@RequestMapping(value="/getall.com", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public HashMap<String, List<Object>> GetMenu(Model model, HttpServletRequest request) {
 		// 세션에서 내 정보를 가져온다
 		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
-		List<MenuDto> menuList = menuService.getMenuList(loginDto.getPkAuthSeq());
-		model.addAttribute("menuList", menuList);
-		return menuList;			
+		HashMap<String, List<Object>> listAll = new HashMap<String, List<Object>>();
+		List<Object> subjectList = educationService.getEducationList(loginDto.getPkUserSeq());
+		List<Object> menuList = menuService.getMenuList(loginDto.getPkAuthSeq());
+		listAll.put("subjectList", subjectList);
+		listAll.put("menuList", menuList);
+		return listAll;			
 	}
-	
 	
 }
