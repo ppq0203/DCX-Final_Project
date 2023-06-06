@@ -16,7 +16,7 @@ function roll(){
         });
         let dieOneValue = Math.floor(Math.random()*6);
         let dieTwoValue = Math.floor(Math.random()*6);
-        console.log(dieOneValue,dieTwoValue);
+        console.log(dieOneValue + 1, dieTwoValue + 1);
         document.querySelector("#die-1").setAttribute("src", images[dieOneValue]);
         document.querySelector("#die-2").setAttribute("src", images[dieTwoValue]);
         //document.querySelector("#total").innerHTML = "나온 주사위" + ( (dieOneValue +1) + (dieTwoValue + 1) );

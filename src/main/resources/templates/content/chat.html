@@ -1,10 +1,9 @@
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel='stylesheet' type='text/css' href='./css/chat.css'>
-</head>
-<body>
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/chat.css">
+
 	<div id='chatt'>
 		<h1>WebSocket Chatting</h1>
 		<input type='text' id='mid' value='홍길동'>
@@ -17,5 +16,5 @@
 		</div>
 	</div>
 	<script src='./js/chat.js'></script>
-</body>
+</th:block>
 </html>
