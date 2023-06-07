@@ -13,7 +13,7 @@ public interface AnswerMapper {
 
 	void insertAnswer(AnswerDto answerDto);
 
-	List<AnswerDto> waitList(AnswerDto answerDto);
+	List<AnswerDto> selectAnswer(int pkUserSeq);
 
 
 

@@ -23,8 +23,8 @@ public class AnswerService {
 		AnswerMapper.insertAnswer(answerDto);
 	}
 	
-	public List<AnswerDto> waitList(AnswerDto answerDto){
-		return AnswerMapper.waitList(answerDto);
+	public List<AnswerDto> selectAnswer(int pkUserSeq){
+		return AnswerMapper.selectAnswer(pkUserSeq);
 	}
 
 	
