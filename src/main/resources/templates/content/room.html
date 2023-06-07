@@ -15,6 +15,7 @@
                         <input type="text" id="msg" class="form-control">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+                            <button class="btn btn-outline-secondary" type="button" id="system-test">방방봐.</button>
                         </div>
                     </div>
                 </div>
@@ -58,15 +59,29 @@
                        str += "<div class='alert alert-secondary'>";
                        str += "<b>" + writer + " : " + chatContent + "</b>";
                        str += "</div></div>";
-                       $("#msgArea").append(str);
-                       
-
-                       
+                       $("#msgArea").append(str);  
                    });
+                   stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+					   var chatContent = content.chatContent;
+                       var writer = content.pkUserSeq;
+                       var str = '';
 
+                       
+                       str = "<div class='col-sys'>";
+                       str += "<div class='alert alert-secondary'>";
+                       str += "<b style='color:grey'>" + writer + " : " + chatContent + "</b>";
+                       str += "</div></div>";
+                       $("#msgArea").append(str);
+					});
+					
                    //3. send(path, header, message)로 메세지를 보낼 수 있음
                    stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: username}))
                 });
+                
+                $("#system-test").on("click", function(e){
+					stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: "SYSTEM"}))
+				})
 
                 $("#button-send").on("click", function(e){
                     var msg = document.getElementById("msg");

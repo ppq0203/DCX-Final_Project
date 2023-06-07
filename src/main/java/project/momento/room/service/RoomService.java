@@ -1,5 +1,6 @@
 package project.momento.room.service;
 
+import project.momento.chat.dto.ChatDto;
 import project.momento.room.dto.RoomDto;
 import project.momento.room.mapper.RoomMapper;
 
@@ -50,8 +51,22 @@ public class RoomService {
 	
 	public RoomDto createRoomDto(String name) {
 		RoomDto room = RoomDto.create(name);
-		roomDtoMap.put(room.getRoomName(), room);
+		roomDtoMap.put(room.getPkRoomSeq(), room);
 		
 		return room;
 	} // 방 생성
+
+	public String addUser(ChatDto message) {
+		// TODO Auto-generated method stub
+		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
+		String userUUID = UUID.randomUUID().toString();
+		room.getUserList().put(userUUID, message.getPkUserSeq());
+		return userUUID;
+	}
+
+	public void getUserList(ChatDto message) {
+		// TODO Auto-generated method stub
+		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
+		System.out.println(room.getUserList());
+	}
 }
