@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
-	<head>
-  	<meta charset="UTF-8">
-  	<title>Gnjoy</title>
-  	<link rel="stylesheet" type="text/css" href="1.css">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+	<th:block layout:fragment="content">
+  	<!--<link rel="stylesheet" type="text/css" href="1.css">-->
 		 <style>
 			@font-face {
 				 font-family: 'DungGeunMo';
@@ -285,10 +284,8 @@
 			}
 
 	    </style>
-
-	</head>
 	<body>
-		<div id="container">
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
       		<div id="header"></div>
 			
 			<!--side right -->
@@ -349,4 +346,5 @@
 		</div>
 		</div>
 	</body>
+	</th:block>
 </html>

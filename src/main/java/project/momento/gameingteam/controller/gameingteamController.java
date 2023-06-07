@@ -27,9 +27,9 @@ public class gameingteamController {
 	 * param
 	 * return contents/studentScreen 받는값
 	 */
-	@RequestMapping(value="/gameinTeam.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	@RequestMapping(value="/gameingTeam.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String gameinTeam( Model model) {
-	    return "content/gameinTeam";
+	    return "content/gameingTeam";
 	}
 	
 }
