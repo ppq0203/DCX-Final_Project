@@ -184,7 +184,7 @@ public class EducationController {
 		List<EducationDto> educationList = educationService.selectEducation(educationDto);
 		resultList.put("educationList", educationList);
 
-		List<EducationDto> subjectList = educationService.selectSubjectList(pkEducationSeq);
+		List<EducationDto> subjectList = educationService.selectSubjectList(educationDto);
 		resultList.put("subjectList", subjectList);
 		
 		model.addAttribute("resultList", resultList);

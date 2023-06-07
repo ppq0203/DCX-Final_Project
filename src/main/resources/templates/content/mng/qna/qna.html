@@ -33,7 +33,8 @@
 								<td th:text="${qna.registDt}"><span>registDt</span></td>
 								<td th:text="${qna.count}"><span>count</span></td>
 								<td>
-									<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary" th:value="${qna.pkAskSeq}" onclick="openAskInfo(this)">
+									<button data-toggle="modal" data-target="#modal-xl" type="button"
+										class="btn btn-primary" th:value="${qna.pkAskSeq}" onclick="openAskInfo(this)">
 										<span>조회</span>
 									</button>
 								</td>
@@ -75,7 +76,8 @@
 					</ul>
 				</nav>
 			</div>
-		</div><div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		</div>
+		<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
 			<form action="/std/qna/create" method="post">
 				<div class="modal-dialog modal-dialog-cented modal-xl">
 					<div class="modal-content">
@@ -99,7 +101,8 @@
 										<div class="form-group">
 											<label>내용</label>
 											<div class="textarea-append">
-												<textarea id="summernote" name="contents" class="form-control" rows="6"></textarea>
+												<textarea id="summernote" name="contents" class="form-control"
+													rows="6"></textarea>
 											</div>
 										</div>
 									</div>
@@ -120,10 +123,6 @@
 			var SUBJECT_ARRAY = [];
 			$(document).ready(function () {
 				// Summernote
-				$('#summernote').summernote({
-					tabsize: 2,
-					height: 300
-				});
 
 				$('.modal').on('shown.bs.modal', function (e) {
 					// 모달이 열릴 때 실행되는 코드
@@ -132,8 +131,8 @@
 
 				$('.modal').on('hidden.bs.modal', function (e) {
 					// 모달이 닫힐 때 실행되는 코드
-					$(this).find('form')[0].reset(); // 입력 필드 초기화
-					$('#summernote').summernote('code', ''); // 에디터 초기화
+					//$(this).find('form')[0].reset(); // 입력 필드 초기화
+					//$('#summernote').summernote('code', ''); // 에디터 초기화
 				});
 				//$.ajax({
 				//	type: "POST",
@@ -156,31 +155,31 @@
 				//	}
 				//});
 			})
-			function openAskInfo(arg0){
+			function openAskInfo(arg0) {
 				//$(".title-append").empty();
 				//$(".textarea-append").empty();
-    			var buttonValue = arg0.value;
-    			console.log(buttonValue);
-    			var form = {
-						pkAskSeq:buttonValue
-					};
-    			$.ajax({
+				var buttonValue = arg0.value;
+				console.log(buttonValue);
+				var form = {
+					pkAskSeq: buttonValue
+				};
+				$.ajax({
 					type: "POST",
 					url: "/openAskInfo",
 					data: JSON.stringify(form),
 					contentType: "application/json",
 					dataType: "json",
 					success: function (data) {
-						console.log(data.contents);
+
+						$("#summernote").summernote({
+							tabsize: 2,
+							height: 300
+						});
 						$("#title").val(data.title);
-						$('#summernote').summernote('code', data.content);
-						//$("textarea[name=contents]").html(data.contents);
-						
-						//$(".title-append").append('<input name="title" type="text" class="form-control" value="' + data.title + '">');
-						//$(".textarea-append").append('<textarea id="summernote" name="contents" class="form-control" rows="6">' + data.contents + '</textarea>');
+						$("#summernote").summernote('code', data.contents);
 					},
 					error: function (request, status, error) {
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 					}
 				});
 			}

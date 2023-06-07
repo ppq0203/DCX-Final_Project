@@ -19,7 +19,13 @@ public class LoginService {
 	private LoginMapper loginMapper;
 
 	public LoginDto checkLogin(LoginDto loginDto) {
-		return loginMapper.checkLogin(loginDto);
+		
+		if(loginDto.getUserDivn().equals("std") || "std".equals(loginDto.getUserDivn())) {
+			return loginMapper.checkLoginStd(loginDto);
+		}else {
+			return loginMapper.checkLoginMng(loginDto);
+		}
+		
 	}
 	
 	public List<String> userList(LoginDto loginDto)
