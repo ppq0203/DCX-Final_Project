@@ -8,5 +8,10 @@ import project.momento.question.dto.QuestionDto;
 public interface QuestionMapper {
 	List<QuestionDto> selectQuestionList();
 
+	static List<QuestionDto> selectQuestion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

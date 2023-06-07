@@ -48,8 +48,8 @@ public class QnaformsController {
 //		System.out.println();
 		/////////////
 		// 데이터 불러오기
-		List<QuestionDto> question= QuestionService.selectQuestion(0);
-		System.out.println(question);
+		//List<QuestionDto> question= QuestionService.selectQuestion(0);
+		//System.out.println(question);
 		/////////////
 		// 데이터 삭제
 		return "index";

@@ -19,9 +19,9 @@ public class QuestionService {
 		return questionMapper.selectQuestionList();
 	}
 
-	public static List<QuestionDto> selectQuestion(int i) {
+	public List<QuestionDto> selectQuestion(int i) {
 		// TODO Auto-generated method stub
-		return null;
+		return QuestionMapper.selectQuestion();
 	}
 
 
