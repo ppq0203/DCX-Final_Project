@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="project.momento.notice.mapper.qnaMapper">
+<mapper namespace="project.momento.qna.mapper.QnaMapper">
 	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 	<insert id="insertQna" parameterType="project.momento.qna.dto.QnaDto">
 		INSERT INTO ASK(
@@ -18,4 +18,74 @@
 			, SYSDATE()
 		)
 	</insert>
+	
+	<select id="getQnaCountForMng" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM ASK
+			WHERE PK_SUBJECT_SEQ = #{pkSubjectSeq}
+		]]>
+	</select>
+	
+	<select id="getQnaCountForUser" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM ASK
+			WHERE PK_SUBJECT_SEQ = #{pkSubjectSeq}
+			AND REGIST_ID = (
+				SELECT USER_ID
+				FROM USER
+				WHERE PK_USER_SEQ = #{pkUserSeq})
+		]]>
+	</select>
+	
+	<select id="getQnaListForMng" parameterType="project.momento.subject.dto.SubjectDto" resultType="project.momento.qna.dto.QnaDto">
+		<![CDATA[
+			SELECT 
+				PK_ASK_SEQ,
+				PK_SUBJECT_SEQ,
+				TITLE,
+				CONTENTS,
+				COUNT,
+				REGIST_ID,
+				DATE_FORMAT(REGIST_DT,'%Y-%m-%d') AS REGIST_DT,
+				UPDATE_ID,
+				UPDATE_DT
+			FROM ASK
+			WHERE PK_SUBJECT_SEQ = #{pkSubjectSeq}
+			ORDER BY REGIST_DT DESC
+			LIMIT #{cri.pageStart}, #{cri.perPageNum}
+		]]>
+	</select>
+	
+	<select id="getQnaListForUser" parameterType="project.momento.subject.dto.SubjectDto" resultType="project.momento.qna.dto.QnaDto">
+		<![CDATA[
+			SELECT 
+				PK_ASK_SEQ,
+				PK_SUBJECT_SEQ,
+				TITLE,
+				CONTENTS,
+				COUNT,
+				REGIST_ID,
+				DATE_FORMAT(REGIST_DT,'%Y-%m-%d') AS REGIST_DT,
+				UPDATE_ID,
+				UPDATE_DT
+			FROM ASK
+			WHERE PK_SUBJECT_SEQ = #{pkSubjectSeq}
+			AND REGIST_ID = (
+				SELECT USER_ID
+				FROM USER
+				WHERE PK_USER_SEQ = #{pkUserSeq})
+			ORDER BY REGIST_DT DESC
+			LIMIT #{cri.pageStart}, #{cri.perPageNum}
+		]]>
+	</select>
+	
+	<select id="selectAsk" parameterType="String" resultType="project.momento.qna.dto.QnaDto">
+		<![CDATA[
+			SELECT *
+			FROM ASK
+			WHERE PK_ASK_SEQ = #{pkAskSeq}
+		]]>
+	</select>
 </mapper>
