@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+	<th:block layout:fragment="content">
+  	<!--<link rel="stylesheet" type="text/css" href="1.css">-->
+		 <style>
+			@font-face {
+				 font-family: 'DungGeunMo';
+				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+				 font-weight: normal;
+				 font-style: normal;
+			}
+
+			#container {
+				width: 976px;
+				height: 700px;
+				background-image : url('gameStart.png');
+				background-size : auto ;
+			}
+			#header {
+        		padding: 10px;
+				height : 70px;
+      		}
+	      	#content {
+	        	width: 665px;
+				height: 560px;
+	        	padding: 10px;
+	        	float: left;
+				margin-right : 5px;
+				margin-left : 10px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				border-radius: 10px;
+	      	}
+	      	#sidebar {
+	        	width: 250px;
+				height: 570px;
+	        	padding: 5px;
+	        	float: right;
+				margin-left : 5px;
+				margin-right : 5px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				position: relative;
+				border-radius: 10px;
+	      	}
+			 .fontp{
+				 font-family : 'DungGeunMo';
+				 font-size : 12px;
+				 color : white;
+				 line-height : 150%;
+			 }
+			 .fontb{
+				 font-family : 'DungGeunMo';
+				 font-size : 13px;
+				 color : yellow;
+				 line-height : 150%;
+			 }
+			 
+			/*content*/
+			/*Tab*/ 
+			.team1{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid #FFC04D;
+				padding: 5px;
+				margin : 0px 5px 2px 8px; 
+			  	/*position: absolute;
+			  	top: 22%;
+			 	left: 10%;
+				margin: -50px 0 0 -50px;
+				padding: 5px; */
+				font-family: 'DungGeunMo';
+			}
+			.t1-user1{
+				background : #FFC04D;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;	
+			 }
+			.t1-user1{
+				background : #FFC04D;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;	
+			 }
+			 
+			.t1-user2{
+				background : #FFC04D;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+				
+			 }
+			.team2{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid #FF652A;
+			  	/* position: absolute;
+			  	top: 22%;
+			 	left: 10%;
+				margin: -50px 0 0 -50px; */
+				margin : 0px 0px 2px 5px; 
+				padding: 5px;
+				font-family: 'DungGeunMo';
+			}
+			.t2-user1{
+				background : #FF652A;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+			 }
+			.t2-user2{
+				background : #FF652A;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				padding : 5px;
+				margin : 5px ; 				
+				float : right;
+				
+			 }
+			.team3{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;				
+				border : 3px solid #1F71C2;
+				margin : 2px 5px 0px 8px; 
+				padding: 5px;			
+			  	/* position: absolute;
+			  	top: 47%;
+			 	left: 25%;
+				margin: -50px 0 0 -50px;
+				padding: 5px; */
+				font-family: 'DungGeunMo';
+			}
+			.t3-user1{
+				background : #4C6ED4;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+			 }
+			.t3-user2{
+				background : #4C6ED4;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : right;
+			 }
+			.team4{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid #9BDB6B;
+				padding: 5px;
+				margin : 2px 0px 0px 5px; 
+			  	/* position: absolute;
+			  	top: 47%;
+			 	left: 5%;
+				margin: -50px 0 0 -50px;
+				padding: 5px; */
+				font-family: 'DungGeunMo';
+			}
+			.t4-user1{
+				background : #9BDB6B;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+			 }
+			.t4-user2{
+				background : #9BDB6B;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : right;
+			 }
+			/*side*/
+			.gameinfo{
+				width: 220px;
+				height: 150px;
+	        	padding: 5px;
+	        	float: center;
+				margin : 5px;
+				background-color : white;
+				border : 3px solid white;
+			 }
+			 
+			.chat-veiw{
+	        	width: 220px;
+				height: 200px;
+	        	padding: 5px;
+	        	float: center;
+				margin : 5px;
+				border : 3px solid white;
+			}
+			.chat-input{
+				width: 220px;
+				height: 23px;
+				padding: 5px;
+	        	float: center;
+				margin : 5px;
+				border : 3px solid white;
+			 }
+			.write{
+				 width : 170px;
+				 height : 20px;
+				 float : left;
+				 border : 1.5px solid white;
+			 }
+			.no_dot {
+				font-family : 'DungGeunMo';
+				font-size : 15px;
+				line-height : 150%;
+				list-style-type: none;
+			}
+
+			/*button icon*/
+			.btnchat{
+				width: 40px;
+				height: 25px;
+				text-align: center;
+				float: right;
+				background-color : white;
+				font-size: 12px;
+				font-family: 'DungGeunMo';
+				color : #005255;
+			}
+			 
+			.btn{
+				width: 220px;
+				height: 50px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px 5px 5px 10px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : #FFC04D;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : #c55a11;
+			}			 
+			.btnlogout{
+				width: 220px;
+				height: 50px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px 5px 5px 10px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : gray;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : 'Darkgary';
+			}
+
+	    </style>
+	<body>
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+      		<div id="header"></div>
+			
+			<!--side right -->
+			    <div id="sidebar">
+					<div class="gameinfo">
+						<ul class="no_dot">
+							<li>게임 유형 :</li>
+							<li>난이도 : </li>
+							<li>문제당 시간 : </li>
+							<li>문제 개수 : </li>
+						</ul>
+					</div>
+					<div class="chat-veiw">
+						<p class="fontp">
+							<b class="fontb">>>'Team_03' 방에 입장하셨습니다.</b><br>
+							>>'DCX'님이 입장하셨습니다.<br>
+							>>'스마트'님이 입장하셨습니다.<br>
+						</p>
+					</div>
+					<div class="chat-input">
+						<from><input type="text" id="chat" size=19>
+							<button class="btnchat" type="submit">등록</button>
+						</from>
+						
+							
+					</div>
+					<button class="btn" type="button">시작</button>	
+					<button class="btnlogout" type="button">나가기</button>		
+				</div>
+			
+			<!--content game -->
+      		<div id="content">
+				<div class="team1">
+					<div class="t1-user1"></div>
+					<div class="t1-user2"></div>
+					<div class="t1-user1"></div>
+					<div class="t1-user2"></div>
+				</div>
+				<div class="team2">
+					<div class="t2-user1"></div>
+					<div class="t2-user2"></div>
+					<div class="t2-user1"></div>
+					<div class="t2-user2"></div>
+				</div>
+				<div class="team3">
+					<div class="t3-user1"></div>
+					<div class="t3-user2"></div>
+					<div class="t3-user1"></div>
+					<div class="t3-user2"></div>
+				</div>
+				<div class="team4">
+					<div class="t4-user1"></div>
+					<div class="t4-user2"></div>
+					<div class="t4-user1"></div>
+					<div class="t4-user2"></div>
+				</div>
+
+		</div>
+		</div>
+	</body>
+	</th:block>
+</html>
