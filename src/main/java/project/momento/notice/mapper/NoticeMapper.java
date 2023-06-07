@@ -19,6 +19,8 @@ public interface NoticeMapper {
 
 	int selectNoticeListCount(Criteria cri);
 
+	List<NoticeDto> getNoticeList(int pkEducationSeq);
+
 }	
 	
 	
