@@ -218,7 +218,8 @@
 							<div class="modal-footer justify-content-between">
 								<button id="giveup" type="button" class="btn btn-default"
 									data-dismiss="modal">포기</button>
-								<button id="Question_submit" data-dismiss="modal" type="submit" class="btn btn-primary">등록</button>
+								<button id="Question_submit" data-dismiss="modal" type="submit"
+									class="btn btn-primary">등록</button>
 							</div>
 						</form>
 						<!-- 진상 코드 끝-->
@@ -269,7 +270,6 @@
 				theme: "monokai"
 			});
 		})
-		console.log(1);
 		var count = 25;
 
 		// 생성된 템플릿을 타임리프 템플릿 영역에 추가
@@ -278,8 +278,6 @@
 		var gameroom_left_classes = document.getElementsByClassName('question_col');
 		var all_rooms_length = 828;
 		var one_room_length = all_rooms_length / line_length;
-		console.log(all_rooms_length);
-		console.log(one_room_length);
 		for (var i = 0; i < gameroom_left_classes.length; i++) {
 			gameroom_left_classes[i].style.width = one_room_length + "px";
 		}
