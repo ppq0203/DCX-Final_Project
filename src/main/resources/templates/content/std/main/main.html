@@ -157,39 +157,7 @@
 		</div>
 	</div>
 	<script>
-		<!--드롭앤다운-->
-		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-		var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-			return new bootstrap.Dropdown(dropdownToggleEl)
-		})
-
-		$(document).ready(function () {
-			$('#calendar').fullCalendar({
-				header: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'month,agendaWeek,agendaDay'
-				},
-				defaultView: 'month', // 기본 뷰 설정 (월간)
-				editable: true, // 이벤트 편집 가능 여부
-				events: [
-					{
-						title: '이벤트 1',
-						start: '2023-06-01'
-					},
-					{
-						title: '이벤트 2',
-						start: '2023-06-05',
-						end: '2023-06-07'
-					},
-					{
-						title: '이벤트 3',
-						start: '2023-06-09T12:30:00'
-					}
-				]
-			});
-		});
-
+		
 
 	</script>
 </th:block>
