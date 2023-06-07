@@ -20,27 +20,29 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.HttpServletRequest;
 import project.momento.chart.dto.ChartDto;
 import project.momento.chart.service.ChartService;
+import project.momento.education.dto.EducationDto;
 import project.momento.login.dto.LoginDto;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
 
 @Controller
 public class CalendarController {
-	
+
 	/*
 	 * @Autowired private SignService SignService;
 	 */
-	
-	 @Autowired 
-	 private ChartService chartService;
-	 
+
+	@Autowired
+	private ChartService chartService;
+
 	/*
 	 * calendar사이트로 이동
 	 */
-	@RequestMapping(value="/std/calendar", produces="application/text;charset=utf-8") /* value주소 이름*/
+	@RequestMapping(value = "/std/calendar", produces = "application/text;charset=utf-8") /* value주소 이름 */
 	public ModelAndView calendarMain(Criteria cri, Model model, ChartDto chartDto) {
-		ModelAndView mv = new ModelAndView("content/std/calendar/calendar"); 
+		ModelAndView mv = new ModelAndView("content/std/calendar/calendar");
 		return mv;
 	}
+
 	
 }

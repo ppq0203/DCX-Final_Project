@@ -21,7 +21,6 @@
 			UPDATE_ID = #{registId},
 			UPDATE_DT = SYSDATE();
 	</insert>
-	
 	<select id="getNoticeList" parameterType="int" resultType="project.momento.notice.dto.NoticeDto">
 		<![CDATA[
 			SELECT 
@@ -42,7 +41,6 @@
 			LIMIT 5
 		]]>
 	</select>
-	
 	<select id="selectNoticeListCount" parameterType="hashmap" resultType="int">
 		SELECT
 			COUNT(*)
@@ -50,7 +48,6 @@
 		WHERE 1=1
 		ORDER BY PK_NOTICE_SEQ ASC
 	</select>
-	
 	<select id="selectNoticeList" parameterType="hashmap" resultType="project.momento.notice.dto.NoticeDto">
 		SELECT
 			PK_NOTICE_SEQ							AS pkNoticeSeq
