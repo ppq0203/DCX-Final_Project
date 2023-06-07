@@ -77,8 +77,6 @@
 		    CONCAT(DATE_FORMAT(A.SUB_START_DT, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(SUB_END_DT, '%Y-%m-%d')) AS educationDt,
 		    DATE_FORMAT(A.SUB_START_DT, '%Y-%m-%d') AS subStartDt,
 		    DATE_FORMAT(A.SUB_END_DT, '%Y-%m-%d') AS subEndDt,
-		    A.EDUCATION_TEST           AS educationTest,
-		    A.EDUCATION_TEST_DT        AS educationTestDt,
 		    A.REGIST_ID              AS registId,
 		    DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d') AS registDt,
 		    A.UPDATE_ID              AS updateId,
@@ -114,8 +112,6 @@
 		        ELSE A.EDUCATION_STATE
 		    END 					AS educationState,
 		    CONCAT(DATE_FORMAT(A.SUB_START_DT, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(A.SUB_END_DT, '%Y-%m-%d')) AS educationDt,
-		    A.EDUCATION_TEST         AS educationTest,
-		    A.EDUCATION_TEST_DT      AS educationTestDt,
 		    A.REGIST_ID              AS registId,
 		    DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d') AS registDt,
 		    A.UPDATE_ID              AS updateId,
