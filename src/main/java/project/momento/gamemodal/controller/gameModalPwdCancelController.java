@@ -1,4 +1,4 @@
-package project.momento.gameingteam.controller;
+package project.momento.gamemodal.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +17,7 @@ import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
 @Controller
-public class gameingteamController {
+public class gameModalPwdCancelController {
 	
 	@Autowired
 	private SignService SignService;
@@ -27,9 +27,9 @@ public class gameingteamController {
 	 * param
 	 * return contents/studentScreen 받는값
 	 */
-	@RequestMapping(value="/gameingTeam.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String gameinTeam( Model model) {
-	    return "content/gameingTeam";
+	@RequestMapping(value="/gameModalPwdCancel.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String gameModalPwdCancel( Model model) {
+	    return "content/gameModalPwdCancel";
 	}
 	
 }
