@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/emptyLayout}">
 <th:block layout:fragment="content">
-
+	<script th:inline="javascript">
+		var size =/*[[${questionList.size}]]*/0;
+	</script>
 	<link rel="stylesheet" type="text/css" href="/css/game.css">
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<script th:src="@{/js/dice.js}"></script>
@@ -12,15 +14,30 @@
 			border-collapse: collapse;
 		}
 
+		.btnlogout {
+			width: 90%;
+			height: 50px;
+			padding: 5px;
+			text-align: center;
+			/*margin: 5px 5px 5px 13px;*/
+			/*border-top-left-radius: 5px;*/
+			border-radius: 5px;
+			background-color: gray;
+			font-size: 20px;
+			font-family: 'DungGeunMo';
+			color: 'Darkgary';
+		}
+
 		.chess-board th {
 			padding: .5em;
 			width: 10px;
 		}
 
-		.chess-board td {
+		.chess-board div {
 			border: 1px solid;
 			width: 5em;
 			height: 5em;
+			float: left;
 			text-align: center;
 		}
 
@@ -31,126 +48,105 @@
 		.chess-board .dark {
 			background: #000;
 		}
+
+		.giveup {
+			background: red;
+		}
 	</style>
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- 모달 내용 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="col ml-3 pl-2 modal-title text-center total_modal">점수표</h4>
+					<button type="button" class="close pl-0 ml-0" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center">
+						<div>
+							<sapn>총 문제 : 36</sapn>
+						</div>
+						<div>
+							<sapn>푼 문제 : 30</sapn>
+						</div>
+						<div>
+							<sapn>포기 : 6</sapn>
+						</div>
+						<div>
+							<sapn>수학 : 4/5</sapn>
+						</div>
+						<div>
+							<sapn>구현 : 3/3</sapn>
+						</div>
+						<div>
+							<sapn>자료구조 : 3/6</sapn>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="container-lg">
 		<!-- Main content -->
-		<section class="content">
+		<section class="content pt-4 mt-4">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-9">
 						<div class="card">
-							<table class="chess-board">
-								<tbody>
-									<tr>
-										<th></th>
-										<th>1</th>
-										<th>2</th>
-										<th>3</th>
-										<th>4</th>
-										<th>5</th>
-										<th>6</th>
-									</tr>
-									<tr>
-										<th>8</th>
-										<td class="light"><button type="button" class="btn btn-default"
-												data-toggle="modal" data-target="#modal-xl">
-												문제
-											</button></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-									</tr>
-									<tr>
-										<th>7</th>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-									</tr>
-									<tr>
-										<th>6</th>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-									</tr>
-									<tr>
-										<th>5</th>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-									</tr>
-									<tr>
-										<th>4</th>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-									</tr>
-									<tr>
-										<th>3</th>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-									</tr>
-									<tr>
-										<th>2</th>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-									</tr>
-									<tr>
-										<th>1</th>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-										<td class="dark"></td>
-										<td class="light"></td>
-									</tr>
-								</tbody>
-							</table>
+							<div class="chess-board">
+								<div class="question_col" th:each="n, m : ${questionList}">
+									<!--<p th:text="${n.pkQuestionSeq}"></p>-->
+									<button type="button" class="btn btn-default btn-outline-secondary Question_status"
+										th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal"
+										data-target="#modal-xl" style="width: 100%; height: 100%; border: none;">
+										문제
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="col-3">
 						<div class="sticky-top mb-3">
-							<div class="card">
+							<div class="card"
+								style="background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);">
 								<div class="card-header">
-									<button class="btn btn-block btn-primary" onclick="roll()">ROLL
-										THE DICE</button>
+									<!--<button class="btn btn-block btn-primary" onclick="roll()">ROLL
+										THE DICE</button>-->
+									<div class="card">
+										<span>user</span>
+										<span>어쩌구</span>
+										<span>어쩌구</span>
+										<span>어쩌구</span>
+									</div>
+
 								</div>
 								<div class="card-body">
 									<!-- the events -->
-									<div class="container">
+									<!--<div class="container">
 										<div class="dice-wrapper">
 											<img id="die-1" class="" th:src="@{/img/dice-06.svg} ">
 											<img id="die-2" class="" th:src="@{/img/dice-04.svg}">
 										</div>
-										<!-- //<p id="total">Your roll is 10</p> -->
+										<p id="total">Your roll is 10</p>
 
+									</div>-->
+									<div class="card" style="min-height: 300px;">
+										<span>로그</span>
+										<span>어쩌구</span>
+										<span>어쩌구</span>
+										<span>어쩌구</span>
+									</div>
+								</div>
+								<div class="card=footer">
+									<div class="card"
+										style="background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);">
+										<button class="btnlogout mx-auto" type="button">나가기</button>
 									</div>
 								</div>
 								<!-- /.card-body -->
 							</div>
 							<!-- /.card -->
-							<div class="card">
+							<!--<div class="card">
 								<div class="card-header">
 									<h3 class="card-title">Member</h3>
 								</div>
@@ -164,9 +160,9 @@
 											<li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
 										</ul>
 									</div>
-									<!-- /btn-group -->
+									btn-group
 								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>
@@ -174,26 +170,20 @@
 		</section>
 	</div>
 
-	<th:block th:each="question : ${questionList}">
-		<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-			<div class="modal-dialog modal-xl">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 th:text="${ question.pkQuestionSeq } + '번째 문제'" class="modal-title"></h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="card card-outline card-info">
-							<div class="card-header">
-								<h3 th:text="${ question.questionName }" class="card-title"></h3>
-							</div>
-							<div class="card-body p-0">
-								<p th:text="${ question.contents }"></p>
-							</div>
-							<div class="card-footer">
-							</div>
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"></h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card card-outline card-info">
+						<div class="card-header">
+							<h3 id="questionName" class="card-title"></h3>
+
 						</div>
 						<div class="card card-outline card-info">
 							<div class="card-header">
@@ -203,49 +193,108 @@
 							</div>
 
 							<div class="card-body p-0">
-								<textarea th:text="${ question.codeFormat }" id="codeMirrorDemo" class="p-3"
-									style="display: none;"> </textarea>
+								<p id="questionContents"></p>
 							</div>
 							<div class="card-footer">
 							</div>
 						</div>
-					</div>
-					<!-- 기존 코드 -->
-					<div class="card card-outline card-info">
-						<div class="card-header">
-							<h3 class="card-title">
-								풀이 작성
-							</h3>
-						</div>
+						<!-- 기존 코드 -->
+						<div class="card card-outline card-info">
+							<div class="card-header">
+								<h3 class="card-title">
+									풀이 작성
+								</h3>
+							</div>
 
-						<div class="card-body p-0">
-							<textarea th:text="${question.codeFormat}" id="codeMirrorDemo" class="p-3" style="display: none;"> </textarea>
+							<div class="card-body p-0">
+								<textarea id="Demo" class="p-3" style="width:100%; height: 500px"></textarea>
+							</div>
+							<div class="card-footer">
+							</div>
 						</div>
-						<div class="card-footer">
-						</div>
+						<!-- 기존 코드 끝-->
+						<!-- 진상 코드-->
+						<form>
+							<div class="modal-footer justify-content-between">
+								<button id="giveup" type="button" class="btn btn-default"
+									data-dismiss="modal">포기</button>
+								<button id="Question_submit" data-dismiss="modal" type="submit" class="btn btn-primary">등록</button>
+							</div>
+						</form>
+						<!-- 진상 코드 끝-->
 					</div>
-					<!-- 기존 코드 끝-->
-					<!-- 진상 코드-->
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-					<!-- 진상 코드 끝-->
 				</div>
-
 			</div>
 		</div>
+	</div>
+	<button type="button" class="btn btn-primary" id="total_modal" data-toggle="modal"
+		data-target="#myModal">임시점수표</button>
+	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+	</script>
+	<script th:inline="javascript">
+		//보드 판 테스트
+		var temp_elem;
+		/*<![CDATA[*/
+		function loadQuestion(elem, question) {
+			console.log("test");
+			title = question.pkQuestionSeq + "번째 문제";
+			name = question.questionName;
+			contents = question.contents;
+			codeFormat = question.codeFormat;
+			console.log(title);
+			console.log(name);
+			console.log(contents);
+			console.log(codeFormat);
+			$('.modal-title').text(title);
+			$('#questionName').text(name);
+			$('#questionContents').text(contents);
+			$('#Demo').html(codeFormat);
+			temp_elem = elem;
+		}
+    /*]]>*/
+	</script>
+	<!-- 진상 script -->
+	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+		console.log(1);
+		var count = 25;
 
-		<script>
-			$(function () {
-				// CodeMirror
-				CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-					mode: "htmlmixed",
-					theme: "monokai"
-				});
-			})
-			
-		</script>
-	</th:block>
+		// 생성된 템플릿을 타임리프 템플릿 영역에 추가
+
+		var line_length = Math.sqrt(count);
+		var gameroom_left_classes = document.getElementsByClassName('question_col');
+		var all_rooms_length = 828;
+		var one_room_length = all_rooms_length / line_length;
+		console.log(all_rooms_length);
+		console.log(one_room_length);
+		for (var i = 0; i < gameroom_left_classes.length; i++) {
+			gameroom_left_classes[i].style.width = one_room_length + "px";
+		}
+		$("#total_modal").click(function () {
+			$(".total_modal").text("점수표");
+		});
+		$('#giveup').click(function () {
+			temp_elem.disabled = true;
+			$(temp_elem).css("background-color", "red");
+		})
+		$('#Question_submit').click(function () {
+			temp_elem.disabled = true;
+			$(temp_elem).css("background-color", "blue");
+		})
+	</script>
+</th:block>
 
 </html>
