@@ -1,6 +1,5 @@
 package project.momento.login.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
-import project.momento.menu.dto.MenuDto;
 
 @Controller
 public class LoginController {
@@ -94,7 +91,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/update.com", produces = "application/text;charset=utf-8")
-	public String updateUser(Model model, LoginDto loginDto, HttpServletRequest request) {
+	public String updateUser(LoginDto loginDto, HttpServletRequest request) {
 		// 세션에 있는 pkUserSeq 가져와서 loginDto에 담기
 		LoginDto beforeDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		loginDto.setPkUserSeq(beforeDto.getPkUserSeq());
@@ -103,6 +100,17 @@ public class LoginController {
 		if (pkUserSeq > 0) {
 			// loginService.updateUser() 메소드 호출 시 loginDto 전달
 			loginService.updateUser(loginDto);
+		}
+		return "content/std/sign/sign2";
+	}
+	@RequestMapping(value="/delete.com", produces="application/text;charset=utf-8")
+	public String deleteUser(LoginDto loginDto, HttpServletRequest request) {
+		loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+		int pkUserSeq = loginDto.getPkUserSeq();
+		loginDto.setPkUserSeq(pkUserSeq);
+		if (pkUserSeq > 0) {
+			// loginService.deleteUser() 메소드 호출 시 loginDto 전달
+			loginService.deleteUser(loginDto);
 		}
 		return "content/std/sign/sign2";
 	}
