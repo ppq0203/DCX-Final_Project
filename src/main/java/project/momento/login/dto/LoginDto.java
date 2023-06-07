@@ -40,6 +40,8 @@ public class LoginDto {
 	private String classState;
 	/*관리자 고유번호*/
 	private int pkManagerSeq;
+	/*이미지 경*/
+	private String imgPath;
 	
 
 }

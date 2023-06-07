@@ -42,4 +42,6 @@ public class SignDto {
 	private String registDt;
 	/*수강 상태(N: 퇴소, Y: 수강중, E: 수료)*/
 	private String classState;
+	/*이미지 경로*/
+	private String imgPath;
 }

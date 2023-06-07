@@ -26,7 +26,6 @@ public class SignService {
 		return SignMapper.waitList(signDto);
 	}
 
-
 	//아이디 중복체크
 	public int checkButton(SignDto signDto) {
 		// TODO Auto-generated method stub
@@ -37,6 +36,16 @@ public class SignService {
 	public void signAlluser() {
 		// TODO Auto-generated method stub
 		SignMapper.signAlluser();
+	}
+
+	public void denyUser(SignDto signDto) {
+		// TODO Auto-generated method stub
+		SignMapper.denyUser(signDto);
+	}
+
+	public void denyAlluser() {
+		// TODO Auto-generated method stub
+		SignMapper.denyAlluser();
 	}
 
 }

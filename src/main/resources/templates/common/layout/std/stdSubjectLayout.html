@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--라이브러리 참조 : Thymeleaf & Thymeleaf Layout -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--공통 JS / CSS 영역을 관리하는 환경 영역-->
+
+<head>
+	<title>Mo:mento</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+	<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+	<link th:href="@{/css/bootstrap/bootstrap-grid.min.css}" rel="stylesheet">
+	<link th:href="@{/css/bootstrap/bootstrap-reboot.min.css}" rel="stylesheet">
+	<link th:href="@{/css/adminlte.min.css}" rel="stylesheet">
+	<link th:href="@{/plugins/fullcalendar/main.min.css}" rel="stylesheet">
+	<link th:href="@{/plugins/fontawesome-free/css/all.min.css}" rel="stylesheet">
+	<link th:href="@{/plugins/summernote/summernote-bs4.min.css}" rel="stylesheet">
+	<link th:href="@{/plugins/select2/css/select2.min.css}" rel="stylesheet">
+	<link th:href="@{/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}" rel="stylesheet">
+	<link th:href="@{/plugins/daterangepicker/daterangepicker.css}" rel="stylesheet">
+
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+
+	<script th:src="@{/js/adminlte.min.js}"></script>
+	<script th:src="@{/plugins/jquery-ui/jquery-ui.min.js}"></script>
+	<script th:src="@{/plugins/moment/moment.min.js}"></script>
+	<script th:src="@{/plugins/fullcalendar/main.min.js}"></script>
+	<script th:src="@{/plugins/summernote/summernote-bs4.min.js}"></script>
+	<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>
+	<script th:src="@{/plugins/daterangepicker/daterangepicker.js}"></script>
+</head>
+
+<body class="hold-transition">
+
+	<div class="wrapper">
+		<th:block th:replace="common/fragments/std/stdHeader :: headFragment"></th:block>
+		<th:block th:replace="common/fragments/std/stdLeft :: leftFragment"></th:block>
+		<div class="content-wrapper" style="background-color: #fff;">
+			<th:block th:replace="common/fragments/std/stdbanner :: bannerFragment"></th:block>
+			<th:block th:replace="common/fragments/std/stdTab :: tabFragment"></th:block>
+			<th:block layout:fragment="content"></th:block>
+		</div>
+	</div>
+</body>
+
+</html>

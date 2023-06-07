@@ -84,7 +84,6 @@ public class LoginController {
 		if (pkUserSeq > 0) {
 			// loginService.selectUser() 메소드 호출 시 loginDto 전달
 			loginService.selectUser(loginDto);
-
 			model.addAttribute("loginDto", loginDto);
 		}
 
@@ -99,7 +98,6 @@ public class LoginController {
 		if (pkUserSeq > 0) {
 			// loginService.updateUser() 메소드 호출 시 loginDto 전달
 			loginService.updateUser(loginDto);
-
 			model.addAttribute("loginDto", loginDto);
 		}
 		return "content/signManage";
