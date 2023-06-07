@@ -26,7 +26,11 @@ public class QuestionDto {
 	/*힌트*/   
 	private String chance; 
 	/*클래스명*/   
-	private String className; 
+	private String className;
+	/*입력값 예시*/
+	private String inPut;
+	/*출력값 예시*/
+	private String outPut;
 	/*사용여부*/
 	private String useYn;
 	/*삭제여부*/

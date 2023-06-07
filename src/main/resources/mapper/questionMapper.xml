@@ -1,25 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+
+<!-- select문 -->
 <mapper namespace="project.momento.question.mapper.QuestionMapper">
+	<!-- INSERT문 -->
+	<insert id="insertQuestion"  parameterType="project.momento.answer.dto.AnswerDto">
+		<![CDATA[ 
+			INSERT INTO QUESTION
+			(
+				PK_QUESTION_SEQ,
+				QUESTION_NAME,
+            	LEVEL,
+             	SCORE,
+             	TYPE,
+             	CONTENTS,
+             	CODE_FORMAT,
+             	SOLUTION,
+             	CHANCE,
+             	CLASS_NAME,
+             	INPUT,
+             	OUTPUT,
+             	USE_YN,
+             	DEL_YN,
+             	REGIST_ID,	
+             	REGIST_DT,
+             	UPDATE_ID,
+             	UPDATE_DT
+			)
+			VALUES
+			(
+				*{pkQuestionSeq},
+				*{questionName},
+            	*{level},
+             	*{score},
+             	*{type},
+             	*{contents},
+             	*{codeFormat},
+             	*{solution},
+             	*{chance},
+             	*{className},
+             	*{inPut},
+             	*{outPut},
+             	*{useYn},
+             	*{delYn},
+             	*{registId},	
+             	*{registDt},
+             	*{updateId},
+             	*{updateDt}
+			)
+		]]>	
+	</insert>
+	
     <select id="selectQuestionList" resultType="project.momento.question.dto.QuestionDto">
-        SELECT PK_QUESTION_SEQ
-        	 , QUESTION_NAME
-             , LEVEL
-             , SCORE
-             , TYPE
-             , CONTENTS
-             , CODE_FORMAT
-             , SOLUTION
-             , CHANCE
-             , CLASS_NAME
-             , USE_YN
-             , DEL_YN
-             , REGIST_ID
-             , REGIST_DT
-             , UPDATE_ID
-             , UPDATE_DT
-        FROM QUESTION
-        LIMIT 64
+		<![CDATA[ 
+        	SELECT 
+				PK_QUESTION_SEQ		AS pkQuestionSeq
+				QUESTION_NAME		AS questionName,
+            	LEVEL				AS level,
+             	SCORE				AS score,
+             	TYPE				AS type,
+             	CONTENTS			AS contents,
+             	CODE_FORMAT			AS codeFormat,
+             	SOLUTION			AS solution,
+             	CHANCE				AS chance,
+             	CLASS_NAME			AS className,
+             	INPUT				AS inPut,
+             	OUTPUT				AS outPut,
+             	USE_YN				AS useyYn,
+             	DEL_YN				AS delYn,
+             	REGIST_ID			AS registId,	
+             	REGIST_DT			AS registDt,
+             	UPDATE_ID			AS updateId,
+             	UPDATE_DT			AS updateDt,
+        	FROM 
+        		QUESTION
+        	LIMIT 64
+        ]]>
     </select>
+    <select id="selectQuestionList" resultType="project.momento.question.dto.QuestionDto">
+    	<![CDATA[ 
+    		SELECT DISTINCT 
+	    		A.PK_QUESTION_SEQ,
+				B.QUESTION_NAME,
+				B.LEVEL,
+				B.SCORE,
+				B.TYPE,
+				B.CODE_FORMAT,
+				B.SOLUTION,
+				B.CHANCE,
+				B.CLASS_NAME,
+				B.INPUT,
+				B.OUTPUT,
+				B.USE_YN,
+				B.DEL_YN,
+				B.REGIST_ID,
+				B.REGIST_DT,
+				B.UPDATE_ID,
+				B.UPDATE_DT
+			FROM 
+				TEST_CASE A
+			INNER
+				JOIN QUESTION B
+			ON 	
+				A.PK_QUESTION_SEQ = B.PK_QUESTION_SEQ
+			WHERE 
+				LEVEL IN (1,2,3)
+		]]>
+    </select>
+    
 </mapper>

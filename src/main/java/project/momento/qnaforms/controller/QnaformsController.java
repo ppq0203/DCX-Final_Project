@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import project.momento.question.dto.QuestionDto;
+import project.momento.question.service.QuestionService;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -32,4 +34,24 @@ public class QnaformsController {
 	    return "content/qnaforms";
 	}
 	
+	//실행 결과 TEST//
+	@RequestMapping(value = "/yttest", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String yttest() {
+		////////////
+		//데이터 저장
+//		QuestionDto qtDto = new QuestionDto();
+//		qtDto.setPkQuesTionSeq(0);
+//		qtDto.setPkUserSeq(0);
+//		qtDto.setAnswerUser("answeor");
+//		qtDto.setAnswerOX("O");
+//		QuestionService.insertQuestion(qtDto);
+//		System.out.println();
+		/////////////
+		// 데이터 불러오기
+		List<QuestionDto> question= QuestionService.selectQuestion(0);
+		System.out.println(question);
+		/////////////
+		// 데이터 삭제
+		return "index";
+	}
 }
