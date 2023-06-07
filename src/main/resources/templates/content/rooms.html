@@ -5,12 +5,14 @@
     <th:block th:fragment="content">
         <div class="container">
             <div>
-                <ul th:each="room : ${list}">
-                    <li><form th:action="@{/chat/room}" method="get">
-                    <input type="text" name="roomId">
-                    <input type="submit">
-                    </form>[[${room.roomName}]]</li>
-                </ul>
+                <div th:each="room : ${list}">
+                    <form th:action="@{/chat/room}" method="get">
+	                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
+	                    <input type="hidden" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
+	                    [[${room.roomName}]]
+	                    <input type="submit">
+                    </form>
+                </div>
             </div>
         </div>
         <form th:action="@{/chat/room}" method="post">
@@ -19,20 +21,20 @@
         </form>
     </th:block>
 </th:block>
-        <script th:inline="javascript">
-            $(document).ready(function(){
+<!--        <script th:inline="javascript">-->
+<!--            $(document).ready(function(){-->
 
-                $(".btn-create").on("click", function (e){
-                    e.preventDefault();
+<!--                $(".btn-create").on("click", function (e){-->
+<!--                    e.preventDefault();-->
 
-                    var name = $("input[name='name']").val();
+<!--                    var name = $("input[name='name']").val();-->
 
-                    if(name == "")
-                        alert("Please write the name.")
-                    else
-                        $("form").submit();
-                });
+<!--                    if(name == "")-->
+<!--                        alert("Please write the name.")-->
+<!--                    else-->
+<!--                        $("form").submit();-->
+<!--                });-->
 
-            });
-        </script>
+<!--            });-->
+<!--        </script>-->
 </html>

@@ -40,17 +40,17 @@ public class RoomService {
 		return result;
 	} // 전체 방 찾기
 	
-	public RoomDto findRoomById(String id) {
+	public RoomDto findRoomById(String pkRoomSeq) {
 		
 		for (String key : roomDtoMap.keySet()) {
 			System.out.println(key);
 		}
-		return roomDtoMap.get(id);
+		return roomDtoMap.get(pkRoomSeq);
 	} // ID로 방 찾기 (검색기능)
 	
 	public RoomDto createRoomDto(String name) {
 		RoomDto room = RoomDto.create(name);
-		roomDtoMap.put(room.getRoomName(), room);
+		roomDtoMap.put(room.getPkRoomSeq(), room);
 		
 		return room;
 	} // 방 생성

@@ -48,12 +48,11 @@ public class RoomController {
 	
 	// 채팅방 들어갈 시
 	@GetMapping("/room")
-	public ModelAndView getRoom(String roomId) {
-        log.info("# get Chat Room, roomID : " + roomId);
+	public ModelAndView getRoom(String pkRoomSeq) {
+        log.info("# get Chat Room, roomSeq : " + pkRoomSeq);
 		ModelAndView mv = new ModelAndView("content/room");
 		
-		mv.addObject("room", service.findRoomById(roomId));
-		mv.addObject("roomId", roomId);
+		mv.addObject("room", service.findRoomById(pkRoomSeq));
 		return mv;
 	}
 }
