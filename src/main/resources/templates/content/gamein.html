@@ -17,6 +17,8 @@
 			#container {
 				width: 976px;
 				height: 700px;
+				background-image : url('gameStart.png');
+				background-size : auto ;
 			}
 			#header {
         		padding: 10px;
@@ -43,13 +45,20 @@
 				position: relative;
 				border-radius: 10px;
 	      	}
-			#footer {
-        		padding: 10px;
-				height : 70px;
-      		}
+			 .fontp{
+				 font-family : 'DungGeunMo';
+				 font-size : 12px;
+				 color : white;
+				 line-height : 150%;
+			 }
+			 .fontb{
+				 font-family : 'DungGeunMo';
+				 font-size : 13px;
+				 color : yellow;
+				 line-height : 150%;
+			 }
 			
 			/*content*/
-			/*Tab*/ 
 			.user-all{
 				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
 				border-radius: 10px; 				/*테두리 둥글게*/ 
@@ -67,38 +76,43 @@
 			.user1{
 				background : #FFC04D;
 				border-radius: 10px; 
-				width: 200px;
-				height : 200px;
+				width: 195px;
+				height : 195px;
 				margin : 5px ; 
 				padding : 5px;
 				float : left;
+				border : 5px solid #BF9039;
+				
 			 }
 			.user2{
 				background : #FF652A;
 				border-radius: 10px; 
-				width: 200px;
-				height : 200px;
+				width: 195px;
+				height : 195px;
 				margin : 5px ; 
 				padding : 5px;
 				float : right;
+				border : 5px solid #BF4C1F;
 			 }
 			.user3{
 				background : #1F71C2;
 				border-radius: 10px; 
-				width: 200px;
-				height : 200px;
+				width: 195px;
+				height : 195px;
 				margin : 5px ; 
 				padding : 5px;
 				float : left;
+				border : 5px solid #1454C2;
 			 }
 			.user4{
 				background : #9BDB6B;
 				border-radius: 10px; 
-				width: 200px;
-				height : 200px;
+				width: 195px;
+				height : 195px;
 				margin : 5px ; 
 				padding : 5px;
 				float : right;
+				border : 5px solid #6F9C4C;
 			 }
 
 
@@ -129,31 +143,29 @@
 				margin : 5px;
 				border : 3px solid white;
 			 }
-			 chat-input .who{
-				 width : 40px;
+			.write{
+				 width : 170px;
 				 height : 20px;
 				 float : left;
 				 border : 1.5px solid white;
 			 }
-			 chat-input .write{
-				 width : 160px;
-				 height : 200px;
-				 float : right;
-				 border : 1.5px solid white;
-			 }		
-	      				 
+			.no_dot {
+				font-family : 'DungGeunMo';
+				font-size : 15px;
+				line-height : 150%;
+				list-style-type: none;
+			}
+
 			/*button icon*/
-			.btnstart{
-				width: 220px;
-				height: 35px;
-				padding: 5px;
+			.btnchat{
+				width: 40px;
+				height: 25px;
 				text-align: center;
-				margin: 5px;
-				border-radius: 5px;
-				background-color : #c55a11;
-				font-size: 20px;
+				float: right;
+				background-color : white;
+				font-size: 12px;
 				font-family: 'DungGeunMo';
-				color : #c55a11;
+				color : #005255;
 			}
 			 
 			.btn{
@@ -182,21 +194,36 @@
 				font-family: 'DungGeunMo';
 				color : 'Darkgary';
 			}
-
 	    </style>
 
 	</head>
-	<body th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+	<body>
 		<div id="container">
       		<div id="header"></div>
 			
 			<!--side right -->
 			    <div id="sidebar">
-					<div class="gameinfo"></div>
-					<div class="chat-veiw"></div>
+					<div class="gameinfo">
+						<ul class="no_dot">
+							<li>게임 유형 :</li>
+							<li>난이도 : </li>
+							<li>문제당 시간 : </li>
+							<li>문제 개수 : </li>
+						</ul>
+					</div>
+					<div class="chat-veiw">
+						<p class="fontp">
+							<b class="fontb">>>'Solo_03' 방에 입장하셨습니다.</b><br>
+							>>'DCX'님이 입장하셨습니다.<br>
+							>>'스마트'님이 입장하셨습니다.<br>
+						</p>
+					</div>
 					<div class="chat-input">
-						<div class="who"></div>
-						<div class="write"></div>
+						<from><input type="text" id="chat" size=19>
+							<button class="btnchat" type="submit">등록</button>
+						</from>
+						
+							
 					</div>
 					<button class="btn" type="button">시작</button>	
 					<button class="btnlogout" type="button">나가기</button>		
@@ -210,7 +237,6 @@
 					<div class="user3"></div>
 					<div class="user4"></div>
 				</div>
-			<div id="footer"></div>
 		</div>
 		</div>
 	</body>
