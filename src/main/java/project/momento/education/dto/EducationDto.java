@@ -54,5 +54,31 @@ public class EducationDto extends LoginDto {
 	private int returnId;
 	/*과목 상태*/
 	private String subjectState;
+	/*출석 구분*/
+	private String attendDivn;
+	/*출석 일자*/
+	private String attendDt;
+	/*조퇴 구분*/
+	private String earlyDivn;
+	/*조퇴 일자*/
+	private String earlyDt;
+	/*지각 구분*/
+	private String lateDivn;
+	/*지각 일자*/
+	private String lateDt;
+	/*휴가 구분*/
+	private String relaxDivn;
+	/*휴가 일자*/
+	private String relaxDt;
+	/*결석 구분*/
+	private String absentDivn;
+	/*결석한 학생 날짜*/
+	private String absentDt;
+	/*외출 구분*/
+	private String outDivn;
+	/*외출 일자*/
+	private String outDt;
+	/*복귀 일자*/
+	private String inDt;
 
 }
