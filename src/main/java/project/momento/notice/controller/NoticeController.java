@@ -44,7 +44,7 @@ public class NoticeController {
         paging.setCri(cri);
         paging.setTotalCount(total);
         List<NoticeDto> resultList = noticeService.selectNoticeList(cri);
-		mv.addObject("resultList", resultList);
+//		mv.addObject("resultList", resultList);
         mv.addObject("paging", paging);
 		return mv;
 		
@@ -54,11 +54,10 @@ public class NoticeController {
 	public ModelAndView noticeForm(@PathVariable String userDivn, Criteria cri, Model model, NoticeDto noticeDto){
 		ModelAndView mv = new ModelAndView("content/"+userDivn+"/notice/noticeForm"); 
 		
-		
 		return mv;
 		
 	}
-	
+
 	@RequestMapping(value="/mng/notice/create", produces="application/text;charset=utf-8") /* value주소 이름*/
 	public String noticeSubmit(NoticeDto noticeDto, HttpServletRequest request){
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
@@ -70,7 +69,7 @@ public class NoticeController {
 	@RequestMapping(value="/getNoticeList", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
 	public List<NoticeDto> getNoticeList(Criteria cri, Model model, HttpServletRequest request, NoticeDto noticeDto) {
 		// 세션에서 내 정보를 가져온다
-		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
+//		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
 		List<NoticeDto> resultList = noticeService.selectNoticeList(cri);
 		System.out.println(resultList);
 		model.addAttribute("resultList", resultList);

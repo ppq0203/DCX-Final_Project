@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="project.momento.login.mapper.LoginMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
-<!-- Heidisql연결후 입력 저장-->
+<mapper namespace="project.momento.login.mapper.LoginMapper">
+	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+	<!-- Heidisql연결후 입력 저장-->
 	<!-- 아이디 중복 -->
-	<!-- 로그인 데이터 -->                    <!-- 정보 받아오기 -->                               <!-- 정보 내려주기 -->
+	<!-- 로그인 데이터 -->
+	<!-- 정보 받아오기 -->
+	<!-- 정보 내려주기 -->
 	<select id="checkLogin" parameterType="project.momento.login.dto.LoginDto" resultType="project.momento.login.dto.LoginDto">
 		<![CDATA[
 			SELECT
@@ -20,7 +22,8 @@
 				EMAIL AS email,
 				USER_DIVN AS userDivn,
 				USE_YN AS useYn,
-				REGIST_DT AS registDt
+				REGIST_DT AS registDt,
+				USER_IMG AS imgPath
 			FROM USER
 			WHERE USER_ID = #{userId} AND PASSWORD = #{password} AND USE_YN = 'Y'
 		]]>
@@ -35,13 +38,13 @@
               PASSWORD = #{password},
               NAME = #{name},
               PHONE = #{phone},
+              EMAIL = #{email},
               BIRTHDAY = #{birthday},
               ADDRESS = #{address},
-              DETAILED_ADDRESS = #{detailedAddress},
-              EMAIL = #{email}
+              DETAILED_ADDRESS = #{detailedAddress}              
               
         WHERE
-             PK_USER_SEQ = #{userId}
+             PK_USER_SEQ = #{pkUserSeq}
 		]]>
 	</update>
 	
@@ -114,6 +117,7 @@
 		WHERE PK_USER_SEQ=#{pkUserSeq}
 		]]>
 	</select>
+	
 	<select id="getTrainList" resultType="project.momento.login.dto.LoginDto">
 		<![CDATA[
 		SELECT 
@@ -135,6 +139,31 @@
 		WHERE USER_DIVN="std"
 		AND USE_YN="Y"
 		AND CLASS_STATE="Y"
+		]]>
+	</select>
+	
+	<!-- 훈련생 SELECT --> <!-- 사용중이며 학생이고 재학중인 데이터만 모아리스트로. -->
+	<select id="getGraduList" resultType="project.momento.sign.dto.SignDto">
+		<![CDATA[
+		SELECT 
+				PK_USER_SEQ AS pkUserSeq,
+				PK_AUTH_SEQ AS pkAuthSeq,
+				USER_ID AS userId,
+				PASSWORD AS password,
+				NAME AS name,
+				PHONE AS phone,
+				BIRTHDAY AS birthday,
+				ADDRESS AS address,
+				DETAILED_ADDRESS AS detailedAddress,
+				EMAIL AS email,
+				USER_DIVN AS userDivn,
+				USE_YN AS useYn,
+				REGIST_DT AS registDt,
+				CLASS_STATE AS classState 
+		FROM USER
+		WHERE USER_DIVN="std"
+		AND USE_YN="Y"
+		AND CLASS_STATE="E"
 		]]>
 	</select>
 		

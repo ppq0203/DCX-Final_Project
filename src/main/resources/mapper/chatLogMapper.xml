@@ -4,6 +4,7 @@
 <mapper namespace="project.momento.chatLog.mapper.ChatLogMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 <!-- Heidisql연결후 입력 저장-->
 	<!-- SELECT문 -->
+	<!--영복 코드 <select id="selectChatLog" resultType="project.momento.chatlog.dto.ChatLogDto">-->
 	<!--<select id="ChatLog" resultType="project.momento.chatlog.dto.ChatLogDto">
 		<![CDATA[
 			SELECT
@@ -19,6 +20,7 @@
 	</select>-->
 	
 	<!-- INSERT문 -->
+	<!--영복 코드<insert id="insertChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">-->
 	<!--<insert id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
 		<![CDATA[
 			INSERT INTO CHAT_LOG
@@ -43,6 +45,7 @@
 	</insert>-->
 	
 	<!-- DELETE문 -->
+	<!--영복 코드<delete id="deleteChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">-->
 	<!--<delete id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
 		<![CDATA[
 			DELETE FROM CHAT_LOG
@@ -52,6 +55,7 @@
 	</delete>-->
 	
 	<!-- UPDATE문 --> 
+	<!--영복 코드<update id="updateChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">-->
 	<!--<update id="ChatLog" parameterType="project.momento.chatlog.dto.ChatLogDto">
 		<![CDATA[
 			UPDATE SET

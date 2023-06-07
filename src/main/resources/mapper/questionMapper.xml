@@ -9,6 +9,7 @@
              , SCORE
              , TYPE
              , CONTENTS
+             , CODE_FORMAT
              , SOLUTION
              , CHANCE
              , CLASS_NAME
@@ -19,5 +20,6 @@
              , UPDATE_ID
              , UPDATE_DT
         FROM QUESTION
+       	WHERE LEVEL = #{selectedLevel}
     </select>
 </mapper>
