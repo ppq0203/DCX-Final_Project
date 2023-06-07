@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+  		<meta charset="UTF-8">
+  		<title>Gnjoy</title>
+  		<link rel="stylesheet" type="text/css" href="1.css">
+		<style>
+			@font-face {
+			font-family: 'DungGeunMo';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+			}
+			.md_container {
+				position: relative;
+				width: 500px;
+				height: 550px;
+				background-color : #843c0c;
+				border-radius: 20px;
+				padding: 10px;
+				margin : 0px;
+				border : 2px solid #843c0c;
+				font-family : 'DungGeunMo';
+				font-size : 25px;
+				color: white;
+				text-align : center;
+				
+			}
+				.md_content {
+					width: 400px;
+					height: 400px;
+					padding: 5px;
+					margin : 0;
+					background-color : #fff2cc;
+					border-radius: 20px;
+					position: absolute;
+					top: 48%;
+            		left: 50%;
+					transform: translateX(-50%) translateY(-50%);
+				}
+				.roomleft{
+					width: 80px;
+					height: 40px;
+					float: left;
+					margin : 0px;
+					background-color : #fff2cc;
+					margin : 5px;
+					font-family : 'DungGeunMo';
+					font-size : 18px;
+					text-align : center;
+					vertical-align : bottom;
+					border : 2px solid #843c0c;
+					color: #843c0c;
+				}
+				.roomright{
+					width: 290px;
+					height: 40px;
+					float: right;
+					margin : 5px;
+					background-color : #ffe699;
+					font-family : 'DungGeunMo';
+					margin : 5px;
+					border : 2px solid #843c0c;
+					
+				}
+				.left_p{
+					width: 80px;
+					height: 40px;
+					font-size : 15px;
+					text-align : left;
+					vertical-align : center;
+					color: #843c0c;
+					margin : 7px 5px 5px 5px;
+					padding : 2px;
+					font-weight : bold;
+				}
+				.right_p{
+					width: 290px;
+					height: 40px;
+					font-size : 15px;
+					text-align : left;
+					vertical-align : center; 
+					color: #843c0c;
+					margin : 7px 5px 5px 5px;
+					padding : 2px;
+					
+				}
+			.md_footer{
+        		padding: 10px;
+				height : 70px;				
+			}
+			/*btn*/
+			.madebtn1{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
+				border-radius: 10px;
+				text-align : center ;
+				background : #FFC04D;
+				border : 1px solid #FFC04D;
+				float : left;
+				background-color : #ffe699;
+				position: absolute; 
+				bottom:7px; 
+				left:125px;
+			 }
+			.madebtn2{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
+				border-radius: 10px;
+				text-align : center ;
+				background : gray;
+				border : 1px solid gray;
+				float : left;
+				background-color : gray;
+				position: absolute; 
+				bottom:7px; 
+				right:125px;
+			 }			
+		</style>
+	</head>
+	<body>
+		<div class="md_container">방 만들기
+			<div class='md_content'>
+			
+				<div class='roomleft'><p class="left_p">방 제목</p></div>
+				<div class='roomright'><p class="right_p">같이 게임헤요</p></div>
+				<div class='roomleft'><p class="left_p">비밀번호</p></div>
+				<div class='roomright'><p class="right_p">********</p></div>
+				<div class='roomleft'><p class="left_p">개인/팀</p></div>
+				<div class='roomright'><p class="right_p">					
+					<input type="radio" name="chk_info" value="solo">개인
+					<input type="radio" name="chk_info" value="Team">팀
+				</p></div>
+				<div class='roomleft'><p class="left_p"> 팀 </p></div>
+				<div class='roomright'><p class="right_p">					
+					<input type="radio" name="chk_info" value="2Team">2팀
+					<input type="radio" name="chk_info" value="3Team">3팀
+					<input type="radio" name="chk_info" value="4Team">4팀
+				</p></div>
+				<div class='roomleft'><p class="left_p">팀당인원</p></div>
+				<div class='roomright'><p class="right_p">
+					<input type="radio" name="chk_info" value="one">1명
+					<input type="radio" name="chk_info" value="Tow">2명
+					<input type="radio" name="chk_info" value="Three">3명
+					<input type="radio" name="chk_info" value="Four">4명
+				</p></div>
+				<div class='roomleft'><p class="left_p">난이도</p></div>
+				<div class='roomright'><p class="right_p">
+					<input type="radio" name="chk_info" value="easy">EASY
+					<input type="radio" name="chk_info" value="middle">MID
+					<input type="radio" name="chk_info" value="hard">HARD
+					<input type="radio" name="chk_info" value="romdom">RONDOM					
+				</p></div>
+				<div class='roomleft' style='height: 70px'><p class="left_p" ><br>게임선택</p></div>
+				<div class='roomright' style='height: 70px'><p class="right_p"><imag src=""/></p></div>
+			</div>
+			<div id='md_footer'>
+				<button class="madebtn1" type="submit">확인</button>
+				<button class="madebtn2" type="reset">취소</button>
+			</div>
+		</div>	
+	</body>
+</html>

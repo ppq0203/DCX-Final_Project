@@ -1,17 +1,59 @@
 package project.momento.room.controller;
 
-import javax.swing.Spring;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import project.momento.room.dto.RoomDto;
+import project.momento.room.mapper.RoomMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.springframework.context.annotation.PropertySource;
+import project.momento.room.service.RoomService; // 임시
 
-import groovy.lang.GString;
-import lombok.Data;
+import java.util.List;
 
-@Data
-@PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
-/*방*/
+@Controller
+@RequiredArgsConstructor
+@Log4j2
+@RequestMapping(value = "/chat")
 public class RoomController {
 
+	private final RoomService service;
 	
 	
+	// 채팅방 목록 조회
+	@GetMapping(value = "/rooms")
+	public ModelAndView rooms() {
+		
+		log.info(" # All Chat Rooms");
+		ModelAndView mv = new ModelAndView("content/rooms");
+		
+		mv.addObject("list", service.findAllRooms());
+		
+		return mv;
+	}
+	
+	// 채팅방 개설
+	@PostMapping(value = "/room")
+	public String create(@RequestParam String name, RedirectAttributes rttr) {
+		
+		log.info("# Create Chat Room , name: " + name);
+		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
+		
+        return "redirect:/chat/rooms";
+	}
+	
+	// 채팅방 들어갈 시
+	@GetMapping("/room")
+	public ModelAndView getRoom(String roomId) {
+        log.info("# get Chat Room, roomID : " + roomId);
+		ModelAndView mv = new ModelAndView("content/room");
+		
+		mv.addObject("room", service.findRoomById(roomId));
+		mv.addObject("roomId", roomId);
+		return mv;
+	}
 }

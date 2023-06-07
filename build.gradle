@@ -46,6 +46,9 @@ dependencies {
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1' //스프링부트 3.0 이상
 	//	openCSV이용을 위한 의존성 추가
 	implementation group: 'com.opencsv', name: 'opencsv', version: '4.4'
+	// https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
+	// @PostConstruct, @PreDestroy 어노테이션 사용을 위한 implementation. 원래 java 9 이상에서는 deprecated되었음.
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'
 }
 
 tasks.named('test') {
