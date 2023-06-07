@@ -26,28 +26,27 @@ public class RoomController {
 	
 	// 채팅방 목록 조회
 	@GetMapping(value = "/rooms")
-	public ModelAndView rooms() {
+	public ModelAndView rooms(String roomType) {
 		
 		log.info(" # All Chat Rooms");
 		ModelAndView mv = new ModelAndView("content/rooms");
-		
-		mv.addObject("list", service.findAllRooms());
+		mv.addObject("list", service.findAllRooms(roomType));
 		
 		return mv;
 	}
 	
 	// 채팅방 개설
 	@PostMapping(value = "/room")
-	public String create(@RequestParam String name, RedirectAttributes rttr) {
-		
-		log.info("# Create Chat Room , name: " + name);
-		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
+	public String create(@ModelAttribute("RoomDto") RoomDto roomDto) {
+		log.info("# Create Chat Room , name: " + roomDto.getRoomName());
+		service.createRoomDto(roomDto);
+//		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
 		
         return "redirect:/chat/rooms";
 	}
 	
 	// 채팅방 들어갈 시
-	@GetMapping("/room")
+	@PostMapping("/enterRoom")
 	public ModelAndView getRoom(String pkRoomSeq) {
         log.info("# get Chat Room, roomSeq : " + pkRoomSeq);
 		ModelAndView mv = new ModelAndView("content/room");
