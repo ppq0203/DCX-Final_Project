@@ -1,0 +1,41 @@
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+
+	<link rel="stylesheet" type="text/css" href="/css/game.css">
+	<link th:href="@{/css/dice.css}" rel="stylesheet">
+	<link th:href="@{/css/dice.img}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/css/game.css">
+	<script th:src="@{/js/dice.js}"></script>
+
+
+
+<style>
+	.swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: 0.25em;
+    background-color: rgb(255, 0, 0);
+    color: #fff;
+    font-size: 1em;
+     width: 130px;
+    height:40px;
+ }
+</style> 
+<!--sweetalert2 홈페이지 참고 했음-->
+<!--Game 화면 모달 창("작성하신 답은 틀렸습니다")-->
+	<script>
+		Swal.fire({
+			title: '',
+			text: '작성하신 답은 틀렸습니다.',
+			imageUrl: 'https://cdn-icons-png.flaticon.com/512/1166/1166522.png',
+			imageWidth: 200,
+			imageHeight: 170,
+			imageAlt: 'Custom image',
+		})
+	</script>
+
+
+</th:block>
+
+</html>

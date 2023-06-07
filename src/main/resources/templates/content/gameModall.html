@@ -1,0 +1,65 @@
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+	
+	<link rel="stylesheet" type="text/css" href="/css/game.css">
+	<link th:href="@{/css/dice.css}" rel="stylesheet">
+	<link th:href="@{/css/dice.img}" rel="stylesheet">
+	<script th:src="@{/js/dice.js}"></script>
+	
+	
+	
+	<!--Game 화면 모달 창("정답 입니다")-->
+	<style>
+	.swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: 0.25em;
+   
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    font-size: 1em;
+    width: 130px;
+    height:40px;
+ }
+ 
+ 
+ .swal2-popup {
+    display: none;
+    position: relative;
+    box-sizing: border-box;
+    grid-template-columns: minmax(0,100%);
+    width: 20em;
+    padding: 0 0 1.25em;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    color: #545454;
+    font-family: inherit;
+    font-size: 1rem;
+}
+ 
+ 
+ 
+</style> 
+	
+	
+<script>
+	
+		Swal.fire({
+			title: '',
+			text: '답 확인 중.....',
+			imageUrl: 'https://cdn-icons-png.flaticon.com/512/8722/8722704.png',
+			imageWidth: 100,
+			imageHeight: 100,
+			imageAlt: 'Custom image',
+			
+
+		})
+		
+		
+	</script>
+
+</th:block>
+
+</html>
