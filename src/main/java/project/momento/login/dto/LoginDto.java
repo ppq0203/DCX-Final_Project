@@ -42,6 +42,8 @@ public class LoginDto {
 	private int pkManagerSeq;
 	/*이미지 경*/
 	private String imgPath;
+	/*이미지 경*/
+	private int pkFileSeq;
 	
 
 }

@@ -40,6 +40,8 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/{userDivn}/login/form", produces = "application/text;charset=utf-8") /* value주소 이름 */
 	public String loginForm(@PathVariable String userDivn, Model model, LoginDto loginDto, HttpServletRequest request) { // 입력값(id,pwd)를																														// 넣기
+		
+		loginDto.setUserDivn(userDivn);
 		LoginDto loginCheck = new LoginDto(); // loginDto 를 체크에넣기
 		loginCheck = loginService.checkLogin(loginDto);
 		if (loginCheck == null) { // loginCheck안에있는 id, pwd에 값이 없으면
