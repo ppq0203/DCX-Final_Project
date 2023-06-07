@@ -76,10 +76,23 @@ public class RoomService {
 		room.getUserList().put(userUUID, message.getPkUserSeq());
 		return userUUID;
 	}
+	
+	public void delUser(String roomId, String userUUID) {
+		// TODO Auto-generated method stub
+		RoomDto room = roomDtoMap.get(roomId);
+		room.getUserList().remove(userUUID);
+	}
 
 	public void getUserList(ChatDto message) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
 		System.out.println(room.getUserList());
+	}
+
+	public String getUserName(String roomId, String userUUID) {
+		// TODO Auto-generated method stub
+		RoomDto room = roomDtoMap.get(roomId);
+
+        return room.getUserList().get(userUUID);
 	}
 }
