@@ -25,13 +25,17 @@ public class RoomDto {
 	
 	private int roomPwd; /*방 입장하는 비밀번호*/
 	
-	private String roomType; /*유저가 게임 종류 선택*/
+	private String roomType; /*팀전/개인전 선택*/
 	
 	private int roomPlay; /*게임 플레이 횟수*/
 	
 	private String roomPlaytime; /*방 시간 설정*/
 	
-	private int roomNumber; /*방 설정 인원*/
+	private int roomNumber; /*팀당 개수*/
+	
+	private int teamNumber; /*팀당 인원*/ //db에 col추가해야함
+	
+	private int roomLevel; /*방 난이도*/ //db에 col추가해야함
 	
 	private String roomId; /*방장 아이디*/
 	

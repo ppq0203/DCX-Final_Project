@@ -5,34 +5,66 @@
     <th:block th:fragment="content">
         <div class="container">
             <div>
-                <ul th:each="room : ${list}">
-                    <li><form th:action="@{/chat/room}" method="get">
-                    <input type="text" name="roomId">
-                    <input type="submit">
-                    </form>[[${room.roomName}]]</li>
-                </ul>
+                <div th:each="room : ${list}">
+                    <form th:action="@{/chat/enterRoom}" method="post">
+	                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
+	                    <input type="hidden" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
+	                    [[${room.roomName}]]
+	                    <input type="submit">
+                    </form>
+                </div>
             </div>
         </div>
-        <form th:action="@{/chat/room}" method="post">
-            <input type="text" name="name" class="form-control">
-            <button class="btn btn-secondary">개설하기</button>
-        </form>
+        <div>
+	        <form th:action="@{/chat/room}" th:object="${RoomDto}" method="post">
+	            제목<input type="text" name="roomName" value="solo" class="form-control"/>
+	            비밀번호<input type="text" name="roomPwd" value="123" class="form-control"/>
+	            개인/팀<input type="text" name="roomType" value="solo" class="form-control"/>
+	            팀수<input type="text" name="roomNumber" value="2" class="form-control"/>
+	            팀당 인원수<input type="text" name="teamNumber" value="2" class="form-control"/>
+	            난이도<input type="text" name="teamNumber" value="1" class="form-control"/>
+	            <button class="btn btn-secondary">개인전 개설하기</button>
+	        </form>
+        </div>
+        <div>
+	        <form th:action="@{/chat/room}" th:object="${RoomDto}" method="post">
+	            제목<input type="text" name="roomName" value="team" class="form-control"/>
+	            비밀번호<input type="text" name="roomPwd" value="123" class="form-control"/>
+	            개인/팀<input type="text" name="roomType" value="team" class="form-control"/>
+	            팀수<input type="text" name="roomNumber" value="2" class="form-control"/>
+	            팀당 인원수<input type="text" name="teamNumber" value="2" class="form-control"/>
+	            난이도<input type="text" name="teamNumber" value="1" class="form-control"/>
+	            <button class="btn btn-secondary">팀전 개설하기</button>
+	        </form>
+	        
+	        <form th:action="@{/chat/rooms}" method="get">
+	            개인/팀<input type="text" name="roomType" value="solo" class="form-control"/>
+	            <button class="btn btn-secondary">개인전 조회하기</button>
+	        </form>
+	        <form th:action="@{/chat/rooms}" method="get">
+	            개인/팀<input type="text" name="roomType" value="team" class="form-control"/>
+	            <button class="btn btn-secondary">팀전 조회하기</button>
+	        </form>
+	        <form th:action="@{/chat/rooms}" method="get">
+	            <button class="btn btn-secondary">전체 조회하기</button>
+	        </form>
+        </div>
     </th:block>
 </th:block>
-        <script th:inline="javascript">
-            $(document).ready(function(){
+<!--        <script th:inline="javascript">-->
+<!--            $(document).ready(function(){-->
 
-                $(".btn-create").on("click", function (e){
-                    e.preventDefault();
+<!--                $(".btn-create").on("click", function (e){-->
+<!--                    e.preventDefault();-->
 
-                    var name = $("input[name='name']").val();
+<!--                    var name = $("input[name='name']").val();-->
 
-                    if(name == "")
-                        alert("Please write the name.")
-                    else
-                        $("form").submit();
-                });
+<!--                    if(name == "")-->
+<!--                        alert("Please write the name.")-->
+<!--                    else-->
+<!--                        $("form").submit();-->
+<!--                });-->
 
-            });
-        </script>
+<!--            });-->
+<!--        </script>-->
 </html>
