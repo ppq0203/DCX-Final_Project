@@ -13,19 +13,20 @@
 			border-spacing: 0;
 			border-collapse: collapse;
 		}
-		.btnlogout{
-				width: 90%;
-				height: 50px;
-				padding: 5px;
-				text-align: center;
-				/*margin: 5px 5px 5px 13px;*/
-				/*border-top-left-radius: 5px;*/
-				border-radius: 5px;
-				background-color : gray;
-				font-size: 20px;
-				font-family: 'DungGeunMo';
-				color : 'Darkgary';
-			}
+
+		.btnlogout {
+			width: 90%;
+			height: 50px;
+			padding: 5px;
+			text-align: center;
+			/*margin: 5px 5px 5px 13px;*/
+			/*border-top-left-radius: 5px;*/
+			border-radius: 5px;
+			background-color: gray;
+			font-size: 20px;
+			font-family: 'DungGeunMo';
+			color: 'Darkgary';
+		}
 
 		.chess-board th {
 			padding: .5em;
@@ -47,7 +48,44 @@
 		.chess-board .dark {
 			background: #000;
 		}
+
+		.giveup {
+			background: red;
+		}
 	</style>
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- 모달 내용 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="col ml-3 pl-2 modal-title text-center total_modal">점수표</h4>
+					<button type="button" class="close pl-0 ml-0" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center">
+						<div>
+							<sapn>총 문제 : 36</sapn>
+						</div>
+						<div>
+							<sapn>푼 문제 : 30</sapn>
+						</div>
+						<div>
+							<sapn>포기 : 6</sapn>
+						</div>
+						<div>
+							<sapn>수학 : 4/5</sapn>
+						</div>
+						<div>
+							<sapn>구현 : 3/3</sapn>
+						</div>
+						<div>
+							<sapn>자료구조 : 3/6</sapn>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="container-lg">
 		<!-- Main content -->
 		<section class="content pt-4 mt-4">
@@ -58,8 +96,9 @@
 							<div class="chess-board">
 								<div class="question_col" th:each="n, m : ${questionList}">
 									<!--<p th:text="${n.pkQuestionSeq}"></p>-->
-									<button type="button" class="btn btn-default btn-outline-secondary" th:onclick='loadQuestion([[${n}]])'
-										data-toggle="modal" data-target="#modal-xl" style="width: 100%; height: 100%; border: none;">
+									<button type="button" class="btn btn-default btn-outline-secondary Question_status"
+										th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal"
+										data-target="#modal-xl" style="width: 100%; height: 100%; border: none;">
 										문제
 									</button>
 								</div>
@@ -68,7 +107,8 @@
 					</div>
 					<div class="col-3">
 						<div class="sticky-top mb-3">
-							<div class="card" style="background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);">
+							<div class="card"
+								style="background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);">
 								<div class="card-header">
 									<!--<button class="btn btn-block btn-primary" onclick="roll()">ROLL
 										THE DICE</button>-->
@@ -98,7 +138,8 @@
 									</div>
 								</div>
 								<div class="card=footer">
-									<div class="card" style="background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);">
+									<div class="card"
+										style="background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);">
 										<button class="btnlogout mx-auto" type="button">나가기</button>
 									</div>
 								</div>
@@ -173,69 +214,85 @@
 						</div>
 						<!-- 기존 코드 끝-->
 						<!-- 진상 코드-->
-						<div class="modal-footer justify-content-between">
-							<button type="button" class="btn btn-default" data-dismiss="modal">포기</button>
-							<button type="button" class="btn btn-primary">등록</button>
-						</div>
+						<form>
+							<div class="modal-footer justify-content-between">
+								<button id="giveup" type="button" class="btn btn-default"
+									data-dismiss="modal">포기</button>
+								<button id="Question_submit" data-dismiss="modal" type="submit"
+									class="btn btn-primary">등록</button>
+							</div>
+						</form>
 						<!-- 진상 코드 끝-->
 					</div>
-
 				</div>
 			</div>
-			<script>
-				$(function () {
-					// CodeMirror
-					CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-						mode: "htmlmixed",
-						theme: "monokai"
-					});
-				})
-			</script>
-			<script th:inline="javascript">
-				//보드 판 테스트
-				/*<![CDATA[*/
-				function loadQuestion(question) {
-					console.log("test");
-					title = question.pkQuestionSeq + "번째 문제";
-					name = question.questionName;
-					contents = question.contents;
-					codeFormat = question.codeFormat;
-					console.log(title);
-					console.log(name);
-					console.log(contents);
-					console.log(codeFormat);
-					$('.modal-title').text(title);
-					$('#questionName').text(name);
-					$('#questionContents').text(contents);
-					$('#Demo').html(codeFormat);
-				}
+		</div>
+	</div>
+	<button type="button" class="btn btn-primary" id="total_modal" data-toggle="modal"
+		data-target="#myModal">임시점수표</button>
+	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+	</script>
+	<script th:inline="javascript">
+		//보드 판 테스트
+		var temp_elem;
+		/*<![CDATA[*/
+		function loadQuestion(elem, question) {
+			console.log("test");
+			title = question.pkQuestionSeq + "번째 문제";
+			name = question.questionName;
+			contents = question.contents;
+			codeFormat = question.codeFormat;
+			console.log(title);
+			console.log(name);
+			console.log(contents);
+			console.log(codeFormat);
+			$('.modal-title').text(title);
+			$('#questionName').text(name);
+			$('#questionContents').text(contents);
+			$('#Demo').html(codeFormat);
+			temp_elem = elem;
+		}
     /*]]>*/
-			</script>
-			<!-- 진상 script -->
-			<script>
-				$(function () {
-					// CodeMirror
-					CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-						mode: "htmlmixed",
-						theme: "monokai"
-					});
-				})
-				console.log(1);
-				var count = 25;
+	</script>
+	<!-- 진상 script -->
+	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+		var count = 25;
 
-				// 생성된 템플릿을 타임리프 템플릿 영역에 추가
+		// 생성된 템플릿을 타임리프 템플릿 영역에 추가
 
-				var line_length = Math.sqrt(count);
-				var gameroom_left_classes = document.getElementsByClassName('question_col');
-				var all_rooms_length = 828;
-				var one_room_length = all_rooms_length / line_length;
-				console.log(all_rooms_length);
-				console.log(one_room_length);
-				for (var i = 0; i < gameroom_left_classes.length; i++) {
-					gameroom_left_classes[i].style.width = one_room_length + "px";
-				}
-
-			</script>
+		var line_length = Math.sqrt(count);
+		var gameroom_left_classes = document.getElementsByClassName('question_col');
+		var all_rooms_length = 828;
+		var one_room_length = all_rooms_length / line_length;
+		for (var i = 0; i < gameroom_left_classes.length; i++) {
+			gameroom_left_classes[i].style.width = one_room_length + "px";
+		}
+		$("#total_modal").click(function () {
+			$(".total_modal").text("점수표");
+		});
+		$('#giveup').click(function () {
+			temp_elem.disabled = true;
+			$(temp_elem).css("background-color", "red");
+		})
+		$('#Question_submit').click(function () {
+			temp_elem.disabled = true;
+			$(temp_elem).css("background-color", "blue");
+		})
+	</script>
 </th:block>
 
 </html>

@@ -17,7 +17,7 @@ import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
 @Controller
-public class gameModalSoloController {
+public class gameModalPwdCancelController {
 	
 	@Autowired
 	private SignService SignService;
@@ -27,9 +27,9 @@ public class gameModalSoloController {
 	 * param
 	 * return contents/studentScreen 받는값
 	 */
-	@RequestMapping(value="/gameModalSolo.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String gameModalSolo( Model model) {
-	    return "content/gameModalSolo";
+	@RequestMapping(value="/gameModalPwdCancel.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String gameModalPwdCancel( Model model) {
+	    return "content/gameModalPwdCancel";
 	}
 	
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+  		<meta charset="UTF-8">
+  		<title>ModalpwdCancel</title>
+  		<link rel="stylesheet" type="text/css" href="">
+		<style>
+			@font-face {
+			font-family: 'DungGeunMo';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+			}
+			.md_container {
+				position: relative;
+				width: 500px;
+				height: 170px;
+				background-color : #843c0c;
+				border-radius: 20px;
+				padding: 10px;
+				margin : 0px;
+				border : 2px solid #843c0c;
+				font-family : 'DungGeunMo';
+				font-size : 25px;
+				color: white;
+				text-align : center;
+				
+			}
+				.md_content {
+					width: 400px;
+					height: 60px;
+					line-height: 50px;
+					padding: 5px;
+					margin : auto;
+					background-color : #fff2cc;
+					border-radius: 10px;
+					position: absolute;
+					top: 44%;
+            		left: 50%;
+					transform: translate(-50%,-50%);
+					font-size : 25px;
+					text-align : center;
+					color : #843c0c;
+					
+
+				}
+			/*btn*/
+			.okbtn{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
+				border-radius: 10px;
+				text-align : center ;
+				background-color : #FFC04D;
+				border-color: #FFC04D;
+				float : left;
+				background-color : #ffe699;
+				position: absolute; 
+				bottom:2px; 
+				left:125px;
+				color : #843c0c;
+			 }
+			.cancelbtn{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
+				border-radius: 10px;
+				text-align : center ;
+				background-color : gray;
+				border-color : darkgray;
+				float : right;
+				position: absolute; 
+				bottom:2px; 
+				right:125px;
+			 }
+		</style>
+	</head>
+	<body>
+		<div class="md_container">비밀번호 확인
+			<button class="okbtn" type="submit">다시입력</button>
+			<button class="cancelbtn" type="reset">취소</button>
+			<div class='md_content'>
+				비밀번호가 맞지 않습니다.	
+			</div>
+		</div>	
+	</body>
+</html>
