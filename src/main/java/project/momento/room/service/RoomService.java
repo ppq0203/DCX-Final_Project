@@ -1,5 +1,6 @@
 package project.momento.room.service;
 
+import project.momento.chat.dto.ChatDto;
 import project.momento.room.dto.RoomDto;
 import project.momento.room.mapper.RoomMapper;
 
@@ -33,25 +34,65 @@ public class RoomService {
 		roomDtoMap = new LinkedHashMap<>();
 	} // init()를 통한 Map 초기화
 	
-	public List<RoomDto> findAllRooms() {
-		List<RoomDto> result = new ArrayList<>(roomDtoMap.values());
-		Collections.reverse(result);
+	public List<RoomDto> findAllRooms(String roomType) {
+		List<RoomDto> rooms = new ArrayList<>(roomDtoMap.values());
+		List<RoomDto> result = new ArrayList<>();
+		for(RoomDto room : rooms)
+		{
+			if (roomType == null)
+			{
+				result.add(room);
+			}
+			else if (roomType.equals(room.getRoomType()))
+			{
+				result.add(room);				
+			}
+		}
+//		Collections.reverse(result);
 		
 		return result;
 	} // 전체 방 찾기
 	
-	public RoomDto findRoomById(String id) {
+	public RoomDto findRoomById(String pkRoomSeq) {
 		
 		for (String key : roomDtoMap.keySet()) {
 			System.out.println(key);
 		}
-		return roomDtoMap.get(id);
+		return roomDtoMap.get(pkRoomSeq);
 	} // ID로 방 찾기 (검색기능)
 	
-	public RoomDto createRoomDto(String name) {
-		RoomDto room = RoomDto.create(name);
-		roomDtoMap.put(room.getRoomName(), room);
+	public RoomDto createRoomDto(RoomDto roomDto) {
+		roomDto.setPkRoomSeq(UUID.randomUUID().toString());
+//		RoomDto room = RoomDto.create(roomDto);
+		roomDtoMap.put(roomDto.getPkRoomSeq(), roomDto);
 		
-		return room;
+		return roomDto;
 	} // 방 생성
+
+	public String addUser(ChatDto message) {
+		// TODO Auto-generated method stub
+		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
+		String userUUID = UUID.randomUUID().toString();
+		room.getUserList().put(userUUID, message.getPkUserSeq());
+		return userUUID;
+	}
+	
+	public void delUser(String roomId, String userUUID) {
+		// TODO Auto-generated method stub
+		RoomDto room = roomDtoMap.get(roomId);
+		room.getUserList().remove(userUUID);
+	}
+
+	public void getUserList(ChatDto message) {
+		// TODO Auto-generated method stub
+		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
+		System.out.println(room.getUserList());
+	}
+
+	public String getUserName(String roomId, String userUUID) {
+		// TODO Auto-generated method stub
+		RoomDto room = roomDtoMap.get(roomId);
+
+        return room.getUserList().get(userUUID);
+	}
 }

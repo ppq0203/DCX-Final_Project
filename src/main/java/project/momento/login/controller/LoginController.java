@@ -46,7 +46,9 @@ public class LoginController {
 			return "content/" + userDivn + "/login/login"; // 로그인화면
 		} else {
 			request.getSession().setAttribute("loginDto", loginCheck); // 아이디 세션에 저장
+			
 			return "redirect:/" + userDivn + "/main";
+			// return "redirect:/"+loginCheck.getUserDivn()+"/main";
 		}
 	}
 

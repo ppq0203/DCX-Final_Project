@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.momento.roomlog.mapper.RoomLogMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+<!-- Heidisql연결후 입력 저장-->
+	<!-- SELECT문 -->
+	<select id="selectRoomLog" resultType="project.momento.roomlog.dto.RoomLogDto">
+		<![CDATA[
+			SELECT
+				PK_ROOM_LOG_SEQ AS PkRoomLogSeq,
+				OBSERVER AS obsever
+			FROM
+				ROOM_LOG
+			WHERE
+				PK_ROOM_LOG_SEQ = #{pkRoomLogSeq}
+		]]>
+	</select>
+	
+	<!-- INSERT문 -->
+	<insert id="insertRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
+		<![CDATA[
+			INSERT INTO ANSWER
+			(
+				PK_ROOM_LOG_SEQ,
+				OBSERVER
+			) 
+			VALUES
+			(
+				ifnull(#{pkRoomLogSeq}, null),
+				#{observer}
+			)
+		]]>
+	</insert>
+	
+	<!-- DELETE문 -->
+	<delete id="deleteRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
+		<![CDATA[
+			DELETE FROM ROOM_LOG
+			WHERE 
+				PK_ROOM_LOG_SEQ = #{pkRoomLogSeq}
+		]]>
+	</delete>
+	
+	<!-- UPDATE문 --> 
+	<update id="updateRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
+		<![CDATA[
+			UPDATE SET
+				ROOM_LOG
+			WHERE
+				PK_ROOM_LOG_SEQ = #{pkRoomLogSeq}
+		]]>
+	</update>
+	
+</mapper>

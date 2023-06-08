@@ -30,4 +30,9 @@ public class NoticeService {
 		return noticeMapper.selectNoticeListCount(cri);
 	}
 
+	public List<NoticeDto> getNoticeList(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		return noticeMapper.getNoticeList(pkEducationSeq);
+	}
+
 }
