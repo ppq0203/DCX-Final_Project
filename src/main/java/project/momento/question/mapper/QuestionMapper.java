@@ -6,12 +6,22 @@ import project.momento.question.dto.QuestionDto;
 
 @Mapper
 public interface QuestionMapper {
+	
+	void insertQuestion(QuestionDto qtDto);
+	
+	List<QuestionDto> selectQuestionList(int pkQuestionSeq);
+
+	
+	
+	
+	
+	
+	
+	List<QuestionDto> selectQuestion(int pkQuestionSeq);
+
 	List<QuestionDto> selectQuestionList();
 
-	static List<QuestionDto> selectQuestion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 }

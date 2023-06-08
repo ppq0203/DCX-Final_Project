@@ -28,9 +28,9 @@ public class QuestionDto {
 	/*클래스명*/   
 	private String className;
 	/*입력값 예시*/
-	private String inPut;
+	private String input;
 	/*출력값 예시*/
-	private String outPut;
+	private String output;
 	/*사용여부*/
 	private String useYn;
 	/*삭제여부*/

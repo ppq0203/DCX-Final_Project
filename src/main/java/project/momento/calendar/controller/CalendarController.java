@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpServletRequest;
 import project.momento.chart.dto.ChartDto;
-import project.momento.chart.service.ChartService;
+import project.momento.chart.service.ChatrService;
 import project.momento.login.dto.LoginDto;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
@@ -32,7 +32,7 @@ public class CalendarController {
 	 */
 	
 	 @Autowired 
-	 private ChartService chartService;
+	 private ChatrService chartService;
 	 
 	/*
 	 * calendar사이트로 이동

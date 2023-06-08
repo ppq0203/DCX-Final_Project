@@ -6,7 +6,7 @@
 <!-- select문 -->
 <mapper namespace="project.momento.question.mapper.QuestionMapper">
 	<!-- INSERT문 -->
-	<insert id="insertQuestion"  parameterType="project.momento.answer.dto.AnswerDto">
+	<insert id="insertQuestion"  parameterType="project.momento.question.dto.QuestionDto">
 		<![CDATA[ 
 			INSERT INTO QUESTION
 			(
@@ -41,8 +41,8 @@
              	*{solution},
              	*{chance},
              	*{className},
-             	*{inPut},
-             	*{outPut},
+             	*{input},
+             	*{output},
              	*{useYn},
              	*{delYn},
              	*{registId},	
@@ -53,7 +53,7 @@
 		]]>	
 	</insert>
 	
-    <select id="selectQuestionList" resultType="project.momento.question.dto.QuestionDto">
+    <select id="selectQuestionlist" parameterType="project.momento.question.dto.QuestionDto">
 		<![CDATA[ 
         	SELECT 
 				PK_QUESTION_SEQ		AS pkQuestionSeq
@@ -66,8 +66,8 @@
              	SOLUTION			AS solution,
              	CHANCE				AS chance,
              	CLASS_NAME			AS className,
-             	INPUT				AS inPut,
-             	OUTPUT				AS outPut,
+             	INPUT				AS input,
+             	OUTPUT				AS output,
              	USE_YN				AS useyYn,
              	DEL_YN				AS delYn,
              	REGIST_ID			AS registId,	
@@ -79,26 +79,26 @@
         	LIMIT 64
         ]]>
     </select>
-    <select id="selectQuestionList" resultType="project.momento.question.dto.QuestionDto">
+    <select id="selectQuestion" parameterType="project.momento.question.dto.QuestionDto" >
     	<![CDATA[ 
     		SELECT DISTINCT 
-	    		A.PK_QUESTION_SEQ,
-				B.QUESTION_NAME,
-				B.LEVEL,
-				B.SCORE,
-				B.TYPE,
-				B.CODE_FORMAT,
-				B.SOLUTION,
-				B.CHANCE,
-				B.CLASS_NAME,
-				B.INPUT,
-				B.OUTPUT,
-				B.USE_YN,
-				B.DEL_YN,
-				B.REGIST_ID,
-				B.REGIST_DT,
-				B.UPDATE_ID,
-				B.UPDATE_DT
+	    		A.PK_QUESTION_SEQ	AS PkQuestionSeq,
+				B.QUESTION_NAME		AS QuestionName,
+				B.LEVEL				AS Level,
+				B.SCORE				AS Score,
+				B.TYPE				AS Type,
+				B.CODE_FORMAT		AS CodeFormat,
+				B.SOLUTION			AS Solution,
+				B.CHANCE			AS Chance ,
+				B.CLASS_NAME		AS ClassName,
+				B.INPUT				AS Input,
+				B.OUTPUT			AS Output,
+				B.USE_YN			AS UseYn,
+				B.DEL_YN			AS DelYn,
+				B.REGIST_ID			AS RegistId,
+				B.REGIST_DT			AS RegistDt,
+				B.UPDATE_ID			AS UpdateId,
+				B.UPDATE_DT			AS UpdateDt
 			FROM 
 				TEST_CASE A
 			INNER
@@ -110,4 +110,24 @@
 		]]>
     </select>
     
+<!--     <select id="selectQuestionList" resultType="project.momento.question.dto.QuestionDto">
+-        SELECT PK_QUESTION_SEQ
+-        	 , QUESTION_NAME
+-             , LEVEL
+-             , SCORE
+-             , TYPE
+-             , CONTENTS
+-             , CODE_FORMAT
+-             , SOLUTION
+-             , CHANCE
+-             , CLASS_NAME
+-             , USE_YN
+-             , DEL_YN
+-             , REGIST_ID
+-             , REGIST_DT
+-             , UPDATE_ID
+-             , UPDATE_DT
+-        FROM QUESTION
+-        LIMIT 64
+		</select> --> 
 </mapper>

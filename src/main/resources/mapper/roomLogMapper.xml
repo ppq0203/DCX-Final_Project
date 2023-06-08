@@ -50,7 +50,7 @@
 	</delete>
 	
 		<!-- DELETE문 -->
-	<delete id="deleteRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
+	<delete id="deleteRoomLog2" parameterType="project.momento.roomlog.dto.RoomLogDto">
 		<![CDATA[
 			DELETE FROM ROOM_LOG
 			WHERE 
