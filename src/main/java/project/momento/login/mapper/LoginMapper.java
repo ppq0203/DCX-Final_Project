@@ -35,6 +35,10 @@ public interface LoginMapper {
 
 	List<LoginDto> getGraduList();
 
+	LoginDto checkLoginStd(LoginDto loginDto);
+
+	LoginDto checkLoginMng(LoginDto loginDto);
+
 }	
 	
 	
