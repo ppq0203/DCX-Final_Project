@@ -36,8 +36,10 @@ public class LoginController {
 	 * 로그인 체크 return contents/loginUp
 	 */
 	@RequestMapping(value = "/{userDivn}/login/form", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String loginForm(@PathVariable String userDivn, Model model, LoginDto loginDto, HttpServletRequest request) { // 입력값(id,pwd)를																														// 넣기
-		
+	public String loginForm(@PathVariable String userDivn, Model model, LoginDto loginDto, HttpServletRequest request) { // 입력값(id,pwd)를
+																															// //
+																															// 넣기
+
 		loginDto.setUserDivn(userDivn);
 		LoginDto loginCheck = new LoginDto(); // loginDto 를 체크에넣기
 		loginCheck = loginService.checkLogin(loginDto);
@@ -114,7 +116,7 @@ public class LoginController {
 			loginService.deleteUser(loginDto);
 		}
 		String userDivn = loginDto.getUserDivn();
-		return "content/"+userDivn+"/main/main";
+		return "content/" + userDivn + "/main/main";
 	}
 
 	@RequestMapping(value = "/userRole.com", produces = "application/text;charset=utf-8")
