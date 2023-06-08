@@ -493,6 +493,14 @@
 					$("#content").css("pointer-events", "all")
 					$("#content").css("opacity", "80%")
 				});
+				
+				$("#msg").keyup(function() {
+					if (event.keyCode == 13) {
+						var msg = document.getElementById("msg");
+                    	stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
+                    	msg.value = '';
+					}
+				});
 			
             });
             
