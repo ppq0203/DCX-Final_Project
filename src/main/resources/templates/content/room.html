@@ -212,6 +212,7 @@
 	        	float: center;
 				margin : 5px;
 				border : 3px solid white;
+				overflow:scroll;
 			}
 			.chat-input{
 				width: 220px;
@@ -368,6 +369,7 @@
                        str += "<b class='fontp'>" + writer + " : " + chatContent + "</b>";
                        str += "</div>";
                        $("#msgArea").append(str);  
+                       $("#msgArea").scrollTop($("#msgArea")[0].scrollHeight);
                    });
                    
                    stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
@@ -501,7 +503,6 @@
                     	msg.value = '';
 					}
 				});
-			
             });
             
             
