@@ -80,7 +80,10 @@
                      + '<i class="far fa-dat-circle nav-icon"></i>'
                      + '<p>' + subjectList[i].subjectName + '</p></a></li>'
                });
-               str += '</ul></li></ul></li>'
+               str += '</ul></li>'
+               if (subjectList.length != 0) {
+				   str += '</ul></li>'
+			   }
                $.each(menuList, function (i) {
                   if (0 == menuList[i].UPPER_MENU_NO) {
                      str += '<li class="nav-item">'

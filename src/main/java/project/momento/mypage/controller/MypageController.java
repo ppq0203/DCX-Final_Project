@@ -47,7 +47,12 @@ public class MypageController {
 		// 세션에서 내 정보를 가져온다
 		LoginDto loginDto = (LoginDto)request.getSession().getAttribute("loginDto");
 		HashMap<String, List<Object>> listAll = new HashMap<String, List<Object>>();
-		List<Object> subjectList = educationService.getEducationList(loginDto.getPkUserSeq());
+		List<Object> subjectList;
+		if (loginDto.getPkAuthSeq() == 3) {
+			subjectList = educationService.getEducationList(loginDto.getPkUserSeq());
+		} else {
+			subjectList = educationService.getEducationListAll();
+		}
 		List<Object> menuList = menuService.getMenuList(loginDto.getPkAuthSeq());
 		listAll.put("subjectList", subjectList);
 		listAll.put("menuList", menuList);
