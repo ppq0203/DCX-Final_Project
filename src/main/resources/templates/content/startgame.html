@@ -2,85 +2,173 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/emptyLayout}">
 <th:block layout:fragment="content">
+	<link th:href="@{/css/gameWaiting.css}" rel="stylesheet">
+	<!-- SweetAlert2 -->
+	<style>
+		@font-face {
+			font-family: 'DungGeunMo';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
 
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  	<!-- SweetAlert2 -->
-  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>		
-		 <style>
-			@font-face {
-				 font-family: 'DungGeunMo';
-				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
-				 font-weight: normal;
-				 font-style: normal;
-			}
+		#container {
+			width: 976px;
+			height: 700px;
+		}
 
-			#container {
-				width: 976px;
-				height: 700px;
-				background-image : url('gameStart.png');
-				background-size : auto ;
-			}
-			.btninfo{
-				width: 300px;
-				height: 70px;
-				padding: 5px;
-				text-align: center;
-				margin: 5px 5px 5px 10px;
-				box-shadow: 2px 2px 2px #282A46;
-				border-radius: 10px;
-				border-color: #c55a11;
-				background-color : #c55a11;
-				font-size: 30px;
-				font-family: 'DungGeunMo';
-				color : white;
-				position: fixed;
-    			top: 400px;
-    			left: 338px;
-				cursor: pointer
-			}			 
-			.btnstart{
-				width: 300px;
-				height: 70px;
-				padding: 5px;
-				text-align: center;
-				margin: 5px 5px 5px 10px;
-				box-shadow: 2px 2px 2px #282A46;
-				border-radius: 10px;
-				border-color: #843c0c;
-				background-color : #843c0c;
-				color : white;				
-				font-size: 45px;
-				font-family: 'DungGeunMo';
-				color : 'Darkgary';
-				position: fixed;
-    			top: 500px;
-    			left: 338px;
-				cursor: pointer
-			}
-			.btninfo:hover{
-				 color : red;
-			 }
-			 .btnstart:hover{
-				 color : red;
-			 }
+		.btninfo {
+			width: 300px;
+			height: 70px;
+			padding: 5px;
+			text-align: center;
+			margin: 5px 5px 5px 10px;
+			box-shadow: 2px 2px 2px #282A46;
+			border-radius: 10px;
+			border-color: #c55a11;
+			background-color: #c55a11;
+			font-size: 30px;
+			font-family: 'DungGeunMo';
+			color: white;
+			position: fixed;
+			top: 400px;
+			left: 338px;
+			cursor: pointer
+		}
 
-	    </style>
+		.btnstart {
+			width: 300px;
+			height: 70px;
+			padding: 5px;
+			text-align: center;
+			margin: 5px 5px 5px 10px;
+			box-shadow: 2px 2px 2px #282A46;
+			border-radius: 10px;
+			border-color: #843c0c;
+			background-color: #843c0c;
+			color: white;
+			font-size: 45px;
+			font-family: 'DungGeunMo';
+			color: 'Darkgary';
+			position: fixed;
+			top: 500px;
+			left: 338px;
+			cursor: pointer
+		}
+
+		.btninfo:hover {
+			color: red;
+		}
+
+		.btnstart:hover {
+			color: red;
+		}
+	</style>
 	</head>
+
 	<body>
-		<div id="container">
-			<button class="btninfo">게임설명</button>
+		<div class="modal fade" id="exampleModalCenter" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form href="#" action="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container2">방만들기
+								<div class='md_content2'>
+
+									<div class='roomleft2'>
+										<p class="left_p2">방 제목</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">같이 게임헤요</p>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p2">비밀번호</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">********</p>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p">개인/팀</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p">
+											<input type="radio" id="solo" name="chk_info" value="solo">개인
+											<input type="radio" id="team" name="chk_info" value="Team">팀
+										</p>
+									</div>
+									<div class="gamemode-team">
+										<div class='roomleft'>
+											<p class="left_p"> 팀 </p>
+										</div>
+										<div class='roomright'>
+											<p class="right_p">
+												<input type="radio" name="chk_info_2" value="2Team">2팀
+												<input type="radio" name="chk_info_2" value="3Team">3팀
+												<input type="radio" name="chk_info_2" value="4Team">4팀
+											</p>
+										</div>
+										<div class='roomleft'>
+											<p class="left_p">팀당인원</p>
+										</div>
+										<div class='roomright'>
+											<p class="right_p">
+												<input type="radio" name="chk_info_3" value="one">1명
+												<input type="radio" name="chk_info_3" value="Tow">2명
+												<input type="radio" name="chk_info_3" value="Three">3명
+												<input type="radio" name="chk_info_3" value="Four">4명
+											</p>
+										</div>
+									</div>
+									<div class="gamemode-solo">
+										<div class='roomleft2'>
+											<p class="left_p">인원</p>
+										</div>
+										<div class='roomright2'>
+											<p class="right_p2">
+												<input type="radio" name="chk_info_3" value="one">1명
+												<input type="radio" name="chk_info_3" value="Tow">2명
+												<input type="radio" name="chk_info_3" value="Three">3명
+												<input type="radio" name="chk_info_3" value="Four">4명
+											</p>
+										</div>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p2">난이도</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">
+											<input type="radio" name="chk_info_4" value="easy">EASY
+											<input type="radio" name="chk_info_4" value="middle">MID
+											<input type="radio" name="chk_info_4" value="hard">HARD
+											<input type="radio" name="chk_info_4" value="romdom">RONDOM
+										</p>
+									</div>
+								</div>
+								<div id='md_footer2'>
+									<button class="madebtn12" type="submit">확인</button>
+									<button class="madebtn22" type="reset" data-dismiss="modal">취소</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+			<button class="btninfo" data-toggle="modal" data-target="#exampleModalCenter">게임설명</button>
 			<button class="btnstart" onclick="location.href='gameroom.html'">START</button>
 		</div>
-		
-	<script>
-    	$(document).on('click', '.btninfo', function(e) {
-      		swal(
-        		'info',
-        		'You clicked the <b style="color:green;">Success</b> button!',
-        		'success'
-      		)
-    	});	
+
+		<script>
+			$(document).on('click', '.btninfo', function (e) {
+				swal(
+					'info',
+					'You clicked the <b style="color:green;">Success</b> button!',
+					'success'
+				)
+			});	
 		</script>
 	</body>
+
 </html>

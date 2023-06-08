@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/emptyLayout}">
-	<th:block layout:fragment="content">
-  	<!--<link rel="stylesheet" type="text/css" href="1.css">-->
-		 <style>
-			@font-face {
-				 font-family: 'DungGeunMo';
-				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
-				 font-weight: normal;
-				 font-style: normal;
-			}
+<th:block layout:fragment="content">
+	<!--<link rel="stylesheet" type="text/css" href="1.css">-->
+	<link th:href="@{/css/gameinTeam.css}" rel="stylesheet">
 
 			#container {
 				width: 976px;
@@ -314,37 +308,72 @@
 					</div>
 					<button class="btn" type="button">시작</button>	
 					<button class="btnlogout" type="button">나가기</button>		
+			<div id="sidebar">
+				<div class="gameinfo">
+					<ul class="no_dot">
+						<li>게임 유형 :</li>
+						<li>난이도 : </li>
+						<li>문제당 시간 : </li>
+						<li>문제 개수 : </li>
+					</ul>
 				</div>
-			
+				<div>
+					<button class="teamchange" type="button">팀 바꾸기</button>
+				</div>
+				<div class="chat-veiw">
+					<p class="fontp">
+						<b class="fontb">>>'Team_03' 방에 입장하셨습니다.</b><br>
+						>>'DCX'님이 입장하셨습니다.<br>
+						>>'스마트'님이 입장하셨습니다.<br>
+					</p>
+				</div>
+				<div class="chat-input">
+					<from><input type="text" id="chat" size=19>
+						<button class="btnchat" type="submit">등록</button>
+					</from>
+
+
+				</div>
+				<button class="btn" type="button">시작</button>
+				<button class="btnlogout" type="button">나가기</button>
+			</div>
+
 			<!--content game -->
-      		<div id="content">
+			<div id="content">
 				<div class="team1">
+					<div class="t1-user1">
+
+					</div>
+					<div class="t1-user1"></div>
 					<div class="t1-user1"></div>
 					<div class="t1-user2"></div>
 					<div class="t1-user1"></div>
-					<div class="t1-user2"></div>
 				</div>
 				<div class="team2">
 					<div class="t2-user1"></div>
-					<div class="t2-user2"></div>
 					<div class="t2-user1"></div>
-					<div class="t2-user2"></div>
+					<div class="t2-user1"></div>
+					<div class="t2-user1"></div>
 				</div>
 				<div class="team3">
 					<div class="t3-user1"></div>
-					<div class="t3-user2"></div>
 					<div class="t3-user1"></div>
-					<div class="t3-user2"></div>
+					<div class="t3-user1"></div>
+					<div class="t3-user1"></div>
 				</div>
 				<div class="team4">
 					<div class="t4-user1"></div>
-					<div class="t4-user2"></div>
 					<div class="t4-user1"></div>
-					<div class="t4-user2"></div>
+					<div class="t4-user1"></div>
+					<div class="t4-user1"></div>
 				</div>
 
+			</div>
 		</div>
-		</div>
+		<script>
+			
+		</script>
 	</body>
-	</th:block>
+</th:block>
+
 </html>
