@@ -42,7 +42,28 @@ public class QnaService {
 
 	public QnaDto selectAsk(String pkAskSeq) {
 		// TODO Auto-generated method stub
+		qnaMapper.qnaCountUp(pkAskSeq);
 		return qnaMapper.selectAsk(pkAskSeq);
+	}
+
+	public List<QnaDto> getAnswerListForMng(SubjectDto subjectDto) {
+		// TODO Auto-generated method stub
+		return qnaMapper.getAnswerListForMng(subjectDto);
+	}
+	
+	public List<QnaDto> getAnswerListForUser(SubjectDto subjectDto) {
+		// TODO Auto-generated method stub
+		return qnaMapper.getAnswerListForUser(subjectDto);
+	}
+
+	public void insertAskAns(QnaDto qnaDto) {
+		// TODO Auto-generated method stub
+		qnaMapper.insertAskAns(qnaDto);
+	}
+
+	public void deleteAskAns(String pkAskAnsSeq) {
+		// TODO Auto-generated method stub
+		qnaMapper.deleteAskAns(pkAskAnsSeq);
 	}
 
 }

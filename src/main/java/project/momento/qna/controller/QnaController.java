@@ -52,7 +52,9 @@ public class QnaController {
 			paging.setTotalCount(total);
 			subjectDto.setCri(cri);
 			List<QnaDto> qnaList = qnaService.getQnaListForMng(subjectDto);
+			List<QnaDto> answerList = qnaService.getAnswerListForMng(subjectDto);
 			mv.addObject("qnaList", qnaList);
+			mv.addObject("answerList", answerList);
 			mv.addObject("cri", cri);
 			mv.addObject("paging", paging);
 			return mv;
@@ -64,18 +66,33 @@ public class QnaController {
 			subjectDto.setCri(cri);
 			subjectDto.setPkUserSeq(loginDto.getPkUserSeq());
 			List<QnaDto> qnaList = qnaService.getQnaListForUser(subjectDto);
+			List<QnaDto> answerList = qnaService.getAnswerListForUser(subjectDto);
 			mv.addObject("qnaList", qnaList);
+			mv.addObject("answerList", answerList);
 			mv.addObject("cri", cri);
 			mv.addObject("paging", paging);
 			return mv;
 		}
 	}
 	
-	@RequestMapping(value="/{userDivn}/qna/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	@RequestMapping(value="/std/qna/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String insertQna(@PathVariable String userDivn, Model model, QnaDto qnaDto) {
 		qnaService.insertQna(qnaDto);
-		System.out.println(qnaDto);
 		return "redirect:/std/qna/main";
+	}
+	
+	@RequestMapping(value="/mng/askAns/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String insertAskAns(Model model, QnaDto qnaDto) {
+		qnaService.insertAskAns(qnaDto);
+		return "redirect:/mng/qna/main";
+	}
+	
+	@RequestMapping(value="/deleteAskAns", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String deleteAskAns(@RequestBody HashMap<String, Object> map, Model model) {
+		String pkAskAnsSeq = (String) map.get("pkAskAnsSeq");
+		System.out.println(pkAskAnsSeq);
+		qnaService.deleteAskAns(pkAskAnsSeq);
+		return "redirect:/mng/qna/main";
 	}
 	
 	@ResponseBody

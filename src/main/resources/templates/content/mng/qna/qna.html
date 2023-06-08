@@ -39,6 +39,25 @@
 									</button>
 								</td>
 							</tr>
+							<tr th:each="answer : ${answerList}" th:if="${answer.pkAskSeq == qna.pkAskSeq}">
+								<th scope="row"></th>
+								<td th:if="${#strings.length(answer.contents) <= 40}">
+									<a
+										th:text="${#strings.append('↳  ', answer.contents)}">contents</a></td>
+								<td th:unless="${#strings.length(answer.contents) <= 40}">
+									<a
+										th:text="${#strings.append('↳  ', #strings.append(#strings.substring(answer.contents,0,40),'...'))}">contents</a>
+								</td>
+								<td th:text="${answer.registId}"><span>registId</span></td>
+								<td th:text="${answer.registDt}"><span>registDt</span></td>
+								<td><span></span></td>
+								<td>
+									<button th:if="${session.loginDto.userId == answer.registId}" type="button"
+										class="btn btn-danger" th:value="${answer.pkAskAnsSeq}" onclick="deleteAskAns(this)">
+										<span>삭제</span>
+									</button>
+								</td>
+							</tr>
 						</th:block>
 					</tbody>
 				</table>
@@ -78,12 +97,12 @@
 			</div>
 		</div>
 		<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-			<form action="/std/qna/create" method="post">
+			<form action="/mng/askAns/create" method="post">
 				<div class="modal-dialog modal-dialog-cented modal-xl">
 					<div class="modal-content">
 						<div class="col-12 modal-header">
 							<h4 class="col-12 modal-title text-center">Q&A</h4>
-							<input type="hidden" name="pkSubjectSeq" th:value="${session.subjectDto.pkSubjectSeq}">
+							<input id="pkAskSeq" type="hidden" name="pkAskSeq">
 							<input type="hidden" name="registId" th:value="${session.loginDto.userId}">
 						</div>
 						<div class="modal-body">
@@ -93,16 +112,23 @@
 										<div class="form-group">
 											<label>제목</label>
 											<div class="title-append">
-												<input id="title" name="title" type="text" class="form-control">
+												<input id="title" type="text" class="form-control" disabled>
 											</div>
 										</div>
 									</div>
 									<div class="col-sm-12">
 										<div class="form-group">
 											<label>내용</label>
+											<div>
+												<textarea id="summernote" class="form-control" rows="6"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label>답변</label>
 											<div class="textarea-append">
-												<textarea id="summernote" name="contents" class="form-control"
-													rows="6"></textarea>
+												<textarea name="contents" class="form-control" rows="6"></textarea>
 											</div>
 										</div>
 									</div>
@@ -112,7 +138,7 @@
 						<div class="modal-footer justify-content-between">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-primary">
-								<span>등록</span>
+								<span>답변등록</span>
 							</button>
 						</div>
 					</div>
@@ -155,11 +181,11 @@
 				//	}
 				//});
 			})
+			
 			function openAskInfo(arg0) {
 				//$(".title-append").empty();
 				//$(".textarea-append").empty();
 				var buttonValue = arg0.value;
-				console.log(buttonValue);
 				var form = {
 					pkAskSeq: buttonValue
 				};
@@ -170,11 +196,11 @@
 					contentType: "application/json",
 					dataType: "json",
 					success: function (data) {
-
 						$("#summernote").summernote({
 							tabsize: 2,
-							height: 300
+							height: 150
 						});
+						$("#pkAskSeq").val(data.pkAskSeq);
 						$("#title").val(data.title);
 						$("#summernote").summernote('code', data.contents);
 					},
@@ -182,6 +208,26 @@
 						alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 					}
 				});
+			}
+			
+			function deleteAskAns(arg0) {
+				var buttonValue = arg0.value;
+				var form = {
+					pkAskAnsSeq: buttonValue
+				};
+				$.ajax({
+					type: "POST",
+					url: "/deleteAskAns",
+					data: JSON.stringify(form),
+					contentType: "application/json",
+					success: function (data) {
+						console.log("전송성공");
+					},
+					error: function (request, status, error) {
+						alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+					}
+				});
+				location.reload();
 			}
 
 
