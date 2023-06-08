@@ -18,8 +18,6 @@
 			#container {
 				width: 976px;
 				height: 700px;
-				background-image : url('gameStart.png');
-				background-size : auto ;
 			}
 			.btninfo{
 				width: 300px;
@@ -68,7 +66,7 @@
 	    </style>
 	</head>
 	<body>
-		<div id="container">
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 			<button class="btninfo">게임설명</button>
 			<button class="btnstart" onclick="location.href='gameroom.html'">START</button>
 		</div>
