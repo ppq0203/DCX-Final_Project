@@ -77,12 +77,33 @@
 			  WHERE PK_EXAM_SEQ = #{pkExamSeq}
 	</select>
 	
+	<insert id="insertResult" parameterType="project.momento.exam.dto.ExamDto">
+	    INSERT INTO LMS_EXAM_RESULT
+  			(
+  			PK_EXAM_SEQ
+  			, PK_EXAM_DETAIL_SEQ
+  			, PK_SUBJECT_SEQ
+  			, PK_USER_SEQ
+  			, ANSWER
+  			, REGIST_ID
+  			, REGIST_DT
+  			)
+  		VALUES
+  			(
+  			#{pkExamSeq}
+  			, #{pkExamDetailSeq}
+  			, #{pkSubjectSeq}
+  			, #{pkUserSeq}
+  			, #{answer}
+  			, #{registId}
+  			, SYSDATE()
+  			)
+	</insert>
 	<update id="startExam" parameterType="project.momento.exam.dto.ExamDto">
 		UPDATE LMS_EXAM
 		SET EXAM_DIVN = 'Y'
 		WHERE PK_EXAM_SEQ = #{pkExamSeq}
 	</update>
-	
 	<delete id="deleteExamDetail" parameterType="project.momento.exam.dto.ExamDto">
 		DELETE FROM LMS_EXAM_DETAIL
   		WHERE PK_EXAM_SEQ = #{pkExamSeq}

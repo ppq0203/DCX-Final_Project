@@ -99,7 +99,25 @@ public class ExamController {
 			return "redirect:/" + userDivn + "/" + pkSubjectSeq + "/exam/main";
 		}
 	}
-
+	
+	
+	@RequestMapping(value = "/{userDivn}/exam/result", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String examResult(@PathVariable String userDivn, Criteria cri, Model model, ExamDto examDto, HttpServletRequest request) {
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		String[] answers = examDto.getAnswer().split(",");
+		for(String answer : answers) {
+			examDto.setAnswer(answer);
+			examDto.setPkUserSeq(loginDto.getPkUserSeq());
+			examService.insertResult(examDto);
+		}
+			
+		
+		
+		return "redirect:/" + userDivn + "/"+pkSubjectSeq+"/exam/main";
+	}
+	
 	@RequestMapping(value = "/{userDivn}/exam/delete", produces = "application/text;charset=utf-8") /* value주소 이름 */
 	public String examDelete(@PathVariable String userDivn, Criteria cri, Model model, ExamDto examDto, HttpServletRequest request) {
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");

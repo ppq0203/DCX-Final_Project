@@ -29,4 +29,6 @@ public interface ExamMapper {
 
 	void startExam(ExamDto examDto);
 
+	void insertResult(ExamDto examDto);
+
 }

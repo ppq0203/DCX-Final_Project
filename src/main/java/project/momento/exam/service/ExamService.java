@@ -52,6 +52,11 @@ public class ExamService {
 		examMapper.startExam(examDto);
 	}
 
+	public void insertResult(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.insertResult(examDto);
+	}
+
 	
 	
 }
