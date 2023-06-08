@@ -9,24 +9,70 @@
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<script th:src="@{/js/dice.js}"></script>
 	<style>
+		@font-face {
+			font-family: 'DungGeunMo';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
+		#container {
+			width: 976px;
+			height: 700px;
+			background-size : auto ;
+		}
+	    #content {
+	        width: 665px;
+			height: 560px;
+	        padding: 10px;
+	        float: left;
+			margin-right : 5px;
+			margin-left : 10px;
+			background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+			border-radius: 10px;
+	     }
+	     #sidebar {
+	        width: 250px;
+			height: 570px;
+	        padding: 5px;
+	        float: right;
+			margin-left : 5px;
+			margin-right : 5px;
+			background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+			position: relative;
+			border-radius: 10px;
+	      	}
+		.fontp{
+			font-family : 'DungGeunMo';
+			font-size : 12px;
+			color : white;
+			line-height : 150%;
+		}
+		.fontb{
+			font-family : 'DungGeunMo';
+			font-size : 13px;
+			color : yellow;
+			line-height : 150%;
+		}
+			      			
 		.chess-board {
 			border-spacing: 0;
 			border-collapse: collapse;
 		}
 
-		.btnlogout {
-			width: 90%;
+		.btnlogout{
+			width: 220px;
 			height: 50px;
 			padding: 5px;
 			text-align: center;
-			/*margin: 5px 5px 5px 13px;*/
+			margin: 5px 5px 5px 15px;
 			/*border-top-left-radius: 5px;*/
 			border-radius: 5px;
-			background-color: gray;
+			background-color : gray;
 			font-size: 20px;
 			font-family: 'DungGeunMo';
-			color: 'Darkgary';
-		}
+			color : 'Darkgary';
+			}
+
 
 		.chess-board th {
 			padding: .5em;
@@ -52,6 +98,32 @@
 		.giveup {
 			background: red;
 		}
+		.side_User{
+        	width: 220px;
+			height: 200px;
+        	padding: 10px;
+        	float: center;
+			text-align: center;
+            justify-content: center;
+			margin-top : 10px;
+			margin-bottom : 5px;
+			margin-left : 5px;
+			margin-right : 5px;
+			border-radius: 20px;
+			/*border-top-left-radius: 5px;*/
+   			border-radius: 5px;
+			background-color : #c55a11;
+			font-family : 'DungGeunMo';
+			line-height : 150%;
+		}
+		.chat-veiw{
+	       	width: 220px;
+			height: 250px;
+	       	padding: 5px;
+	       	float: center;
+			margin : 5px;
+			border : 3px solid white;
+		}			
 	</style>
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -86,9 +158,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-lg">
+	<div class="container">
 		<!-- Main content -->
-		<section class="content pt-4 mt-4">
+		<div class="content">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-9">
