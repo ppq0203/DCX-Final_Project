@@ -24,8 +24,8 @@ public class MonopolyController {
 	@ResponseBody
 	public ModelAndView selectQuestionList(QuestionDto questionDto) {
 		ModelAndView mv = new ModelAndView();
-		List<QuestionDto> questionList = questionService.selectQuestionList();
-		mv.addObject("questionList", questionList);
+//		List<QuestionDto> questionList = questionService.selectQuestionList();
+//		mv.addObject("questionList", questionList);
 		mv.setViewName("content/game");
 		return mv;
 	}
