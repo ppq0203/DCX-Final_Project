@@ -316,6 +316,17 @@
 			$(temp_elem).css("background-color", "red");
 		})
 		$('#Question_submit').click(function () {
+			var obj = $("#Demo").val();
+			$.ajax({
+				type: "POST",
+				url: "sendAnswer",
+				data: JSON.stringify(obj),
+				success: function (data) {
+					console.log("test");
+				},
+				error: function () {
+				}
+			});
 			temp_elem.disabled = true;
 			$(temp_elem).css("background-color", "blue");
 		})

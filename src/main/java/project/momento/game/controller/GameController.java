@@ -1,11 +1,14 @@
 package project.momento.game.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.momento.question.dto.QuestionDto;
@@ -40,4 +43,11 @@ public class GameController {
 		mav.setViewName("content/game"); // view 지정
 		return mav;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/sendAnswer", produces="application/json;charset=utf-8", method=RequestMethod.POST)
+	public void test(@RequestParam Map<String, Object> param) {
+		System.out.println(param);
+	}
+	
 }
