@@ -108,5 +108,10 @@ public class EducationService {
 		educationMapper.deleteEducation(pkEducationSeq);
 	}
 
+	public List<Object> getEducationListAll() {
+		// TODO Auto-generated method stub
+		return educationMapper.getEducationListAll();
+	}
+
 	
 }
