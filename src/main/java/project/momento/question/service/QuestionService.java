@@ -12,21 +12,26 @@ import project.momento.question.dto.QuestionDto;
 public class QuestionService {
 	
 	@Autowired
-	private static QuestionMapper questionMapper;
+	private QuestionMapper questionMapper;
 
-	public static void insertQuestion(QuestionDto qtDto) {
-		// TODO Auto-generated method stub
-		questionMapper.insertQuestion(qtDto);
-	}
+//	public void insertQuestion(QuestionDto qtDto) {
+//		// TODO Auto-generated method stub
+//		questionMapper.insertQuestion(qtDto);
+//	}
 
-	public List<QuestionDto> selectQuestion(int pkQuestionSeq) {
-		// TODO Auto-generated method stub
-		return questionMapper.selectQuestion(pkQuestionSeq);
-	}
+//	public List<QuestionDto> selectQuestion(String levels, int probNum) {
+//		// TODO Auto-generated method stub
+////		return questionMapper.selectQuestion(levels, probNum);
+//	}
 
 	public List<QuestionDto> selectQuestionList() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<QuestionDto> selectQuestion(QuestionDto qtDto) {
+		// TODO Auto-generated method stub
+		return questionMapper.selectQuestion(qtDto);
 	}
 	
 

@@ -43,5 +43,9 @@ public class QuestionDto {
 	private String updateId;   
 	/*수정 일자*/   
 	private String updateDt;
+
+	private String[] levels;
+	
+	private int probNum;
 	
 }

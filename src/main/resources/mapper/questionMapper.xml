@@ -1,59 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-
-
-<!-- select문 -->
 <mapper namespace="project.momento.question.mapper.QuestionMapper">
-	<!-- INSERT문 -->
-	<insert id="insertQuestion"  parameterType="project.momento.question.dto.QuestionDto">
-		<![CDATA[ 
-			INSERT INTO QUESTION
-			(
-				PK_QUESTION_SEQ,
-				QUESTION_NAME,
-            	LEVEL,
-             	SCORE,
-             	TYPE,
-             	CONTENTS,
-             	CODE_FORMAT,
-             	SOLUTION,
-             	CHANCE,
-             	CLASS_NAME,
-             	INPUT,
-             	OUTPUT,
-             	USE_YN,
-             	DEL_YN,
-             	REGIST_ID,	
-             	REGIST_DT,
-             	UPDATE_ID,
-             	UPDATE_DT
-			)
-			VALUES
-			(
-				*{pkQuestionSeq},
-				*{questionName},
-            	*{level},
-             	*{score},
-             	*{type},
-             	*{contents},
-             	*{codeFormat},
-             	*{solution},
-             	*{chance},
-             	*{className},
-             	*{input},
-             	*{output},
-             	*{useYn},
-             	*{delYn},
-             	*{registId},	
-             	*{registDt},
-             	*{updateId},
-             	*{updateDt}
-			)
-		]]>	
-	</insert>
-	
-    <select id="selectQuestionlist" parameterType="project.momento.question.dto.QuestionDto">
+	<select id="selectQuestionlist" parameterType="project.momento.question.dto.QuestionDto">
 		<![CDATA[ 
         	SELECT 
 				PK_QUESTION_SEQ		AS pkQuestionSeq
@@ -78,56 +26,35 @@
         		QUESTION
         	LIMIT 64
         ]]>
-    </select>
-    <select id="selectQuestion" parameterType="project.momento.question.dto.QuestionDto" >
-    	<![CDATA[ 
-    		SELECT DISTINCT 
-	    		A.PK_QUESTION_SEQ	AS PkQuestionSeq,
-				B.QUESTION_NAME		AS QuestionName,
-				B.LEVEL				AS Level,
-				B.SCORE				AS Score,
-				B.TYPE				AS Type,
-				B.CODE_FORMAT		AS CodeFormat,
-				B.SOLUTION			AS Solution,
-				B.CHANCE			AS Chance ,
-				B.CLASS_NAME		AS ClassName,
-				B.INPUT				AS Input,
-				B.OUTPUT			AS Output,
-				B.USE_YN			AS UseYn,
-				B.DEL_YN			AS DelYn,
-				B.REGIST_ID			AS RegistId,
-				B.REGIST_DT			AS RegistDt,
-				B.UPDATE_ID			AS UpdateId,
-				B.UPDATE_DT			AS UpdateDt
+	</select>
+	<select id="selectQuestion" parameterType="project.momento.question.dto.QuestionDto" resultType="project.momento.question.dto.QuestionDto">
+		SELECT  
+			    B.PK_QUESTION_SEQ AS PkQuestionSeq,
+			    B.QUESTION_NAME AS QuestionName,
+			    B.LEVEL AS Level,
+			    B.SCORE AS Score,
+			    B.TYPE AS Type,
+			    B.CODE_FORMAT AS CodeFormat,
+			    B.SOLUTION AS Solution,
+			    B.CHANCE AS Chance,
+			    B.CLASS_NAME AS ClassName,
+			    B.INPUT AS Input,
+			    B.OUTPUT AS Output,
+			    B.USE_YN AS UseYn,
+			    B.DEL_YN AS DelYn,
+			    B.REGIST_ID AS RegistId,
+			    B.REGIST_DT AS RegistDt,
+			    B.UPDATE_ID AS UpdateId,
+			    B.UPDATE_DT AS UpdateDt
 			FROM 
-				TEST_CASE A
-			INNER
-				JOIN QUESTION B
-			ON 	
-				A.PK_QUESTION_SEQ = B.PK_QUESTION_SEQ
+			    QUESTION B	
 			WHERE 
-				LEVEL IN (1,2,3)
-		]]>
-    </select>
-    
-<!--     <select id="selectQuestionList" resultType="project.momento.question.dto.QuestionDto">
--        SELECT PK_QUESTION_SEQ
--        	 , QUESTION_NAME
--             , LEVEL
--             , SCORE
--             , TYPE
--             , CONTENTS
--             , CODE_FORMAT
--             , SOLUTION
--             , CHANCE
--             , CLASS_NAME
--             , USE_YN
--             , DEL_YN
--             , REGIST_ID
--             , REGIST_DT
--             , UPDATE_ID
--             , UPDATE_DT
--        FROM QUESTION
--        LIMIT 64
-		</select> --> 
+			    B.PK_QUESTION_SEQ IN (SELECT WA.PK_QUESTION_SEQ FROM TEST_CASE WA)
+			    AND B.LEVEL IN 
+		<foreach item="item" index="index" collection="levels" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+		
+			ORDER BY RAND() LIMIT #{probNum}
+	</select>
 </mapper>
