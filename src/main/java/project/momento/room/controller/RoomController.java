@@ -54,4 +54,13 @@ public class RoomController {
 		mv.addObject("room", service.findRoomById(pkRoomSeq));
 		return mv;
 	}
+	
+	@PostMapping("/gameMulti")
+	public ModelAndView multiRoom(String pkRoomSeq) {
+		log.info("# get Multi Room, roomSeq : " + pkRoomSeq);
+		ModelAndView mv = new ModelAndView("content/gameMulti");
+		
+		mv.addObject("room", service.findRoomById(pkRoomSeq));
+		return mv;
+	}
 }
