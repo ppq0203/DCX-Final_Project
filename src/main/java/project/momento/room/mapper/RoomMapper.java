@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface RoomMapper {
 	List<RoomDto> findAllRooms();
+	List<RoomDto> createRoom(String roomName);
+	List<RoomDto> findRoomByName(String roomName);
 }

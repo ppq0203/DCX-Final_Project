@@ -16,7 +16,7 @@ public interface LoginMapper {
 	
 	void insertUser(LoginDto loginDto);
 	
-	LoginDto updateUser(LoginDto loginDto);
+	void updateUser(LoginDto loginDto);
 	
 	void deleteUser(LoginDto loginDto);
 	
