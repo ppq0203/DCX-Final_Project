@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block>
+    <th:block th:fragment="content">
+
+        <div class="container">
+            <div class="col-6">
+                <h1>[[${room.roomName}]]</h1>
+            </div>
+            <div>
+                <div id="msgArea" class="col"></div>
+                <div class="col-6">
+                    <div class="input-group mb-3">
+                        <input type="text" id="msg" class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+                            <button class="btn btn-outline-secondary" type="button" id="system-test">방방봐.</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6"></div>
+        </div>
+		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team3">
+			<div style = "text-align: center;"><h1>team2</h1><button id="team3btn">team2로 변경</button></div>
+		</div>
+		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team2">
+			<div style = "text-align: center;"><h1>team1</h1><button id="team2btn">team1로 변경</button></div>
+		</div>
+		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team1">
+			<div style = "text-align: center;"><h1>대기자</h1><button id="team1btn">대기자로 변경</button></div>
+		</div>
+        <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        
+    </th:block>
+</th:block>
+        <script th:inline="javascript">
+            $(document).ready(function(){
+				
+                var roomName = /*[[${room.roomName}]]*/0;
+                var roomId = /*[[${room.pkRoomSeq}]]*/0;
+                var username = "334"
+
+                console.log(roomName + ", " + roomId + ", " + username);
+
+                var sockJs = new SockJS("/stomp/chat");
+                //1. SockJS를 내부에 들고있는 stomp를 내어줌
+                var stomp = Stomp.over(sockJs);
+
+                //2. connection이 맺어지면 실행
+                stomp.connect({}, function (){
+                   console.log("STOMP Connection")
+
+                   //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+                   stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+					   var chatContent = content.chatContent;
+                       var writer = content.pkUserSeq;
+                       var str = '';
+
+                       
+                       str = "<div class='col-6'>";
+                       str += "<div class='alert alert-secondary'>";
+                       str += "<b>" + writer + " : " + chatContent + "</b>";
+                       str += "</div></div>";
+                       $("#msgArea").append(str);  
+                   });
+                   
+                   stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+					   var chatContent = content.chatContent;
+                       var writer = "SYSTEM";
+                       var str = '';
+
+                       str = "<div class='col-sys'>";
+                       str += "<div class='alert alert-secondary'>";
+                       str += "<b style='color:grey'>" + writer + " : " + chatContent + "</b>";
+                       str += "</div></div>";
+                       $("#msgArea").append(str);
+					});
+					
+					stomp.subscribe("/sub/chat/List/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+                       $.each(content, function(index, value){
+						   if($("#team1").children("#" + index + "").length > 0){
+	  						console.log("jquery : 해당 객체 존재함");
+						   }else{
+	    					str = "<div class='col-sys' id = '" + index + "'>";
+                       		str += "<div class='alert alert-secondary'>";
+                       		str += "<b>" + value + "</b>";
+                       		str += "</div></div>";
+                       		$("#" + index + "").remove();
+                       		$("#team1").append(str);
+						   }
+						   console.log(" [+] " + sessionStorage.key(0));
+					   });
+					});
+					
+					stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+                       $.each(content, function(index, value){
+						   if($("#team2").children("#" + index + "").length > 0){
+	  						console.log("jquery : 해당 객체 존재함");
+						   }else{
+	    					str = "<div class='col-sys' id = '" + index + "'>";
+                       		str += "<div class='alert alert-secondary'>";
+                       		str += "<b>" + value + "</b>";
+                       		str += "</div></div>";
+                       		$("#" + index + "").remove();
+                       		$("#team2").append(str);
+						   }
+						   console.log(" [+] " + sessionStorage.key(0));
+					   });
+					});
+					
+					stomp.subscribe("/sub/chat/team2List/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+                       $.each(content, function(index, value){
+						   if($("#team3").children("#" + index + "").length > 0){
+	  						console.log("jquery : 해당 객체 존재함");
+						   }else{
+	    					str = "<div class='col-sys' id = '" + index + "'>";
+                       		str += "<div class='alert alert-secondary'>";
+                       		str += "<b>" + value + "</b>";
+                       		str += "</div></div>";
+                       		$("#" + index + "").remove();
+                       		$("#team3").append(str);
+						   }
+						   console.log(" [+] " + sessionStorage.key(0));
+					   });
+					});
+					
+					stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
+                       var content = chat.body;
+                       console.log(content);
+                       $("#" + content + "").remove();
+					});
+					
+                   //3. send(path, header, message)로 메세지를 보낼 수 있음
+                   stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: username}))
+                });
+                
+                $("#team1btn").on("click", function(e){
+					//$(document).getElementById()
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId}))
+				})
+				
+				$("#team2btn").on("click", function(e){
+					//$(document).getElementById()
+					stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				})
+				
+				$("#team3btn").on("click", function(e){
+					//$(document).getElementById()
+					stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				})
+                
+                $("#system-test").on("click", function(e){
+					stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId}))
+				})
+
+                $("#button-send").on("click", function(e){
+                    var msg = document.getElementById("msg");
+
+                    console.log(username + ":" + msg.value);
+                    stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
+                    msg.value = '';
+                });
+            });
+        </script>
+</html>

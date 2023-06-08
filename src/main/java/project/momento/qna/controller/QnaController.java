@@ -83,6 +83,7 @@ public class QnaController {
 	
 	@RequestMapping(value="/mng/askAns/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String insertAskAns(Model model, QnaDto qnaDto) {
+		System.out.println(qnaDto);
 		qnaService.insertAskAns(qnaDto);
 		return "redirect:/mng/qna/main";
 	}

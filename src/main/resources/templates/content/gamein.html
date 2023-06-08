@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+	<link th:href="@{/css/gamein.css}" rel="stylesheet">
+
+	<body>
+		<div id="container">
+			<div id="header"></div>
+
+			<!--side right -->
+			<div id="sidebar">
+				<div class="gameinfo">
+					<ul class="no_dot">
+						<li>게임 유형 :</li>
+						<li>난이도 : </li>
+						<li>문제당 시간 : </li>
+						<li>문제 개수 : </li>
+					</ul>
+				</div>
+				<div class="chat-veiw">
+					<p class="fontp">
+						<b class="fontb">>>'Solo_03' 방에 입장하셨습니다.</b><br>
+						>>'DCX'님이 입장하셨습니다.<br>
+						>>'스마트'님이 입장하셨습니다.<br>
+					</p>
+				</div>
+				<div class="chat-input">
+					<from><input type="text" id="chat" size=19>
+						<button class="btnchat" type="submit">등록</button>
+					</from>
+
+
+				</div>
+				<button class="btn" type="button">시작</button>
+				<button class="btnlogout" type="button">나가기</button>
+			</div>
+
+			<!--content game -->
+			<div id="content">
+				<div class="user-all" id="user-all">
+					<div class="user1"></div>
+					<div class="user2"></div>
+					<div class="user3"></div>
+					<div class="user4"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</th:block>
+
+</html>
