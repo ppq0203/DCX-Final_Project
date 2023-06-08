@@ -15,11 +15,11 @@ public interface EducationMapper {
 	List<EducationDto> selectEducationList(Criteria cri);
 
 	int selectEducationCount(Criteria cri);
+	
+	List<EducationDto> selectSubjectList(EducationDto educationDto);
 
-	List<EducationDto> selectSubjectList(int pkEducationSeq);
-
-	List<EducationDto> selectEducationStudList(int pkEducationSeq);
-
+	List<EducationDto> selectEducationStudList(EducationDto educationDto);
+	
 	int insertEducation(EducationDto educationDto);
 
 	void insertEducationStud(EducationDto educationDto);
@@ -35,4 +35,7 @@ public interface EducationMapper {
 	void deleteSubject(int pkEducationSeq);
 
 	void deleteEducation(int pkEducationSeq);
+
+	List<Object> getEducationListAll();
+	
 }

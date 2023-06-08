@@ -4,11 +4,13 @@ package project.momento.login.dto;
 import org.springframework.context.annotation.PropertySource;
 
 import lombok.Data;
+import project.momento.page.Criteria;
+import project.momento.page.Paging;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
 /*사용자 관리*/
-public class LoginDto {
+public class LoginDto extends Paging {
 	
 	/*사용자 고유식별번호*/
 	private int pkUserSeq;
@@ -42,6 +44,8 @@ public class LoginDto {
 	private int pkManagerSeq;
 	/*이미지 경*/
 	private String imgPath;
+	/*이미지 경*/
+	private int pkFileSeq;
 	
 
 }

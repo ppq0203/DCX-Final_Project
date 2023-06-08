@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdSubjectLayout}">
+
+<th:block layout:fragment="content">
+	<div class="row">
+		<div class="col-6 p-5">
+			<h2 class="p-2">공지사항</h2>
+			<!-- /.card-header -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="width:50px;">No.</th>
+						<th>제목</th>
+						<th>등록자</th>
+						<th>등록일자</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+		<div class="col-6 p-5">
+			<h2 class="p-2">과제제출</h2>
+			<!-- /.card-header -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="width:50px;">No.</th>
+						<th>제목</th>
+						<th>등록자</th>
+						<th>등록일자</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+		<div class="col-12 p-5">
+			<h2 class="p-2">강의정보</h2>
+			<div class="card-tools">
+			</div>
+			<!-- /.card-header -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">날짜</th>
+						<th scope="col">과목명</th>
+						<th scope="col">강좌명</th>
+						<th scope="col">강의자료</th>
+						<th scope="col">과제답안</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td><button type="button" class="btn btn-link">2023-05-30</button>
+						</td>
+						<td><span>Client</span></td>
+						<td><span>1</span></td>
+						<td><i class="fas fa-download"></i>
+						</td>
+						<td><i class="fas fa-download"></i>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td><button type="button" class="btn btn-link">2023-05-30</button>
+						</td>
+						<td><span>Client</span></td>
+						<td><span>2</span></td>
+						<td><i class="fas fa-download"></i>
+						</td>
+						<td><i class="fas fa-download"></i>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td><button type="button" class="btn btn-link">2023-05-30</button>
+						</td>
+						<td><span>Client</span></td>
+						<td><span>3</span></td>
+						<td><i class="fas fa-download"></i>
+						</td>
+						<td><i class="fas fa-download"></i>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">4</th>
+						<td><button type="button" class="btn btn-link">날짜 링크연결</button>
+						</td>
+						<td><span>Client</span></td>
+						<td><span>4</span></td>
+						<td><i class="fas fa-download"></i>
+						</td>
+						<td><i class="fas fa-download"></i>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<form action="/std/notice/create" method="post">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<h4 class="col-12 modal-title text-center">공지사항</h4>
+						<input type="hidden">
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>제목</label>
+										<input name="title" type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>내용</label>
+										<textarea id="summernote" name="contents" class="form-control"
+											rows="6"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">
+							<span>등록</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+		var SUBJECT_ARRAY = [];
+		$(document).ready(function () {
+			// Summernote
+			$('#summernote').summernote({
+				tabsize: 2,
+				height: 300
+			});
+
+			$('.modal').on('shown.bs.modal', function (e) {
+				// 모달이 열릴 때 실행되는 코드
+				$(this).find('form')[0].reset(); // 입력 필드 초기화
+			});
+
+			$('.modal').on('hidden.bs.modal', function (e) {
+				// 모달이 닫힐 때 실행되는 코드
+				$(this).find('form')[0].reset(); // 입력 필드 초기화
+				$('#summernote').summernote('code', ''); // 에디터 초기화
+			});
+			//$.ajax({
+			//	type: "POST",
+			//	url: "/getSubjectList",
+			//	dataType: "json",
+			//	success: function (data) {
+			//		$.each(data, function (index, item) {
+			//			SUBJECT_ARRAY.push(
+			//				{
+			//					"id": item.pkSubjectSeq,
+			//					"text": item.subjectName
+			//				}
+			//			);
+			//		});
+			//		$('.select2').select2({
+			//			data: SUBJECT_ARRAY
+			//		})
+			//	},
+			//	error: function () {
+			//	}
+			//});
+		})
+
+
+	</script>
+</th:block>
+
+</html>
