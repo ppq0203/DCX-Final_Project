@@ -3,61 +3,55 @@
 
 <mapper namespace="project.momento.answer.mapper.AnswerMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 <!-- Heidisql연결후 입력 저장-->
-	<!-- SELECT문 -->
-	<select id="selectAnswer" resultType="project.momento.answer.dto.AnswerDto">
-		<![CDATA[
-			SELECT
-				ANSWERU_SER AS AnswerSer,
-				ANSWER_QN AS AnswerQn,
-				ANSWER_OX AS AnsweROx,
-				REGIST_ID AS RegistId,
-				REGIST_DT AS RegistDt,
-				UPDATE_ID AS UpdateId,
-				UPDATE_DT AS UpdateDt
-			FROM 
-				USER_ANSWER
-			WHERE
-				PK_ANSWER_SEQ = #{pkAnswerSeq}
-		]]>
-	</select>
-	
-	<!-- INSERT문 -->
+	<!-- INSERT문 --> 
+	<!-- 모든 커리 넣어줄것 자동생성 제외 -->
 	<insert id="insertAnswer" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			INSERT INTO ANSWER
 			(
-				PK_ANSWER_SEQ,
-				PK_QUSTION_SEQ,
+				PK_QUESTION_SEQ,
 				PK_USER_SEQ,
 				ANSWER_USER,
-				ANSWER_Qn,
 				ANSWER_OX,
-				REGIST_ID,
-				REGIST_DT,
-				UPDATE_ID,
-				UPDATE_DT
+				REGIST_DT
 			) 
 			VALUES
 			(
-				ifnull(#{pkAnswerSeq}, null),
+				#{pkQuesTionSeq},
+				#{pkUserSeq},
 				#{answerUser},
-				#{answerQn}
-				#{answerOx},
-				#{registId},
-				#{registDt},
-				#{updateId},
-				#{updateDt}
+				#{answerOX},
+				#{registDt}
 			)
-			ON DUPLICATE KEY UPDATE
-			ANSWER_OX = IF( ANSWER_USER = ANSWER_QN, 'O', 'X' )
 			
 		]]>
 	</insert>
 	
+	<!-- SELECT문 -->             <!-- 정보내려주기 -->                               <!-- 정보 받아오기 -->
+	<!-- SELECT에 다 넣기 -->
+	<select id="selectAnswer" resultType="project.momento.answer.dto.AnswerDto" parameterType="int">
+		<![CDATA[
+			SELECT
+				PK_ANSWER_SEQ 		AS PkAnswerSeq,
+				PK_QUESTION_SEQ		AS pkQuesTionSeq,
+				PK_USER_SEQ			AS pkUserSeq,
+				ANSWER_USER			AS answerUser,
+				ANSWER_OX 			AS answerOx,
+				REGIST_DT 			AS registDt
+			FROM 
+				ANSWER
+			WHERE
+				PK_USER_SEQ = #{pkUserSeq}
+		]]>
+	</select>
+	
+
+	
 	<!-- DELETE문 -->
 	<delete id="deleteAnswer" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
-			DELETE FROM ANSWER
+			DELETE FROM 
+				ANSWER
 			WHERE
 				PK_ANSWER_SEQ = #{pkAnswerSeq}
 		]]>
@@ -66,11 +60,12 @@
 	<!-- UPDATE문 --> 
 	<update id="updateAnswer" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
-			UPDATE SET
-				USER_ANSWER
+			UPDATE
+				ANSWER
+			SET
+				ANSWER_OX = #{answerOX}
 			WHERE
-				UPDATE_ID = #{updateId},
-				UPDATE_DT = #{updateDt}
+				PK_ANSWER_SEQ = #{pkAnswerSeq}
 		]]>
 	</update>
 	

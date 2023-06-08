@@ -1,0 +1,813 @@
+			@font-face {
+				font-family: 'DungGeunMo';
+				src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+				font-weight: normal;
+				font-style: normal;
+			}
+
+			p {
+				margin: 0px;
+			}
+
+			#container {
+				width: 976px;
+				height: 700px;
+				background-image: url('gameStart.png');
+				background-size: auto;
+			}
+
+			#header {
+				padding: 10px;
+				height: 70px;
+			}
+
+			#content {
+				width: 659px;
+				height: 560px;
+				padding: 10px;
+				float: left;
+				margin-right: 5px;
+				margin-left: 10px;
+				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+				border-radius: 10px;
+			}
+
+			#sidebar {
+				width: 250px;
+				height: 570px;
+				padding: 5px;
+				float: right;
+				margin-left: 5px;
+				margin-right: 5px;
+				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+				position: relative;
+				border-radius: 10px;
+
+			}
+
+			#footer {
+				padding: 10px;
+				height: 70px;
+			}
+
+			/*content*/
+			/*Tab*/
+			content#tabwrap {
+				background: #F2EDD7;
+				border-radius: 10px;
+				/*테두리 둥글게*/
+				width: 95%;
+				height: 97%;
+				position: absolute;
+				top: 10%;
+				left: 10%;
+				padding: 25px;
+				font-family: 'DungGeunMo';
+			}
+
+			.menu1,
+			.menu2,
+			.menu3 {
+				position: relative;
+				background: #007351;
+				border: none;
+				outline: 0;
+				width: 210px;
+				height: 70px;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				padding: 0;
+				cursor: pointer;
+				color: #00C484;
+				font-size: 18px;
+				font-family: 'DungGeunMo';
+			}
+
+			.menu1.on,
+			.menu1:hover {
+				background: #00C484;
+				color: white;
+				border: 1px solid #007351
+			}
+
+			.menu2.on,
+			.menu2:hover {
+				background: #007351;
+				color: white;
+				border: 1px solid #007351
+			}
+
+			.menu3.on,
+			.menu3:hover {
+				background: #007351;
+				color: white;
+				border: 1px solid #007351
+			}
+
+			.all,
+			.team,
+			.solo {
+				display: none;
+				margin-top: 0px;
+				padding: 10px;
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+				height: 465px;
+				border: 1px solid #007351;
+				border-bottom: 2px solid #007351;
+				overflow: auto;
+				/*스크롤바 넣기*/
+				overflow-x: hidden;
+				/*스크롤바 가로 안보이게 하기*/
+				font-family: 'DungGeunMo';
+			}
+
+			.menu1.on~.all {
+				display: block;
+			}
+
+			.menu2.on~.team {
+				display: block;
+			}
+
+			.menu3.on~.solo {
+				display: block;
+			}
+
+			.all {
+				background: #00C484;
+				color: #00539C;
+			}
+
+			.team {
+				background: #00C484;
+				color: #161B21;
+			}
+
+			.solo {
+				background: #00C484;
+				color: #161B21;
+			}
+
+			.fillter {
+				width: 100%;
+				height: 39px;
+			}
+
+			.fbtn {
+				width: 90px;
+				height: 25px;
+				padding: 0px;
+				text-align: center;
+				margin: 5px 5px auto;
+				float: left;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 5px;
+				background-color: #00C484;
+				font-size: 14px;
+				font-family: 'DungGeunMo';
+				cursor: pointer;
+				box-shadow: 2px 2px 2px #282A46;
+
+			}
+
+			.refresh {
+				width: 90px;
+				height: 25px;
+				padding: 0px;
+				text-align: center;
+				margin: 5px 20px auto;
+				float: right;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 5px;
+				background-color: #00C484;
+				font-size: 14px;
+				font-family: 'DungGeunMo';
+				cursor: pointer;
+				box-shadow: 2px 2px 2px #282A46;
+			}
+
+			.gameroom {
+				width: 610px;
+				float: center;
+				font-family: 'DungGeunMo';
+			}
+
+			.M_gameroom_left {
+				width: 285px;
+				height: 100px;
+				margin: 5px;
+				background: white;
+				float: left;
+				border: 3px solid #FFC04D;
+				border-radius: 10px;
+				font-family: 'DungGeunMo';
+
+			}
+
+			.M_gameroom_right {
+				width: 285px;
+				height: 100px;
+				margin: 5px;
+				background: white;
+				float: right;
+				border: 3px solid #FFC04D;
+				border-radius: 10px;
+				font-family: 'DungGeunMo';
+			}
+
+			.S_gameroom_left {
+				width: 285px;
+				height: 100px;
+				margin: 5px;
+				background: white;
+				float: left;
+				border: 3px solid #0070c0;
+				border-radius: 10px;
+				font-family: 'DungGeunMo';
+			}
+
+			.S_gameroom_right {
+				width: 285px;
+				height: 100px;
+				margin: 5px;
+				background: white;
+				float: right;
+				border: 3px solid #0070c0;
+				border-radius: 10px;
+				font-family: 'DungGeunMo';
+			}
+
+			.G_gameroom_left {
+				width: 285px;
+				height: 100px;
+				margin: 5px;
+				background: lightgray;
+				float: left;
+				border: 3px solid gray;
+				border-radius: 10px;
+				font-family: 'DungGeunMo';
+			}
+
+			.G_gameroom_right {
+				width: 285px;
+				height: 100px;
+				margin: 5px;
+				background: lightgray;
+				float: right;
+				border: 3px solid gray;
+				border-radius: 10px;
+				font-family: 'DungGeunMo';
+			}
+
+			.binroom_left {
+				width: 285px;
+				height: 100px;
+				margin: 5px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				float: left;
+				border: 3px solid #007351;
+				border-radius: 10px;
+			}
+
+			.binroom_right {
+				width: 285px;
+				height: 100px;
+				margin: 5px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				float: right;
+				border: 3px solid #007351;
+				border-radius: 10px;
+			}
+
+			.hr_M_dotted {
+				border-top: 3px dotted #FFC04D;
+				color: #FFC04D;
+				margin: 0px;
+
+			}
+
+			.hr_S_dotted {
+				border-top: 3px dotted #0070c0;
+				color: #0070c0;
+				margin: 0px;
+			}
+
+			.hr_G_dotted {
+				border: 0px;
+				border-top: 3px dotted gray;
+			}
+
+			.game_up {
+				width: 175px;
+				height: 26px;
+				font-family: 'DungGeunMo';
+				font-size: 16px;
+				text-align: left;
+				color: black;
+				vertical-align: center;
+				padding: 0px;
+				margin: 5px;
+
+			}
+
+			.game_down {
+				width: 175px;
+				height: 26px;
+				font-family: 'DungGeunMo';
+				font-size: 16px;
+				text-align: left;
+				color: black;
+				vertical-align: bottom;
+				padding: 0px;
+			}
+
+			.startbtn {
+				width: 70px;
+				height: 90px;
+				text-align: center;
+				margin: 3px;
+				float: left;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 10px;
+				background-color: #FFC04D;
+				font-size: 22px;
+				font-family: 'DungGeunMo';
+				cursor: pointer;
+				box-shadow: 3px 3px 3px #BF9039;
+			}
+
+			.startbtn2 {
+				width: 70px;
+				height: 90px;
+				text-align: center;
+				margin: 3px;
+				float: left;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 10px;
+				background-color: #0070c0;
+				font-size: 22px;
+				font-family: 'DungGeunMo';
+				cursor: pointer;
+				box-shadow: 3px 3px 3px #1454C2;
+			}
+
+			.ingbtn {
+				width: 70px;
+				height: 90px;
+				font-family: 'DungGeunMo';
+				margin: 3px;
+				font-size: 22px;
+				border-radius: 10px;
+				text-align: center;
+				background: gray;
+				border: 1px solid gray;
+				float: left;
+			}
+
+			.M_gameroom_left left {
+				height: 90px;
+				margin: 0px;
+				padding: 0px;
+				float: left;
+			}
+
+			.M_gameroom_left right {
+				height: 90px;
+				margin: 0px;
+				padding: 0px;
+				float: right;
+			}
+
+			/*side*/
+			.side_User {
+				width: 231px;
+				height: 200px;
+				padding: 10px;
+				float: center;
+				text-align: center;
+				justify-content: center;
+				margin-top: 10px;
+				margin-bottom: 5px;
+				margin-left: 5px;
+				margin-right: 5px;
+				border-radius: 20px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color: #c55a11;
+				font-family: 'DungGeunMo';
+				line-height: 150%;
+			}
+
+
+			/*button icon*/
+			.btnlogoutimg {
+				background-image: url('logouticon.png');
+				float: left;
+				width: 90px;
+				height: 90px;
+				text-align: center;
+				font-size: 20px;
+				margin-left: 10px;
+				margin-right: 10px;
+				border-bottom-left-radius: 5px;
+				border-top-left-radius: 5px;
+				cursor: pointer
+			}
+
+			.btnlogout {
+				width: 233px;
+				height: 100px;
+				padding: 10px;
+				text-align: center;
+				margin: 5px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 5px;
+				background-color: #c55a11;
+				font-size: 23px;
+				font-family: 'DungGeunMo';
+				cursor: pointer
+			}
+
+			.btnlogout p {
+				text-align: center;
+				border-radius: 5px;
+				background-color: #c55a11;
+				font-size: 30px;
+				font-family: 'DungGeunMo';
+				line-height: 100px;
+
+			}
+
+			/*modal*/
+			#modalWrap {
+				position: fixed;
+				/* Stay in place */
+				z-index: 1;
+				/* Sit on top */
+				padding-top: 100px;
+				/* Location of the box */
+				left: 0;
+				top: 0;
+				width: 100%;
+				/* Full width */
+				height: 100%;
+				/* Full height */
+				overflow: auto;
+				/* Enable scroll if needed */
+				background-color: rgba(0, 0, 0, 0.4);
+				/* Black w/ opacity */
+				display: none;
+			}
+
+			#modalBody {
+				width: 500px;
+				height: 300px;
+				padding: 30px 30px;
+				margin: 0 auto;
+				border: 1px solid #777;
+				background-color: #fff;
+			}
+
+			#closeBtn {
+				float: right;
+				font-weight: bold;
+				color: #777;
+				font-size: 25px;
+				cursor: pointer;
+			}
+
+			#img {
+				width: 50px;
+				height: 50px;
+			}
+
+			.md_container {
+				position: relative;
+				width: 500px;
+				height: 240px;
+				background-color: #843c0c;
+				border-radius: 20px;
+				padding: 10px;
+				margin: 0px;
+				border: 2px solid #843c0c;
+				font-family: 'DungGeunMo';
+				font-size: 25px;
+				color: white;
+				text-align: center;
+
+			}
+
+			.md_content {
+				width: 400px;
+				height: 120px;
+				padding: 5px;
+				margin: 0;
+				background-color: #fff2cc;
+				border-radius: 20px;
+				position: absolute;
+				top: 48%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%);
+			}
+
+			.roomleft {
+				width: 80px;
+				height: 40px;
+				float: left;
+				margin: 0px;
+				background-color: #fff2cc;
+				margin: 5px;
+				font-family: 'DungGeunMo';
+				font-size: 18px;
+				text-align: center;
+				vertical-align: bottom;
+				border: 2px solid #843c0c;
+				color: #843c0c;
+			}
+
+			.roomright {
+				width: 290px;
+				height: 40px;
+				float: right;
+				margin: 5px;
+				background-color: #ffe699;
+				font-family: 'DungGeunMo';
+				margin: 5px;
+				border: 2px solid #843c0c;
+
+			}
+
+			.left_p {
+				width: 80px;
+				height: 40px;
+				font-size: 15px;
+				text-align: left;
+				vertical-align: center;
+				color: #843c0c;
+				margin: 7px 5px 5px 5px;
+				padding: 2px;
+				font-weight: bold;
+			}
+
+			.right_p {
+				width: 290px;
+				height: 40px;
+				font-size: 15px;
+				text-align: left;
+				vertical-align: center;
+				color: #843c0c;
+				margin: 7px 5px 5px 5px;
+				padding: 2px;
+			}
+
+			/*btn*/
+			.madebtn1 {
+				width: 100px;
+				height: 50px;
+				font-family: 'DungGeunMo';
+				margin: 5px;
+				font-size: 20px;
+				border-radius: 10px;
+				text-align: center;
+				background: #FFC04D;
+				border: 1px solid #FFC04D;
+				float: left;
+				background-color: #ffe699;
+				position: absolute;
+				bottom: 2px;
+				left: 125px;
+			}
+
+			.madebtn2 {
+				width: 100px;
+				height: 50px;
+				font-family: 'DungGeunMo';
+				margin: 5px;
+				font-size: 20px;
+				border-radius: 10px;
+				text-align: center;
+				background: gray;
+				border: 1px solid gray;
+				float: left;
+				background-color: gray;
+				position: absolute;
+				bottom: 2px;
+				right: 125px;
+			}
+			.md_container2 {
+				position: relative;
+				width: 500px;
+				height: 500px;
+				background-color : #843c0c;
+				border-radius: 20px;
+				padding: 10px;
+				margin : 0px;
+				border : 2px solid #843c0c;
+				font-family : 'DungGeunMo';
+				font-size : 25px;
+				color: white;
+				text-align : center;
+				
+			}
+				.md_content2 {
+					width: 400px;
+					height: 210px;
+					padding: 5px;
+					margin : 0;
+					background-color : #fff2cc;
+					border-radius: 20px;
+					position: absolute;
+					top: 48%;
+            		left: 50%;
+					transform: translateX(-50%) translateY(-50%);
+				}
+				.roomleft2{
+					width: 80px;
+					height: 40px;
+					float: left;
+					margin : 0px;
+					background-color : #fff2cc;
+					margin : 5px;
+					font-family : 'DungGeunMo';
+					font-size : 18px;
+					text-align : center;
+					vertical-align : bottom;
+					border : 2px solid #843c0c;
+					color: #843c0c;
+				}
+				.roomright2{
+					width: 290px;
+					height: 40px;
+					float: right;
+					margin : 5px;
+					background-color : #ffe699;
+					font-family : 'DungGeunMo';
+					margin : 5px;
+					border : 2px solid #843c0c;
+					
+				}
+				.left_p2{
+					width: 80px;
+					height: 40px;
+					font-size : 15px;
+					text-align : left;
+					vertical-align : center;
+					color: #843c0c;
+					margin : 7px 5px 5px 5px;
+					padding : 2px;
+					font-weight : bold;
+				}
+				.right_p2{
+					width: 290px;
+					height: 40px;
+					font-size : 15px;
+					text-align : left;
+					vertical-align : center; 
+					color: #843c0c;
+					margin : 7px 5px 5px 5px;
+					padding : 2px;
+				}
+			.md_footer2{
+        		padding: 10px;
+				height : 70px;				
+			}
+			/*btn*/
+			.madebtn12{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
+				border-radius: 10px;
+				text-align : center ;
+				background : #FFC04D;
+				border : 1px solid #FFC04D;
+				float : left;
+				background-color : #ffe699;
+				position: absolute; 
+				bottom:10px; 
+				left:125px;
+			 }
+			.madebtn22{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
+				border-radius: 10px;
+				text-align : center ;
+				background : gray;
+				border : 1px solid gray;
+				float : left;
+				background-color : gray;
+				position: absolute; 
+				bottom:10px; 
+				right:125px;
+			 }
+			 .md_container3 {
+				position: relative;
+				width: 500px;
+				height: 170px;
+				background-color : #843c0c;
+				border-radius: 20px;
+				padding: 10px;
+				margin : 0px;
+				border : 2px solid #843c0c;
+				font-family : 'DungGeunMo';
+				font-size : 25px;
+				color: white;
+				text-align : center;
+				
+			}
+				.md_content3 {
+					width: 400px;
+					height: 60px;
+					padding: 5px;
+					margin : auto;
+					background-color : #fff2cc;
+					border-radius: 10px;
+					position: absolute;
+					top: 44%;
+            		left: 50%;
+					transform: translate(-50%,-50%);
+
+				}
+				.roomleft3{
+					width: 80px;
+					height: 30px;
+					line-height: 30px;
+					float: left;
+					margin : 0px auto;
+					background-color : #fff2cc;
+					margin : 5px;
+					font-family : 'DungGeunMo';
+					font-size : 16px;
+					text-align : center;
+					border : 2px solid #843c0c;
+					color: #843c0c;
+					padding : 5px 0px 5px 0px;
+				}
+
+
+			/*btn*/
+			.okbtn3{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
+				border-radius: 10px;
+				text-align : center ;
+				background-color : #FFC04D;
+				border-color: #FFC04D;
+				float : left;
+				background-color : #ffe699;
+				position: absolute; 
+				bottom:2px; 
+				left:125px;
+				color : #843c0c;
+			 }
+			.cancelbtn3{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
+				border-radius: 10px;
+				text-align : center ;
+				background-color : gray;
+				border-color : darkgray;
+				float : right;
+				position: absolute; 
+				bottom:2px; 
+				right:125px;
+			 }
+			input[type=password] {
+				width: 290px;
+				height: 30px;
+				line-height: 30px;
+				float: left;
+				margin : 5px;
+				background-color : #ffe699;
+				border: 2px solid #843c0c;
+				float: right;
+				padding : 5px 0px 5px 0px;
+				font-size:25px;
+			}
+			.gamemode-team{
+				display: none;
+			}
+			.gamemode-solo{
+				display: none;
+			}

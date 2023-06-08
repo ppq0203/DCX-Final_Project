@@ -17,19 +17,19 @@ import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
 @Controller
-public class gameModalSoloController {
+public class gameModallawController {
 	
 	@Autowired
 	private SignService SignService;
 	
-	/*
+	/*김정헌
 	 * 학생 화면 페이지 이동
 	 * param
 	 * return contents/studentScreen 받는값
 	 */
-	@RequestMapping(value="/gameModalSolo.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String gameModalSolo( Model model) {
-	    return "content/gameModalSolo";
+	@RequestMapping(value="/gameModallaw.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String gameModall( Model model) {
+	    return "content/gameModallaw";
 	}
 	
 }
