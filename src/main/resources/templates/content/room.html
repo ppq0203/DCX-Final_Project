@@ -1,42 +1,345 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+    <th:block layout:fragment="content">
+ 		<style>
+			@font-face {
+				 font-family: 'DungGeunMo';
+				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+				 font-weight: normal;
+				 font-style: normal;
+			}
 
-<th:block>
-    <th:block th:fragment="content">
+			#container {
+				width: 976px;
+				height: 700px;
+				background-image : url('gameStart.png');
+				background-size : auto ;
+			}
+			#header {
+        		padding: 10px;
+				height : 70px;
+      		}
+	      	#content {
+	        	width: 665px;
+				height: 560px;
+	        	padding: 10px;
+	        	float: left;
+				margin-right : 5px;
+				margin-left : 10px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				border-radius: 10px;
+				pointer-events: none;
+				opacity: 100%;
+	      	}
+	      	#sidebar {
+	        	width: 250px;
+				height: 570px;
+	        	padding: 5px;
+	        	float: right;
+				margin-left : 5px;
+				margin-right : 5px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				position: relative;
+				border-radius: 10px;
+	      	}
+			 .fontp{
+				 font-family : 'DungGeunMo';
+				 font-size : 12px;
+				 color : white;
+				 line-height : 150%;
+			 }
+			 .fontb{
+				 font-family : 'DungGeunMo';
+				 font-size : 13px;
+				 color : yellow;
+				 line-height : 150%;
+			 }
+			 
+			/*content*/
+			/*Tab*/ 
+			.team1{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid #FFC04D;
+				padding: 5px;
+				margin : 0px 5px 2px 8px; 
+			  	/*position: absolute;
+			  	top: 22%;
+			 	left: 10%;
+				margin: -50px 0 0 -50px;
+				padding: 5px; */
+				font-family: 'DungGeunMo';
+			}
+			.t1-user1{
+				background : #FFC04D;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;	
+			 }
+			.t1-change{
+				background : #BF9039;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;	
+			 }			 
+			 
+			.team2{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid #FF652A;
+			  	/* position: absolute;
+			  	top: 22%;
+			 	left: 10%;
+				margin: -50px 0 0 -50px; */
+				margin : 0px 0px 2px 5px; 
+				padding: 5px;
+				font-family: 'DungGeunMo';
+			}
+			.t2-user1{
+				background : #FF652A;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+			 }
+			.t2-change{
+				background : #BF4C1F;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;	
+			 }		
+			.team3{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;				
+				border : 3px solid #1F71C2;
+				margin : 2px 5px 0px 8px; 
+				padding: 5px;			
+			  	/* position: absolute;
+			  	top: 47%;
+			 	left: 25%;
+				margin: -50px 0 0 -50px;
+				padding: 5px; */
+				font-family: 'DungGeunMo';
+			}
+			.t3-user1{
+				background : #4C6ED4;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+			 }
+			.t3-change{
+				background :#1454C2;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;	
+			 }
+			.team4{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid #9BDB6B;
+				padding: 5px;
+				margin : 2px 0px 0px 5px; 
+			  	/* position: absolute;
+			  	top: 47%;
+			 	left: 5%;
+				margin: -50px 0 0 -50px;
+				padding: 5px; */
+				font-family: 'DungGeunMo';
+			}
+			.t4-user1{
+				background : #9BDB6B;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;
+			 }
+			.t4-change{
+				background :#6F9C4C;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 5px ; 
+				padding : 5px;
+				float : left;	
+			 }				 
+			/*side*/
+			.gameinfo{
+				width: 220px;
+				height: 120px;
+	        	padding: 5px;
+	        	float: center;
+				margin : 5px;
+				background-color : white;
+				border : 3px solid white;
+			 }
+			 
+			.chat-view{
+	        	width: 220px;
+				height: 200px;
+	        	padding: 5px;
+	        	float: center;
+				margin : 5px;
+				border : 3px solid white;
+			}
+			.chat-input{
+				width: 220px;
+				height: 23px;
+				padding: 5px;
+	        	float: center;
+				margin : 5px;
+				border : 3px solid white;
+			 }
+			.write{
+				 width : 170px;
+				 height : 20px;
+				 float : left;
+				 border : 1.5px solid white;
+			 }
+			.no_dot {
+				font-family : 'DungGeunMo';
+				font-size : 15px;
+				line-height : 150%;
+				list-style-type: none;
+			}
 
-        <div class="container">
-            <div class="col-6">
-                <h1>[[${room.roomName}]]</h1>
-            </div>
-            <div>
-                <div id="msgArea" class="col"></div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" id="msg" class="form-control">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-                            <button class="btn btn-outline-secondary" type="button" id="system-test">방방봐.</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6"></div>
+			/*button icon*/
+			.btnchat{
+				width: 40px;
+				height: 25px;
+				text-align: center;
+				float: right;
+				background-color : white;
+				font-size: 12px;
+				font-family: 'DungGeunMo';
+				color : #005255;
+			}
+			.teamchange{
+				width: 235px;
+				height: 35px;
+				padding: 5px;
+				text-align: center;
+				margin: 1px 5px 1px 5px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : #32c864;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+			} 
+			.btn{
+				width: 220px;
+				height: 50px;
+				padding: 5px;
+				text-align: center;
+				margin: 3px 5px 5px 10px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : #FFC04D;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : #c55a11;
+			}			 
+			.btnlogout{
+				width: 220px;
+				height: 50px;
+				padding: 5px;
+				text-align: center;
+				margin: 3px 5px 5px 10px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : gray;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : 'Darkgary';
+			}
+
+	    </style>
+        <div class="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+			<div id="header"></div>
+			<!--side right -->
+		    <div id="sidebar">
+				<div class="gameinfo">
+					<ul class="no_dot">
+						<li>게임 유형 :</li>
+						<li>난이도 : </li>
+						<li>문제당 시간 : </li>
+						<li>문제 개수 : </li>
+					</ul>
+				</div>
+				<div>
+					<button class="teamchange" type="button">팀 바꾸기</button>
+				</div>
+				<div class="chat-view" id="msgArea"></div>
+				<div class="chat-input">
+					<from>
+						<input type="text" id="msg" class="form-control">
+						<button class="btnchat" type="button" id="button-send">전송</button>
+					</from>
+				</div>
+				<button class="btn" type="button">시작</button>	
+				<button class="btnlogout" type="button">나가기</button>		
+			</div>
+			<div id="content">
+				<div class="team1" id="team1">
+					<div class="t1-user1"></div>
+					<div class="t1-user2"></div>
+					<div class="t1-user3"></div>
+					<div class="t1-user4"></div>
+				</div>
+				<div class="team2" id="team2">
+					<div class="t2-user1"></div>
+					<div class="t2-user2"></div>
+					<div class="t2-user3"></div>
+					<div class="t2-user4"></div>
+				</div>
+				<div class="team3" id="team3">
+					<div class="t3-user1"></div>
+					<div class="t3-user2"></div>
+					<div class="t3-user3"></div>
+					<div class="t3-user4"></div>
+				</div>
+				<div class="team4" id="team4">
+					<div class="t4-user1"></div>
+					<div class="t4-user2"></div>
+					<div class="t4-user3"></div>
+					<div class="t4-user4"></div>
+				</div>
+			</div>
         </div>
-		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team3">
-			<div style = "text-align: center;"><h1>team2</h1><button id="team3btn">team2로 변경</button></div>
-		</div>
-		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team2">
-			<div style = "text-align: center;"><h1>team1</h1><button id="team2btn">team1로 변경</button></div>
-		</div>
-		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team1">
-			<div style = "text-align: center;"><h1>대기자</h1><button id="team1btn">대기자로 변경</button></div>
-		</div>
         <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        
-    </th:block>
-</th:block>
         <script th:inline="javascript">
             $(document).ready(function(){
 				
@@ -60,24 +363,21 @@
 					   var chatContent = content.chatContent;
                        var writer = content.pkUserSeq;
                        var str = '';
-
                        
                        str = "<div class='col-6'>";
-                       str += "<div class='alert alert-secondary'>";
-                       str += "<b>" + writer + " : " + chatContent + "</b>";
-                       str += "</div></div>";
+                       str += "<b class='fontp'>" + writer + " : " + chatContent + "</b>";
+                       str += "</div>";
                        $("#msgArea").append(str);  
                    });
                    
                    stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
                        var content = JSON.parse(chat.body);
 					   var chatContent = content.chatContent;
-                       var writer = "SYSTEM";
+                       var writer = ">>SYSTEM";
                        var str = '';
 
                        str = "<div class='col-sys'>";
-                       str += "<div class='alert alert-secondary'>";
-                       str += "<b style='color:grey'>" + writer + " : " + chatContent + "</b>";
+                       str += "<b class='fontb'>" + writer + " : " + chatContent + "</b>";
                        str += "</div></div>";
                        $("#msgArea").append(str);
 					});
@@ -89,13 +389,11 @@
 	  						console.log("jquery : 해당 객체 존재함");
 						   }else{
 	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<div class='alert alert-secondary'>";
-                       		str += "<b>" + value + "</b>";
+                       		str += "<b class='fontp'>" + value + "</b>";
                        		str += "</div></div>";
                        		$("#" + index + "").remove();
-                       		$("#team1").append(str);
+                       		$("#team1").children(".t1-user1").append(str);
 						   }
-						   console.log(" [+] " + sessionStorage.key(0));
 					   });
 					});
 					
@@ -105,14 +403,12 @@
 						   if($("#team2").children("#" + index + "").length > 0){
 	  						console.log("jquery : 해당 객체 존재함");
 						   }else{
-	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<div class='alert alert-secondary'>";
-                       		str += "<b>" + value + "</b>";
+	    					str = "<div class='col-sys' id = '" + index + "'>"
+                       		str += "<b class='fontp'>" + value + "</b>";
                        		str += "</div></div>";
                        		$("#" + index + "").remove();
-                       		$("#team2").append(str);
+                       		$("#team2").children(".t2-user1").append(str);
 						   }
-						   console.log(" [+] " + sessionStorage.key(0));
 					   });
 					});
 					
@@ -123,13 +419,26 @@
 	  						console.log("jquery : 해당 객체 존재함");
 						   }else{
 	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<div class='alert alert-secondary'>";
-                       		str += "<b>" + value + "</b>";
+                       		str += "<b class='fontp'>" + value + "</b>";
                        		str += "</div></div>";
                        		$("#" + index + "").remove();
-                       		$("#team3").append(str);
+                       		$("#team3").children(".t3-user1").append(str);
 						   }
-						   console.log(" [+] " + sessionStorage.key(0));
+					   });
+					});
+					
+					stomp.subscribe("/sub/chat/team3List/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+                       $.each(content, function(index, value){
+						   if($("#team4").children("#" + index + "").length > 0){
+	  						console.log("jquery : 해당 객체 존재함");
+						   }else{
+	    					str = "<div class='col-sys' id = '" + index + "'>";
+                       		str += "<b class='fontp'>" + value + "</b>";
+                       		str += "</div></div>";
+                       		$("#" + index + "").remove();
+                       		$("#team4").children(".t4-user1").append(str);
+						   }
 					   });
 					});
 					
@@ -143,19 +452,28 @@
                    stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: username}))
                 });
                 
-                $("#team1btn").on("click", function(e){
-					//$(document).getElementById()
+                $("#team1").on("click", function(e){
 					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId}))
+					$("#content").css("pointer-events", "none")
+					$("#content").css("opacity", "100%")
 				})
 				
-				$("#team2btn").on("click", function(e){
-					//$(document).getElementById()
+				$("#team2").on("click", function(e){
 					stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					$("#content").css("pointer-events", "none")
+					$("#content").css("opacity", "100%")
 				})
 				
-				$("#team3btn").on("click", function(e){
-					//$(document).getElementById()
+				$("#team3").on("click", function(e){
 					stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					$("#content").css("pointer-events", "none")
+					$("#content").css("opacity", "100%")
+				})
+				
+				$("#team4").on("click", function(e){
+					stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					$("#content").css("pointer-events", "none")
+					$("#content").css("opacity", "100%")
 				})
                 
                 $("#system-test").on("click", function(e){
@@ -169,6 +487,18 @@
                     stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
                     msg.value = '';
                 });
+                
+                $(".teamchange").on("click", function(e){
+					console.log("test");
+					$("#content").css("pointer-events", "all")
+					$("#content").css("opacity", "80%")
+				});
+			
             });
+            
+            
+            
         </script>
+    </th:block>
+        
 </html>
