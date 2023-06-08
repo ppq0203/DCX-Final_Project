@@ -47,6 +47,11 @@ public class ExamService {
 		examMapper.deleteExam(examDto);
 	}
 
+	public void startExam(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.startExam(examDto);
+	}
+
 	
 	
 }

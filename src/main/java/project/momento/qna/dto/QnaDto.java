@@ -29,4 +29,7 @@ public class QnaDto {
 	/*수정 일자*/
 	private String updateDt;
 	
+	
+	/*답변 고유 식별번호*/
+	private int pkAskAnsSeq;
 }

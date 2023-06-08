@@ -27,4 +27,6 @@ public interface ExamMapper {
 
 	void deleteExam(ExamDto examDto);
 
+	void startExam(ExamDto examDto);
+
 }

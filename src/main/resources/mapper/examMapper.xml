@@ -43,6 +43,7 @@
 			 SELECT 
 			 	PK_EXAM_SEQ 	AS pkExamSeq,
 		         PK_SUBJECT_SEQ AS pkSubjectSeq,
+		         EXAM_DIVN		AS examDivn,
 		         REGIST_ID 		AS registId,
 		         REGIST_DT 		AS registDt,
 		         UPDATE_ID 		AS updateId,
@@ -53,6 +54,7 @@
 	<select id="selectExamDetailList" parameterType="project.momento.exam.dto.ExamDto" resultType="project.momento.exam.dto.ExamDto">
 			SELECT 
 			 	A.PK_EXAM_SEQ 			AS pkExamSeq
+			 	, A.PK_EXAM_DETAIL_SEQ	AS pkExamDetailSeq
 		         , A.PK_SUBJECT_SEQ 	AS pkSubjectSeq
 		         , A.TITLE				AS title
 		         , A.CONTENTS			AS contents
@@ -74,6 +76,12 @@
 			  ON A.PK_FILE_SEQ = B.PK_FILE_SEQ
 			  WHERE PK_EXAM_SEQ = #{pkExamSeq}
 	</select>
+	
+	<update id="startExam" parameterType="project.momento.exam.dto.ExamDto">
+		UPDATE LMS_EXAM
+		SET EXAM_DIVN = 'Y'
+		WHERE PK_EXAM_SEQ = #{pkExamSeq}
+	</update>
 	
 	<delete id="deleteExamDetail" parameterType="project.momento.exam.dto.ExamDto">
 		DELETE FROM LMS_EXAM_DETAIL

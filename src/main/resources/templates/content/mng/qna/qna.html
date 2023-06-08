@@ -9,182 +9,229 @@
 				<h2 class="p-2">Q&A</h2>
 				<div class="card-tools">
 				</div>
-			</div>
-			<!-- /.card-header -->
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">번호</th>
-						<th scope="col">제목</th>
-						<th scope="col">작성자</th>
-						<th scope="col">날짜</th>
-						<th scope="col">조회수</th>
-						<th scope="col">조회</th>
-					</tr>
-				</thead>
-				<tbody th:if="${qnaList != null}">
-					<th:block th:each="qna, qnaStat : ${qnaList}">
+				<!-- /.card-header -->
+				<table class="table">
+					<thead>
 						<tr>
-							<th scope="row" th:text="((${paging.cri.page}-1)*9)+${qnaStat.count}">no</th>
-							<td th:if="${#strings.length(qna.title) <= 40}"><a th:text="${qna.title}">title</a></td>
-							<td th:unless="${#strings.length(qna.title) <= 40}"><a
-									th:text="${#strings.append(#strings.substring(qna.title,0,40),'...')}">title</a>
-							</td>
-							<td th:text="${qna.registId}"><span>registId</span></td>
-							<td th:text="${qna.registDt}"><span>registDt</span></td>
-							<td th:text="${qna.count}"><span>count</span></td>
-							<td>
-								<button data-toggle="modal" data-target="#modal-xl" type="button"
-									class="btn btn-primary" th:value="${qna.pkAskSeq}" onclick="openAskInfo(this)">
-									<span>조회</span>
-								</button>
-							</td>
+							<th scope="col">번호</th>
+							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
+							<th scope="col">날짜</th>
+							<th scope="col">조회수</th>
+							<th scope="col">조회</th>
 						</tr>
-					</th:block>
-				</tbody>
-			</table>
-			<!-- /.card-body -->
-			<div th:unless="${qnaList != null}" class="card-footer">
+					</thead>
+					<tbody th:if="${qnaList != null}">
+						<th:block th:each="qna, qnaStat : ${qnaList}">
+							<tr>
+								<th scope="row" th:text="((${paging.cri.page}-1)*9)+${qnaStat.count}">no</th>
+								<td th:if="${#strings.length(qna.title) <= 40}"><a th:text="${qna.title}">title</a></td>
+								<td th:unless="${#strings.length(qna.title) <= 40}"><a
+										th:text="${#strings.append(#strings.substring(qna.title,0,40),'...')}">title</a>
+								</td>
+								<td th:text="${qna.registId}"><span>registId</span></td>
+								<td th:text="${qna.registDt}"><span>registDt</span></td>
+								<td th:text="${qna.count}"><span>count</span></td>
+								<td>
+									<button data-toggle="modal" data-target="#modal-xl" type="button"
+										class="btn btn-primary" th:value="${qna.pkAskSeq}" onclick="openAskInfo(this)">
+										<span>조회</span>
+									</button>
+								</td>
+							</tr>
+							<tr th:each="answer : ${answerList}" th:if="${answer.pkAskSeq == qna.pkAskSeq}">
+								<th scope="row"></th>
+								<td th:if="${#strings.length(answer.contents) <= 40}">
+									<a
+										th:text="${#strings.append('↳  ', answer.contents)}">contents</a></td>
+								<td th:unless="${#strings.length(answer.contents) <= 40}">
+									<a
+										th:text="${#strings.append('↳  ', #strings.append(#strings.substring(answer.contents,0,40),'...'))}">contents</a>
+								</td>
+								<td th:text="${answer.registId}"><span>registId</span></td>
+								<td th:text="${answer.registDt}"><span>registDt</span></td>
+								<td><span></span></td>
+								<td>
+									<button th:if="${session.loginDto.userId == answer.registId}" type="button"
+										class="btn btn-danger" th:value="${answer.pkAskAnsSeq}" onclick="deleteAskAns(this)">
+										<span>삭제</span>
+									</button>
+								</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+				<!-- /.card-body -->
+				<div th:unless="${qnaList != null}" class="card-footer">
+				</div>
 			</div>
+
 		</div>
 
-</div>
-
-<div class="row">
-	<div class="col-12">
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<th:block th:if="${paging.prev}">
-					<li class="page-item previous th-disabled" th:classappend="${paging.prev == false} ? 'disabled'">
-						<a th:href="@{/mng/qna/main(page=${paging.startPage - 1})}" tabindex="0"
-							class="page-link">Previous</a>
-					</li>
-				</th:block>
-				<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
-					<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
-						<a th:href="@{/mng/qna/main(page=${pNo})}" tabindex="0" aria-controls="dataTable"
-							class="page-link" th:text="${pNo}"></a>
-					</li>
-				</div>
-				<th:block th:if="${paging.next}">
-					<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
-						<a th:href="@{/mng/qna/main(page=${paging.endPage + 1})}" tabindex="0" aria-controls="dataTable"
-							class="page-link">Next</a>
-					</li>
-				</th:block>
-			</ul>
-		</nav>
-	</div>
-</div>
-<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-	<form action="/std/qna/create" method="post">
-		<div class="modal-dialog modal-dialog-cented modal-xl">
-			<div class="modal-content">
-				<div class="col-12 modal-header">
-					<h4 class="col-12 modal-title text-center">Q&A</h4>
-					<input type="hidden" name="pkSubjectSeq" th:value="${session.subjectDto.pkSubjectSeq}">
-					<input type="hidden" name="registId" th:value="${session.loginDto.userId}">
-				</div>
-				<div class="modal-body">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="form-group">
-									<label>제목</label>
-									<div class="title-append">
-										<input id="title" name="title" type="text" class="form-control">
+		<div class="row">
+			<div class="col-12">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<th:block th:if="${paging.prev}">
+							<li class="page-item previous th-disabled"
+								th:classappend="${paging.prev == false} ? 'disabled'">
+								<a th:href="@{/mng/qna/main(page=${paging.startPage - 1})}" tabindex="0"
+									class="page-link">Previous</a>
+							</li>
+						</th:block>
+						<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+							<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
+								<a th:href="@{/mng/qna/main(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+									class="page-link" th:text="${pNo}"></a>
+							</li>
+						</div>
+						<th:block th:if="${paging.next}">
+							<li class="page-item next th-disabled"
+								th:classappend="${paging.next == false} ? 'disabled'">
+								<a th:href="@{/mng/qna/main(page=${paging.endPage + 1})}" tabindex="0"
+									aria-controls="dataTable" class="page-link">Next</a>
+							</li>
+						</th:block>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+			<form action="/mng/askAns/create" method="post">
+				<div class="modal-dialog modal-dialog-cented modal-xl">
+					<div class="modal-content">
+						<div class="col-12 modal-header">
+							<h4 class="col-12 modal-title text-center">Q&A</h4>
+							<input id="pkAskSeq" type="hidden" name="pkAskSeq">
+							<input type="hidden" name="registId" th:value="${session.loginDto.userId}">
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label>제목</label>
+											<div class="title-append">
+												<input id="title" type="text" class="form-control" disabled>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="col-sm-12">
-								<div class="form-group">
-									<label>내용</label>
-									<div class="textarea-append">
-										<textarea id="summernote" name="contents" class="form-control"
-											rows="6"></textarea>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label>내용</label>
+											<div>
+												<textarea id="summernote" class="form-control" rows="6"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label>답변</label>
+											<div class="textarea-append">
+												<textarea name="contents" class="form-control" rows="6"></textarea>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="modal-footer justify-content-between">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">
+								<span>답변등록</span>
+							</button>
+						</div>
 					</div>
 				</div>
-				<div class="modal-footer justify-content-between">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">
-						<span>등록</span>
-					</button>
-				</div>
-			</div>
+			</form>
 		</div>
-	</form>
-</div>
-<script>
-	var SUBJECT_ARRAY = [];
-	$(document).ready(function () {
-		// Summernote
+		<script>
+			var SUBJECT_ARRAY = [];
+			$(document).ready(function () {
+				// Summernote
 
-		$('.modal').on('shown.bs.modal', function (e) {
-			// 모달이 열릴 때 실행되는 코드
-			//$(this).find('form')[0].reset(); // 입력 필드 초기화
-		});
-
-		$('.modal').on('hidden.bs.modal', function (e) {
-			// 모달이 닫힐 때 실행되는 코드
-			//$(this).find('form')[0].reset(); // 입력 필드 초기화
-			//$('#summernote').summernote('code', ''); // 에디터 초기화
-		});
-		//$.ajax({
-		//	type: "POST",
-		//	url: "/getSubjectList",
-		//	dataType: "json",
-		//	success: function (data) {
-		//		$.each(data, function (index, item) {
-		//			SUBJECT_ARRAY.push(
-		//				{
-		//					"id": item.pkSubjectSeq,
-		//					"text": item.subjectName
-		//				}
-		//			);
-		//		});
-		//		$('.select2').select2({
-		//			data: SUBJECT_ARRAY
-		//		})
-		//	},
-		//	error: function () {
-		//	}
-		//});
-	})
-	function openAskInfo(arg0) {
-		//$(".title-append").empty();
-		//$(".textarea-append").empty();
-		var buttonValue = arg0.value;
-		console.log(buttonValue);
-		var form = {
-			pkAskSeq: buttonValue
-		};
-		$.ajax({
-			type: "POST",
-			url: "/openAskInfo",
-			data: JSON.stringify(form),
-			contentType: "application/json",
-			dataType: "json",
-			success: function (data) {
-
-				$("#summernote").summernote({
-					tabsize: 2,
-					height: 300
+				$('.modal').on('shown.bs.modal', function (e) {
+					// 모달이 열릴 때 실행되는 코드
+					//$(this).find('form')[0].reset(); // 입력 필드 초기화
 				});
-				$("#title").val(data.title);
-				$("#summernote").summernote('code', data.contents);
-			},
-			error: function (request, status, error) {
-				alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+
+				$('.modal').on('hidden.bs.modal', function (e) {
+					// 모달이 닫힐 때 실행되는 코드
+					//$(this).find('form')[0].reset(); // 입력 필드 초기화
+					//$('#summernote').summernote('code', ''); // 에디터 초기화
+				});
+				//$.ajax({
+				//	type: "POST",
+				//	url: "/getSubjectList",
+				//	dataType: "json",
+				//	success: function (data) {
+				//		$.each(data, function (index, item) {
+				//			SUBJECT_ARRAY.push(
+				//				{
+				//					"id": item.pkSubjectSeq,
+				//					"text": item.subjectName
+				//				}
+				//			);
+				//		});
+				//		$('.select2').select2({
+				//			data: SUBJECT_ARRAY
+				//		})
+				//	},
+				//	error: function () {
+				//	}
+				//});
+			})
+			
+			function openAskInfo(arg0) {
+				//$(".title-append").empty();
+				//$(".textarea-append").empty();
+				var buttonValue = arg0.value;
+				var form = {
+					pkAskSeq: buttonValue
+				};
+				$.ajax({
+					type: "POST",
+					url: "/openAskInfo",
+					data: JSON.stringify(form),
+					contentType: "application/json",
+					dataType: "json",
+					success: function (data) {
+						$("#summernote").summernote({
+							tabsize: 2,
+							height: 150
+						});
+						$("#pkAskSeq").val(data.pkAskSeq);
+						$("#title").val(data.title);
+						$("#summernote").summernote('code', data.contents);
+					},
+					error: function (request, status, error) {
+						alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+					}
+				});
 			}
-		});
-	}
+			
+			function deleteAskAns(arg0) {
+				var buttonValue = arg0.value;
+				var form = {
+					pkAskAnsSeq: buttonValue
+				};
+				$.ajax({
+					type: "POST",
+					url: "/deleteAskAns",
+					data: JSON.stringify(form),
+					contentType: "application/json",
+					success: function (data) {
+						console.log("전송성공");
+					},
+					error: function (request, status, error) {
+						alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+					}
+				});
+				location.reload();
+			}
 
 
-</script>
-</th:block>
+		</script>
+	</th:block>
 
 </html>
