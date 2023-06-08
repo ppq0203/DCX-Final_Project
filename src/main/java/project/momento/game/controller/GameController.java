@@ -23,7 +23,7 @@ public class GameController {
 	@RequestMapping(value = "/game", method=RequestMethod.GET)
 	public ModelAndView gameMain(String level, String questionNum) { 
 		level = "4";
-		questionNum = "16";
+		questionNum = "36";
 		
 		ModelAndView mav = new ModelAndView();
 		QuestionDto qtDto = new QuestionDto();
