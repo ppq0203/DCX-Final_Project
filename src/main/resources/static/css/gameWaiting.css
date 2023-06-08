@@ -622,7 +622,7 @@
 			}
 				.md_content2 {
 					width: 400px;
-					height: 350px;
+					height: 210px;
 					padding: 5px;
 					margin : 0;
 					background-color : #fff2cc;
@@ -804,4 +804,10 @@
 				float: right;
 				padding : 5px 0px 5px 0px;
 				font-size:25px;
+			}
+			.gamemode-team{
+				display: none;
+			}
+			.gamemode-solo{
+				display: none;
 			}

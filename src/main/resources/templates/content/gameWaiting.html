@@ -73,20 +73,45 @@
 									</div>
 									<div class='roomright2'>
 										<p class="right_p">
-											<input type="radio" name="chk_info" value="solo">개인
-											<input type="radio" name="chk_info" value="Team">팀
+											<input type="radio" id="solo" name="chk_info" value="solo">개인
+											<input type="radio" id="team" name="chk_info" value="Team">팀
 										</p>
 									</div>
-									<div class='roomleft2'>
-										<p class="left_p">인원</p>
+									<div class="gamemode-team">
+										<div class='roomleft'>
+											<p class="left_p"> 팀 </p>
+										</div>
+										<div class='roomright'>
+											<p class="right_p">
+												<input type="radio" name="chk_info_2" value="2Team">2팀
+												<input type="radio" name="chk_info_2" value="3Team">3팀
+												<input type="radio" name="chk_info_2" value="4Team">4팀
+											</p>
+										</div>
+										<div class='roomleft'>
+											<p class="left_p">팀당인원</p>
+										</div>
+										<div class='roomright'>
+											<p class="right_p">
+												<input type="radio" name="chk_info_3" value="one">1명
+												<input type="radio" name="chk_info_3" value="Tow">2명
+												<input type="radio" name="chk_info_3" value="Three">3명
+												<input type="radio" name="chk_info_3" value="Four">4명
+											</p>
+										</div>
 									</div>
-									<div class='roomright2'>
-										<p class="right_p2">
-											<input type="radio" name="chk_info" value="one">1명
-											<input type="radio" name="chk_info" value="Tow">2명
-											<input type="radio" name="chk_info" value="Three">3명
-											<input type="radio" name="chk_info" value="Four">4명
-										</p>
+									<div class="gamemode-solo">
+										<div class='roomleft2'>
+											<p class="left_p">인원</p>
+										</div>
+										<div class='roomright2'>
+											<p class="right_p2">
+												<input type="radio" name="chk_info_4" value="one">1명
+												<input type="radio" name="chk_info_4" value="Tow">2명
+												<input type="radio" name="chk_info_4" value="Three">3명
+												<input type="radio" name="chk_info_4" value="Four">4명
+											</p>
+										</div>
 									</div>
 									<div class='roomleft2'>
 										<p class="left_p2">난이도</p>
@@ -97,14 +122,6 @@
 											<input type="radio" name="chk_info" value="middle">MID
 											<input type="radio" name="chk_info" value="hard">HARD
 											<input type="radio" name="chk_info" value="romdom">RONDOM
-										</p>
-									</div>
-									<div class='roomleft2' style='height: 70px'>
-										<p class="left_p2"><br>게임선택</p>
-									</div>
-									<div class='roomright2' style='height: 70px'>
-										<p class="right_p2">
-											<imag src="" />
 										</p>
 									</div>
 								</div>
@@ -154,7 +171,8 @@
 					</div>
 				</div>
 
-				<button class="btnlogout" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+				<button class="btnlogout" id="create-room" type="button" data-toggle="modal"
+					data-target="#exampleModalCenter">
 					<img th:src="@{/img/multi.png}" padding="10px;" alt="exit" width="55px"
 						height="55px">&nbsp;<span>같이하기</span>
 				</button>
@@ -323,6 +341,42 @@
 			</div>
 		</div>
 	</body>
+	<script>
+		/*$('#create-room').click(function () {
+			if ($('input:radio[id=solo]').is(':checked')) {
+				$('.gamemode-solo').css('display', 'block')
+			} else {
+				$('.gamemode-solo').css('display', 'none')
+			}
+			if ($('input:radio[id=team]').is(':checked')) {
+				$('.gamemode-team').css('display', 'block')
+			} else {
+				$('.gamemode-team').css('display', 'none')
+			}
+		})*/
+
+		$(document).ready(function () {
+			// 개인 라디오 버튼 클릭 시
+			$('#solo').click(function () {
+				// gamemode-team 숨기기
+				$('.gamemode-team').hide();
+				// gamemode-solo 보이기
+				$('.gamemode-solo').show();
+				$(".md_container2").css("height", "500px");
+				$(".md_content2").css("height", "262px");
+			});
+
+			// 팀 라디오 버튼 클릭 시
+			$('#team').click(function () {
+				// gamemode-solo 숨기기
+				$('.gamemode-solo').hide();
+				// gamemode-team 보이기
+				$('.gamemode-team').show();
+				$(".md_container2").css("height", "550px");
+				$(".md_content2").css("height", "400px");
+			});
+		});	
+	</script>
 </th:block>
 
 </html>
