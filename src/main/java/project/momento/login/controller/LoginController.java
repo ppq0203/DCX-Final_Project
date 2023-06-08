@@ -73,10 +73,6 @@ public class LoginController {
 		return resultList;
 	}
 
-	public List<String> userList(HttpServletRequest request) {
-		return null;
-	}
-
 	@RequestMapping(value = "/login/info", produces = "application/text;charset=utf-8")
 	public String selectUser(Model model, LoginDto loginDto, HttpServletRequest request) {
 
