@@ -4,6 +4,12 @@
 				 font-weight: normal;
 				 font-style: normal;
 			}
+			@font-face {
+				font-family: 'GmarketSansMedium';
+				src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+				font-weight: normal;
+				font-style: normal;
+			}
 
 			#container {
 				width: 976px;
@@ -22,7 +28,7 @@
 	        	float: left;
 				margin-right : 5px;
 				margin-left : 10px;
-				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
 				border-radius: 10px;
 	      	}
 	      	#sidebar {
@@ -32,7 +38,7 @@
 	        	float: right;
 				margin-left : 5px;
 				margin-right : 5px;
-				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
 				position: relative;
 				border-radius: 10px;
 	      	}
@@ -191,7 +197,40 @@
 				float : left;
 				font-family: 'DungGeunMo';
 			 }
-			 
+			 /*table*/
+			.table             { 
+				border-spacing: 1; 
+				border-collapse: collapse; 
+				background: white;
+				border : 2px solid white;
+				/* border-radius:6px; */
+				/* overflow:hidden; */
+				width:380px;
+				height : 380px;
+				margin:3px auto;
+				text-align : center;
+				font-size : 12px;
+				table-layout: fixed; /*동일 너비*/
+				font-family :'GmarketSansMedium';
+			
+			}
+			table td, th{
+				border : 2px solid #282A46;
+			}
+			thead tr th{
+				background: #0070c0;
+				font-size : 22px;
+				height : 54.28px;
+				color : white;
+			   
+			}
+			tbody tr th{
+				background: #92d050;
+				font-size : 22px;
+				color : white;
+			}
+
+
 			/*side*/
 			.gamequiz{
 				width: 220px;
@@ -203,10 +242,8 @@
 				border : 3px solid white;
 			 }
 			.quizbtn{
-				width: 220px;
-				height: 23px;
-				padding: 5px;
-	        	float: center;
+				width: 230px;
+				height: 30px;
 				margin : 5px;
 				border : 3px solid white;
 			 }
@@ -239,6 +276,13 @@
 				line-height : 150%;
 				list-style-type: none;
 			}
+			.pfont{
+				font-family : 'DungGeunMo';
+				font-size : 16px;
+				text-align : center;
+				line-height : 150%;
+
+			}
 
 			/*content dice*/
 			 .dicearea{
@@ -247,7 +291,7 @@
 				height : 135px;
 				float : left;
 				vertical-align : center;
-				border : 3px solid white;
+				border : hidden;
 				margin : 2px 0px 2px 7px;
 				font-family: 'DungGeunMo';
 			 }
@@ -258,12 +302,35 @@
 				height : 387px;
 				float : left;
 				vertical-align : center;
-				border : 3px solid white;
+				border : hidden;
 				margin : 10px 0px 2px 7px;
 				font-family: 'DungGeunMo';
-			 }
-
+			 }				
+			
 			/*button icon*/
+			.answer{
+				width: 80px;
+				height: 28px;
+				text-align: center;
+				float: left;
+				background-color :#4C6ED4;
+				font-size: 13px;
+				font-family: 'DungGeunMo';
+				color : white;
+				margin : auto 1px;
+				border-color :#1454C2;
+			}
+			.discard{
+				width: 80px;
+				height: 28px;
+				text-align: center;
+				float: right;
+				background-color : gray;
+				font-size: 13px;
+				font-family: 'DungGeunMo';
+				color : red;
+			}
+			 
 			.btnchat{
 				width: 40px;
 				height: 25px;
@@ -300,4 +367,44 @@
 				font-size: 20px;
 				font-family: 'DungGeunMo';
 				color : 'Darkgary';
+			}
+			.lottie-container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin : auto;			
+			}
+			.ricearea_col{
+				width: 125px;
+				height: 125px;
+				background : #92d050;
+				border: 5px solid #6F9C4C;
+				border-radius: 10px;
+				margin : 0px 20px 0px 0px;
+			}
+			.ricearea_row{
+				width: 125px;
+				height: 125px;
+				background : #0070c0;
+				border: 5px solid #1454C2;
+				border-radius: 10px;
+				margin : 0px 0px 0px 0px;
+			}
+
+			.rice1 {
+				width: 220px;
+				height: 220px;
+				align-items : center;
+				position: fixed;
+    			top: 70px;
+    			left: 250px;
+				color : #0070c0;
+			}
+			.rice2 {
+				width: 220px;
+				height: 220px;
+				align-items : center;
+				position: fixed;
+    			top: 70px;
+    			left: 405px;			
 			}
