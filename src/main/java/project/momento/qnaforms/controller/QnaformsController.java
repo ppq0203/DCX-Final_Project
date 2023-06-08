@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import project.momento.question.dto.QuestionDto;
+import project.momento.question.service.QuestionService;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -20,7 +22,7 @@ import project.momento.sign.service.SignService;
 public class QnaformsController {
 	
 	@Autowired
-	private SignService SignService;
+	private QuestionService QuestionService;
 	
 	/*
 	 * 학생 화면 페이지 이동
@@ -32,4 +34,5 @@ public class QnaformsController {
 	    return "content/qnaforms";
 	}
 	
+
 }

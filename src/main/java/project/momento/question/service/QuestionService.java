@@ -13,10 +13,28 @@ public class QuestionService {
 	
 	@Autowired
 	private QuestionMapper questionMapper;
-	
+
+//	public void insertQuestion(QuestionDto qtDto) {
+//		// TODO Auto-generated method stub
+//		questionMapper.insertQuestion(qtDto);
+//	}
+
+//	public List<QuestionDto> selectQuestion(String levels, int probNum) {
+//		// TODO Auto-generated method stub
+////		return questionMapper.selectQuestion(levels, probNum);
+//	}
+
 	public List<QuestionDto> selectQuestionList() {
-		
-		return questionMapper.selectQuestionList();
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<QuestionDto> selectQuestion(QuestionDto qtDto) {
+		// TODO Auto-generated method stub
+		return questionMapper.selectQuestion(qtDto);
 	}
 	
+
+	
+
 }
