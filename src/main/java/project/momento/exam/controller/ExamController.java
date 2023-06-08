@@ -50,10 +50,15 @@ public class ExamController {
 	@RequestMapping(value = "/{userDivn}/{pkSubjectSeq}/exam/main", produces = "application/text;charset=utf-8")
 	public String examMain(@PathVariable String userDivn, @PathVariable int pkSubjectSeq, HttpServletRequest request,
 			Model model) {
-		SubjectDto subjectDto = new SubjectDto();
-		subjectDto = subjectService.getSubject(pkSubjectSeq);
-		List<ExamDto> exameList = examService.getExamList(pkSubjectSeq);
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		request.getSession().setAttribute("subjectDto", subjectDto);
+		ExamDto examDto = new ExamDto();
+		examDto.setUserDivn(userDivn);
+		examDto.setPkSubjectSeq(pkSubjectSeq);
+		examDto.setPkUserSeq(loginDto.getPkUserSeq());
+		List<ExamDto> exameList = examService.getExamList(examDto);
+		List<ExamDto> exameResultList = examService.getExamResultList(examDto);
 		model.addAttribute("exameList", exameList);
 
 		return "content/" + userDivn + "/exam/exam";

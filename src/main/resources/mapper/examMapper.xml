@@ -39,7 +39,7 @@
   		)
 
 	</insert>
-	<select id="getExamList" parameterType="int" resultType="project.momento.exam.dto.ExamDto">
+	<select id="getExamList" parameterType="project.momento.exam.dto.ExamDto" resultType="project.momento.exam.dto.ExamDto">
 			 SELECT 
 			 	PK_EXAM_SEQ 	AS pkExamSeq,
 		         PK_SUBJECT_SEQ AS pkSubjectSeq,
@@ -50,9 +50,12 @@
 		         UPDATE_DT 		AS updateDt
 			  FROM LMS_EXAM
 			  WHERE PK_SUBJECT_SEQ = #{pkSubjectSeq}
+			 <if test="userDivn == 'std'">
+			    AND #{pkUserSeq} NOT IN (SELECT WA.PK_USER_SEQ FROM LMS_EXAM_RESULT WA)
+			</if>
 	</select>
 	<select id="selectExamDetailList" parameterType="project.momento.exam.dto.ExamDto" resultType="project.momento.exam.dto.ExamDto">
-			SELECT 
+		SELECT 
 			 	A.PK_EXAM_SEQ 			AS pkExamSeq
 			 	, A.PK_EXAM_DETAIL_SEQ	AS pkExamDetailSeq
 		         , A.PK_SUBJECT_SEQ 	AS pkSubjectSeq
@@ -76,7 +79,6 @@
 			  ON A.PK_FILE_SEQ = B.PK_FILE_SEQ
 			  WHERE PK_EXAM_SEQ = #{pkExamSeq}
 	</select>
-	
 	<insert id="insertResult" parameterType="project.momento.exam.dto.ExamDto">
 	    INSERT INTO LMS_EXAM_RESULT
   			(

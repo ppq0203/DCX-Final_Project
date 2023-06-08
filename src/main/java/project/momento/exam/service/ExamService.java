@@ -22,9 +22,9 @@ public class ExamService {
 		examMapper.insertExam(examDto);
 	}
 
-	public List<ExamDto> getExamList(int pkEducationSeq) {
+	public List<ExamDto> getExamList(ExamDto examDto) {
 		// TODO Auto-generated method stub
-		return examMapper.getExamList(pkEducationSeq);
+		return examMapper.getExamList(examDto);
 	}
 
 	public void insertExamDetail(ExamDto examDto) {
@@ -55,6 +55,11 @@ public class ExamService {
 	public void insertResult(ExamDto examDto) {
 		// TODO Auto-generated method stub
 		examMapper.insertResult(examDto);
+	}
+
+	public List<ExamDto> getExamResultList(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		return examMapper.getExamResultList(examDto);
 	}
 
 	

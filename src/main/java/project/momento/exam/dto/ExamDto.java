@@ -22,6 +22,7 @@ public class ExamDto extends FileDto {
     private String updateId;
     private String updateDt;
     private String answer;
+    private String userDivn;
     private int pkFileSeq;
     private int returnId;
 
