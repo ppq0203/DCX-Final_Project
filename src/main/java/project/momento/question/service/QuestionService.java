@@ -13,10 +13,10 @@ public class QuestionService {
 	
 	@Autowired
 	private QuestionMapper questionMapper;
-	
-	public List<QuestionDto> selectQuestionList() {
-		
-		return questionMapper.selectQuestionList();
+
+	public List<QuestionDto> selectQuestion(QuestionDto qtDto) {
+		// TODO Auto-generated method stub
+		return questionMapper.selectQuestion(qtDto);
 	}
 	
 }

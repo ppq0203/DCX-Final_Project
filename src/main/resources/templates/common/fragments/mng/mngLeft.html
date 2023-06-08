@@ -56,16 +56,16 @@
             url: "/getall.com",
             dataType: "json",
             success: function (data) {
-               var educationName = "";
-               var subjectList = data.subjectList;
-               var menuList = data.menuList;
-               str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">'
-                  + '<li class="nav-item">'
-                  + '<a href="#" class="nav-link">'
-                  + '<i class="nav-icon fas fa-th"></i>'
-                  + '<p>교육</p>'
-                  + '<i class="right fas fa-angle-left"></i></a>'
-                  + '<ul class="nav nav-treeview">';
+               	var educationName = "";
+               	var subjectList = data.subjectList;
+               	var menuList = data.menuList;
+               	str = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">'
+                	+ '<li class="nav-item">'
+                 	+ '<a href="#" class="nav-link">'
+                 	+ '<i class="nav-icon fas fa-th"></i>'
+                 	+ '<p>교육</p>'
+                 	+ '<i class="right fas fa-angle-left"></i></a>'
+                 	+ '<ul class="nav nav-treeview">';
                $.each(subjectList, function (i) {
                   if (educationName != subjectList[i].subjectState) {
                      educationName = subjectList[i].subjectState
@@ -83,7 +83,10 @@
                      + '<i class="far fa-dat-circle nav-icon"></i>'
                      + '<p>' + subjectList[i].subjectName + '</p></a></li>'
                });
-               str += '</ul></li></ul></li>'
+               str += '</ul></li>'
+               if (subjectList.length != 0) {
+				   str += '</ul></li>'
+			   }
                $.each(menuList, function (i) {
                   if (0 == menuList[i].UPPER_MENU_NO) {
                      str += '<li class="nav-item">'
@@ -98,9 +101,9 @@
                str += '</ul>';
                $(".append").append(str);
             },
-            error: function (error) {
-               console.log(error);
-            }
+            error: function (request, status, error) {
+				alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+			}
          });
       };
       

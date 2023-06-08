@@ -54,4 +54,5 @@ public class RoomController {
 		mv.addObject("room", service.findRoomById(pkRoomSeq));
 		return mv;
 	}
+	
 }
