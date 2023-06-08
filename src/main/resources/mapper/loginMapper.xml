@@ -7,7 +7,7 @@
 	<!-- 로그인 데이터 -->
 	<!-- 정보 받아오기 -->
 	<!-- 정보 내려주기 -->
-	<select id="checkLogin" parameterType="project.momento.login.dto.LoginDto" resultType="project.momento.login.dto.LoginDto">
+	<select id="checkLoginStd" parameterType="project.momento.login.dto.LoginDto" resultType="project.momento.login.dto.LoginDto">
 		<![CDATA[
 			SELECT
 				PK_USER_SEQ AS pkUserSeq,
@@ -23,11 +23,35 @@
 				USER_DIVN AS userDivn,
 				USE_YN AS useYn,
 				REGIST_DT AS registDt,
-				USER_IMG AS imgPath
+				USER_IMG AS imgPath,
+				PK_FILE_SEQ AS pkFileSeq
 			FROM USER
 			WHERE USER_ID = #{userId} AND PASSWORD = #{password} AND USE_YN = 'Y'
 		]]>
 	</select>
+	
+	<select id="checkLoginMng" parameterType="project.momento.login.dto.LoginDto" resultType="project.momento.login.dto.LoginDto">
+		<![CDATA[
+			SELECT
+				PK_MANAGER_SEQ AS pkManagerSeq,
+				PK_AUTH_SEQ AS pkAuthSeq,
+				USER_ID AS userId,
+				PASSWORD AS password,
+				NAME AS name,
+				PHONE AS phone,
+				BIRTHDAY AS birthday,
+				ADDRESS AS address,
+				DETAILED_ADDRESS AS detailedAddress,
+				EMAIL AS email,
+				USER_DIVN AS userDivn,
+				USE_YN AS useYn,
+				REGIST_DT AS registDt,
+				PK_FILE_SEQ AS pkFileSeq
+			FROM MANAGER
+			WHERE USER_ID = #{userId} AND PASSWORD = #{password} AND USE_YN = 'Y'
+		]]>
+	</select>
+	
 	
 	<!--UPDATE문-->
 	<update id="updateUser" parameterType="project.momento.login.dto.LoginDto">
