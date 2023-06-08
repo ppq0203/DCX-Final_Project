@@ -21,6 +21,24 @@
      width: 130px;
     height:40px;
  }
+  
+.swal2-popup {
+    display: none;
+    position: relative;
+    box-sizing: border-box;
+    grid-template-columns: minmax(0%, 100%);
+   grid-template-rows: minmax(0%, 100%);
+    width: 400px;
+    height: 270px;
+    padding: 0 0 1.25em;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    color: #545454;
+    font-family: inherit;
+    font-size: 1rem;
+}
+ 
 </style> 
 <!--sweetalert2 홈페이지 참고 했음-->
 <!--Game 화면 모달 창("작성하신 답은 틀렸습니다")-->
@@ -29,8 +47,8 @@
 			title: '',
 			text: '작성하신 답은 틀렸습니다.',
 			imageUrl: 'https://cdn-icons-png.flaticon.com/512/1166/1166522.png',
-			imageWidth: 200,
-			imageHeight: 170,
+			imageWidth: 100,
+			imageHeight: 100,
 			imageAlt: 'Custom image',
 		})
 	</script>
