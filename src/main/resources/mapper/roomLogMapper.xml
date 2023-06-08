@@ -3,12 +3,34 @@
 
 <mapper namespace="project.momento.roomlog.mapper.RoomLogMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 <!-- Heidisql연결후 입력 저장-->
+	<!-- INSERT문 -->
+	<insert id="insertRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
+		<![CDATA[
+			INSERT INTO ROOM_LOG
+			(
+				PK_ROOM_LOG_SEQ,
+				PK_ROOM_SEQ,
+				PK_USER_SEQ,
+				OBSERVER
+			) 
+			VALUES
+			(
+				#{pkRoomLogSeq},
+				#{pkRoomSeq},
+				#{pkUserSeq},
+				#{observer}
+			)
+		]]>
+	</insert>
+
 	<!-- SELECT문 -->
-	<select id="selectRoomLog" resultType="project.momento.roomlog.dto.RoomLogDto">
+	<select id="selectRoomLog" resultType="project.momento.roomlog.dto.RoomLogDto" parameterType="project.momento.roomlog.dto.RoomLogDto">
 		<![CDATA[
 			SELECT
-				PK_ROOM_LOG_SEQ AS PkRoomLogSeq,
-				OBSERVER AS obsever
+				PK_ROOM_LOG_SEQ		AS pkRoomLogSeq,
+				PK_ROOM_SEQ			AS pkRoomSeq,
+				PK_USER_SEQ			AS pkUerSeq,
+				OBSERVER			AS observer
 			FROM
 				ROOM_LOG
 			WHERE
@@ -16,28 +38,23 @@
 		]]>
 	</select>
 	
-	<!-- INSERT문 -->
-	<insert id="insertRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
-		<![CDATA[
-			INSERT INTO ANSWER
-			(
-				PK_ROOM_LOG_SEQ,
-				OBSERVER
-			) 
-			VALUES
-			(
-				ifnull(#{pkRoomLogSeq}, null),
-				#{observer}
-			)
-		]]>
-	</insert>
+	
 	
 	<!-- DELETE문 -->
 	<delete id="deleteRoomLog" parameterType="project.momento.roomlog.dto.RoomLogDto">
 		<![CDATA[
 			DELETE FROM ROOM_LOG
 			WHERE 
-				PK_ROOM_LOG_SEQ = #{pkRoomLogSeq}
+				PK_USER_SEQ = #{pkUerSeq}
+		]]>
+	</delete>
+	
+		<!-- DELETE문 -->
+	<delete id="deleteRoomLog2" parameterType="project.momento.roomlog.dto.RoomLogDto">
+		<![CDATA[
+			DELETE FROM ROOM_LOG
+			WHERE 
+				PK_ROOM_SEQ = #{pkRoomSeq}
 		]]>
 	</delete>
 	

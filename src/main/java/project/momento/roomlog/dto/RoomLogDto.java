@@ -13,8 +13,10 @@ public class RoomLogDto {
 	private int pkRoomLogSeq;
 	/*방에 부여되는 고유번호*/
 	private int pkRoomSeq;
+	/*유저에 부여되는 고유 번호*/
+	private int pkUserSeq;
 	/*게임 관전 유저*/
-	private int Observer;
+	private int observer;
 
 
 }

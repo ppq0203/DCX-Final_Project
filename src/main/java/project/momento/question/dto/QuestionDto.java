@@ -26,7 +26,11 @@ public class QuestionDto {
 	/*힌트*/   
 	private String chance; 
 	/*클래스명*/   
-	private String className; 
+	private String className;
+	/*입력값 예시*/
+	private String input;
+	/*출력값 예시*/
+	private String output;
 	/*사용여부*/
 	private String useYn;
 	/*삭제여부*/
@@ -39,5 +43,9 @@ public class QuestionDto {
 	private String updateId;   
 	/*수정 일자*/   
 	private String updateDt;
+
+	private String[] levels;
+	
+	private int probNum;
 	
 }
