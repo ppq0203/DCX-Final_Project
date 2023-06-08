@@ -91,7 +91,6 @@ public class QnaController {
 	@RequestMapping(value="/deleteAskAns", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String deleteAskAns(@RequestBody HashMap<String, Object> map, Model model) {
 		String pkAskAnsSeq = (String) map.get("pkAskAnsSeq");
-		System.out.println(pkAskAnsSeq);
 		qnaService.deleteAskAns(pkAskAnsSeq);
 		return "redirect:/mng/qna/main";
 	}
