@@ -19,11 +19,6 @@
                         </div>
                     </div>
                 </div>
-                    <form th:action="@{/chat/gameMulti}" method="post">
-	                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
-	                    <input type="hidden" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
-	                    <input type="submit">
-                    </form>
             </div>
             <div class="col-6"></div>
         </div>
@@ -95,6 +90,5 @@
                     msg.value = '';
                 });
             });
-
         </script>
 </html>
