@@ -2,568 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/emptyLayout}">
 <th:block layout:fragment="content">
-	<style>
-		@font-face {
-			font-family: 'DungGeunMo';
-			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
-			font-weight: normal;
-			font-style: normal;
-		}
-
-		.md_container {
-			position: relative;
-			width: 500px;
-			height: 240px;
-			background-color: #843c0c;
-			border-radius: 20px;
-			padding: 10px;
-			margin: 0px;
-			border: 2px solid #843c0c;
-			font-family: 'DungGeunMo';
-			font-size: 25px;
-			color: white;
-			text-align: center;
-
-		}
-
-		.md_content {
-			width: 400px;
-			height: 120px;
-			padding: 5px;
-			margin: 0;
-			background-color: #fff2cc;
-			border-radius: 20px;
-			position: absolute;
-			top: 48%;
-			left: 50%;
-			transform: translateX(-50%) translateY(-50%);
-		}
-
-		.roomleft {
-			width: 80px;
-			height: 40px;
-			float: left;
-			margin: 0px;
-			background-color: #fff2cc;
-			margin: 5px;
-			font-family: 'DungGeunMo';
-			font-size: 18px;
-			text-align: center;
-			vertical-align: bottom;
-			border: 2px solid #843c0c;
-			color: #843c0c;
-		}
-
-		.roomright {
-			width: 290px;
-			height: 40px;
-			float: right;
-			margin: 5px;
-			background-color: #ffe699;
-			font-family: 'DungGeunMo';
-			margin: 5px;
-			border: 2px solid #843c0c;
-
-		}
-
-		.left_p {
-			width: 80px;
-			height: 40px;
-			font-size: 15px;
-			text-align: left;
-			vertical-align: center;
-			color: #843c0c;
-			margin: 7px 5px 5px 5px;
-			padding: 2px;
-			font-weight: bold;
-		}
-
-		.right_p {
-			width: 290px;
-			height: 40px;
-			font-size: 15px;
-			text-align: left;
-			vertical-align: center;
-			color: #843c0c;
-			margin: 7px 5px 5px 5px;
-			padding: 2px;
-		}
-
-		/*btn*/
-		.madebtn1 {
-			width: 100px;
-			height: 50px;
-			font-family: 'DungGeunMo';
-			margin: 5px;
-			font-size: 20px;
-			border-radius: 10px;
-			text-align: center;
-			background: #FFC04D;
-			border: 1px solid #FFC04D;
-			float: left;
-			background-color: #ffe699;
-			position: absolute;
-			bottom: 2px;
-			left: 125px;
-		}
-
-		.madebtn2 {
-			width: 100px;
-			height: 50px;
-			font-family: 'DungGeunMo';
-			margin: 5px;
-			font-size: 20px;
-			border-radius: 10px;
-			text-align: center;
-			background: gray;
-			border: 1px solid gray;
-			float: left;
-			background-color: gray;
-			position: absolute;
-			bottom: 2px;
-			right: 125px;
-		}
-
-		p {
-			margin: 0px;
-		}
-
-		#container {
-			width: 976px;
-			height: 700px;
-		}
-
-		#header {
-			padding: 10px;
-			height: 70px;
-		}
-
-		#content {
-			width: 665px;
-			height: 560px;
-			padding: 10px;
-			float: left;
-			margin-right: 5px;
-			margin-left: 10px;
-			background-color: #005255;
-			border-radius: 10px;
-		}
-
-		#sidebar {
-			width: 250px;
-			height: 570px;
-			padding: 5px;
-			float: right;
-			margin-left: 5px;
-			margin-right: 5px;
-			background-color: #005255;
-			position: relative;
-			border-radius: 10px;
-		}
-
-		#footer {
-			padding: 10px;
-			height: 70px;
-		}
-
-		/*content*/
-		/*Tab*/
-		content#tabwrap {
-			background: #F2EDD7;
-			border-radius: 10px;
-			/*테두리 둥글게*/
-			width: 95%;
-			height: 97%;
-			position: absolute;
-			top: 10%;
-			left: 10%;
-			padding: 25px;
-			font-family: 'DungGeunMo';
-		}
-
-		.menu1,
-		.menu2,
-		.menu3 {
-			position: relative;
-			background: #007351;
-			border: none;
-			outline: 0;
-			width: 210px;
-			height: 70px;
-			border-top-left-radius: 5px;
-			border-top-right-radius: 5px;
-			padding: 0;
-			cursor: pointer;
-			color: #00C484;
-			font-size: 18px;
-			font-family: 'DungGeunMo';
-		}
-
-		.menu1.on,
-		.menu1:hover {
-			background: #00C484;
-			color: white;
-			border: 1px solid #007351
-		}
-
-		.menu2.on,
-		.menu2:hover {
-			background: #007351;
-			color: white;
-			border: 1px solid #007351
-		}
-
-		.menu3.on,
-		.menu3:hover {
-			background: #007351;
-			color: white;
-			border: 1px solid #007351
-		}
-
-		.all,
-		.team,
-		.solo {
-			display: none;
-			margin-top: 0px;
-			padding: 10px;
-			border-bottom-left-radius: 5px;
-			border-bottom-right-radius: 5px;
-			height: 465px;
-			border: 1px solid #007351;
-			border-bottom: 2px solid #007351;
-			overflow: auto;
-			/*스크롤바 넣기*/
-			overflow-x: hidden;
-			/*스크롤바 가로 안보이게 하기*/
-			font-family: 'DungGeunMo';
-		}
-
-		.menu1.on~.all {
-			display: block;
-		}
-
-		.menu2.on~.team {
-			display: block;
-		}
-
-		.menu3.on~.solo {
-			display: block;
-		}
-
-		.all {
-			background: #00C484;
-			color: #00539C;
-		}
-
-		.team {
-			background: #00C484;
-			color: #161B21;
-		}
-
-		.solo {
-			background: #00C484;
-			color: #161B21;
-		}
-
-		.fillter {
-			width: 100%;
-			height: 39px;
-			font-family: 'DungGeunMo';
-		}
-
-		.fillterbtn {
-			width: 90px;
-			height: 25px;
-			text-align: center;
-			margin: 5px;
-			margin-bottom: 2.5px;
-			margin-top: 2.5px;
-			border-radius: 5px;
-			background: #00C484;
-			margin-bottom: 10px;
-			border: 1px solid #005555;
-			float: left;
-			font-family: 'DungGeunMo';
-		}
-
-		.gameroom {
-			width: 610px;
-			float: center;
-			font-family: 'DungGeunMo';
-		}
-
-		.M_gameroom_left {
-			width: 285px;
-			height: 100px;
-			margin: 5px;
-			background: white;
-			float: left;
-			border: 3px solid #FFC04D;
-			border-radius: 10px;
-			font-family: 'DungGeunMo';
-		}
-
-		.M_gameroom_right {
-			width: 285px;
-			height: 100px;
-			margin: 5px;
-			background: white;
-			float: right;
-			border: 3px solid #FFC04D;
-			border-radius: 10px;
-			font-family: 'DungGeunMo';
-		}
-
-		.S_gameroom_left {
-			width: 285px;
-			height: 100px;
-			margin: 5px;
-			background: white;
-			float: left;
-			border: 3px solid #0070c0;
-			border-radius: 10px;
-			font-family: 'DungGeunMo';
-		}
-
-		.S_gameroom_right {
-			width: 285px;
-			height: 100px;
-			margin: 5px;
-			background: white;
-			float: right;
-			border: 3px solid #0070c0;
-			border-radius: 10px;
-			font-family: 'DungGeunMo';
-		}
-
-		.G_gameroom_left {
-			width: 285px;
-			height: 100px;
-			margin: 5px;
-			background: lightgray;
-			float: left;
-			border: 3px solid gray;
-			border-radius: 10px;
-			font-family: 'DungGeunMo';
-		}
-
-		.G_gameroom_right {
-			width: 285px;
-			height: 100px;
-			margin: 5px;
-			background: lightgray;
-			float: right;
-			border: 3px solid gray;
-			border-radius: 10px;
-			font-family: 'DungGeunMo';
-		}
-
-		.binroom_left {
-			width: 285px;
-			height: 100px;
-			margin: 5px;
-			background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
-			float: left;
-			border: 3px solid #007351;
-			border-radius: 10px;
-		}
-
-		.binroom_right {
-			width: 285px;
-			height: 100px;
-			margin: 5px;
-			background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
-			float: right;
-			border: 3px solid #007351;
-			border-radius: 10px;
-		}
-
-		.hr_M_dotted {
-			border-top: 3px dotted #FFC04D;
-			color: #FFC04D;
-			margin: 0px;
-
-		}
-
-		.hr_S_dotted {
-			border-top: 3px dotted #0070c0;
-			color: #0070c0;
-			margin: 0px;
-		}
-
-		.hr_G_dotted {
-			border: 0px;
-			border-top: 3px dotted gray;
-		}
-
-		.game_up {
-			width: 175px;
-			height: 26px;
-			font-family: 'DungGeunMo';
-			font-size: 16px;
-			text-align: left;
-			color: black;
-			vertical-align: center;
-			padding: 0px;
-			margin: 5px;
-
-		}
-
-		.game_down {
-			width: 175px;
-			height: 26px;
-			font-family: 'DungGeunMo';
-			font-size: 16px;
-			text-align: left;
-			color: black;
-			vertical-align: bottom;
-			padding: 0px;
-		}
-
-		.startbtn {
-			width: 70px;
-			height: 90px;
-			font-family: 'DungGeunMo';
-			margin: 3px;
-			font-size: 22px;
-			border-radius: 10px;
-			text-align: center;
-			background: #FFC04D;
-			border: 1px solid #FFC04D;
-			float: left;
-		}
-
-		.startbtn2 {
-			width: 70px;
-			height: 90px;
-			font-family: 'DungGeunMo';
-			margin: 3px;
-			font-size: 22px;
-			border-radius: 10px;
-			text-align: center;
-			background: #0070c0;
-			border: 1px solid #0070c0;
-			float: left;
-		}
-
-		.startbtn3 {
-			width: 70px;
-			height: 90px;
-			font-family: 'DungGeunMo';
-			margin: 3px;
-			font-size: 22px;
-			border-radius: 10px;
-			text-align: center;
-			background: gray;
-			border: 1px solid gray;
-			float: left;
-		}
-
-		.M_gameroom_left left {
-			height: 90px;
-			margin: 0px;
-			padding: 0px;
-			float: left;
-		}
-
-		.M_gameroom_left right {
-			height: 90px;
-			margin: 0px;
-			padding: 0px;
-			float: right;
-		}
-
-		/*side*/
-		.side_User {
-			width: 220px;
-			height: 200px;
-			padding: 10px;
-			float: center;
-			margin-top: 10px;
-			margin-bottom: 5px;
-			margin-left: 5px;
-			margin-right: 5px;
-			/*border-top-left-radius: 5px;*/
-			border-radius: 5px;
-			background-color: #c55a11;
-		}
-		/*button icon*/
-		.btnlogoutimg {
-			background-image: url('logouticon.png');
-			float: left;
-			width: 90px;
-			height: 90px;
-			text-align: center;
-			font-size: 20px;
-			margin-left: 10px;
-			margin-right: 10px;
-			border-bottom-left-radius: 5px;
-			border-top-left-radius: 5px;
-		}
-
-		.btnlogout {
-			width: 240px;
-			height: 100px;
-			padding: 10px;
-			text-align: center;
-			margin: 5px;
-			/*border-top-left-radius: 5px;*/
-			border-radius: 5px;
-			background-color: #c55a11;
-			font-size: 40px;
-			font-family: 'DungGeunMo';
-
-		}
-
-		.btnlogout p {
-			text-align: center;
-			border-radius: 5px;
-			background-color: #c55a11;
-			font-size: 22px;
-			font-family: 'DungGeunMo';
-
-		}
-
-		/*modal*/
-		#modalWrap {
-			position: fixed;
-			/* Stay in place */
-			z-index: 1;
-			/* Sit on top */
-			padding-top: 100px;
-			/* Location of the box */
-			left: 0;
-			top: 0;
-			width: 100%;
-			/* Full width */
-			height: 100%;
-			/* Full height */
-			overflow: auto;
-			/* Enable scroll if needed */
-			background-color: rgba(0, 0, 0, 0.4);
-			/* Black w/ opacity */
-			display: none;
-		}
-
-		#modalBody {
-			width: 500px;
-			height: 300px;
-			padding: 30px 30px;
-			margin: 0 auto;
-			border: 1px solid #777;
-			background-color: #fff;
-		}
-
-		#closeBtn {
-			float: right;
-			font-weight: bold;
-			color: #777;
-			font-size: 25px;
-			cursor: pointer;
-		}
-	</style>
-
-	</head>
+	<script src="https://kit.fontawesome.com/d1f64dfea6.js" crossorigin="anonymous"></script>
+	<link th:href="@{/css/gameroom.css}" rel="stylesheet">
+	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
+	<link th:href="@{/css/gameWaiting.css}" rel="stylesheet">
 
 	<body>
 		<div class="modal fade" id="myModal" role="dialog">
@@ -605,20 +47,124 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="exampleModalCenter" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form href="#" action="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container2">방만들기
+								<div class='md_content2'>
+
+									<div class='roomleft2'>
+										<p class="left_p2">방 제목</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">같이 게임헤요</p>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p2">비밀번호</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">********</p>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p">개인/팀</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p">
+											<input type="radio" name="chk_info" value="solo">개인
+											<input type="radio" name="chk_info" value="Team">팀
+										</p>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p">인원</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">
+											<input type="radio" name="chk_info" value="one">1명
+											<input type="radio" name="chk_info" value="Tow">2명
+											<input type="radio" name="chk_info" value="Three">3명
+											<input type="radio" name="chk_info" value="Four">4명
+										</p>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p2">난이도</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">
+											<input type="radio" name="chk_info" value="easy">EASY
+											<input type="radio" name="chk_info" value="middle">MID
+											<input type="radio" name="chk_info" value="hard">HARD
+											<input type="radio" name="chk_info" value="romdom">RONDOM
+										</p>
+									</div>
+									<div class='roomleft2' style='height: 70px'>
+										<p class="left_p2"><br>게임선택</p>
+									</div>
+									<div class='roomright2' style='height: 70px'>
+										<p class="right_p2">
+											<imag src="" />
+										</p>
+									</div>
+								</div>
+								<div id='md_footer2'>
+									<button class="madebtn12" type="submit">확인</button>
+									<button class="madebtn22" type="reset" data-dismiss="modal">취소</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modal-pwd-room" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form href="#" action="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container3">비밀번호
+								<button class="okbtn3" type="submit">확인</button>
+								<button class="cancelbtn3" type="reset" data-dismiss="modal">취소</button>
+								<div class='md_content3'>
+									<div class='roomleft3'>비밀번호</div>
+									<div>
+										<from>
+											<input id='pwd' type='password' />
+										</from>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 			<div id="header"></div>
 
 			<!--side right -->
 			<div id="sidebar">
-				<div class="side_User"></div>
-				<button class="btnlogout">
-					<p>같이하기</p>
+				<div class="side_User">
+					<img th:src="@{/img/profil.jpg}" style="border-radius: 50px;" alt="exit" width="150px"
+						height="150px">
+					<div class="" style="font-weight:bold;">
+						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+					</div>
+				</div>
+
+				<button class="btnlogout" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+					<img th:src="@{/img/multi.png}" padding="10px;" alt="exit" width="55px"
+						height="55px">&nbsp;<span>같이하기</span>
 				</button>
 				<button class="btnlogout" type="button" data-toggle="modal" data-target="#myModal">
-					<p>혼자하기</p>
+					<img th:src="@{/img/solo.png}" padding="10px;" alt="exit" width="55px"
+						height="55px">&nbsp;<span>혼자하기</span>
 				</button>
-				<button class="btnlogout">
-					<p>나가기</p>
+				<button class="btnlogout" type="button">
+					<img th:src="@{/img/out.png}" padding="5px;" alt="exit" width="55px" height="55px">&nbsp;<span>나 가
+						기</span>
 				</button>
 			</div>
 
@@ -631,69 +177,94 @@
 
 					<div class="all">
 						<div class="fillter">
-							<button class="fillterbtn">
-								<p>빈방순▼</p>
-							</button>
-							<button class="fillterbtn">
-								<p>난이도순▼</p>
-							</button>
+							<button class="fbtn" type="button">빈방순▼</button>
+							<button class="fbtn" type="button">난이도순▼</button>
+							<button class="refresh" type="button">새로고침</button>
 						</div>
 						<div class="gameroom">
 							<div class="M_gameroom_left">
 								<div class="left">
-									<button class="startbtn" type="button">START</button>
-									<br> Team_03 | 팀전 <br><br> 3팀 | 2명 <br>
-								</div>
-							</div>
-							<!--<div class="M_gameroom_left">
-								<div class="right">
-									<button class="startbtn" type="button">START</button>
-									<br> Team_04 | 팀전 <br><br> 2팀 | 4명 <br>
-								</div>
-							</div>
-							<div class="M_gameroom_left">
-								<div class="left">
-									<button class="startbtn2" type="button">START</button>
-									<br> Solo_02 | 개인전<br><br> 4명 <br>
-								</div>
-							</div>								
-							<div class="M_gameroom_left">
-								<div class="left">
-									<button class="startbtn2" type="button">START</button>
-									<br> Solo_03 | 개인전<br><br> 2명 <br>
-								</div>							
-							</div>							
-							<div class="M_gameroom_left">
-								<div class="left">
-									<button class="startbtn3" type="button">PLAY</button>
-									<br> Team_02 | 팀전 <br><br> 3팀 | 2명 <br>
-								</div>
-							</div>
-							<div class="M_gameroom_left">
-								<div class="right">
-									<button class="startbtn3" type="button">PLAY</button>
-									<br> Solo_01 | 개인전<br><br> 4명 <br>
-								</div>	
-							</div>
-							<div class="M_gameroom_left">
-								<div class="right">
-									<button class="startbtn3" type="button">PLAY</button>
-									<br> Solo_01 | 개인전<br><br> 4명 <br>
-								</div>	
-							</div>-->
+									<from>
+										<input class="startbtn" type="button" value="START">
+									</from>
 
+									<br>
+									<span>Team_03 팀으로 겨뤼봐요</span>
+									<br>
+									<hr style="border: dotted 1px #FFC04D;">
+									<br> <i class="fa-solid fa-users fa-xl"></i>&nbsp;1/4
+									<i class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>2</span>&nbsp;
+									&nbsp;&nbsp;&nbsp;<span>Easy</span>
+								</div>
+							</div>
+							<div class="M_gameroom_right">
+								<div class="right">
+									<button class="startbtn" type="button"><img th:src="@{/img/rock.png}"
+											padding="10px;" alt="exit" width="40px" height="40px" data-toggle="modal"
+											data-target="#modal-pwd-room"></button>
+									<br> <span>Team_04 광주_자바페스티벌</span> <br>
+									<hr style="border: dotted 1px #FFC04D;"><br><i class="fa-solid fa-users fa-xl">
+									</i>&nbsp;3/4 <i class="fa-regular fa-circle-user fa-xl"></i> <span>5</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>Mid</span>
+								</div>
+							</div>
+							<div class="S_gameroom_left">
+								<div class="left">
+									<button class="startbtn2" type="button"><img th:src="@{/img/rock.png}"
+											padding="10px;" alt="exit" width="40px" height="40px"></i></button>
+									<br><span>Solo_02 즐겁게 게임해요</span> <br>
+									<hr style="border: dotted 1px #0070c0;"><br><i
+										class="fa-regular fa-circle-user fa-xl"></i>
+									<span>1/2</span> &nbsp; &nbsp;&nbsp;&nbsp;<span>Random</span>
+								</div>
+							</div>
+							<div class="S_gameroom_right">
+								<div class="left">
+									<button class="startbtn2" type="button">START</button>
+									<br> <span>Solo_06 어려운 문제 도전</span><br>
+									<hr style="border: dotted 1px #0070c0;"><br> <i
+										class="fa-regular fa-circle-user fa-xl"></i>
+									<span>2/3</span> &nbsp;&nbsp;&nbsp;&nbsp;<span>Hard</span>
+								</div>
+							</div>
+							<div class="G_gameroom_left">
+								<div class="left">
+									<button class="ingbtn" type="button"><img th:src="@{/img/gaming.png}"
+											padding="10px;" alt="exit" width="50px" height="50px"></button>
+									<br> <span>Solo_01 즐겁게 게임해요</span> <br>
+									<hr style="border: dotted 1px gray;"><br>
+									</i><span></span> <i
+										class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>2/2</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>Random</span>
+								</div>
+							</div>
+							<div class="G_gameroom_right">
+								<div class="right">
+									<button class="ingbtn" type="button"><img th:src="@{/img/gaming.png}"
+											padding="10px;" alt="exit" width="50px" height="50px"></button>
+									<br> <span>Team_04 가산_자바페스티벌</span><br>
+									<hr style="border: dotted 1px gray;"><br>
+									<i class="fa-solid fa-users fa-xl"></i>&nbsp;4/4 &nbsp;<i
+										class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>4</span>
+									&nbsp;<span>Random</span>
+								</div>
+							</div>
 							<div class="binroom_left"></div>
+							<div class="binroom_right"></div>
 						</div>
 
 					</div>
-
+					<!-- Solo team zip -->
 					<div class="team">
 						<div class="fillter">
-							<button class="fillterbtn">
+							<button class="fillterbtn" type="button">
 								<p>빈방순▼</p>
 							</button>
-							<button class="fillterbtn">
+							<button class="fillterbtn" type="button">
 								<p>난이도순▼</p>
+							</button>
+							<button class="refresh" type="button">
+								<p>새로고침</p>
 							</button>
 						</div>
 						<div class="gameroom">
@@ -711,7 +282,7 @@
 							</div>
 							<div class="G_gameroom_left">
 								<div class="left">
-									<button class="startbtn3" type="button">PLAY</button>
+									<button class="ingbtn" type="button">PLAY</button>
 									<br> Team_02 | 팀전 <br><br> 3팀 | 2명 <br>
 								</div>
 							</div>
@@ -721,6 +292,7 @@
 							<div class="binroom_left"></div>
 							<div class="binroom_right"></div>
 						</div>
+						<!-- Solo game zip -->
 						<div class="solo">
 							<div class="S_gameroom_left">
 								<div class="left">
@@ -747,35 +319,9 @@
 							<div class="binroom_right"></div>
 						</div>
 					</div>
-					<div id="footer"></div>
 				</div>
-
-
-
-
-
-				<!--java script-->
-				<script>
-					/*tab*/
-					$(".menu1").click(function () {
-						$(this).addClass('on');
-						$(".menu2").removeClass("on");
-						$(".menu3").removeClass("on");
-					})
-
-					$(".menu2").click(function () {
-						$(this).addClass('on');
-						$(".menu1").removeClass("on");
-						$(".menu3").removeClass("on");
-					})
-					$(".menu3").click(function () {
-						$(this).addClass('on');
-						$(".menu1").removeClass("on");
-						$(".menu2").removeClass("on");
-					})
-
-				</script>
-
+			</div>
+		</div>
 	</body>
 </th:block>
 
