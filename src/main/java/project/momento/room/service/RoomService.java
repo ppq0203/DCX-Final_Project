@@ -27,7 +27,7 @@ public class RoomService {
 	 * mapper.createRoom(roomName); }
 	 */
 	
-	private Map<String, RoomDto> roomDtoMap; // 임시적으로 구현한 채팅방 저장을 위한 Map
+	public Map<String, RoomDto> roomDtoMap; // 임시적으로 구현한 채팅방 저장을 위한 Map
 	
 	@PostConstruct
 	private void init() {
@@ -54,7 +54,6 @@ public class RoomService {
 	} // 전체 방 찾기
 	
 	public RoomDto findRoomById(String pkRoomSeq) {
-		
 		for (String key : roomDtoMap.keySet()) {
 			System.out.println(key);
 		}
@@ -81,18 +80,32 @@ public class RoomService {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(roomId);
 		room.getUserList().remove(userUUID);
+		room.getTeam1().remove(userUUID);
+		room.getTeam2().remove(userUUID);
 	}
 
-	public void getUserList(ChatDto message) {
+	public HashMap<String, String> getUserList(ChatDto message) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
+		HashMap<String, String> userList = room.getUserList();
 		System.out.println(room.getUserList());
+		return userList;
 	}
 
 	public String getUserName(String roomId, String userUUID) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(roomId);
+		String userName = null;
+		if(room.getUserList().get(userUUID) != null){
+			userName = room.getUserList().get(userUUID);
+		}
+		else if(room.getTeam1().get(userUUID) != null) {
+			userName = room.getTeam1().get(userUUID);
+		}
+		else {
+			userName = room.getTeam2().get(userUUID);
+		}
 
-        return room.getUserList().get(userUUID);
+        return userName;
 	}
 }
