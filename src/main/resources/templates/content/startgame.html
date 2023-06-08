@@ -1,0 +1,84 @@
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<!-- SweetAlert2 -->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>		
+		 <style>
+			@font-face {
+				 font-family: 'DungGeunMo';
+				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+				 font-weight: normal;
+				 font-style: normal;
+			}
+
+			#container {
+				width: 976px;
+				height: 700px;
+			}
+			.btninfo{
+				width: 300px;
+				height: 70px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px 5px 5px 10px;
+				box-shadow: 2px 2px 2px #282A46;
+				border-radius: 10px;
+				border-color: #c55a11;
+				background-color : #c55a11;
+				font-size: 30px;
+				font-family: 'DungGeunMo';
+				color : white;
+				position: fixed;
+    			top: 400px;
+    			left: 338px;
+				cursor: pointer
+			}			 
+			.btnstart{
+				width: 300px;
+				height: 70px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px 5px 5px 10px;
+				box-shadow: 2px 2px 2px #282A46;
+				border-radius: 10px;
+				border-color: #843c0c;
+				background-color : #843c0c;
+				color : white;				
+				font-size: 45px;
+				font-family: 'DungGeunMo';
+				color : 'Darkgary';
+				position: fixed;
+    			top: 500px;
+    			left: 338px;
+				cursor: pointer
+			}
+			.btninfo:hover{
+				 color : red;
+			 }
+			 .btnstart:hover{
+				 color : red;
+			 }
+
+	    </style>
+	</head>
+	<body>
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+			<button class="btninfo">게임설명</button>
+			<button class="btnstart" onclick="location.href='gameroom.html'">START</button>
+		</div>
+		
+	<script>
+    	$(document).on('click', '.btninfo', function(e) {
+      		swal(
+        		'info',
+        		'You clicked the <b style="color:green;">Success</b> button!',
+        		'success'
+      		)
+    	});	
+		</script>
+	</body>
+</html>
