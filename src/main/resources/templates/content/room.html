@@ -2,291 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/emptyLayout}">
     <th:block layout:fragment="content">
- 		<style>
-			@font-face {
-				 font-family: 'DungGeunMo';
-				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
-				 font-weight: normal;
-				 font-style: normal;
-			}
-
-			#container {
-				width: 976px;
-				height: 700px;
-				background-image : url('gameStart.png');
-				background-size : auto ;
-			}
-			#header {
-        		padding: 10px;
-				height : 70px;
-      		}
-	      	#content {
-	        	width: 665px;
-				height: 560px;
-	        	padding: 10px;
-	        	float: left;
-				margin-right : 5px;
-				margin-left : 10px;
-				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
-				border-radius: 10px;
-				pointer-events: none;
-				opacity: 100%;
-	      	}
-	      	#sidebar {
-	        	width: 250px;
-				height: 570px;
-	        	padding: 5px;
-	        	float: right;
-				margin-left : 5px;
-				margin-right : 5px;
-				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
-				position: relative;
-				border-radius: 10px;
-	      	}
-			 .fontp{
-				 font-family : 'DungGeunMo';
-				 font-size : 12px;
-				 color : white;
-				 line-height : 150%;
-			 }
-			 .fontb{
-				 font-family : 'DungGeunMo';
-				 font-size : 13px;
-				 color : yellow;
-				 line-height : 150%;
-			 }
-			 
-			/*content*/
-			/*Tab*/ 
-			.team1{
-				border-radius: 10px; 				/*테두리 둥글게*/ 
-				width: 300px;
-				height : 260px;
-				float : left;
-				vertical-align : center;
-				border : 3px solid #FFC04D;
-				padding: 5px;
-				margin : 0px 5px 2px 8px; 
-			  	/*position: absolute;
-			  	top: 22%;
-			 	left: 10%;
-				margin: -50px 0 0 -50px;
-				padding: 5px; */
-				font-family: 'DungGeunMo';
-			}
-			.t1-user1{
-				background : #FFC04D;
-				border-radius: 10px; 
-				width: 130px;
-				height : 110px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;	
-			 }
-			.t1-change{
-				background : #BF9039;
-				border-radius: 10px; 
-				width: 130px;
-				height : 110px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;	
-			 }			 
-			 
-			.team2{
-				border-radius: 10px; 				/*테두리 둥글게*/ 
-				width: 300px;
-				height : 260px;
-				float : left;
-				vertical-align : center;
-				border : 3px solid #FF652A;
-			  	/* position: absolute;
-			  	top: 22%;
-			 	left: 10%;
-				margin: -50px 0 0 -50px; */
-				margin : 0px 0px 2px 5px; 
-				padding: 5px;
-				font-family: 'DungGeunMo';
-			}
-			.t2-user1{
-				background : #FF652A;
-				border-radius: 10px; 
-				width: 130px;
-				height : 110px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;
-			 }
-			.t2-change{
-				background : #BF4C1F;
-				border-radius: 10px; 
-				width: 130px;
-				height : 110px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;	
-			 }		
-			.team3{
-				border-radius: 10px; 				/*테두리 둥글게*/ 
-				width: 300px;
-				height : 260px;
-				float : left;
-				vertical-align : center;				
-				border : 3px solid #1F71C2;
-				margin : 2px 5px 0px 8px; 
-				padding: 5px;			
-			  	/* position: absolute;
-			  	top: 47%;
-			 	left: 25%;
-				margin: -50px 0 0 -50px;
-				padding: 5px; */
-				font-family: 'DungGeunMo';
-			}
-			.t3-user1{
-				background : #4C6ED4;
-				border-radius: 10px; 
-				width: 130px;
-				height : 110px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;
-			 }
-			.t3-change{
-				background :#1454C2;
-				border-radius: 10px; 
-				width: 130px;
-				height : 110px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;	
-			 }
-			.team4{
-				border-radius: 10px; 				/*테두리 둥글게*/ 
-				width: 300px;
-				height : 260px;
-				float : left;
-				vertical-align : center;
-				border : 3px solid #9BDB6B;
-				padding: 5px;
-				margin : 2px 0px 0px 5px; 
-			  	/* position: absolute;
-			  	top: 47%;
-			 	left: 5%;
-				margin: -50px 0 0 -50px;
-				padding: 5px; */
-				font-family: 'DungGeunMo';
-			}
-			.t4-user1{
-				background : #9BDB6B;
-				border-radius: 10px; 
-				width: 130px;
-				height : 110px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;
-			 }
-			.t4-change{
-				background :#6F9C4C;
-				border-radius: 10px; 
-				width: 130px;
-				height : 110px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;	
-			 }				 
-			/*side*/
-			.gameinfo{
-				width: 220px;
-				height: 120px;
-	        	padding: 5px;
-	        	float: center;
-				margin : 5px;
-				background-color : white;
-				border : 3px solid white;
-			 }
-			 
-			.chat-view{
-	        	width: 220px;
-				height: 200px;
-	        	padding: 5px;
-	        	float: center;
-				margin : 5px;
-				border : 3px solid white;
-				overflow:scroll;
-			}
-			.chat-input{
-				width: 220px;
-				height: 23px;
-				padding: 5px;
-	        	float: center;
-				margin : 5px;
-				border : 3px solid white;
-			 }
-			.write{
-				 width : 170px;
-				 height : 20px;
-				 float : left;
-				 border : 1.5px solid white;
-			 }
-			.no_dot {
-				font-family : 'DungGeunMo';
-				font-size : 15px;
-				line-height : 150%;
-				list-style-type: none;
-			}
-
-			/*button icon*/
-			.btnchat{
-				width: 40px;
-				height: 25px;
-				text-align: center;
-				float: right;
-				background-color : white;
-				font-size: 12px;
-				font-family: 'DungGeunMo';
-				color : #005255;
-			}
-			.teamchange{
-				width: 235px;
-				height: 35px;
-				padding: 5px;
-				text-align: center;
-				margin: 1px 5px 1px 5px;
-				/*border-top-left-radius: 5px;*/
-				border-radius: 5px;
-				background-color : #32c864;
-				font-size: 20px;
-				font-family: 'DungGeunMo';
-			} 
-			.btn{
-				width: 220px;
-				height: 50px;
-				padding: 5px;
-				text-align: center;
-				margin: 3px 5px 5px 10px;
-				/*border-top-left-radius: 5px;*/
-				border-radius: 5px;
-				background-color : #FFC04D;
-				font-size: 20px;
-				font-family: 'DungGeunMo';
-				color : #c55a11;
-			}			 
-			.btnlogout{
-				width: 220px;
-				height: 50px;
-				padding: 5px;
-				text-align: center;
-				margin: 3px 5px 5px 10px;
-				/*border-top-left-radius: 5px;*/
-				border-radius: 5px;
-				background-color : gray;
-				font-size: 20px;
-				font-family: 'DungGeunMo';
-				color : 'Darkgary';
-			}
-
-	    </style>
-        <div class="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+    <script th:inline="javascript">
+		var size =/*[[${questionList.size}]]*/0;
+	</script>
+	<link rel="stylesheet" type="text/css" href="/css/game.css">
+	<link th:href="@{/css/dice.css}" rel="stylesheet">
+	<link th:href="@{/css/waitroom.css}" rel="stylesheet">
+	<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">
+	<script th:src="@{/js/dice.js}"></script>
+	    
+	    <!-- ------------------------ 대기방 ---------------------------- -->
+        <div id="waitRoom" class="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 			<div id="header"></div>
 			<!--side right -->
 		    <div id="sidebar">
@@ -308,7 +34,7 @@
 						<button class="btnchat" type="button" id="button-send">전송</button>
 					</from>
 				</div>
-				<button class="btn" type="button">시작</button>	
+				<button class="btn" type="button" onclick="startButton();">시작</button>	
 				<button class="btnlogout" type="button">나가기</button>		
 			</div>
 			<div id="content">
@@ -338,6 +64,142 @@
 				</div>
 			</div>
         </div>
+        
+        <!-- ----------------------- 대기방 끝 --------------------------- -->
+        
+        <!-- ------------------------게임방------------------------------ -->
+        
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- 모달 내용 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="col ml-3 pl-2 modal-title text-center total_modal">점수표</h4>
+					<button type="button" class="close pl-0 ml-0" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center">
+						<div>
+							<span>총 문제 : 36</span>
+						</div>
+						<div>
+							<span>푼 문제 : 30</span>
+						</div>
+						<div>
+							<span>포기 : 6</span>
+						</div>
+						<div>
+							<span>수학 : 4/5</span>
+						</div>
+						<div>
+							<span>구현 : 3/3</span>
+						</div>
+						<div>
+							<span>자료구조 : 3/6</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="gameRoom" style="display:none;" class="container">
+		<div id="header"></div>
+		<!-- Main content -->
+		<div id="content">
+			<div class="chess-board">
+				<div class="question_col" th:each="n, m : ${questionList}">
+				<!--<p th:text="${n.pkQuestionSeq}"></p>-->
+						<button type="button" class="btn btn-default btn-outline-secondary Question_status"
+						th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal"
+						data-target="#modal-xl" style="width: 100%; height: 100%; border: none;">
+						[[${n.pkQuestionSeq}]]
+						</button>
+				</div>
+			</div>	
+		</div>
+		<div id="sidebar">
+			<div class="side_User">
+					<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px"height="150px">
+					<div class="" style="font-weight:bold;">
+						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+					</div>
+			</div>
+			<div class="chat-veiw">
+				<p class="fontp">
+					<b class="fontb">>>키워드를 클릭해주세요.</b><br>
+								>>키워드 '반복문'을 선택하셨습니다. <br>
+								>>문제 입력창에 정답을 입력해 주세요<br>
+								>>틀렸습니다. <br>
+								>>정답입니다. <br>
+					<b class="fontb">>>키워드를 클릭해주세요.</b>
+				</p>
+			</div>
+			<button class="btnlogout" type="button">나가기</button>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"></h4>
+					<input type="hidden" id="questionNo">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card card-outline card-info">
+						<div class="card-header">
+							<h3 id="questionName" class="card-title"></h3>
+							<input type="hidden" id="nameQuestion">
+
+						</div>
+						<div class="card card-outline card-info">
+							<div class="card-header">
+								<h3 class="card-title">
+									풀이 작성
+								</h3>
+							</div>
+
+							<div class="card-body p-0">
+								<p id="questionContents"></p>
+							</div>
+							<div class="card-footer">
+							</div>
+						</div>
+						<!-- 기존 코드 -->
+						<div class="card card-outline card-info">
+							<div class="card-header">
+								<h3 class="card-title">
+									풀이 작성
+								</h3>
+							</div>
+
+							<div class="card-body p-0">
+								<textarea id="Demo" class="p-3" style="width:100%; height: 500px"></textarea>
+							</div>
+							<div class="card-footer">
+							</div>
+						</div>
+						<!-- 기존 코드 끝-->
+						<!-- 진상 코드-->
+						<form>
+							<div class="modal-footer justify-content-between">
+								<button id="giveup" type="button" class="btn btn-default"
+									data-dismiss="modal">포기</button>
+								<button id="Question_submit" data-dismiss="modal" type="submit"
+									class="btn btn-primary">등록</button>
+							</div>
+						</form>
+						<!-- 진상 코드 끝-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+        
+        <!-- ----------------------- 게임방 끝 ---------------------------- -->
         <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -503,11 +365,98 @@
                     	msg.value = '';
 					}
 				});
-            });
-            
-            
-            
+            }); 
         </script>
+    <script>
+    		function startButton() {
+    			document.getElementById('gameRoom').style.display = 'block';
+    			document.getElementById('waitRoom').style.display = 'none';
+    		}
+    
+    </script>    
+        
+ 	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+	</script>
+	<script th:inline="javascript">
+		//보드 판 테스트
+		var temp_elem;
+		/*<![CDATA[*/
+		function loadQuestion(elem, question) {
+			console.log("test");
+			title = question.pkQuestionSeq + "번째 문제";
+			name = question.questionName;
+			contents = question.contents;
+			codeFormat = question.codeFormat;
+			console.log(title);
+			console.log(name);
+			console.log(contents);
+			console.log(codeFormat);
+			$('.modal-title').text(title);
+			$('#questionNo').val(question.pkQuestionSeq);
+			$('#questionName').text(name);
+			$('#nameQuestion').val(question.className);
+			$('#questionContents').text(contents);
+			$('#Demo').html(codeFormat);
+			temp_elem = elem;
+		}
+    /*]]>*/
+	</script>
+	<!-- 진상 script -->
+	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+		var count = size;
+
+		// 생성된 템플릿을 타임리프 템플릿 영역에 추가
+
+		var line_length = Math.sqrt(count);
+		var gameroom_left_classes = document.getElementsByClassName('question_col');
+		var all_rooms_length = 490;
+		var one_room_length = all_rooms_length / line_length;
+		for (var i = 0; i < gameroom_left_classes.length; i++) {
+			gameroom_left_classes[i].style.width = one_room_length + "px";
+		}
+		$("#total_modal").click(function () {
+			$(".total_modal").text("점수표");
+		});
+		$('#giveup').click(function () {
+			temp_elem.disabled = true;
+			$(temp_elem).css("background-color", "gray");
+			$(temp_elem).css("color", "darkgray");
+		})
+		$('#Question_submit').click(function () {
+			var obj = {
+				format : $("#Demo").val(),
+				name : $("#nameQuestion").val(),
+				number : $("#questionNo").val()
+			}
+			$.ajax({
+				type: "POST",
+				url: "sendAnswer",
+				data: obj,
+				success: function (data) {
+					console.log("test");
+				},
+				error: function () {
+				}
+			});
+			temp_elem.disabled = true;
+			$(temp_elem).css("background-color", "#00b0f0");
+			$(temp_elem).css("color", "blue");
+		})
+	</script>
     </th:block>
         
 </html>
