@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/emptyLayout}">
-    <th:block layout:fragment="content">
-    <script th:inline="javascript">
+<th:block layout:fragment="content">
+	<script th:inline="javascript">
 		var size =/*[[${questionList.size}]]*/0;
 	</script>
 	<link rel="stylesheet" type="text/css" href="/css/game.css">
@@ -10,65 +9,65 @@
 	<link th:href="@{/css/waitroom.css}" rel="stylesheet">
 	<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">
 	<script th:src="@{/js/dice.js}"></script>
-	    
-	    <!-- ------------------------ 대기방 ---------------------------- -->
-        <div id="waitRoom" class="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
-			<div id="header"></div>
-			<!--side right -->
-		    <div id="sidebar">
-				<div class="gameinfo">
-					<ul class="no_dot">
-						<li>게임 유형 :</li>
-						<li>난이도 : </li>
-						<li>문제당 시간 : </li>
-						<li>문제 개수 : </li>
-					</ul>
-				</div>
-				<div>
-					<button class="teamchange" type="button">팀 바꾸기</button>
-				</div>
-				<div class="chat-view" id="msgArea"></div>
-				<div class="chat-input">
-					<from>
-						<input type="text" id="msg" class="form-control">
-						<button class="btnchat" type="button" id="button-send">전송</button>
-					</from>
-				</div>
-				<button class="btn" type="button" onclick="startButton();">시작</button>	
-				<button class="btnlogout" type="button">나가기</button>		
+
+	<!-- ------------------------ 대기방 ---------------------------- -->
+	<div id="waitRoom" class="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+		<div id="header"></div>
+		<!--side right -->
+		<div id="sidebar">
+			<div class="gameinfo">
+				<ul class="no_dot">
+					<li>게임 유형 :</li>
+					<li>난이도 : </li>
+					<li>문제당 시간 : </li>
+					<li>문제 개수 : </li>
+				</ul>
 			</div>
-			<div id="content">
-				<div class="team1" id="team1">
-					<div class="t1-user1"></div>
-					<div class="t1-user2"></div>
-					<div class="t1-user3"></div>
-					<div class="t1-user4"></div>
-				</div>
-				<div class="team2" id="team2">
-					<div class="t2-user1"></div>
-					<div class="t2-user2"></div>
-					<div class="t2-user3"></div>
-					<div class="t2-user4"></div>
-				</div>
-				<div class="team3" id="team3">
-					<div class="t3-user1"></div>
-					<div class="t3-user2"></div>
-					<div class="t3-user3"></div>
-					<div class="t3-user4"></div>
-				</div>
-				<div class="team4" id="team4">
-					<div class="t4-user1"></div>
-					<div class="t4-user2"></div>
-					<div class="t4-user3"></div>
-					<div class="t4-user4"></div>
-				</div>
+			<div>
+				<button class="teamchange" type="button">팀 바꾸기</button>
 			</div>
-        </div>
-        
-        <!-- ----------------------- 대기방 끝 --------------------------- -->
-        
-        <!-- ------------------------게임방------------------------------ -->
-        
+			<div class="chat-view" id="msgArea"></div>
+			<div class="chat-input">
+				<from>
+					<input type="text" id="msg" class="form-control">
+					<button class="btnchat" type="button" id="button-send">전송</button>
+				</from>
+			</div>
+			<button class="btn" type="button" onclick="startButton();">시작</button>
+			<button class="btnlogout" type="button">나가기</button>
+		</div>
+		<div id="content">
+			<div class="team1" id="team1">
+				<div class="t1-user1"></div>
+				<div class="t1-user2"></div>
+				<div class="t1-user3"></div>
+				<div class="t1-user4"></div>
+			</div>
+			<div class="team2" id="team2">
+				<div class="t2-user1"></div>
+				<div class="t2-user2"></div>
+				<div class="t2-user3"></div>
+				<div class="t2-user4"></div>
+			</div>
+			<div class="team3" id="team3">
+				<div class="t3-user1"></div>
+				<div class="t3-user2"></div>
+				<div class="t3-user3"></div>
+				<div class="t3-user4"></div>
+			</div>
+			<div class="team4" id="team4">
+				<div class="t4-user1"></div>
+				<div class="t4-user2"></div>
+				<div class="t4-user3"></div>
+				<div class="t4-user4"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ----------------------- 대기방 끝 --------------------------- -->
+
+	<!-- ------------------------게임방------------------------------ -->
+
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 			<!-- 모달 내용 -->
@@ -108,29 +107,29 @@
 		<div id="content">
 			<div class="chess-board">
 				<div class="question_col" th:each="n, m : ${questionList}">
-				<!--<p th:text="${n.pkQuestionSeq}"></p>-->
-						<button type="button" class="btn btn-default btn-outline-secondary Question_status"
-						th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal"
-						data-target="#modal-xl" style="width: 100%; height: 100%; border: none;">
+					<!--<p th:text="${n.pkQuestionSeq}"></p>-->
+					<button type="button" class="btn btn-default btn-outline-secondary Question_status"
+						th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal" data-target="#modal-xl"
+						style="width: 100%; height: 100%; border: none;">
 						[[${n.pkQuestionSeq}]]
-						</button>
+					</button>
 				</div>
-			</div>	
+			</div>
 		</div>
 		<div id="sidebar">
 			<div class="side_User">
-					<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px"height="150px">
-					<div class="" style="font-weight:bold;">
-						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
-					</div>
+				<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px" height="150px">
+				<div class="" style="font-weight:bold;">
+					<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+				</div>
 			</div>
 			<div class="chat-veiw">
 				<p class="fontp">
 					<b class="fontb">>>키워드를 클릭해주세요.</b><br>
-								>>키워드 '반복문'을 선택하셨습니다. <br>
-								>>문제 입력창에 정답을 입력해 주세요<br>
-								>>틀렸습니다. <br>
-								>>정답입니다. <br>
+					>>키워드 '반복문'을 선택하셨습니다. <br>
+					>>문제 입력창에 정답을 입력해 주세요<br>
+					>>틀렸습니다. <br>
+					>>정답입니다. <br>
 					<b class="fontb">>>키워드를 클릭해주세요.</b>
 				</p>
 			</div>
@@ -198,184 +197,184 @@
 			</div>
 		</div>
 	</div>
-        
-        <!-- ----------------------- 게임방 끝 ---------------------------- -->
-        <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        <script th:inline="javascript">
-            $(document).ready(function(){
-				
-                var roomName = /*[[${room.roomName}]]*/0;
-                var roomId = /*[[${room.pkRoomSeq}]]*/0;
-                var username = "334"
 
-                console.log(roomName + ", " + roomId + ", " + username);
+	<!-- ----------------------- 게임방 끝 ---------------------------- -->
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script th:inline="javascript">
+		$(document).ready(function () {
 
-                var sockJs = new SockJS("/stomp/chat");
-                //1. SockJS를 내부에 들고있는 stomp를 내어줌
-                var stomp = Stomp.over(sockJs);
+			var roomName = /*[[${room.roomName}]]*/0;
+			var roomId = /*[[${room.pkRoomSeq}]]*/0;
+			var username = "334"
 
-                //2. connection이 맺어지면 실행
-                stomp.connect({}, function (){
-                   console.log("STOMP Connection")
+			console.log(roomName + ", " + roomId + ", " + username);
 
-                   //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-                   stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-					   var chatContent = content.chatContent;
-                       var writer = content.pkUserSeq;
-                       var str = '';
-                       
-                       str = "<div class='col-6'>";
-                       str += "<b class='fontp'>" + writer + " : " + chatContent + "</b>";
-                       str += "</div>";
-                       $("#msgArea").append(str);  
-                       $("#msgArea").scrollTop($("#msgArea")[0].scrollHeight);
-                   });
-                   
-                   stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-					   var chatContent = content.chatContent;
-                       var writer = ">>SYSTEM";
-                       var str = '';
+			var sockJs = new SockJS("/stomp/chat");
+			//1. SockJS를 내부에 들고있는 stomp를 내어줌
+			var stomp = Stomp.over(sockJs);
 
-                       str = "<div class='col-sys'>";
-                       str += "<b class='fontb'>" + writer + " : " + chatContent + "</b>";
-                       str += "</div></div>";
-                       $("#msgArea").append(str);
-					});
-					
-					stomp.subscribe("/sub/chat/List/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-                       $.each(content, function(index, value){
-						   if($("#team1").children("#" + index + "").length > 0){
-	  						console.log("jquery : 해당 객체 존재함");
-						   }else{
-	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<b class='fontp'>" + value + "</b>";
-                       		str += "</div></div>";
-                       		$("#" + index + "").remove();
-                       		$("#team1").children(".t1-user1").append(str);
-						   }
-					   });
-					});
-					
-					stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-                       $.each(content, function(index, value){
-						   if($("#team2").children("#" + index + "").length > 0){
-	  						console.log("jquery : 해당 객체 존재함");
-						   }else{
-	    					str = "<div class='col-sys' id = '" + index + "'>"
-                       		str += "<b class='fontp'>" + value + "</b>";
-                       		str += "</div></div>";
-                       		$("#" + index + "").remove();
-                       		$("#team2").children(".t2-user1").append(str);
-						   }
-					   });
-					});
-					
-					stomp.subscribe("/sub/chat/team2List/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-                       $.each(content, function(index, value){
-						   if($("#team3").children("#" + index + "").length > 0){
-	  						console.log("jquery : 해당 객체 존재함");
-						   }else{
-	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<b class='fontp'>" + value + "</b>";
-                       		str += "</div></div>";
-                       		$("#" + index + "").remove();
-                       		$("#team3").children(".t3-user1").append(str);
-						   }
-					   });
-					});
-					
-					stomp.subscribe("/sub/chat/team3List/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-                       $.each(content, function(index, value){
-						   if($("#team4").children("#" + index + "").length > 0){
-	  						console.log("jquery : 해당 객체 존재함");
-						   }else{
-	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<b class='fontp'>" + value + "</b>";
-                       		str += "</div></div>";
-                       		$("#" + index + "").remove();
-                       		$("#team4").children(".t4-user1").append(str);
-						   }
-					   });
-					});
-					
-					stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
-                       var content = chat.body;
-                       console.log(content);
-                       $("#" + content + "").remove();
-					});
-					
-                   //3. send(path, header, message)로 메세지를 보낼 수 있음
-                   stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: username}))
-                });
-                
-                $("#team1").on("click", function(e){
-					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId}))
-					$("#content").css("pointer-events", "none")
-					$("#content").css("opacity", "100%")
-				})
-				
-				$("#team2").on("click", function(e){
-					stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
-					$("#content").css("pointer-events", "none")
-					$("#content").css("opacity", "100%")
-				})
-				
-				$("#team3").on("click", function(e){
-					stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
-					$("#content").css("pointer-events", "none")
-					$("#content").css("opacity", "100%")
-				})
-				
-				$("#team4").on("click", function(e){
-					stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
-					$("#content").css("pointer-events", "none")
-					$("#content").css("opacity", "100%")
-				})
-                
-                $("#system-test").on("click", function(e){
-					stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId}))
-				})
+			//2. connection이 맺어지면 실행
+			stomp.connect({}, function () {
+				console.log("STOMP Connection")
 
-                $("#button-send").on("click", function(e){
-                    var msg = document.getElementById("msg");
+				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
+				stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					var chatContent = content.chatContent;
+					var writer = content.pkUserSeq;
+					var str = '';
 
-                    console.log(username + ":" + msg.value);
-                    stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
-                    msg.value = '';
-                });
-                
-                $(".teamchange").on("click", function(e){
-					console.log("test");
-					$("#content").css("pointer-events", "all")
-					$("#content").css("opacity", "80%")
+					str = "<div class='col-6'>";
+					str += "<b class='fontp'>" + writer + " : " + chatContent + "</b>";
+					str += "</div>";
+					$("#msgArea").append(str);
+					$("#msgArea").scrollTop($("#msgArea")[0].scrollHeight);
 				});
-				
-				$("#msg").keyup(function() {
-					if (event.keyCode == 13) {
-						var msg = document.getElementById("msg");
-                    	stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
-                    	msg.value = '';
-					}
+
+				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					var chatContent = content.chatContent;
+					var writer = ">>SYSTEM";
+					var str = '';
+
+					str = "<div class='col-sys'>";
+					str += "<b class='fontb'>" + writer + " : " + chatContent + "</b>";
+					str += "</div></div>";
+					$("#msgArea").append(str);
 				});
-            }); 
-        </script>
-    <script>
-    		function startButton() {
-    			document.getElementById('gameRoom').style.display = 'block';
-    			document.getElementById('waitRoom').style.display = 'none';
-    		}
-    
-    </script>    
-        
- 	<script>
+
+				stomp.subscribe("/sub/chat/List/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					$.each(content, function (index, value) {
+						if ($("#team1").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='col-sys' id = '" + index + "'>";
+							str += "<b class='fontp'>" + value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team1").children(".t1-user1").append(str);
+						}
+					});
+				});
+
+				stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					$.each(content, function (index, value) {
+						if ($("#team2").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='col-sys' id = '" + index + "'>"
+							str += "<b class='fontp'>" + value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team2").children(".t2-user1").append(str);
+						}
+					});
+				});
+
+				stomp.subscribe("/sub/chat/team2List/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					$.each(content, function (index, value) {
+						if ($("#team3").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='col-sys' id = '" + index + "'>";
+							str += "<b class='fontp'>" + value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team3").children(".t3-user1").append(str);
+						}
+					});
+				});
+
+				stomp.subscribe("/sub/chat/team3List/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					$.each(content, function (index, value) {
+						if ($("#team4").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='col-sys' id = '" + index + "'>";
+							str += "<b class='fontp'>" + value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team4").children(".t4-user1").append(str);
+						}
+					});
+				});
+
+				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
+					var content = chat.body;
+					console.log(content);
+					$("#" + content + "").remove();
+				});
+
+				//3. send(path, header, message)로 메세지를 보낼 수 있음
+				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: username}))
+			});
+
+			$("#team1").on("click", function (e) {
+				stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId}))
+				$("#content").css("pointer-events", "none")
+				$("#content").css("opacity", "100%")
+			})
+
+			$("#team2").on("click", function (e) {
+				stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				$("#content").css("pointer-events", "none")
+				$("#content").css("opacity", "100%")
+			})
+
+			$("#team3").on("click", function (e) {
+				stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				$("#content").css("pointer-events", "none")
+				$("#content").css("opacity", "100%")
+			})
+
+			$("#team4").on("click", function (e) {
+				stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				$("#content").css("pointer-events", "none")
+				$("#content").css("opacity", "100%")
+			})
+
+			$("#system-test").on("click", function (e) {
+				stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId}))
+			})
+
+			$("#button-send").on("click", function (e) {
+				var msg = document.getElementById("msg");
+
+				console.log(username + ":" + msg.value);
+				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
+				msg.value = '';
+			});
+
+			$(".teamchange").on("click", function (e) {
+				console.log("test");
+				$("#content").css("pointer-events", "all")
+				$("#content").css("opacity", "80%")
+			});
+
+			$("#msg").keyup(function () {
+				if (event.keyCode == 13) {
+					var msg = document.getElementById("msg");
+					stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
+					msg.value = '';
+				}
+			});
+		}); 
+	</script>
+	<script>
+		function startButton() {
+			document.getElementById('gameRoom').style.display = 'block';
+			document.getElementById('waitRoom').style.display = 'none';
+		}
+
+	</script>
+
+	<script>
 		$(function () {
 			// CodeMirror
 			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
@@ -438,9 +437,9 @@
 		})
 		$('#Question_submit').click(function () {
 			var obj = {
-				format : $("#Demo").val(),
-				name : $("#nameQuestion").val(),
-				number : $("#questionNo").val()
+				format: $("#Demo").val(),
+				name: $("#nameQuestion").val(),
+				number: $("#questionNo").val()
 			}
 			$.ajax({
 				type: "POST",
@@ -457,6 +456,6 @@
 			$(temp_elem).css("color", "blue");
 		})
 	</script>
-    </th:block>
-        
+</th:block>
+
 </html>
