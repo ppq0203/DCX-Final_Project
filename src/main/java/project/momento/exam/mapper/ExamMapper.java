@@ -17,7 +17,7 @@ public interface ExamMapper {
 
 	void insertExam(ExamDto examDto);
 
-	List<ExamDto> getExamList(int pkEducationSeq);
+	List<ExamDto> getExamList(ExamDto examDto);
 
 	void insertExamDetail(ExamDto examDto);
 
@@ -26,5 +26,13 @@ public interface ExamMapper {
 	void deleteExamDetail(ExamDto examDto);
 
 	void deleteExam(ExamDto examDto);
+
+	void startExam(ExamDto examDto);
+
+	void insertResult(ExamDto examDto);
+
+	List<ExamDto> getExamResultList(ExamDto examDto);
+
+	List<ExamDto> selectExamResultDetailList(ExamDto examDto);
 
 }
