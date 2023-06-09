@@ -45,8 +45,8 @@ public class testController {
 		return "content/std/test/test";
 	}
 	
-	@RequestMapping(value = "/ybtest", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String ybtest() {
+//	@RequestMapping(value = "/ybtest", produces = "application/text;charset=utf-8") /* value주소 이름 */
+//	public String ybtest() {
 		// 데이터 저장
 //		AnswerDto asDto = new AnswerDto();
 //		asDto.setPkQuesTionSeq(0);
@@ -57,12 +57,12 @@ public class testController {
 //		System.out.println();
 		/////////////
 		// 데이터 불러오기
-		List<AnswerDto> answers = answerService.selectAnswer(0);
-		System.out.println(answers);
+//		List<AnswerDto> answers = answerService.selectAnswer(0);
+//		System.out.println(answers);
 		/////////////
 		// 데이터 삭제
-		return "index";
-	}
+//		return "index";
+//	}
 	
 	
 	

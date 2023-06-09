@@ -226,7 +226,7 @@
 						<div class="card card-outline card-info">
 							<div class="card-header">
 								<h3 class="card-title">
-									풀이 작성
+									문제
 								</h3>
 							</div>
 
@@ -328,24 +328,25 @@
 			$(temp_elem).css("color", "darkgray");
 		})
 		$('#Question_submit').click(function () {
-			var obj = {
-				format : $("#Demo").val(),
-				name : $("#nameQuestion").val(),
-				number : $("#questionNo").val()
-			}
 			$.ajax({
 				type: "POST",
 				url: "sendAnswer",
-				data: obj,
-				success: function (data) {
-					console.log("test");
-				},
-				error: function () {
+				data: {
+						format : $("#Demo").val(),
+						name : $("#nameQuestion").val(),
+						number : $("#questionNo").val(),
+						answer : ""
+			}
+			}).done(function(data){
+				console.log(data.answer);
+				if(data.answer != "-1")
+				{
+					temp_elem.disabled = true;
+					$(temp_elem).css("background-color", "#00b0f0");
+					$(temp_elem).css("color", "blue");
 				}
 			});
-			temp_elem.disabled = true;
-			$(temp_elem).css("background-color", "#00b0f0");
-			$(temp_elem).css("color", "blue");
+			
 		})
 	</script>
 </th:block>
