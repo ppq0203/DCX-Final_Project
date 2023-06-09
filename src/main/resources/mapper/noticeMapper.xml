@@ -88,4 +88,24 @@
 		]]>
 	</select>
 	
+	<update id="updateNotice" parameterType="project.momento.notice.dto.NoticeDto">
+		<![CDATA[
+			UPDATE NOTICE
+			SET
+				TITLE = #{title},
+				CONTENTS = #{contents},
+				UPDATE_ID = #{updateId},
+				UPDATE_DT = SYSDATE()
+			WHERE PK_NOTICE_SEQ = #{pkNoticeSeq}
+		]]>
+	</update>
+	
+	<delete id="deleteNotice" parameterType="String">
+		<![CDATA[
+			DELETE
+			FROM NOTICE
+			WHERE PK_NOTICE_SEQ = #{pkNoticeSeq}
+		]]>
+	</delete>
+	
 </mapper>
