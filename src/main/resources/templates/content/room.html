@@ -7,16 +7,16 @@
 	<link rel="stylesheet" type="text/css" href="/css/game.css">
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<link th:href="@{/css/waitroom.css}" rel="stylesheet">
-	<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">
+	<!--<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">-->
 	<script th:src="@{/js/dice.js}"></script>
 
 	<!-- ------------------------ 대기방 ---------------------------- -->
-	<div id="waitRoom" class="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
-		<div id="header"></div>
+	<div id="waitRoom" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+		<div class="waiting_room_header" id="header"></div>
 		<!--side right -->
-		<div id="sidebar">
-			<div class="gameinfo">
-				<ul class="no_dot">
+		<div class="waiting_room_sidebar" id="sidebar">
+			<div class="waiting_room_gameinfo">
+				<ul class="waiting_room_no_dot">
 					<li>게임 유형 :</li>
 					<li>난이도 : </li>
 					<li>문제당 시간 : </li>
@@ -26,40 +26,40 @@
 			<div>
 				<button class="teamchange" type="button">팀 바꾸기</button>
 			</div>
-			<div class="chat-view" id="msgArea"></div>
-			<div class="chat-input">
+			<div class="waiting_room_chat-view" id="msgArea"></div>
+			<div class="waiting_room_chat-input">
 				<from>
 					<input type="text" id="msg" class="form-control">
-					<button class="btnchat" type="button" id="button-send">전송</button>
+					<button class="waiting_room_btnchat" type="button" id="button-send">전송</button>
 				</from>
 			</div>
-			<button class="btn" type="button" onclick="startButton();">시작</button>
-			<button class="btnlogout" type="button">나가기</button>
+			<button class="waiting_room_btn" type="button" onclick="startButton();">시작</button>
+			<button class="waiting_room_btnlogout" type="button">나가기</button>
 		</div>
-		<div id="content">
-			<div class="team1" id="team1">
-				<div class="t1-user1"></div>
-				<div class="t1-user2"></div>
-				<div class="t1-user3"></div>
-				<div class="t1-user4"></div>
+		<div class="waiting_room_content" id="content">
+			<div class="waiting_room_team1" id="team1">
+				<div class="waiting_room_t1-user1"></div>
+				<div class="waiting_room_t1-user2"></div>
+				<div class="waiting_room_t1-user3"></div>
+				<div class="waiting_room_t1-user4"></div>
 			</div>
-			<div class="team2" id="team2">
-				<div class="t2-user1"></div>
-				<div class="t2-user2"></div>
-				<div class="t2-user3"></div>
-				<div class="t2-user4"></div>
+			<div class="waiting_room_team2" id="team2">
+				<div class="waiting_room_t2-user1"></div>
+				<div class="waiting_room_t2-user2"></div>
+				<div class="waiting_room_t2-user3"></div>
+				<div class="waiting_room_t2-user4"></div>
 			</div>
-			<div class="team3" id="team3">
-				<div class="t3-user1"></div>
-				<div class="t3-user2"></div>
-				<div class="t3-user3"></div>
-				<div class="t3-user4"></div>
+			<div class="waiting_room_team3" id="team3">
+				<div class="waiting_room_t3-user1"></div>
+				<div class="waiting_room_t3-user2"></div>
+				<div class="waiting_room_t3-user3"></div>
+				<div class="waiting_room_t3-user4"></div>
 			</div>
-			<div class="team4" id="team4">
-				<div class="t4-user1"></div>
-				<div class="t4-user2"></div>
-				<div class="t4-user3"></div>
-				<div class="t4-user4"></div>
+			<div class="waiting_room_team4" id="team4">
+				<div class="waiting_room_t4-user1"></div>
+				<div class="waiting_room_t4-user2"></div>
+				<div class="waiting_room_t4-user3"></div>
+				<div class="waiting_room_t4-user4"></div>
 			</div>
 		</div>
 	</div>
@@ -255,7 +255,7 @@
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
-							$("#team1").children(".t1-user1").append(str);
+							$("#team1").children(".waiting_room_t1-user1").append(str);
 						}
 					});
 				});
@@ -270,7 +270,7 @@
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
-							$("#team2").children(".t2-user1").append(str);
+							$("#team2").children(".waiting_room_t2-user1").append(str);
 						}
 					});
 				});
@@ -285,7 +285,7 @@
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
-							$("#team3").children(".t3-user1").append(str);
+							$("#team3").children(".waiting_room_t3-user1").append(str);
 						}
 					});
 				});
@@ -300,7 +300,7 @@
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
-							$("#team4").children(".t4-user1").append(str);
+							$("#team4").children(".waiting_room_t4-user1").append(str);
 						}
 					});
 				});
