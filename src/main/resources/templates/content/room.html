@@ -447,7 +447,7 @@
 						<button class="btnchat" type="button" id="button-send">전송</button>
 					</from>
 				</div>
-				<button class="btn" type="button">시작</button>	
+				<button class="btn" type="button" onclick="startButton();">시작</button>	
 				<button class="btnlogout" type="button">나가기</button>		
 			</div>
 			<div id="content">
@@ -515,7 +515,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="container">
+	<div id="gameRoom" style="display:none;" class="container">
 		<div id="header"></div>
 		<!-- Main content -->
 		<div id="content">
@@ -780,7 +780,15 @@
 				});
             }); 
         </script>
- <script>
+    <script>
+    		function startButton() {
+    			document.getElementById('gameRoom').style.display = 'block';
+    			document.getElementById('waitRoom').style.display = 'none';
+    		}
+    
+    </script>    
+        
+ 	<script>
 		$(function () {
 			// CodeMirror
 			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
