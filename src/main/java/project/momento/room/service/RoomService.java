@@ -66,7 +66,7 @@ public class RoomService {
 			roomDto.setTotal(roomDto.getRoomNumber()*roomDto.getTeamNumber());
 		else
 			roomDto.setTotal(roomDto.getRoomNumber());
-		roomDto.setParticipants(1);
+		roomDto.setParticipants(0);
 //		RoomDto room = RoomDto.create(roomDto);
 		roomDtoMap.put(roomDto.getPkRoomSeq(), roomDto);
 		
@@ -78,6 +78,7 @@ public class RoomService {
 		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
 		String userUUID = UUID.randomUUID().toString();
 		room.getUserList().put(userUUID, message.getPkUserSeq());
+		room.setParticipants(room.getParticipants() + 1);
 		return userUUID;
 	}
 	
@@ -88,6 +89,7 @@ public class RoomService {
 		room.getTeam1().remove(userUUID);
 		room.getTeam2().remove(userUUID);
 		room.getTeam3().remove(userUUID);
+		room.setParticipants(room.getParticipants() - 1);
 	}
 
 	public HashMap<String, String> getUserList(ChatDto message) {
@@ -108,8 +110,11 @@ public class RoomService {
 		else if(room.getTeam1().get(userUUID) != null) {
 			userName = room.getTeam1().get(userUUID);
 		}
-		else {
+		else if(room.getTeam2().get(userUUID) != null){
 			userName = room.getTeam2().get(userUUID);
+		}
+		else {
+			userName = room.getTeam3().get(userUUID);
 		}
 
         return userName;
