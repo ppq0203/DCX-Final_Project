@@ -1,5 +1,7 @@
 package project.momento.file.dto;
 
+import java.nio.file.Path;
+
 import org.springframework.context.annotation.PropertySource;
 
 import lombok.Data;
@@ -16,9 +18,11 @@ public class FileDto {
 	/*파일 이름*/
 	private String fileNm;
 	/*파일 사이즈*/
-	private int fileSize;
+	private long fileSize;
 	/*파일 경로*/
 	private String filePath;
+	/*파일 경로*/
+	private String fileOriginalPath;
 	/*파일 다운로드 수*/
 	private int fileDownCnt;
 	/*파일 썸네일 가로 사이즈*/
@@ -35,5 +39,7 @@ public class FileDto {
 	private String updateId;
 	/*수정 일자*/
 	private String updateDt;
+	/*반환ID*/
+	private int returnId;
 
 }

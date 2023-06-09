@@ -16,7 +16,7 @@ public interface LoginMapper {
 	
 	void insertUser(LoginDto loginDto);
 	
-	LoginDto updateUser(LoginDto loginDto);
+	void updateUser(LoginDto loginDto);
 	
 	void deleteUser(LoginDto loginDto);
 	
@@ -34,6 +34,10 @@ public interface LoginMapper {
 	List<LoginDto> selectUserList();
 
 	List<LoginDto> getGraduList();
+
+	LoginDto checkLoginStd(LoginDto loginDto);
+
+	LoginDto checkLoginMng(LoginDto loginDto);
 
 }	
 	

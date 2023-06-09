@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+	<script src="https://kit.fontawesome.com/d1f64dfea6.js" crossorigin="anonymous"></script>
+	<link th:href="@{/css/gameroom.css}" rel="stylesheet">
+	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
+	<link th:href="@{/css/gameWaiting.css}" rel="stylesheet">
+
+	<body>
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form href="#" action="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container">혼자하기
+								<button class="madebtn1" type="submit">확인</button>
+								<button class="madebtn2" type="reset" data-dismiss="modal">취소</button>
+								<div class='md_content'>
+									<div class='roomleft'>
+										<p class="left_p">난이도</p>
+									</div>
+									<div class='roomright'>
+										<p class="right_p">
+											<input type="radio" name="chk_info" value="easy">EASY
+											<input type="radio" name="chk_info" value="middle">MID
+											<input type="radio" name="chk_info" value="hard">HARD
+											<input type="radio" name="chk_info" value="romdom">RONDOM
+										</p>
+									</div>
+									<div class='roomleft'>
+										<p class="left_p">크기</p>
+									</div>
+									<div class='roomright'>
+										<p class="right_p">
+											<input type="radio" name="chk_info" value="9">3X3
+											<input type="radio" name="chk_info" value="16">4X4
+											<input type="radio" name="chk_info" value="25">5X5
+											<input type="radio" name="chk_info" value="36">6X6
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="exampleModalCenter" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form href="#" action="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container2">방만들기
+								<div class='md_content2'>
+
+									<div class='roomleft2'>
+										<p class="left_p2">방 제목</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">같이 게임헤요</p>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p2">비밀번호</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">********</p>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p">개인/팀</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p">
+											<input type="radio" id="solo" name="chk_info" value="solo">개인
+											<input type="radio" id="team" name="chk_info" value="Team">팀
+										</p>
+									</div>
+									<div class="gamemode-team">
+										<div class='roomleft'>
+											<p class="left_p"> 팀 </p>
+										</div>
+										<div class='roomright'>
+											<p class="right_p">
+												<input type="radio" name="chk_info_2" value="2Team">2팀
+												<input type="radio" name="chk_info_2" value="3Team">3팀
+												<input type="radio" name="chk_info_2" value="4Team">4팀
+											</p>
+										</div>
+										<div class='roomleft'>
+											<p class="left_p">팀당인원</p>
+										</div>
+										<div class='roomright'>
+											<p class="right_p">
+												<input type="radio" name="chk_info_3" value="one">1명
+												<input type="radio" name="chk_info_3" value="Tow">2명
+												<input type="radio" name="chk_info_3" value="Three">3명
+												<input type="radio" name="chk_info_3" value="Four">4명
+											</p>
+										</div>
+									</div>
+									<div class="gamemode-solo">
+										<div class='roomleft2'>
+											<p class="left_p">인원</p>
+										</div>
+										<div class='roomright2'>
+											<p class="right_p2">
+												<input type="radio" name="chk_info_3" value="one">1명
+												<input type="radio" name="chk_info_3" value="Tow">2명
+												<input type="radio" name="chk_info_3" value="Three">3명
+												<input type="radio" name="chk_info_3" value="Four">4명
+											</p>
+										</div>
+									</div>
+									<div class='roomleft2'>
+										<p class="left_p2">난이도</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">
+											<input type="radio" name="chk_info_4" value="easy">EASY
+											<input type="radio" name="chk_info_4" value="middle">MID
+											<input type="radio" name="chk_info_4" value="hard">HARD
+											<input type="radio" name="chk_info_4" value="romdom">RONDOM
+										</p>
+									</div>
+								</div>
+								<div id='md_footer2'>
+									<button class="madebtn12" type="submit">확인</button>
+									<button class="madebtn22" type="reset" data-dismiss="modal">취소</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modal-pwd-room" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form href="#" action="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container3">비밀번호
+								<button class="okbtn3" type="submit">확인</button>
+								<button class="cancelbtn3" type="reset" data-dismiss="modal">취소</button>
+								<div class='md_content3'>
+									<div class='roomleft3'>비밀번호</div>
+									<div>
+										<from>
+											<input id='pwd' type='password' />
+										</from>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+			<div id="header"></div>
+
+			<!--side right -->
+			<div id="sidebar">
+				<div class="side_User">
+					<img th:src="@{/img/profil.jpg}" style="border-radius: 50px;" alt="exit" width="150px"
+						height="150px">
+					<div class="" style="font-weight:bold;">
+						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+					</div>
+				</div>
+
+				<button class="btnlogout" id="create-room" type="button" data-toggle="modal"
+					data-target="#exampleModalCenter">
+					<img th:src="@{/img/multi.png}" padding="10px;" alt="exit" width="55px"
+						height="55px">&nbsp;<span>같이하기</span>
+				</button>
+				<button class="btnlogout" type="button" data-toggle="modal" data-target="#myModal">
+					<img th:src="@{/img/solo.png}" padding="10px;" alt="exit" width="55px"
+						height="55px">&nbsp;<span>혼자하기</span>
+				</button>
+				<button class="btnlogout" type="button">
+					<img th:src="@{/img/out.png}" padding="5px;" alt="exit" width="55px" height="55px">&nbsp;<span>나 가
+						기</span>
+				</button>
+			</div>
+
+			<!--content game -->
+			<div id="content">
+				<div id="tabwrap">
+					<button class="menu1 on">전체</button>
+					<button class="menu2">팀</button>
+					<button class="menu3">개인</button>
+
+					<div class="all">
+						<div class="fillter">
+							<button class="fbtn" type="button">빈방순▼</button>
+							<button class="fbtn" type="button">난이도순▼</button>
+							<button class="refresh" type="button">새로고침</button>
+						</div>
+						<div class="gameroom">
+							<div class="M_gameroom_left">
+								<div class="left">
+									<from>
+										<input class="startbtn" type="button" value="START">
+									</from>
+
+									<br>
+									<span>Team_03 팀으로 겨뤼봐요</span>
+									<br>
+									<hr style="border: dotted 1px #FFC04D;">
+									<br> <i class="fa-solid fa-users fa-xl"></i>&nbsp;1/4
+									<i class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>2</span>&nbsp;
+									&nbsp;&nbsp;&nbsp;<span>Easy</span>
+								</div>
+							</div>
+							<div class="M_gameroom_right">
+								<div class="right">
+									<button class="startbtn" type="button"><img th:src="@{/img/rock.png}"
+											padding="10px;" alt="exit" width="40px" height="40px" data-toggle="modal"
+											data-target="#modal-pwd-room"></button>
+									<br> <span>Team_04 광주_자바페스티벌</span> <br>
+									<hr style="border: dotted 1px #FFC04D;"><br><i class="fa-solid fa-users fa-xl">
+									</i>&nbsp;3/4 <i class="fa-regular fa-circle-user fa-xl"></i> <span>5</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>Mid</span>
+								</div>
+							</div>
+							<div class="S_gameroom_left">
+								<div class="left">
+									<button class="startbtn2" type="button"><img th:src="@{/img/rock.png}"
+											padding="10px;" alt="exit" width="40px" height="40px"></i></button>
+									<br><span>Solo_02 즐겁게 게임해요</span> <br>
+									<hr style="border: dotted 1px #0070c0;"><br><i
+										class="fa-regular fa-circle-user fa-xl"></i>
+									<span>1/2</span> &nbsp; &nbsp;&nbsp;&nbsp;<span>Random</span>
+								</div>
+							</div>
+							<div class="S_gameroom_right">
+								<div class="left">
+									<button class="startbtn2" type="button">START</button>
+									<br> <span>Solo_06 어려운 문제 도전</span><br>
+									<hr style="border: dotted 1px #0070c0;"><br> <i
+										class="fa-regular fa-circle-user fa-xl"></i>
+									<span>2/3</span> &nbsp;&nbsp;&nbsp;&nbsp;<span>Hard</span>
+								</div>
+							</div>
+							<div class="G_gameroom_left">
+								<div class="left">
+									<button class="ingbtn" type="button"><img th:src="@{/img/gaming.png}"
+											padding="10px;" alt="exit" width="50px" height="50px"></button>
+									<br> <span>Solo_01 즐겁게 게임해요</span> <br>
+									<hr style="border: dotted 1px gray;"><br>
+									</i><span></span> <i
+										class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>2/2</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>Random</span>
+								</div>
+							</div>
+							<div class="G_gameroom_right">
+								<div class="right">
+									<button class="ingbtn" type="button"><img th:src="@{/img/gaming.png}"
+											padding="10px;" alt="exit" width="50px" height="50px"></button>
+									<br> <span>Team_04 가산_자바페스티벌</span><br>
+									<hr style="border: dotted 1px gray;"><br>
+									<i class="fa-solid fa-users fa-xl"></i>&nbsp;4/4 &nbsp;<i
+										class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>4</span>
+									&nbsp;<span>Random</span>
+								</div>
+							</div>
+							<div class="binroom_left"></div>
+							<div class="binroom_right"></div>
+						</div>
+
+					</div>
+					<!-- Solo team zip -->
+					<div class="team">
+						<div class="fillter">
+							<button class="fillterbtn" type="button">
+								<p>빈방순▼</p>
+							</button>
+							<button class="fillterbtn" type="button">
+								<p>난이도순▼</p>
+							</button>
+							<button class="refresh" type="button">
+								<p>새로고침</p>
+							</button>
+						</div>
+						<div class="gameroom">
+							<div class="M_gameroom_left">
+								<div class="left">
+									<button class="startbtn" type="button">START</button>
+									<br> Team_03 | 팀전 <br><br> 3팀 | 2명 <br>
+								</div>
+							</div>
+							<div class="M_gameroom_right">
+								<div class="left">
+									<button class="startbtn" type="button">START</button>
+									<br> Team_04 | 팀전 <br><br> 2팀 | 4명 <br>
+								</div>
+							</div>
+							<div class="G_gameroom_left">
+								<div class="left">
+									<button class="ingbtn" type="button">PLAY</button>
+									<br> Team_02 | 팀전 <br><br> 3팀 | 2명 <br>
+								</div>
+							</div>
+							<div class="binroom_right"></div>
+							<div class="binroom_left"></div>
+							<div class="binroom_right"></div>
+							<div class="binroom_left"></div>
+							<div class="binroom_right"></div>
+						</div>
+						<!-- Solo game zip -->
+						<div class="solo">
+							<div class="S_gameroom_left">
+								<div class="left">
+									<button class="startbtn2" type="button">START</button>
+									<br> Solo_02 | 개인전<br><br> 4명 <br>
+								</div>
+							</div>
+							<div class="S_gameroom_right">
+								<div class="left">
+									<button class="startbtn2" type="button">START</button>
+									<br> Solo_03 | 개인전<br><br> 2명 <br>
+								</div>
+							</div>
+							<div class="G_gameroom_left">
+								<div class="right">
+									<button class="startbtn3" type="button">PLAY</button>
+									<br> Solo_01 | 개인전<br><br> 4명 <br>
+								</div>
+							</div>
+							<div class="binroom_right"></div>
+							<div class="binroom_left"></div>
+							<div class="binroom_right"></div>
+							<div class="binroom_left"></div>
+							<div class="binroom_right"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		/*$('#create-room').click(function () {
+			if ($('input:radio[id=solo]').is(':checked')) {
+				$('.gamemode-solo').css('display', 'block')
+			} else {
+				$('.gamemode-solo').css('display', 'none')
+			}
+			if ($('input:radio[id=team]').is(':checked')) {
+				$('.gamemode-team').css('display', 'block')
+			} else {
+				$('.gamemode-team').css('display', 'none')
+			}
+		})*/
+
+		$(document).ready(function () {
+			// 개인 라디오 버튼 클릭 시
+			$('#solo').click(function () {
+				// gamemode-team 숨기기
+				$('.gamemode-team').hide();
+				// gamemode-solo 보이기
+				$('.gamemode-solo').show();
+				$(".md_container2").css("height", "500px");
+				$(".md_content2").css("height", "262px");
+			});
+
+			// 팀 라디오 버튼 클릭 시
+			$('#team').click(function () {
+				// gamemode-solo 숨기기
+				$('.gamemode-solo').hide();
+				// gamemode-team 보이기
+				$('.gamemode-team').show();
+				$(".md_container2").css("height", "550px");
+				$(".md_content2").css("height", "312px");
+			});
+		});	
+	</script>
+</th:block>
+
+</html>

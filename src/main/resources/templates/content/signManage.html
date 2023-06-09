@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/defaultLayout}">
+	layout:decorate="~{common/layout/mng/mngDefaultLayout}">
 
 <th:block layout:fragment="content">
 	<style>
@@ -371,7 +371,7 @@
 			}
 		})
 		
-		$('#sign-accect').on('click', function () {
+		$('#sign-accept').on('click', function () {
 			var permitall = $('#permitall');
 			var permit = $('input[name=permit]');
 			var check = $('#check');

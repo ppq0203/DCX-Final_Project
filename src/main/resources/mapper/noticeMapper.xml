@@ -4,20 +4,16 @@
 	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 	<insert id="insertNotice" parameterType="project.momento.notice.dto.NoticeDto">
 		INSERT INTO NOTICE(
-			PK_FILE_SEQ
-			, PK_SUBJECT_SEQ
+			PK_EDUCATION_SEQ
 			, TITLE
 			, CONTENTS
-			, ETC
 			, REGIST_ID
 			, REGIST_DT
 			
 		)VALUES(
-			#{pkFileSeq}
-			,#{pkSubjectSeq}
+			#{pkEducationSeq}
 			,#{title}
 			,#{contents}
-			,#{etc}
 			,#{registId}
 			, SYSDATE()
 		)
@@ -25,7 +21,26 @@
 			UPDATE_ID = #{registId},
 			UPDATE_DT = SYSDATE();
 	</insert>
-	
+	<select id="getNoticeList" parameterType="int" resultType="project.momento.notice.dto.NoticeDto">
+		<![CDATA[
+			SELECT 
+				PK_NOTICE_SEQ,
+				PK_EDUCATION_SEQ,
+				TITLE,
+				CONTENTS,
+				USE_YN,
+				DEL_YN,
+				REGIST_ID,
+				DATE_FORMAT(REGIST_DT,'%Y-%m-%d') AS REGIST_DT,
+				UPDATE_ID,
+				UPDATE_DT
+			FROM NOTICE
+			WHERE PK_EDUCATION_SEQ = #{pkEducationSeq}
+			OR PK_EDUCATION_SEQ = 0
+			ORDER BY REGIST_DT DESC
+			LIMIT 5
+		]]>
+	</select>
 	<select id="selectNoticeListCount" parameterType="hashmap" resultType="int">
 		SELECT
 			COUNT(*)
@@ -33,7 +48,6 @@
 		WHERE 1=1
 		ORDER BY PK_NOTICE_SEQ ASC
 	</select>
-	
 	<select id="selectNoticeList" parameterType="hashmap" resultType="project.momento.notice.dto.NoticeDto">
 		SELECT
 			PK_NOTICE_SEQ							AS pkNoticeSeq

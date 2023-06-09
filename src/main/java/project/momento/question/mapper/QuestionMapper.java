@@ -6,5 +6,7 @@ import project.momento.question.dto.QuestionDto;
 
 @Mapper
 public interface QuestionMapper {
-	List<QuestionDto> selectQuestionList();
+
+	List<QuestionDto> selectQuestion(QuestionDto qtDto);
+
 }
