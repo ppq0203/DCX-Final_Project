@@ -23,7 +23,7 @@ public class GameController {
 	@Autowired
 	private QuestionMapper questionMapper;
 	@Autowired
-	private QuestionService QuestionService;
+	private QuestionService questionService;
 	@Autowired
 	private TestcaseService testcaseService;
 	
@@ -41,7 +41,7 @@ public class GameController {
 			levels = new String[]{level};
 		qtDto.setLevels(levels);
 		qtDto.setProbNum(Integer.parseInt(questionNum));
-		List<QuestionDto> questionList= QuestionService.selectQuestion(qtDto);
+		List<QuestionDto> questionList= questionService.selectQuestion(qtDto);
 		System.out.println(questionList.size());
 		mav.addObject("questionList", questionList);
 		mav.setViewName("content/game"); // view 지정
