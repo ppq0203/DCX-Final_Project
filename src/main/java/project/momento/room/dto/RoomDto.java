@@ -44,6 +44,10 @@ public class RoomDto {
 	private String roomTime; /*방 생성 일자*/
 	
 	private String roomUpdate; /*방 수정 시간*/
+
+	private int participants; /*방 현재 참여자수*/
+	
+	private int total; /*방 총 인원수*/
 	
 	private Set<WebSocketSession> sessions = new HashSet<>();
 	
