@@ -60,7 +60,7 @@ public class GameController {
 			levels = new String[]{level};
 		qtDto.setLevels(levels);
 		qtDto.setProbNum(Integer.parseInt(size));
-		List<QuestionDto> questionList= QuestionService.selectQuestion(qtDto);
+		List<QuestionDto> questionList= questionService.selectQuestion(qtDto);
 		System.out.println(questionList.size());
 		mav.addObject("questionList", questionList);
 		mav.setViewName("content/game"); // view 지정
