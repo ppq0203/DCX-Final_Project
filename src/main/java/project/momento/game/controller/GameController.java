@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.momento.question.dto.QuestionDto;
 import project.momento.question.dto.TestcaseDto;
+import project.momento.question.function.AnswerToDB;
 import project.momento.question.function.StringCodeCompile;
 import project.momento.question.mapper.QuestionMapper;
 import project.momento.question.service.QuestionService;
@@ -83,6 +84,8 @@ public class GameController {
 													// 방넘버, 유저넘저, 함수명, 인풋list, 함수실행코드
 		int result = StringCodeCompile.stringCodeCompile(0, 1, name, testcaseDtos, code);
 		System.out.println(" [+] " + result);
+		// 문제번호, 유저번호, 코드, 결과, 문제타입
+		AnswerToDB.answerToDB(num, 1, code, result, questionService.selectQuestionSeq(num).getType());
 //		JavaOnlineCompilerApplication.stringCompileTest2();
 	}
 	

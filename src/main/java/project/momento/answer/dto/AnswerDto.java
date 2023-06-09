@@ -8,10 +8,10 @@ import lombok.Data;
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
 /*풀이 답*/
 public class AnswerDto {
-	
-	/*제출답안에 부여되는 고유 번호*/
+
+	/*답변에 부여되는 고유번호*/
 	private int pkAnswerSeq;
-	/*방에 부여되는 고유번호*/
+	/*제출답안에 부여되는 고유 번호*/
 	private int pkQuestionSeq;
 	/*유저 개인에게 부여되는 고유번호*/
 	private int pkUserSeq;
@@ -21,5 +21,8 @@ public class AnswerDto {
 	private String answerOx;
 	/*답안 제출 일자*/
 	private String registDt;
+	/*문제 타입*/
+	private String type;
 	
+	private String solveTime;
 }
