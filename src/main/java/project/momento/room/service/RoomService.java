@@ -62,6 +62,11 @@ public class RoomService {
 	
 	public RoomDto createRoomDto(RoomDto roomDto) {
 		roomDto.setPkRoomSeq(UUID.randomUUID().toString());
+		if(roomDto.getTeamNumber() != 0)
+			roomDto.setTotal(roomDto.getRoomNumber()*roomDto.getTeamNumber());
+		else
+			roomDto.setTotal(roomDto.getRoomNumber());
+		roomDto.setParticipants(1);
 //		RoomDto room = RoomDto.create(roomDto);
 		roomDtoMap.put(roomDto.getPkRoomSeq(), roomDto);
 		

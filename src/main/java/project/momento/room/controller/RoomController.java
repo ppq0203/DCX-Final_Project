@@ -38,6 +38,7 @@ public class RoomController {
 	// 채팅방 개설
 	@PostMapping(value = "/room")
 	public String create(@ModelAttribute("RoomDto") RoomDto roomDto) {
+		System.out.println(roomDto);
 		log.info("# Create Chat Room , name: " + roomDto.getRoomName());
 		service.createRoomDto(roomDto);
 //		rttr.addFlashAttribute("roomName", service.createRoomDto(name));

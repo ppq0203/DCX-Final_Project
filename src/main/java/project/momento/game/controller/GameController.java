@@ -48,6 +48,25 @@ public class GameController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/singleGame", method=RequestMethod.POST)
+	public ModelAndView singleGame(String level, String size) { 
+		
+		ModelAndView mav = new ModelAndView();
+		QuestionDto qtDto = new QuestionDto();
+		String[] levels = null;
+		if(level.equals("4"))
+			levels = new String[]{"1","2","3"};
+		else
+			levels = new String[]{level};
+		qtDto.setLevels(levels);
+		qtDto.setProbNum(Integer.parseInt(size));
+		List<QuestionDto> questionList= QuestionService.selectQuestion(qtDto);
+		System.out.println(questionList.size());
+		mav.addObject("questionList", questionList);
+		mav.setViewName("content/game"); // view 지정
+		return mav;
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/sendAnswer", produces="application/json;charset=utf-8", method=RequestMethod.POST)
 	public void test(@RequestParam Map<String, Object> param) {
