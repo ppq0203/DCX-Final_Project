@@ -222,12 +222,12 @@
                contentType: "application/json",
                success: function (data) {
                   console.log("전송성공");
+		          location.reload();
                },
                error: function (request, status, error) {
                   alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                }
             });
-            location.reload();
          }
 
 

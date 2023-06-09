@@ -10,8 +10,8 @@
 					<h2 class="p-2">공지사항</h2>
 				</div>
 				<div class="card-tools col-6 text-right">
-					<button data-toggle="modal" data-target="#modal-xl" type="button"
-						class="mt-3 mr-3 btn btn-primary btn-sm">
+					<button data-toggle="modal" data-target="#modal-create-notice" type="button"
+						class="mt-3 mr-3 btn btn-primary btn-sm" onclick="openCreateModal()">
 						<span>등록</span>
 					</button>
 				</div>
@@ -35,8 +35,8 @@
 							<td th:text="${notice.registId}">registId</td>
 							<td th:text="${notice.registDt}">registDt</td>
 							<td>
-								<button data-toggle="modal" data-target="#modal-notice" type="button"
-									th:value="${notice.pkNoticeSeq}" onclick="openNotice(this)"
+								<button data-toggle="modal" data-target="#modal-open-notice" type="button"
+									th:value="${notice.pkNoticeSeq}" th:onclick="openNotice(this, [[${session.loginDto.userId}]])"
 									class="btn btn-success btn-sm">
 									<span>열기</span>
 								</button>
@@ -57,7 +57,8 @@
 					<h2 class="p-2">강의정보</h2>
 				</div>
 				<div class="card-tools col-6 text-right">
-					<button data-toggle="modal" data-target="#modal-xl" type="button" class="mt-3 mr-3 btn btn-primary btn-sm">
+					<button data-toggle="modal" data-target="#modal-open-class" type="button"
+						class="mt-3 mr-3 btn btn-primary btn-sm" onclick="openCreateClassModal()">
 						<span>등록</span>
 					</button>
 				</div>
@@ -126,8 +127,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+	<!-- Modal-create-notice -->
+	<div class="modal fade" id="modal-create-notice" style="display: none;" aria-hidden="true">
 		<form action="/mng/notice/create" method="post">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
@@ -148,7 +149,7 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label>내용</label>
-										<textarea id="summernote" name="contents" class="form-control"
+										<textarea name="contents" class="form-control summernote-in-subject"
 											rows="6"></textarea>
 									</div>
 								</div>
@@ -165,14 +166,15 @@
 			</div>
 		</form>
 	</div>
-	<div class="modal fade" id="modal-notice" style="display: none;" aria-hidden="true">
+	<!-- Modal-open-notice -->
+	<div class="modal fade" id="modal-open-notice" style="display: none;" aria-hidden="true">
 		<form action="/mng/notice/update" method="post">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
 					<div class="col-12 modal-header">
-						<h4 class="col-12 modal-title text-center">Q&A</h4>
-						<input id="pkNoticeSeq" type="hidden" name="pkNoticeSeq">
-						<input type="hidden" name="registId" th:value="${session.loginDto.userId}">
+						<h4 class="col-12 modal-title text-center">공지사항</h4>
+						<input class="pkNoticeSeq" type="hidden" name="pkNoticeSeq">
+						<input type="hidden" name="updateId" th:value="${session.loginDto.userId}">
 					</div>
 					<div class="modal-body">
 						<div class="container-fluid">
@@ -181,7 +183,7 @@
 									<div class="form-group">
 										<label>제목</label>
 										<div class="title-append">
-											<input id="title_notice" type="text" class="form-control">
+											<input id="title_notice" name="title" type="text" class="form-control">
 										</div>
 									</div>
 								</div>
@@ -189,9 +191,55 @@
 									<div class="form-group">
 										<label>내용</label>
 										<div>
-											<textarea id="summernote" class="summernote form-control"
-												rows="6"></textarea>
+											<textarea class="summernote-open-modal form-control summernote-in-subject"
+												rows="6" name="contents"></textarea>
 										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<div>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+						<div class="check-regist-is-me">
+							<button type="submit" class="btn btn-primary">
+								<span>공지수정</span>
+							</button>
+							<button type="button" class="btn btn-danger pkNoticeSeq" onclick="deleteNotice(this)">
+								<span>공지삭제</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- Modal-open-class -->
+	<div class="modal fade" id="modal-open-class" style="display: none;" aria-hidden="true">
+		<form action="/mng/notice/create" method="post">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<h4 class="col-12 modal-title text-center">강의정보</h4>
+						<input type="hidden" name="pkEducationSeq" th:value="${session.subjectDto.pkEducationSeq}">
+						<input type="hidden" name="registId" th:value="${session.loginDto.userId}">
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>제목</label>
+										<input name="title" type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>내용</label>
+										<textarea name="contents" class="form-control summernote-in-subject"
+											rows="6"></textarea>
 									</div>
 								</div>
 							</div>
@@ -200,18 +248,21 @@
 					<div class="modal-footer justify-content-between">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="submit" class="btn btn-primary">
-							<span>답변등록</span>
+							<span>등록</span>
 						</button>
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
-	<script>
+	<script th:inline="javascript">
 		var SUBJECT_ARRAY = [];
 		$(document).ready(function () {
 			// Summernote
-
+			$('.summernote-in-subject').summernote({
+				tabsize: 2,
+				height: 300
+			});
 			$('.modal').on('shown.bs.modal', function (e) {
 				// 모달이 열릴 때 실행되는 코드
 				// $(this).find('form')[0].reset(); // 입력 필드 초기화
@@ -244,9 +295,23 @@
 			//});
 		})
 
-		function openNotice(arg0) {
-			//$(".title-append").empty();
-			//$(".textarea-append").empty();
+		function openCreateModal() {
+			$('.modal').on('hidden.bs.modal', function (e) {
+				// 모달이 닫힐 때 실행되는 코드
+				$(this).find('form')[0].reset(); // 입력 필드 초기화
+				$('.summernote-in-subject').summernote('code', ''); // 에디터 초기화
+			});
+		}
+
+		function openCreateClassModal() {
+			$('.modal').on('hidden.bs.modal', function (e) {
+				// 모달이 닫힐 때 실행되는 코드
+				$(this).find('form')[0].reset(); // 입력 필드 초기화
+				$('.summernote-in-subject').summernote('code', ''); // 에디터 초기화
+			});
+		}
+
+		function openNotice(arg0, userId) {
 			var buttonValue = arg0.value;
 			var form = {
 				pkNoticeSeq: buttonValue
@@ -258,19 +323,39 @@
 				contentType: "application/json",
 				dataType: "json",
 				success: function (data) {
-					$('#summernote').summernote({
-						tabsize: 2,
-						height: 300
-					});
-					$("#pkNoticeSeq").val(data.pkNoticeSeq);
+					$(".pkNoticeSeq").val(data.pkNoticeSeq);
 					$("#title_notice").val(data.title);
-					$(".summernote").summernote('code', data.contents);
+					$(".summernote-open-modal").summernote('code', data.contents);
+					if (data.registId == userId) {
+						$(".check-regist-is-me").css("display", "block");
+					} else {
+						$(".check-regist-is-me").css("display", "none");
+					}
 				},
 				error: function (request, status, error) {
 					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 				}
 			});
 		}
+
+		function deleteNotice(arg0) {
+            var buttonValue = arg0.value;
+            var form = {
+               pkNoticeSeq: buttonValue
+            };
+            $.ajax({
+               type: "POST",
+               url: "/deleteNotice",
+               data: JSON.stringify(form),
+               contentType: "application/json",
+               success: function (data) {
+               },
+               error: function (request, status, error) {
+                  alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+               }
+            });
+            location.reload();
+         }
 
 	</script>
 </th:block>
