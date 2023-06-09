@@ -60,12 +60,11 @@
 				border-radius: 10px;
 				text-align: center;
 				background : #FFC04D;
-				border : 1px solid #FFC04D;
+				border-color : #FFC04D;
 				background-color : #ffe699;
 				margin: auto;
-                 display: block;
+                display: block;
 				color: rgb(255, 0, 0);
-				
 			 }
 				
 		</style>
@@ -73,12 +72,13 @@
 	<body>
 		<div class="mdaw_container">
 			<div class='mdaw_content'>
-	           <input type="text" id="Question" name="input" value="Question">
+	           <!--<input type="text" id="Question" name="input" value="Question">-->
+	            <textarea cols="36" rows="9" placeholder="Question" readonly></textarea>
 	   </div>
 	   
 			<div class='mdaw_content'>
 	          <!-- <input type="text" id="input" name="input" placeholder="input">-->
-	          <textarea cols="32" rows="9" placeholder="답을 입력해주세요."></textarea>
+	          <textarea cols="36" rows="9" placeholder="답을 입력해주세요."></textarea>
 	   </div>
 			
 			<div id='mdaw_footer'>

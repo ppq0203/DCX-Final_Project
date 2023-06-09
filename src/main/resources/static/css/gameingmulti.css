@@ -197,6 +197,33 @@
 				float : left;
 				font-family: 'DungGeunMo';
 			 }
+			.score {
+				position: relative;
+				border: 2px solid white;
+				border-radius: 10px;
+				width: 20px;
+				height: 20px;
+				margin: 63px 83px;
+				padding: 10px;
+				font-family: 'GmarketSansMedium' ;
+				text-align : center;
+				font-size : 10px;
+				color : white;
+
+			}
+
+			/*content hover*/
+			.hover_y:hover {
+				position: absolute;
+				transform: translate(10%, -10%);
+				background-color: rgb(255, 255, 255);
+				box-shadow: 1px 5px 5px 1px rgb(0, 0, 0);
+				width: 50px;
+				border: 1px;
+				font-size: 20px;
+				line-height: 50px;
+			}
+						 
 			 /*table*/
 			.table             { 
 				border-spacing: 1; 
