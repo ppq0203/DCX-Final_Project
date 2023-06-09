@@ -38,7 +38,7 @@ public class RoomController {
 	public ModelAndView rooms(String roomType) {
 		
 		log.info(" # All Chat Rooms");
-		ModelAndView mv = new ModelAndView("content/rooms");
+		ModelAndView mv = new ModelAndView("content/gameWaiting");
 		mv.addObject("list", service.findAllRooms(roomType));
 		
 		return mv;
@@ -47,6 +47,7 @@ public class RoomController {
 	// 채팅방 개설
 	@PostMapping(value = "/room")
 	public String create(@ModelAttribute("RoomDto") RoomDto roomDto) {
+		System.out.println(roomDto);
 		log.info("# Create Chat Room , name: " + roomDto.getRoomName());
 		service.createRoomDto(roomDto);
 //		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
