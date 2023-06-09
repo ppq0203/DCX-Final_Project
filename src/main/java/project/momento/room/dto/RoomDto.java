@@ -19,6 +19,7 @@ public class RoomDto {
 	private HashMap<String,String> userList = new HashMap<>(); /*참여중인 유저의 리스트를 뽑기 위한 리스트*/
 	private HashMap<String,String> team1 = new HashMap<>(); /*팀1에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
 	private HashMap<String,String> team2 = new HashMap<>(); /*팀2에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
+	private HashMap<String,String> team3 = new HashMap<>(); /*팀3에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
 	
 	private String pkRoomSeq; /*방에 부여되는 고유번호 roomId (지금 임시적으로 세션만으로 구현하는 형태로 String형으로 하였음. DB사용할때는 int로 처리할것. */ 
 	
