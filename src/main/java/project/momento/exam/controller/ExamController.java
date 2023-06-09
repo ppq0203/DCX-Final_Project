@@ -50,19 +50,26 @@ public class ExamController {
 	@RequestMapping(value = "/{userDivn}/{pkSubjectSeq}/exam/main", produces = "application/text;charset=utf-8")
 	public String examMain(@PathVariable String userDivn, @PathVariable int pkSubjectSeq, HttpServletRequest request,
 			Model model) {
-		SubjectDto subjectDto = new SubjectDto();
-		subjectDto = subjectService.getSubject(pkSubjectSeq);
-		List<ExamDto> exameList = examService.getExamList(pkSubjectSeq);
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		request.getSession().setAttribute("subjectDto", subjectDto);
+		ExamDto examDto = new ExamDto();
+		examDto.setUserDivn(userDivn);
+		examDto.setPkSubjectSeq(pkSubjectSeq);
+		examDto.setPkUserSeq(loginDto.getPkUserSeq());
+		List<ExamDto> exameList = examService.getExamList(examDto);
+		List<ExamDto> exameResultList = examService.getExamResultList(examDto);
+		request.getSession().setAttribute("tab", 4);
 		model.addAttribute("exameList", exameList);
 
 		return "content/" + userDivn + "/exam/exam";
 	}
 
 	@PostMapping(value = "/{userDivn}/exam/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String handleFormData(@RequestParam("imgPath") List<MultipartFile> files,
+	public String examCreate(@RequestParam("imgPath") List<MultipartFile> files,
 			@RequestParam("title") List<String> titles, @RequestParam("contents") List<String> contents,
 			@PathVariable String userDivn, HttpServletRequest request) {
+		request.getSession().setAttribute("tab", 5);
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
 		try {
@@ -99,9 +106,27 @@ public class ExamController {
 			return "redirect:/" + userDivn + "/" + pkSubjectSeq + "/exam/main";
 		}
 	}
-
+	
+	
+	@RequestMapping(value = "/{userDivn}/exam/result", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String examResult(@PathVariable String userDivn, Criteria cri, Model model, ExamDto examDto, HttpServletRequest request) {
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		String[] answers = examDto.getAnswer().split(",");
+		for(String answer : answers) {
+			examDto.setAnswer(answer);
+			examDto.setPkUserSeq(loginDto.getPkUserSeq());
+			examService.insertResult(examDto);
+		}
+			
+		
+		
+		return "redirect:/" + userDivn + "/"+pkSubjectSeq+"/exam/main";
+	}
+	
 	@RequestMapping(value = "/{userDivn}/exam/delete", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String educationDelete(@PathVariable String userDivn, Criteria cri, Model model, ExamDto examDto, HttpServletRequest request) {
+	public String examDelete(@PathVariable String userDivn, Criteria cri, Model model, ExamDto examDto, HttpServletRequest request) {
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
@@ -111,6 +136,20 @@ public class ExamController {
 		
 		return "redirect:/" + userDivn + "/"+pkSubjectSeq+"/exam/main";
 	}
+	
+	@RequestMapping(value = "/{userDivn}/exam/start", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String examStart(@PathVariable String userDivn, @RequestParam int pkExamSeq, Criteria cri, Model model, HttpServletRequest request) {
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		ExamDto examDto = new ExamDto();
+		examDto.setPkExamSeq(pkExamSeq);
+		examService.startExam(examDto);
+		
+		return "redirect:/" + userDivn + "/"+pkSubjectSeq+"/exam/main";
+	}
+	
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/getExamDetailList", produces = "application/json;charset=utf-8", method = RequestMethod.POST)

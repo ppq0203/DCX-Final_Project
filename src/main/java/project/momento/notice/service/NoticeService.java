@@ -35,4 +35,9 @@ public class NoticeService {
 		return noticeMapper.getNoticeList(pkEducationSeq);
 	}
 
+	public NoticeDto selectNotice(String pkNoticeSeq) {
+		// TODO Auto-generated method stub
+		return noticeMapper.selectNotice(pkNoticeSeq);
+	}
+
 }
