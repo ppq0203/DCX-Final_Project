@@ -81,7 +81,7 @@
 												<input type="radio" name="roomNumber" value="2" checked="checked"> 2팀
 												<input type="radio" name="roomNumber" value="3"> 3팀
 												<input type="radio" name="roomNumber" value="4"> 4팀
-												<input type="hidden" name="roomNumber" value="2" class="form-control" />
+												<!--input type="hidden" name="roomNumber" value="2" class="form-control"/-->
 											</p>
 										</div>
 										<div class='roomleft'>
@@ -205,11 +205,11 @@
 						<div class="gameroom">
 							<div class="M_gameroom_left" th:each="room : ${list}">
 								<div class="left">
-									<form th:action="@{/chat/enterRoom}" method="post">
-										<!-- 방이름을 전송해주기위해 input hidden 사용 -->
-										<input type="hidden" name="pkRoomSeq" th:value="${room.pkRoomSeq}" />
-										<input class="startbtn" type="submit" th:value="${room.roomType}">
-									</form>
+				                    <form th:action="@{/chat/enterRoom}" method="post" id="enterRoom">
+					                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
+					                    <input type="hidden" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
+										<input class="startbtn" value="START" th:onclick="roomCheck([[${room}]])">
+				                    </form>
 									<br>
 									<span id="room_name">[[${room.roomName}]]</span>
 									<br>
@@ -231,8 +231,20 @@
 			</div>
 		</div>
 	</body>
-	<script>
-
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		function roomCheck(room)
+		{
+			if(room.participants >= room.total)
+			{
+				alert("방이 가득찼습니다.");
+			}
+			else
+			{
+				$('#enterRoom').submit();
+			}
+		}
+		/*]]>*/
 		$(document).ready(function () {
 			var radio_check = $('input:radio[name=roomType]').is(':checked');
 			if (radio_check == true) {
