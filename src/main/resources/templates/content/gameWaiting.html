@@ -12,7 +12,7 @@
 			<div class="modal-dialog">
 				<!-- 모달 내용 -->
 				<div class="modal-content" style="background-color: #843c0c;">
-					<form href="#" action="POST" id="Form">
+					<form th:action="@{/singleGame}" method="POST" id="Form">
 						<div class="modal-body" style="padding: 0px;">
 							<div class="md_container">혼자하기
 								<button class="madebtn1" type="submit">확인</button>
@@ -23,10 +23,10 @@
 									</div>
 									<div class='roomright'>
 										<p class="right_p">
-											<input type="radio" name="chk_info" value="easy">EASY
-											<input type="radio" name="chk_info" value="middle">MID
-											<input type="radio" name="chk_info" value="hard">HARD
-											<input type="radio" name="chk_info" value="romdom">RONDOM
+											<input type="radio" name="level" value="1">EASY
+											<input type="radio" name="level" value="2">MID
+											<input type="radio" name="level" value="3">HARD
+											<input type="radio" name="level" value="4">RONDOM
 										</p>
 									</div>
 									<div class='roomleft'>
@@ -34,10 +34,10 @@
 									</div>
 									<div class='roomright'>
 										<p class="right_p">
-											<input type="radio" name="chk_info" value="9">3X3
-											<input type="radio" name="chk_info" value="16">4X4
-											<input type="radio" name="chk_info" value="25">5X5
-											<input type="radio" name="chk_info" value="36">6X6
+											<input type="radio" name="size" value="9">3X3
+											<input type="radio" name="size" value="16">4X4
+											<input type="radio" name="size" value="25">5X5
+											<input type="radio" name="size" value="36">6X6
 										</p>
 									</div>
 								</div>
@@ -73,8 +73,7 @@
 									<div class='roomright2'>
 										<p class="right_p">
 											<input type="radio" id="solo" name="roomType" value="solo"> vs개인
-											<input type="radio" id="team" name="roomType" value="Team"> vs팀
-											<input type="hidden" name="roomType" value="team" class="form-control"/>
+											<input type="radio" id="team" name="roomType" value="team"> vs팀
 										</p>
 									</div>
 									<div class="gamemode-team">
@@ -94,10 +93,10 @@
 										</div>
 										<div class='roomright'>
 											<p class="right_p">
-												<input type="radio" name="teamNumber" value="teamOne"> 1명
-												<input type="radio" name="teamNumber" value="teamTwo"> 2명
-												<input type="radio" name="teamNumber" value="teamThree"> 3명
-												<input type="radio" name="teamNumber" value="teamFour"> 4명
+												<input type="radio" name="teamNumber" value="1"> 1명
+												<input type="radio" name="teamNumber" value="2"> 2명
+												<input type="radio" name="teamNumber" value="3"> 3명
+												<input type="radio" name="teamNumber" value="4"> 4명
 											</p>
 										</div>
 									</div>
@@ -107,10 +106,9 @@
 										</div>
 										<div class='roomright2'>
 											<p class="right_p2">
-												<input type="radio" name="teamNumber" value="soloone"> 1명
-												<input type="radio" name="teamNumber" value="soloTow"> 2명
-												<input type="radio" name="teamNumber" value="soloThree"> 3명
-												<input type="radio" name="teamNumber" value="soloFour"> 4명
+												<input type="radio" name="roomNumber" value="2"> 2명
+												<input type="radio" name="roomNumber" value="3"> 3명
+												<input type="radio" name="roomNumber" value="4"> 4명
 											</p>
 										</div>
 									</div>
@@ -119,10 +117,10 @@
 									</div>
 									<div class='roomright2'>
 										<p class="right_p2">
-											<input type="radio" name="roomlevel" value="easy"> EASY
-											<input type="radio" name="roomlevel" value="middle"> MID
-											<input type="radio" name="roomlevel" value="hard"> HARD
-											<input type="radio" name="roomlevel" value="romdom"> RONDOM
+											<input type="radio" name="roomLevel" value="1"> EASY
+											<input type="radio" name="roomLevel" value="2"> MID
+											<input type="radio" name="roomLevel" value="3"> HARD
+											<input type="radio" name="roomLevel" value="4"> RONDOM
 										</p>
 									</div>
 								</div>
@@ -194,173 +192,55 @@
 	            		<button class="menu1 on">전체 </button>
 	        		</form>
 	        		<form th:action="@{/chat/rooms}" method="get">
+	        			<input type="hidden" name="roomType" value="team" class="form-control"/>
 	           		 	<button class="menu2">팀</button>
 	        		</form>
 	    	        <form th:action="@{/chat/rooms}" method="get">
+	    	        	<input type="hidden" name="roomType" value="solo" class="form-control"/>
 	            		<button class="menu3">개인</button>
 	        		</form>    		
-
-					<div class="all">
+					<!--  현재 css 가져오는 파일에 class all을 display: none 처리되어있어-->
+					<div class="all" style="display: block">
 						<div class="fillter">
 							<button class="fbtn" type="button">빈방순▼</button>
 							<button class="fbtn" type="button">난이도순▼</button>
 							<button class="refresh" type="button">새로고침</button>
 						</div>
 						<div class="gameroom">
-							<div class="M_gameroom_left">
+							<div class="M_gameroom_left" th:each="room : ${list}">
 								<div class="left">
-									<from>
-										<input class="startbtn" type="button" value="START">
-									</from>
-
+				                    <form th:action="@{/chat/enterRoom}" method="post">
+					                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
+					                    <input type="hidden" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
+										<input class="startbtn" type="submit" value="START">
+				                    </form>
 									<br>
-									<span>Team_03 팀으로 겨뤼봐요</span>
+									<span>[[${room.roomName}]]</span>
 									<br>
+									타입 : [[${room.roomType}]]
+									현재인원 : [[${room.participants}]]
+									총인원 : [[${room.total}]]
+									레벨: 
+									<span th:if="${room.roomLevel == 1}">Easy</span>
+									<span th:if="${room.roomLevel == 2}">Middle</span>
+									<span th:if="${room.roomLevel == 3}">Hard</span>
+									<span th:if="${room.roomLevel == 4}">Random</span>
+									
 									<hr style="border: dotted 1px #FFC04D;">
 									<br> <i class="fa-solid fa-users fa-xl"></i>&nbsp;1/4
 									<i class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>2</span>&nbsp;
-									&nbsp;&nbsp;&nbsp;<span>Easy</span>
-								</div>
+									&nbsp;&nbsp;&nbsp;<span></span>
+				                </div>
 							</div>
-							<div class="M_gameroom_right">
-								<div class="right">
-									<button class="startbtn" type="button"><img th:src="@{/img/rock.png}"
-											padding="10px;" alt="exit" width="40px" height="40px" data-toggle="modal"
-											data-target="#modal-pwd-room"></button>
-									<br> <span>Team_04 광주_자바페스티벌</span> <br>
-									<hr style="border: dotted 1px #FFC04D;"><br><i class="fa-solid fa-users fa-xl">
-									</i>&nbsp;3/4 <i class="fa-regular fa-circle-user fa-xl"></i> <span>5</span>
-									&nbsp;&nbsp;&nbsp;&nbsp;<span>Mid</span>
-								</div>
-							</div>
-							<div class="S_gameroom_left">
-								<div class="left">
-									<button class="startbtn2" type="button"><img th:src="@{/img/rock.png}"
-											padding="10px;" alt="exit" width="40px" height="40px"></i></button>
-									<br><span>Solo_02 즐겁게 게임해요</span> <br>
-									<hr style="border: dotted 1px #0070c0;"><br><i
-										class="fa-regular fa-circle-user fa-xl"></i>
-									<span>1/2</span> &nbsp; &nbsp;&nbsp;&nbsp;<span>Random</span>
-								</div>
-							</div>
-							<div class="S_gameroom_right">
-								<div class="left">
-									<button class="startbtn2" type="button">START</button>
-									<br> <span>Solo_06 어려운 문제 도전</span><br>
-									<hr style="border: dotted 1px #0070c0;"><br> <i
-										class="fa-regular fa-circle-user fa-xl"></i>
-									<span>2/3</span> &nbsp;&nbsp;&nbsp;&nbsp;<span>Hard</span>
-								</div>
-							</div>
-							<div class="G_gameroom_left">
-								<div class="left">
-									<button class="ingbtn" type="button"><img th:src="@{/img/gaming.png}"
-											padding="10px;" alt="exit" width="50px" height="50px"></button>
-									<br> <span>Solo_01 즐겁게 게임해요</span> <br>
-									<hr style="border: dotted 1px gray;"><br>
-									</i><span></span> <i
-										class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>2/2</span>
-									&nbsp;&nbsp;&nbsp;&nbsp;<span>Random</span>
-								</div>
-							</div>
-							<div class="G_gameroom_right">
-								<div class="right">
-									<button class="ingbtn" type="button"><img th:src="@{/img/gaming.png}"
-											padding="10px;" alt="exit" width="50px" height="50px"></button>
-									<br> <span>Team_04 가산_자바페스티벌</span><br>
-									<hr style="border: dotted 1px gray;"><br>
-									<i class="fa-solid fa-users fa-xl"></i>&nbsp;4/4 &nbsp;<i
-										class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>4</span>
-									&nbsp;<span>Random</span>
-								</div>
-							</div>
-							<div class="binroom_left"></div>
-							<div class="binroom_right"></div>
 						</div>
 
 					</div>
-					<!-- Solo team zip -->
-					<div class="team">
-						<div class="fillter">
-							<button class="fillterbtn" type="button">
-								<p>빈방순▼</p>
-							</button>
-							<button class="fillterbtn" type="button">
-								<p>난이도순▼</p>
-							</button>
-							<button class="refresh" type="button">
-								<p>새로고침</p>
-							</button>
-						</div>
-						<div class="gameroom">
-							<div class="M_gameroom_left">
-								<div class="left">
-									<button class="startbtn" type="button">START</button>
-									<br> Team_03 | 팀전 <br><br> 3팀 | 2명 <br>
-								</div>
-							</div>
-							<div class="M_gameroom_right">
-								<div class="left">
-									<button class="startbtn" type="button">START</button>
-									<br> Team_04 | 팀전 <br><br> 2팀 | 4명 <br>
-								</div>
-							</div>
-							<div class="G_gameroom_left">
-								<div class="left">
-									<button class="ingbtn" type="button">PLAY</button>
-									<br> Team_02 | 팀전 <br><br> 3팀 | 2명 <br>
-								</div>
-							</div>
-							<div class="binroom_right"></div>
-							<div class="binroom_left"></div>
-							<div class="binroom_right"></div>
-							<div class="binroom_left"></div>
-							<div class="binroom_right"></div>
-						</div>
-						<!-- Solo game zip -->
-						<div class="solo">
-							<div class="S_gameroom_left">
-								<div class="left">
-									<button class="startbtn2" type="button">START</button>
-									<br> Solo_02 | 개인전<br><br> 4명 <br>
-								</div>
-							</div>
-							<div class="S_gameroom_right">
-								<div class="left">
-									<button class="startbtn2" type="button">START</button>
-									<br> Solo_03 | 개인전<br><br> 2명 <br>
-								</div>
-							</div>
-							<div class="G_gameroom_left">
-								<div class="right">
-									<button class="startbtn3" type="button">PLAY</button>
-									<br> Solo_01 | 개인전<br><br> 4명 <br>
-								</div>
-							</div>
-							<div class="binroom_right"></div>
-							<div class="binroom_left"></div>
-							<div class="binroom_right"></div>
-							<div class="binroom_left"></div>
-							<div class="binroom_right"></div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>
 	</body>
 	<script>
-		/*$('#create-room').click(function () {
-			if ($('input:radio[id=solo]').is(':checked')) {
-				$('.gamemode-solo').css('display', 'block')
-			} else {
-				$('.gamemode-solo').css('display', 'none')
-			}
-			if ($('input:radio[id=team]').is(':checked')) {
-				$('.gamemode-team').css('display', 'block')
-			} else {
-				$('.gamemode-team').css('display', 'none')
-			}
-		})*/
 
 		$(document).ready(function () {
 			// 개인 라디오 버튼 클릭 시
