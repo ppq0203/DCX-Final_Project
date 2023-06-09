@@ -32,6 +32,13 @@
 								<td th:text="${qna.registDt}"><span>registDt</span></td>
 								<td th:text="${qna.count}"><span>count</span></td>
 							</tr>
+							<tr th:each="answer : ${answerList}" th:if="${answer.pkAskSeq == qna.pkAskSeq}">
+								<th scope="row"></th>
+								<td colspan="4">
+									<a
+										th:text="${#strings.append('↳  ', answer.contents)}">contents</a>
+								</td>
+							</tr>
 						</th:block>
 					</tbody>
 				</table>
