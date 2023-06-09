@@ -62,7 +62,7 @@ public class JavaOnlineCompilerApplication {
 				+ "";
 		List<TestcaseDto> testcaseDtos = this.csvToInput("question/csv/num6sol.csv");
 //		System.out.println(testcaseDtos.size());
-		// 방넘버, 유저넘저, 함수명, 인풋list, 함수실행코드
+		// 방넘버, 유저넘버, 함수명, 인풋list, 함수실행코드
 		int result = StringCodeCompile.stringCodeCompile(0, 0, "convert", testcaseDtos, code);
 		System.out.println(result);
         return "index";

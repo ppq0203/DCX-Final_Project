@@ -82,22 +82,16 @@
 	<!-- namespace는 Mapper 인터페이스의 경로로 설정 -->
 	
     <insert id="insertRoom" parameterType="project.momento.room.dto.RoomDto">
-        INSERT INTO ROOM(
-       			ROOM_NO
-        		, ROOM_NAME
-				, ROOM_PWD
-				, ROOM_TYPE
-				, ROOM_PLAY
-				, ROOM_PLAYTIME
-				, ROOM_NUMBER
-				, ROOM_ID
-				, ROOM_TIME
-				, UPDATE_DT
-				, TEAM_NUMBER
-				, ROOM_LEVEL
+        INSERT INTO GAME_RESULT(
+       			PK_GAME_RESULT_SEQ
+        		, MY_TEAM_NUM
+				, SLOVE_TEAM_NUM
+				, MY_RESULT
+				, QUESTION_TYPE
+
         )
         VALUES (
-        #{roomNo}
+        #{PkQuestionSeq}
         , #{roomName}
         , #{roomPwd}
         , #{roomType}
