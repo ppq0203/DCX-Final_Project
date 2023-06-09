@@ -8,6 +8,7 @@
 		<noscript><link rel="stylesheet" href="css/noscript.css" /></noscript>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">	
 		<script type="text/javascript">
+			<!-- 단어 뜻 열고 닫기 -->
 			var bDisplay = true;
 			function doDisplay(){
 				var con = document.getElementById("hide");
@@ -16,6 +17,12 @@
 				}else{
 					con.style.display = 'none';
 				}
+			}
+			
+			function deleteRow(ths){
+			var ths = $(ths);
+
+			ths.parents("tr").remove();
 			}
 		</script>
 	</head>
@@ -49,45 +56,43 @@
 										<tr>
 											<td>1</td>
 											<td><a href="javascript:doDisplay();">삼성 키오스크</a>
-											<div id="hide">
+											<div id="hide" style="display:none;">
 												<p>본인이 쓴 뜻</p>
 												<a href="keyword.html"><p>원문 보러가기</p></a>
 											</div></td>
 											<td>2023.06.05</td>
-											<td><i class="bi bi-three-dots-vertical"></i>
-											</td>
+											<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
 										</tr>
 										<tr>
 											<td>2</td>
 											<td><a href="#">윈도 OS</a></td>
 											<td>2023.06.05</td>
-											<td><i class="bi bi-three-dots-vertical"></i></td>
+											<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
 										</tr>
 										<tr>
 											<td>3</td>
 											<td><a href="#">올인원(All-in-one)</a></td>
 											<td>2023.06.05</td>
-											<td><i class="bi bi-three-dots-vertical"></i></td>
+											<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
 										</tr>
 									</tbody>
 								</table>
 								</div>
 							</div>
 		
-				<!-- Footer -->
-				<footer>
-					<div class="pagination">
-						<!--<a href="#" class="previous">Prev</a>-->
-						<a href="#" class="page active">1</a>
-						<a href="#" class="page">2</a>
-						<a href="#" class="page">3</a>
-						<span class="extra">&hellip;</span>
-						<a href="#" class="page">8</a>
-						<a href="#" class="page">9</a>
-						<a href="#" class="page">10</a>
-						<a href="#" class="next">Next</a>
-					</div>
-				</footer>
+				<!-- pagination -->
+					<footer>
+						<div class="pagination">
+							<!--<a href="#" class="previous">Prev</a>-->
+							<a href="#" class="page active">1</a>
+							<a href="#" class="page">2</a>
+							<a href="#" class="page">3</a>
+							<span class="extra">&hellip;</span>
+							<a href="#" class="page">8</a>
+							<a href="#" class="page">9</a>
+							<a href="#" class="page">10</a>
+						</div>
+					</footer>
 					
 			</div>
 		</div>
