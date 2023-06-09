@@ -1,0 +1,136 @@
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+	<link th:href="@{/css/gameWaiting.css}" rel="stylesheet">
+	<!-- SweetAlert2 -->
+	<style>
+		@font-face {
+			font-family: 'DungGeunMo';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
+		.bi{
+			position: fixed;
+			top: 50%;
+			left: 46%;
+			color: red;
+		}
+		span {
+			font-family: 'GmarketSansMedium';
+			color: black;
+			font-size: 18px;
+			display: block;
+		}
+
+		h3 {
+			color: black;
+			padding-bottom: 16px;
+		}
+
+		#container {
+			width: 976px;
+			height: 700px;
+		}
+
+		.btninfo {
+			width: 300px;
+			height: 70px;
+			padding: 5px;
+			text-align: center;
+			margin: 5px 5px 5px 10px;
+			box-shadow: 2px 2px 2px #282A46;
+			border-radius: 10px;
+			border-color: #c55a11;
+			background-color: #c55a11;
+			font-size: 30px;
+			font-family: 'DungGeunMo';
+			color: white;
+			position: fixed;
+			top: 400px;
+			left: 338px;
+			cursor: pointer
+		}
+
+		.btnstart {
+			width: 300px;
+			height: 70px;
+			padding: 5px;
+			text-align: center;
+			margin: 5px 5px 5px 10px;
+			box-shadow: 2px 2px 2px #282A46;
+			border-radius: 10px;
+			border-color: #843c0c;
+			background-color: #843c0c;
+			color: white;
+			font-size: 45px;
+			font-family: 'DungGeunMo';
+			color: 'Darkgary';
+			position: fixed;
+			top: 500px;
+			left: 338px;
+			cursor: pointer
+		}
+
+		.btninfo:hover {
+			color: red;
+		}
+
+		.btnstart:hover {
+			color: red;
+		}
+	</style>
+	</head>
+
+	<body>
+		<div class="modal fade" id="exampleModalCenter" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form href="#" action="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container2">게임설명
+								<div class='md_content2'>
+									<h3>혼자하기</h3>
+									<span>1. Start -> 방입장 대기화면에서 혼자하기 클릭</span>
+									<span>2. 난이도, 방크기(ex. 6x6 36칸) 선택</span>
+									<span>3. 혼자하기 방 입성</span>
+									<span>4. 키워드 클릭하면 문제가 보임</span>
+									<span>5. 문제를 완료하면 해당 칸 비활성화</span>
+									<span>6. 나와있는 문제를 모두 풀었을 경우 결과지 확인</span>
+									<span>7. 나가기와 새문제 풀기 팝업이 나와 선택 가능</span>
+									<span>* 결과지는 마이페이지에서 다시 볼수 있음</span>
+								</div>
+								<ul class="list">
+									<i class="bi bi-circle"><li class="tab-button" data-id="0"></li></i>
+									<i class="bi bi-circle"><li class="tab-button" data-id="1"></li></i>
+								</ul>
+								<div id='md_footer2'>
+									<button class="madebtn12" type="submit">확인</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+			<button class="btninfo" data-toggle="modal" data-target="#exampleModalCenter">게임설명</button>
+			<button class="btnstart" onclick="location.href='gameroom.html'">START</button>
+		</div>
+
+		<script>
+			$('.btninfo').click(function () {
+				$(".md_content2").css("height", "347px");
+				$(".md_content2").css("top", "48%")
+				$(".md_content2").css("width", "460px");
+				$(".md_content2").css("background-color", "white");
+				$(".md_content2").css("border-radius", "0px");
+				$(".madebtn12").css("left", "190px");
+				$(".md_container2").css("font-size", "33px");
+			})
+		</script>
+	</body>
+
+</html>

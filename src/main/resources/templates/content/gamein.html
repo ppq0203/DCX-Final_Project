@@ -1,243 +1,52 @@
 <!DOCTYPE html>
-<html lang="ko">
-	<head>
-  	<meta charset="UTF-8">
-  	<title>Gnjoy</title>
-  	<link rel="stylesheet" type="text/css" href="1.css">
-		 <style>
-			@font-face {
-				 font-family: 'DungGeunMo';
-				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
-				 font-weight: normal;
-				 font-style: normal;
-			}
-			p{
-				 margin: 0px;
-			}
-			#container {
-				width: 976px;
-				height: 700px;
-				background-image : url('gameStart.png');
-				background-size : auto ;
-			}
-			#header {
-        		padding: 10px;
-				height : 70px;
-      		}
-	      	#content {
-	        	width: 665px;
-				height: 560px;
-	        	padding: 10px;
-	        	float: left;
-				margin-right : 5px;
-				margin-left : 10px;
-				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
-				border-radius: 10px;
-	      	}
-	      	#sidebar {
-	        	width: 250px;
-				height: 570px;
-	        	padding: 5px;
-	        	float: right;
-				margin-left : 5px;
-				margin-right : 5px;
-				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
-				position: relative;
-				border-radius: 10px;
-	      	}
-			 .fontp{
-				 font-family : 'DungGeunMo';
-				 font-size : 12px;
-				 color : white;
-				 line-height : 150%;
-			 }
-			 .fontb{
-				 font-family : 'DungGeunMo';
-				 font-size : 13px;
-				 color : yellow;
-				 line-height : 150%;
-			 }
-			
-			/*content*/
-			.user-all{
-				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
-				border-radius: 10px; 				/*테두리 둥글게*/ 
-				width: 450px;
-				height : 450px;
-				float : center;
-				vertical-align : center;
-			  	position: absolute;
-			  	top: 22%;
-			 	left: 10%;
-				margin: -50px 0 0 -50px;
-				padding: 5px;
-				font-family: 'DungGeunMo';
-			}
-			.user1{
-				background : #FFC04D;
-				border-radius: 10px; 
-				width: 195px;
-				height : 195px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;
-				border : 5px solid #BF9039;
-				
-			 }
-			.user2{
-				background : #FF652A;
-				border-radius: 10px; 
-				width: 195px;
-				height : 195px;
-				margin : 5px ; 
-				padding : 5px;
-				float : right;
-				border : 5px solid #BF4C1F;
-			 }
-			.user3{
-				background : #1F71C2;
-				border-radius: 10px; 
-				width: 195px;
-				height : 195px;
-				margin : 5px ; 
-				padding : 5px;
-				float : left;
-				border : 5px solid #1454C2;
-			 }
-			.user4{
-				background : #9BDB6B;
-				border-radius: 10px; 
-				width: 195px;
-				height : 195px;
-				margin : 5px ; 
-				padding : 5px;
-				float : right;
-				border : 5px solid #6F9C4C;
-			 }
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+	<link th:href="@{/css/gamein.css}" rel="stylesheet">
 
-
-			/*side*/
-			.gameinfo{
-				width: 220px;
-				height: 150px;
-	        	padding: 5px;
-	        	float: center;
-				margin : 5px;
-				background-color : white;
-				border : 3px solid white;
-			 }
-			 
-			.chat-veiw{
-	        	width: 220px;
-				height: 200px;
-	        	padding: 5px;
-	        	float: center;
-				margin : 5px;
-				border : 3px solid white;
-			}
-			.chat-input{
-				width: 220px;
-				height: 23px;
-				padding: 5px;
-	        	float: center;
-				margin : 5px;
-				border : 3px solid white;
-			 }
-			.write{
-				 width : 170px;
-				 height : 20px;
-				 float : left;
-				 border : 1.5px solid white;
-			 }
-			.no_dot {
-				font-family : 'DungGeunMo';
-				font-size : 15px;
-				line-height : 150%;
-				list-style-type: none;
-			}
-
-			/*button icon*/
-			.btnchat{
-				width: 40px;
-				height: 25px;
-				text-align: center;
-				float: right;
-				background-color : white;
-				font-size: 12px;
-				font-family: 'DungGeunMo';
-				color : #005255;
-			}
-			 
-			.btn{
-				width: 220px;
-				height: 50px;
-				padding: 5px;
-				text-align: center;
-				margin: 5px 5px 5px 10px;
-				/*border-top-left-radius: 5px;*/
-				border-radius: 5px;
-				background-color : #FFC04D;
-				font-size: 20px;
-				font-family: 'DungGeunMo';
-				color : #c55a11;
-			}			 
-			.btnlogout{
-				width: 220px;
-				height: 50px;
-				padding: 5px;
-				text-align: center;
-				margin: 5px 5px 5px 10px;
-				/*border-top-left-radius: 5px;*/
-				border-radius: 5px;
-				background-color : gray;
-				font-size: 20px;
-				font-family: 'DungGeunMo';
-				color : 'Darkgary';
-			}
-	    </style>
-
-	</head>
 	<body>
 		<div id="container">
-      		<div id="header"></div>
-			
+			<div id="header"></div>
+
 			<!--side right -->
-			    <div id="sidebar">
-					<div class="gameinfo">
-						<ul class="no_dot">
-							<li>게임 유형 :</li>
-							<li>난이도 : </li>
-							<li>문제당 시간 : </li>
-							<li>문제 개수 : </li>
-						</ul>
-					</div>
-					<div class="chat-veiw">
-						<p class="fontp">
-							<b class="fontb">>>'Solo_03' 방에 입장하셨습니다.</b><br>
-							>>'DCX'님이 입장하셨습니다.<br>
-							>>'스마트'님이 입장하셨습니다.<br>
-						</p>
-					</div>
-					<div class="chat-input">
-						<from><input type="text" id="chat" size=19>
-							<button class="btnchat" type="submit">등록</button>
-						</from>
-						
-							
-					</div>
-					<button class="btn" type="button">시작</button>	
-					<button class="btnlogout" type="button">나가기</button>		
+			<div id="sidebar">
+				<div class="gameinfo">
+					<ul class="no_dot">
+						<li>게임 유형 :</li>
+						<li>난이도 : </li>
+						<li>문제당 시간 : </li>
+						<li>문제 개수 : </li>
+					</ul>
 				</div>
-			
+				<div class="chat-veiw">
+					<p class="fontp">
+						<b class="fontb">>>'Solo_03' 방에 입장하셨습니다.</b><br>
+						>>'DCX'님이 입장하셨습니다.<br>
+						>>'스마트'님이 입장하셨습니다.<br>
+					</p>
+				</div>
+				<div class="chat-input">
+					<from><input type="text" id="chat" size=19>
+						<button class="btnchat" type="submit">등록</button>
+					</from>
+
+
+				</div>
+				<button class="btn" type="button">시작</button>
+				<button class="btnlogout" type="button">나가기</button>
+			</div>
+
 			<!--content game -->
-      		<div id="content">
-				<div class="user-all">
+			<div id="content">
+				<div class="user-all" id="user-all">
 					<div class="user1"></div>
 					<div class="user2"></div>
 					<div class="user3"></div>
 					<div class="user4"></div>
 				</div>
-		</div>
+			</div>
 		</div>
 	</body>
+</th:block>
+
 </html>

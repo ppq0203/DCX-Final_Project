@@ -27,9 +27,9 @@ public class gameModalMultiController {
 	 * param
 	 * return contents/studentScreen 받는값
 	 */
-	@RequestMapping(value="/gameingteam.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	@RequestMapping(value="/gameModal2.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String gameingteam( Model model) {
-	    return "content/gameingteam";
+	    return "content/gameModal2";
 	}
 	
 }
