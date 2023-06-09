@@ -29,7 +29,7 @@ public class RoomController {
 	public ModelAndView rooms(String roomType) {
 		
 		log.info(" # All Chat Rooms");
-		ModelAndView mv = new ModelAndView("content/rooms");
+		ModelAndView mv = new ModelAndView("content/gameWaiting");
 		mv.addObject("list", service.findAllRooms(roomType));
 		
 		return mv;
