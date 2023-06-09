@@ -12,15 +12,15 @@
 				PK_QUESTION_SEQ,
 				PK_USER_SEQ,
 				ANSWER_USER,
-				ANSWER_OX,
+				ANSWER_Ox,
 				REGIST_DT
 			) 
 			VALUES
 			(
-				#{pkQuesTionSeq},
+				#{pkQuestionSeq},
 				#{pkUserSeq},
 				#{answerUser},
-				#{answerOX},
+				#{answerOx},
 				#{registDt}
 			)
 			
@@ -33,7 +33,7 @@
 		<![CDATA[
 			SELECT
 				PK_ANSWER_SEQ 		AS PkAnswerSeq,
-				PK_QUESTION_SEQ		AS pkQuesTionSeq,
+				PK_QUESTION_SEQ		AS pkQuestionSeq,
 				PK_USER_SEQ			AS pkUserSeq,
 				ANSWER_USER			AS answerUser,
 				ANSWER_OX 			AS answerOx,

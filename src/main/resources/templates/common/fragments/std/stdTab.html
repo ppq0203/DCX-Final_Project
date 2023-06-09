@@ -15,7 +15,7 @@
 				<a class="nav-link" th:href="@{/{userDivn}/suppose/main(userDivn=${session.loginDto.userDivn})}">보충영상</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" th:href="@{/{userDivn}/exam/main(userDivn=${session.loginDto.userDivn})}">테스트</a>
+				<a class="nav-link"th:href="@{/{userDivn}/{pkSubjectSeq}/exam/main(userDivn=${session.loginDto.userDivn}, pkSubjectSeq=${session.subjectDto.pkSubjectSeq})}">테스트</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" th:href="@{/{userDivn}/exam/main(userDivn=${session.loginDto.userDivn})}">강의평가</a>

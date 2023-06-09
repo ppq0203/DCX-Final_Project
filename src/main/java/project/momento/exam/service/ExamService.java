@@ -22,6 +22,31 @@ public class ExamService {
 		examMapper.insertExam(examDto);
 	}
 
+	public List<ExamDto> getExamList(int pkEducationSeq) {
+		// TODO Auto-generated method stub
+		return examMapper.getExamList(pkEducationSeq);
+	}
+
+	public void insertExamDetail(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.insertExamDetail(examDto);
+	}
+
+	public List<ExamDto> selectExamDetailList(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		return examMapper.selectExamDetailList(examDto);
+	}
+
+	public void deleteExamDetail(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.deleteExamDetail(examDto);
+	}
+
+	public void deleteExam(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.deleteExam(examDto);
+	}
+
 	
 	
 }
