@@ -26,45 +26,58 @@ public class RoomService {
 	 * mapper.createRoom(roomName); }
 	 */
 	
-	private Map<String, RoomDto> roomDtoMap; // 임시적으로 구현한 채팅방 저장을 위한 Map
+//	private Map<String, RoomDto> roomDtoMap; // 임시적으로 구현한 채팅방 저장을 위한 Map
+//	
+//	@PostConstruct
+//	private void init() {
+//		roomDtoMap = new LinkedHashMap<>();
+//	} // init()를 통한 Map 초기화
+//	
+//	public List<RoomDto> findAllRooms(String roomType) {
+//		List<RoomDto> rooms = new ArrayList<>(roomDtoMap.values());
+//		List<RoomDto> result = new ArrayList<>();
+//		for(RoomDto room : rooms)
+//		{
+//			if (roomType == null)
+//			{
+//				result.add(room);
+//			}
+//			else if (roomType.equals(room.getRoomType()))
+//			{
+//				result.add(room);				
+//			}
+//		}
+////		Collections.reverse(result);
+//		
+//		return result;
+//	} // 전체 방 찾기
+//	
+//	public RoomDto findRoomById(String pkRoomSeq) {
+//		
+//		for (String key : roomDtoMap.keySet()) {
+//			System.out.println(key);
+//		}
+//		return roomDtoMap.get(pkRoomSeq);
+//	} // ID로 방 찾기 (검색기능)
+//	
+//	public RoomDto createRoomDto(RoomDto roomDto) {
+//		roomDto.setPkRoomSeq(UUID.randomUUID().toString());
+////		RoomDto room = RoomDto.create(roomDto);
+//		roomDtoMap.put(roomDto.getPkRoomSeq(), roomDto);
+//		
+//		return roomDto;
+//	} // 방 생성
+
+	@Autowired
+	private RoomMapper RoomMapper;
 	
-	@PostConstruct
-	private void init() {
-		roomDtoMap = new LinkedHashMap<>();
-	} // init()를 통한 Map 초기화
-	
-	public List<RoomDto> findAllRooms(String roomType) {
-		List<RoomDto> rooms = new ArrayList<>(roomDtoMap.values());
-		List<RoomDto> result = new ArrayList<>();
-		for(RoomDto room : rooms)
-		{
-			if (roomType == null)
-			{
-				result.add(room);
-			}
-			else if (roomType.equals(room.getRoomType()))
-			{
-				result.add(room);				
-			}
-		}
-//		Collections.reverse(result);
-		
-		return result;
-	} // 전체 방 찾기
-	
-	public RoomDto findRoomById(String pkRoomSeq) {
-		
-		for (String key : roomDtoMap.keySet()) {
-			System.out.println(key);
-		}
-		return roomDtoMap.get(pkRoomSeq);
-	} // ID로 방 찾기 (검색기능)
-	
-	public RoomDto createRoomDto(RoomDto roomDto) {
-		roomDto.setPkRoomSeq(UUID.randomUUID().toString());
-//		RoomDto room = RoomDto.create(roomDto);
-		roomDtoMap.put(roomDto.getPkRoomSeq(), roomDto);
-		
-		return roomDto;
-	} // 방 생성
+	public void insertRoom(RoomDto rmDto) {
+		// TODO Auto-generated method stub
+		RoomMapper.insertRoom(rmDto);
+	}
+
+//	public List<RoomDto> selectRoom(int pkRoomSeq) {
+//		// TODO Auto-generated method stub
+//		return RoomMapper.selectRoom(pkRoomSeq);
+//	}
 }
