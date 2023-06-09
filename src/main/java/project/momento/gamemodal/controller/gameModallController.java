@@ -27,9 +27,6 @@ public class gameModallController {
 	 * param
 	 * return contents/studentScreen 받는값
 	 */
-	@RequestMapping(value="/gameModall.com", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
-	public String gameModall( Model model) {
-	    return "content/gameModall";
-	}
+
 	
 }
