@@ -37,6 +37,7 @@ public class StompChatController {
 		HashMap<String, String> userList = room.getUserList();
 		HashMap<String, String> team1List = room.getTeam1();
 		HashMap<String, String> team2List = room.getTeam2();
+		HashMap<String, String> team3List = room.getTeam3();
 		
 		headerAccessor.getSessionAttributes().put("userUUID",userUUID);
         headerAccessor.getSessionAttributes().put("roomId",message.getPkRoomSeq());
@@ -47,6 +48,7 @@ public class StompChatController {
 		template.convertAndSend("/sub/chat/List/" + message.getPkRoomSeq(), userList);
 		template.convertAndSend("/sub/chat/team1List/" + message.getPkRoomSeq(), team1List);
 		template.convertAndSend("/sub/chat/team2List/" + message.getPkRoomSeq(), team2List);
+		template.convertAndSend("/sub/chat/team3List/" + message.getPkRoomSeq(), team3List);
 	}
 	
 	@MessageMapping(value="/chat/system")
@@ -64,7 +66,6 @@ public class StompChatController {
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         
         if(room.getTeam1().get(userUUID) != null){
-        	System.out.println("team1 not null");
         	room.getUserList().put(userUUID, room.getTeam1().get(userUUID));
         	room.getTeam1().remove(userUUID);
         }
@@ -72,6 +73,11 @@ public class StompChatController {
         {
         	room.getUserList().put(userUUID, room.getTeam2().get(userUUID));
         	room.getTeam2().remove(userUUID);
+        }
+        else if(room.getTeam3().get(userUUID) != null)
+        {
+        	room.getUserList().put(userUUID, room.getTeam3().get(userUUID));
+        	room.getTeam3().remove(userUUID);
         }
         
         HashMap<String, String> userList = room.getUserList();
@@ -87,7 +93,6 @@ public class StompChatController {
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         
         if(room.getUserList().get(userUUID) != null){
-        	System.out.println("list not null");
         	room.getTeam1().put(userUUID, room.getUserList().get(userUUID));
         	room.getUserList().remove(userUUID);
         }
@@ -95,6 +100,11 @@ public class StompChatController {
         {
         	room.getTeam1().put(userUUID, room.getTeam2().get(userUUID));
         	room.getTeam2().remove(userUUID);
+        }
+        else if(room.getTeam3().get(userUUID) != null)
+        {
+        	room.getTeam1().put(userUUID, room.getTeam3().get(userUUID));
+        	room.getTeam3().remove(userUUID);
         }
         
         HashMap<String, String> userList = room.getTeam1();
@@ -109,7 +119,6 @@ public class StompChatController {
 		String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         if(room.getUserList().get(userUUID) != null){
-        	System.out.println("list not null");
         	room.getTeam2().put(userUUID, room.getUserList().get(userUUID));
         	room.getUserList().remove(userUUID);
         }
@@ -118,10 +127,42 @@ public class StompChatController {
         	room.getTeam2().put(userUUID, room.getTeam1().get(userUUID));
         	room.getTeam1().remove(userUUID);
         }
+        else if(room.getTeam3().get(userUUID) != null)
+        {
+        	room.getTeam2().put(userUUID, room.getTeam3().get(userUUID));
+        	room.getTeam3().remove(userUUID);
+        }
         
         HashMap<String, String> userList = room.getTeam2();
         
 		template.convertAndSend("/sub/chat/team2List/" + message.getPkRoomSeq(), userList);
+	}
+	
+	@MessageMapping(value="/chat/Team3Change")
+	public void change3Team(@Payload ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
+		RoomDto room = shambles.roomDtoMap.get(message.getPkRoomSeq());
+		
+		String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+        
+        if(room.getUserList().get(userUUID) != null){
+        	room.getTeam3().put(userUUID, room.getUserList().get(userUUID));
+        	room.getUserList().remove(userUUID);
+        }
+        else if(room.getTeam1().get(userUUID) != null)
+        {
+        	room.getTeam3().put(userUUID, room.getTeam1().get(userUUID));
+        	room.getTeam1().remove(userUUID);
+        }
+        else if(room.getTeam2().get(userUUID) != null)
+        {
+        	room.getTeam3().put(userUUID, room.getTeam2().get(userUUID));
+        	room.getTeam2().remove(userUUID);
+        }
+        
+        HashMap<String, String> userList = room.getTeam3();
+        
+		template.convertAndSend("/sub/chat/team3List/" + message.getPkRoomSeq(), userList);
 	}
 	
 	@MessageMapping(value= "/chat/message")

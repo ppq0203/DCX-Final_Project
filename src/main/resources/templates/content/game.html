@@ -9,32 +9,94 @@
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<script th:src="@{/js/dice.js}"></script>
 	<style>
-		.chess-board {
-			border-spacing: 0;
-			border-collapse: collapse;
+		@font-face {
+			font-family: 'DungGeunMo';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
 		}
+		@font-face {
+			font-family: 'GmarketSansMedium';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
+				
+		#container {
+			width: 976px;
+			height: 700px;
+			background-size : auto ;
+			display: flex;
 
-		.btnlogout {
-			width: 90%;
+		}
+		#header {
+        	padding: 10px;
+			height : 70px;
+      	}		
+	    #content {
+	        width: 665px;
+			height: 560px;
+	        padding: 10px;
+	        float: left;
+			margin : 70px auto;
+			background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+			border-radius: 10px;
+			display: flex;
+			
+			
+	     }
+	     #sidebar {
+	        width: 250px;
+			height: 560px;
+	        padding: 5px;
+	        float: right;
+			margin : 70px auto;
+			background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+			position: relative;
+			border-radius: 10px;
+	      	}
+		.fontp{
+			font-family : 'DungGeunMo';
+			font-size : 12px;
+			color : white;
+			line-height : 150%;
+		}
+		.fontb{
+			font-family : 'DungGeunMo';
+			font-size : 13px;
+			color : yellow;
+			line-height : 150%;
+		}
+		.btnlogout{
+			width: 220px;
 			height: 50px;
 			padding: 5px;
 			text-align: center;
-			/*margin: 5px 5px 5px 13px;*/
+			margin: 0px 5px 5px 10px;
 			/*border-top-left-radius: 5px;*/
 			border-radius: 5px;
-			background-color: gray;
+			background-color : gray;
 			font-size: 20px;
 			font-family: 'DungGeunMo';
-			color: 'Darkgary';
+			color : 'Darkgary';
+			}
+					      			
+		.chess-board {
+			width: 500px;
+    		height: 500px;
+			border : hidden;
+			margin : auto;
+			font-family: 'GmarketSansMedium'
+			
 		}
 
 		.chess-board th {
 			padding: .5em;
-			width: 10px;
+			width: auto;
 		}
 
 		.chess-board div {
-			border: 1px solid;
+			border: 2px solid #005255;
 			width: 5em;
 			height: 5em;
 			float: left;
@@ -52,6 +114,28 @@
 		.giveup {
 			background: red;
 		}
+		.side_User{
+        	width: 220px;
+			height: 200px;
+        	padding: 10px;
+        	float: center;
+			text-align: center;
+            justify-content: center;
+			margin : 10px auto; 
+			/*border-top-left-radius: 5px;*/
+   			border-radius: 5px;
+			background-color : #c55a11;
+			font-family : 'DungGeunMo';
+			line-height : 150%;
+		}
+		.chat-veiw{
+	       	width: 220px;
+			height: 250px;
+	       	padding: 5px;
+	       	float: center;
+			margin : 15px auto;
+			border : 3px solid white;
+		}			
 	</style>
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -86,85 +170,40 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-lg">
+	<div id="container">
+		<div id="header"></div>
 		<!-- Main content -->
-		<section class="content pt-4 mt-4">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-9">
-						<div class="card">
-							<div class="chess-board">
-								<div class="question_col" th:each="n, m : ${questionList}">
-									<!--<p th:text="${n.pkQuestionSeq}"></p>-->
-									<button type="button" class="btn btn-default btn-outline-secondary Question_status"
-										th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal"
-										data-target="#modal-xl" style="width: 100%; height: 100%; border: none;">
-										문제
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="sticky-top mb-3">
-							<div class="card"
-								style="background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);">
-								<div class="card-header">
-									<div class="card">
-										<span>user</span>
-										<span>어쩌구</span>
-										<span>어쩌구</span>
-										<span>어쩌구</span>
-									</div>
-
-								</div>
-								<div class="card-body">
-									<!-- the events -->
-									<div class="container">
-										<div class="dice-wrapper">
-											<img id="die-1" class="" th:src="@{/img/dice-06.svg} ">
-											<img id="die-2" class="" th:src="@{/img/dice-04.svg}">
-										</div>
-										<button class="btn btn-block btn-primary" onclick="roll()">ROLL THE DICE</button>
-									</div>
-									<div class="card" style="min-height: 300px;">
-										<span>로그</span>
-										<span>어쩌구</span>
-										<span>어쩌구</span>
-										<span>어쩌구</span>
-									</div>
-								</div>
-								<div class="card=footer">
-									<div class="card"
-										style="background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);">
-										<button class="btnlogout mx-auto" type="button">나가기</button>
-									</div>
-								</div>
-								<!-- /.card-body -->
-							</div>
-							<!-- /.card -->
-							<!--<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">Member</h3>
-								</div>
-								<div class="card-body">
-									<div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-										<ul class="fc-color-picker" id="color-chooser">
-											<li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
-											<li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
-											<li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
-											<li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
-											<li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
-										</ul>
-									</div>
-									btn-group
-								</div>
-							</div>-->
-						</div>
-					</div>
+		<div id="content">
+			<div class="chess-board">
+				<div class="question_col" th:each="n, m : ${questionList}">
+				<!--<p th:text="${n.pkQuestionSeq}"></p>-->
+						<button type="button" class="btn btn-default btn-outline-secondary Question_status"
+						th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal"
+						data-target="#modal-xl" style="width: 100%; height: 100%; border: none;">
+						키워드
+						</button>
 				</div>
+			</div>	
+		</div>
+		<div id="sidebar">
+			<div class="side_User">
+					<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px"height="150px">
+					<div class="" style="font-weight:bold;">
+						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+					</div>
 			</div>
-		</section>
+			<div class="chat-veiw">
+				<p class="fontp">
+					<b class="fontb">>>키워드를 클릭해주세요.</b><br>
+								>>키워드 '반복문'을 선택하셨습니다. <br>
+								>>문제 입력창에 정답을 입력해 주세요<br>
+								>>틀렸습니다. <br>
+								>>정답입니다. <br>
+					<b class="fontb">>>키워드를 클릭해주세요.</b>
+				</p>
+			</div>
+			<button class="btnlogout" type="button">나가기</button>
+		</div>
 	</div>
 
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
@@ -172,6 +211,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title"></h4>
+					<input type="hidden" id="questionNo">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
@@ -180,6 +220,7 @@
 					<div class="card card-outline card-info">
 						<div class="card-header">
 							<h3 id="questionName" class="card-title"></h3>
+							<input type="hidden" id="nameQuestion">
 
 						</div>
 						<div class="card card-outline card-info">
@@ -225,8 +266,6 @@
 			</div>
 		</div>
 	</div>
-	<button type="button" class="btn btn-primary" id="total_modal" data-toggle="modal"
-		data-target="#myModal">임시점수표</button>
 	<script>
 		$(function () {
 			// CodeMirror
@@ -251,7 +290,9 @@
 			console.log(contents);
 			console.log(codeFormat);
 			$('.modal-title').text(title);
+			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
+			$('#nameQuestion').val(question.className);
 			$('#questionContents').text(contents);
 			$('#Demo').html(codeFormat);
 			temp_elem = elem;
@@ -273,7 +314,7 @@
 
 		var line_length = Math.sqrt(count);
 		var gameroom_left_classes = document.getElementsByClassName('question_col');
-		var all_rooms_length = 828;
+		var all_rooms_length = 490;
 		var one_room_length = all_rooms_length / line_length;
 		for (var i = 0; i < gameroom_left_classes.length; i++) {
 			gameroom_left_classes[i].style.width = one_room_length + "px";
@@ -283,11 +324,28 @@
 		});
 		$('#giveup').click(function () {
 			temp_elem.disabled = true;
-			$(temp_elem).css("background-color", "red");
+			$(temp_elem).css("background-color", "gray");
+			$(temp_elem).css("color", "darkgray");
 		})
 		$('#Question_submit').click(function () {
+			var obj = {
+				format : $("#Demo").val(),
+				name : $("#nameQuestion").val(),
+				number : $("#questionNo").val()
+			}
+			$.ajax({
+				type: "POST",
+				url: "sendAnswer",
+				data: obj,
+				success: function (data) {
+					console.log("test");
+				},
+				error: function () {
+				}
+			});
 			temp_elem.disabled = true;
-			$(temp_elem).css("background-color", "blue");
+			$(temp_elem).css("background-color", "#00b0f0");
+			$(temp_elem).css("color", "blue");
 		})
 	</script>
 </th:block>

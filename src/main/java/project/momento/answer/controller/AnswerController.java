@@ -20,24 +20,27 @@ public class AnswerController {
 	@Autowired
 	private AnswerService answerService;
 
-//	//실행 결과 TEST//
-//	@RequestMapping(value = "/ybtest", produces = "application/text;charset=utf-8") /* value주소 이름 */
-//	public String ybtest() {
-//		////////////
-//		//데이터 저장
+	//실행 결과 TEST//
+	@RequestMapping(value = "/ybtest", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String ybtest() {
+		////////////
+		//데이터 저장
 //		AnswerDto asDto = new AnswerDto();
-//		asDto.setPkQuesTionSeq(0);
-//		asDto.setPkUserSeq(0);
-//		asDto.setAnswerUser("answeor");
-//		asDto.setAnswerOX("O");
+//		asDto.setPkQuestionSeq(7);
+//		asDto.setPkUserSeq(2);
+//		asDto.setAnswerUser("hell");
+//		asDto.setAnswerOx("O");
 //		answerService.insertAnswer(asDto);
-//		System.out.println();
-//		/////////////
-//		// 데이터 불러오기
-//		List<AnswerDto> answers = answerService.selectAnswer(0);
-//		System.out.println(answers);
-//		/////////////
-//		// 데이터 삭제
-//		return "index";
-//	}
+//		System.out.println(asDto);
+		
+		/////////////
+		// 데이터 불러오기
+		List<AnswerDto> answers = answerService.selectAnswer(1);
+		System.out.println(answers);
+		
+		/////////////
+		// 데이터 삭제 X
+		
+		return "index";
+	}
 }

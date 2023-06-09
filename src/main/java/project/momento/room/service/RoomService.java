@@ -82,6 +82,7 @@ public class RoomService {
 		room.getUserList().remove(userUUID);
 		room.getTeam1().remove(userUUID);
 		room.getTeam2().remove(userUUID);
+		room.getTeam3().remove(userUUID);
 	}
 
 	public HashMap<String, String> getUserList(ChatDto message) {

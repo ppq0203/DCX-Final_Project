@@ -139,17 +139,15 @@
 	</select>
 	<select id="getEducationListAll" resultType="project.momento.subject.dto.SubjectDto">
 		<![CDATA[                 
-		SELECT   
-			C.PK_EDUCATION_SEQ AS pkEducationSeq,
-			B.EDUCATION_NAME AS subjectState,
-			C.SUBJECT_NAME AS subjectName,
-			C.PK_SUBJECT_SEQ AS pkSubjectSeq
-		FROM EDUCATION_STUD A
-		JOIN EDUCATION B
-		ON A.PK_EDUCATION_SEQ = B.PK_EDUCATION_SEQ
-		JOIN SUBJECT C
-		ON A.PK_EDUCATION_SEQ = C.PK_EDUCATION_SEQ
-		ORDER BY A.PK_EDUCATION_SEQ, C.SUB_START_DT
+			SELECT   
+	         C.PK_EDUCATION_SEQ AS pkEducationSeq,
+	         B.EDUCATION_NAME AS subjectState,
+	         C.SUBJECT_NAME AS subjectName,
+	         C.PK_SUBJECT_SEQ AS pkSubjectSeq
+	      FROM EDUCATION B
+	      JOIN SUBJECT C
+	      ON B.PK_EDUCATION_SEQ = C.PK_EDUCATION_SEQ
+	      ORDER BY C.PK_EDUCATION_SEQ, C.SUB_START_DT
 		]]>
 	</select>
 	<select id="selectSubjectList" parameterType="project.momento.education.dto.EducationDto" resultType="project.momento.education.dto.EducationDto">

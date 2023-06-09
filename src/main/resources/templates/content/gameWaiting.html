@@ -51,7 +51,7 @@
 			<div class="modal-dialog">
 				<!-- 모달 내용 -->
 				<div class="modal-content" style="background-color: #843c0c;">
-					<form href="#" action="POST" id="Form">
+					<form th:action="@{/chat/room}" th:object="${RoomDto}" method="post">
 						<div class="modal-body" style="padding: 0px;">
 							<div class="md_container2">방만들기
 								<div class='md_content2'>
@@ -59,22 +59,22 @@
 									<div class='roomleft2'>
 										<p class="left_p2">방 제목</p>
 									</div>
-									<div class='roomright2'>
-										<p class="right_p2">같이 게임헤요</p>
-									</div>
+									<input type="text" name="roomName" value=" 방 제목을 입력해주세요" class="roomright2"/>	
+									
 									<div class='roomleft2'>
 										<p class="left_p2">비밀번호</p>
 									</div>
-									<div class='roomright2'>
-										<p class="right_p2">********</p>
-									</div>
+									<input type="text" name="roomPwd" class="roomright2"/>
+									
 									<div class='roomleft2'>
 										<p class="left_p">개인/팀</p>
 									</div>
+									
 									<div class='roomright2'>
 										<p class="right_p">
-											<input type="radio" id="solo" name="chk_info" value="solo">개인
-											<input type="radio" id="team" name="chk_info" value="Team">팀
+											<input type="radio" id="solo" name="roomType" value="solo"> vs개인
+											<input type="radio" id="team" name="roomType" value="Team"> vs팀
+											<input type="hidden" name="roomType" value="team" class="form-control"/>
 										</p>
 									</div>
 									<div class="gamemode-team">
@@ -83,9 +83,10 @@
 										</div>
 										<div class='roomright'>
 											<p class="right_p">
-												<input type="radio" name="chk_info_2" value="2Team">2팀
-												<input type="radio" name="chk_info_2" value="3Team">3팀
-												<input type="radio" name="chk_info_2" value="4Team">4팀
+												<input type="radio" name="roomNumber" value="2"> 2팀
+												<input type="radio" name="roomNumber" value="3"> 3팀
+												<input type="radio" name="roomNumber" value="4"> 4팀
+												<input type="hidden" name="roomNumber" value="2" class="form-control"/>
 											</p>
 										</div>
 										<div class='roomleft'>
@@ -93,10 +94,10 @@
 										</div>
 										<div class='roomright'>
 											<p class="right_p">
-												<input type="radio" name="chk_info_3" value="one">1명
-												<input type="radio" name="chk_info_3" value="Tow">2명
-												<input type="radio" name="chk_info_3" value="Three">3명
-												<input type="radio" name="chk_info_3" value="Four">4명
+												<input type="radio" name="teamNumber" value="teamOne"> 1명
+												<input type="radio" name="teamNumber" value="teamTwo"> 2명
+												<input type="radio" name="teamNumber" value="teamThree"> 3명
+												<input type="radio" name="teamNumber" value="teamFour"> 4명
 											</p>
 										</div>
 									</div>
@@ -106,10 +107,10 @@
 										</div>
 										<div class='roomright2'>
 											<p class="right_p2">
-												<input type="radio" name="chk_info_3" value="one">1명
-												<input type="radio" name="chk_info_3" value="Tow">2명
-												<input type="radio" name="chk_info_3" value="Three">3명
-												<input type="radio" name="chk_info_3" value="Four">4명
+												<input type="radio" name="teamNumber" value="soloone"> 1명
+												<input type="radio" name="teamNumber" value="soloTow"> 2명
+												<input type="radio" name="teamNumber" value="soloThree"> 3명
+												<input type="radio" name="teamNumber" value="soloFour"> 4명
 											</p>
 										</div>
 									</div>
@@ -118,10 +119,10 @@
 									</div>
 									<div class='roomright2'>
 										<p class="right_p2">
-											<input type="radio" name="chk_info_4" value="easy">EASY
-											<input type="radio" name="chk_info_4" value="middle">MID
-											<input type="radio" name="chk_info_4" value="hard">HARD
-											<input type="radio" name="chk_info_4" value="romdom">RONDOM
+											<input type="radio" name="roomlevel" value="easy"> EASY
+											<input type="radio" name="roomlevel" value="middle"> MID
+											<input type="radio" name="roomlevel" value="hard"> HARD
+											<input type="radio" name="roomlevel" value="romdom"> RONDOM
 										</p>
 									</div>
 								</div>
@@ -165,7 +166,7 @@
 			<div id="sidebar">
 				<div class="side_User">
 					<img th:src="@{/img/profil.jpg}" style="border-radius: 50px;" alt="exit" width="150px"
-						height="150px">
+						height="140px">
 					<div class="" style="font-weight:bold;">
 						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
 					</div>
@@ -189,9 +190,15 @@
 			<!--content game -->
 			<div id="content">
 				<div id="tabwrap">
-					<button class="menu1 on">전체</button>
-					<button class="menu2">팀</button>
-					<button class="menu3">개인</button>
+					<form th:action="@{/chat/rooms}" method="get">
+	            		<button class="menu1 on">전체 </button>
+	        		</form>
+	        		<form th:action="@{/chat/rooms}" method="get">
+	           		 	<button class="menu2">팀</button>
+	        		</form>
+	    	        <form th:action="@{/chat/rooms}" method="get">
+	            		<button class="menu3">개인</button>
+	        		</form>    		
 
 					<div class="all">
 						<div class="fillter">
