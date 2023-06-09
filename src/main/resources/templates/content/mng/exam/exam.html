@@ -354,7 +354,24 @@
 			});
 
 		}
-		//function score
+		function score(pkExamResultSeq, divn) {
+			$.ajax({
+				url: '/mng/exam/result/score',
+				type: 'POST',
+				data: {
+					pkExamResultSeq: pkExamResultSeq,
+					divn: divn
+				},
+				dataType: 'json',
+				success: function (data) {
+
+
+				},
+				error: function (xhr, status, error) {
+					console.log(error); // 에러 처리
+				}
+			});
+		}
 
 		$(document).ready(function () {
 
@@ -481,7 +498,7 @@
 								'<div class="6">' +
 								'<div class="form-group pr-1">' +
 								'<div class="custom-control custom-radio">' +
-								'<input class="custom-control-input checkAns" pkExamResultSeq="'+item.pkExamResultSeq+'" value="Y" type="checkbox" id="true' + index + '" name="ansResult" checked>' +
+								'<input class="custom-control-input checkAns" pkExamResultSeq="' + item.pkExamResultSeq + '" value="Y" type="checkbox" id="true' + index + '" name="ansResult" checked>' +
 								'<label for="true' + index + '" class="custom-control-label">정답</label>' +
 								'</div>' +
 								'</div>' +
