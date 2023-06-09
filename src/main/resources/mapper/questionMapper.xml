@@ -8,6 +8,7 @@
 			    B.LEVEL AS Level,
 			    B.SCORE AS Score,
 			    B.TYPE AS Type,
+			    B.CONTENTS AS CONTENTS,
 			    B.CODE_FORMAT AS CodeFormat,
 			    B.SOLUTION AS Solution,
 			    B.CHANCE AS Chance,
