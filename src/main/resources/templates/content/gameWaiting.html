@@ -188,11 +188,11 @@
 						<button class="menu1 on">전체 </button>
 					</form>
 					<form th:action="@{/chat/rooms}" method="get">
-						<input type="hidden" name="roomType" value="team" class="form-control" />
+						<input type="hidden" name="roomType" value="multi" class="form-control" />
 						<button class="menu2">팀</button>
 					</form>
 					<form th:action="@{/chat/rooms}" method="get">
-						<input type="hidden" name="roomType" value="solo" class="form-control" />
+						<input type="hidden" name="roomType" value="single" class="form-control" />
 						<button class="menu3">개인</button>
 					</form>
 					<!--  현재 css 가져오는 파일에 class all을 display: none 처리되어있어-->
