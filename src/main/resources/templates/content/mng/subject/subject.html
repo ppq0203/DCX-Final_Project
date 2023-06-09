@@ -4,13 +4,14 @@
 
 <th:block layout:fragment="content">
 	<div class="row">
-		<div class="col-6 p-5">
+		<div class="col-12 p-5">
 			<div class="row">
-				<div>
+				<div class="col-6">
 					<h2 class="p-2">공지사항</h2>
 				</div>
 				<div class="card-tools col-6 text-right">
-					<button data-toggle="modal" data-target="#modal-xl" type="button" class="mt-3 btn btn-primary btn-sm">
+					<button data-toggle="modal" data-target="#modal-xl" type="button"
+						class="mt-3 mr-3 btn btn-primary btn-sm">
 						<span>등록</span>
 					</button>
 				</div>
@@ -19,19 +20,28 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th style="width:50px;">No.</th>
-						<th>제목</th>
-						<th>등록자</th>
-						<th>등록일자</th>
+						<th style="width: 5%;">No.</th>
+						<th style="width: 70%;">제목</th>
+						<th style="width: 10%;">등록자</th>
+						<th style="width: 10%;">등록일자</th>
+						<th style="width: 5%;"></th>
 					</tr>
 					<th:block th:if="${noticeList != null}">
 						<tr th:each="notice, noticeStat : ${noticeList}">
 							<td th:text="${noticeStat.count}">no</td>
-							<td th:if="${#strings.length(notice.title) <= 10}" th:text="${notice.title}">title</td>
-							<td th:unless="${#strings.length(notice.title) <= 10}" th:text="${#strings.append(#strings.substring(notice.title,0,10),'...')}">title</td>
+							<td th:if="${#strings.length(notice.title) <= 40}" th:text="${notice.title}">title</td>
+							<td th:unless="${#strings.length(notice.title) <= 40}"
+								th:text="${#strings.append(#strings.substring(notice.title,0,40),'...')}">title</td>
 							<td th:text="${notice.registId}">registId</td>
 							<td th:text="${notice.registDt}">registDt</td>
-						</tr>						
+							<td>
+								<button data-toggle="modal" data-target="#modal-notice" type="button"
+									th:value="${notice.pkNoticeSeq}" onclick="openNotice(this)"
+									class="btn btn-success btn-sm">
+									<span>열기</span>
+								</button>
+							</td>
+						</tr>
 					</th:block>
 				</thead>
 				<tbody>
@@ -41,39 +51,27 @@
 			<div th:unless="${noticeList != null}" class="card-footer">
 			</div>
 		</div>
-		<div class="col-6 p-5">
-			<h2 class="p-2">과제제출</h2>
-			<!-- /.card-header -->
-			<table class="table">
-				<thead>
-					<tr>
-						<th style="width:50px;">No.</th>
-						<th>제목</th>
-						<th>등록자</th>
-						<th>등록일자</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			<!-- /.card-body -->
-			<div class="card-footer">
-			</div>
-		</div>
 		<div class="col-12 p-5">
-			<h2 class="p-2">강의정보</h2>
-			<div class="card-tools">
+			<div class="row">
+				<div class="col-6">
+					<h2 class="p-2">강의정보</h2>
+				</div>
+				<div class="card-tools col-6 text-right">
+					<button data-toggle="modal" data-target="#modal-xl" type="button" class="mt-3 mr-3 btn btn-primary btn-sm">
+						<span>등록</span>
+					</button>
+				</div>
 			</div>
 			<!-- /.card-header -->
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col"></th>
-						<th scope="col">날짜</th>
-						<th scope="col">과목명</th>
-						<th scope="col">강좌명</th>
-						<th scope="col">강의자료</th>
-						<th scope="col">과제답안</th>
+						<th style="width: 5%;">No.</th>
+						<th style="width: 50%;">강좌명</th>
+						<th style="width: 20%;">과목명</th>
+						<th style="width: 10%;">날짜</th>
+						<th style="width: 7.5%;">강의자료</th>
+						<th style="width: 7.5%;">과제답안</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -167,24 +165,62 @@
 			</div>
 		</form>
 	</div>
+	<div class="modal fade" id="modal-notice" style="display: none;" aria-hidden="true">
+		<form action="/mng/notice/update" method="post">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<h4 class="col-12 modal-title text-center">Q&A</h4>
+						<input id="pkNoticeSeq" type="hidden" name="pkNoticeSeq">
+						<input type="hidden" name="registId" th:value="${session.loginDto.userId}">
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>제목</label>
+										<div class="title-append">
+											<input id="title_notice" type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>내용</label>
+										<div>
+											<textarea id="summernote" class="summernote form-control"
+												rows="6"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">
+							<span>답변등록</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 	<script>
 		var SUBJECT_ARRAY = [];
 		$(document).ready(function () {
 			// Summernote
-			$('#summernote').summernote({
-				tabsize: 2,
-				height: 300
-			});
 
 			$('.modal').on('shown.bs.modal', function (e) {
 				// 모달이 열릴 때 실행되는 코드
-				$(this).find('form')[0].reset(); // 입력 필드 초기화
+				// $(this).find('form')[0].reset(); // 입력 필드 초기화
 			});
 
 			$('.modal').on('hidden.bs.modal', function (e) {
 				// 모달이 닫힐 때 실행되는 코드
-				$(this).find('form')[0].reset(); // 입력 필드 초기화
-				$('#summernote').summernote('code', ''); // 에디터 초기화
+				// $(this).find('form')[0].reset(); // 입력 필드 초기화
+				// $('#summernote').summernote('code', ''); // 에디터 초기화
 			});
 			//$.ajax({
 			//	type: "POST",
@@ -208,6 +244,33 @@
 			//});
 		})
 
+		function openNotice(arg0) {
+			//$(".title-append").empty();
+			//$(".textarea-append").empty();
+			var buttonValue = arg0.value;
+			var form = {
+				pkNoticeSeq: buttonValue
+			};
+			$.ajax({
+				type: "POST",
+				url: "/openNotice",
+				data: JSON.stringify(form),
+				contentType: "application/json",
+				dataType: "json",
+				success: function (data) {
+					$('#summernote').summernote({
+						tabsize: 2,
+						height: 300
+					});
+					$("#pkNoticeSeq").val(data.pkNoticeSeq);
+					$("#title_notice").val(data.title);
+					$(".summernote").summernote('code', data.contents);
+				},
+				error: function (request, status, error) {
+					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+				}
+			});
+		}
 
 	</script>
 </th:block>

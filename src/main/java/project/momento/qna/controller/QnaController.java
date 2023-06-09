@@ -42,7 +42,7 @@ public class QnaController {
 		ModelAndView mv = new ModelAndView("content/"+userDivn+"/qna/qna");
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
-		
+		request.getSession().setAttribute("tab", 2);
 		if (userDivn.equals("mng")) {			
 			int total = qnaService.getQnaCountForMng(subjectDto.getPkSubjectSeq());
 //		total = chartService.getProductListCount(cri);
@@ -83,6 +83,7 @@ public class QnaController {
 	
 	@RequestMapping(value="/mng/askAns/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String insertAskAns(Model model, QnaDto qnaDto) {
+		System.out.println(qnaDto);
 		qnaService.insertAskAns(qnaDto);
 		return "redirect:/mng/qna/main";
 	}
@@ -90,7 +91,6 @@ public class QnaController {
 	@RequestMapping(value="/deleteAskAns", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String deleteAskAns(@RequestBody HashMap<String, Object> map, Model model) {
 		String pkAskAnsSeq = (String) map.get("pkAskAnsSeq");
-		System.out.println(pkAskAnsSeq);
 		qnaService.deleteAskAns(pkAskAnsSeq);
 		return "redirect:/mng/qna/main";
 	}
