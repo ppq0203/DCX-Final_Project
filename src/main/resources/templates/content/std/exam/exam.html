@@ -77,7 +77,7 @@
 
 	<!-- Modal -->
 	<div class="modal fade" id="modal-xl-two" style="display: none;" aria-hidden="true">
-		<form action="/mng/exam/result" method="POST" onsubmit="return validation()">
+		<form action="/std/exam/result" method="POST" onsubmit="return validation()">
 			<input id="pkExamSeq" name="pkExamSeq" type="hidden">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
@@ -109,7 +109,7 @@
 			var str = "";
 			if (item.pkFileSeq != 0) {
 				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
-					+ '<input type="hidden" name="pkExamDetailSeq" value="'+item.pkExamDetailSeq+'">'
+					+ '<input type="hidden" name="pkExamDetailSeqArray" value="'+item.pkExamDetailSeq+'">'
 					+ '<input type="hidden" name="pkExamSeq" value="'+item.pkExamSeq+'">'
 					+ '<input type="hidden" name="pkSubjectSeq" value="'+item.pkSubjectSeq+'">'
 					+ '<img id="preview" key="src" index="' + index + '" class="card-img-top imgSrc"  alt="Thumbnail [100%x225]" src="' + item.filePath + '" style="height: 20rem; width: 100%; display: block;">'
@@ -117,7 +117,7 @@
 				return str;
 			} else {
 				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
-					+ '<input type="hidden" name="pkExamDetailSeq" value="'+item.pkExamDetailSeq+'">'
+					+ '<input type="hidden" name="pkExamDetailSeqArray" value="'+item.pkExamDetailSeq+'">'
 					+ '<input type="hidden" name="pkExamSeq" value="'+item.pkExamSeq+'">'
 					+ '<input type="hidden" name="pkSubjectSeq" value="'+item.pkSubjectSeq+'">'
 					+ '<p>' + item.contents + '</p>'

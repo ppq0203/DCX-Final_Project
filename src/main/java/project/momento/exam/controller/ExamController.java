@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,6 +62,7 @@ public class ExamController {
 		List<ExamDto> exameResultList = examService.getExamResultList(examDto);
 		request.getSession().setAttribute("tab", 4);
 		model.addAttribute("exameList", exameList);
+		model.addAttribute("exameResultList", exameResultList);
 
 		return "content/" + userDivn + "/exam/exam";
 	}
@@ -114,14 +116,13 @@ public class ExamController {
 		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		String[] answers = examDto.getAnswer().split(",");
-		for(String answer : answers) {
-			examDto.setAnswer(answer);
+		int[] pkExamDetailSeqArray =  examDto.getPkExamDetailSeqArray();
+		for(int i = 0; i < pkExamDetailSeqArray.length; i++) {
+			examDto.setAnswer(answers[i]);
+			examDto.setPkExamDetailSeq(pkExamDetailSeqArray[i]);
 			examDto.setPkUserSeq(loginDto.getPkUserSeq());
 			examService.insertResult(examDto);
 		}
-			
-		
-		
 		return "redirect:/" + userDivn + "/"+pkSubjectSeq+"/exam/main";
 	}
 	
@@ -163,5 +164,35 @@ public class ExamController {
 		model.addAttribute("resultList", resultList);
 		return resultList;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "/getExamResultDetailList", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+	public List<ExamDto> GetExamResultDetailList(@RequestParam int pkUserSeq, Criteria cri, Model model,
+			HttpServletRequest request) {
+		// 세션에서 내 정보를 가져온다
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		ExamDto examDto = new ExamDto();
+		examDto.setPkUserSeq(pkUserSeq);
+		List<ExamDto> resultList = examService.selectExamResultDetailList(examDto);
+		model.addAttribute("resultList", resultList);
+		return resultList;
+	}
+	
+	
+	@RequestMapping(value = "/{userDivn}/exam/result/score", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String examResultScore(ExamDto examDto,@PathVariable String userDivn, Criteria cri, Model model, HttpServletRequest request) {
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
+		System.out.println(examDto);
+//		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+//		String[] answers = examDto.getAnswer().split(",");
+//		int[] pkExamDetailSeqArray =  examDto.getPkExamDetailSeqArray();
+//		for(int i = 0; i < pkExamDetailSeqArray.length; i++) {
+//			examDto.setAnswer(answers[i]);
+//			examDto.setPkExamDetailSeq(pkExamDetailSeqArray[i]);
+//			examDto.setPkUserSeq(loginDto.getPkUserSeq());
+//			examService.insertResult(examDto);
+//		}
+		return "redirect:/" + userDivn + "/"+pkSubjectSeq+"/exam/main";
+	}
 }
