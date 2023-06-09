@@ -29,6 +29,7 @@ public class SubjectController {
 		List<NoticeDto> noticeList = noticeService.getNoticeList(subjectDto.getPkEducationSeq());
 		request.getSession().setAttribute("subjectDto", subjectDto);
 		model.addAttribute("noticeList", noticeList);
+		request.getSession().setAttribute("tab", 1);
 		return "content/" + userDivn + "/subject/subject";
 	}
 	

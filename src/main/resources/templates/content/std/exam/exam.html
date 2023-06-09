@@ -1,163 +1,208 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/mng/mngSubjectLayout}">
+	layout:decorate="~{common/layout/std/stdSubjectLayout}">
 
 <div layout:fragment="content">
 	<div class="row">
-		<div class="col-12">
-			<div class="p-5 mb">
-				<div class="row">
-					<div class="col-6">
-						<h2 class="p-2">테스트</h2>
-						<div class="card-tools">
-						</div>
-						<!-- /.card-header -->
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">번호</th>
-									<th scope="col">제목</th>
-									<th scope="col">강사</th>
-									<th scope="col">test</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td><span>HTML</span></td>
-									<td><span>000</span></td>
-									<td><button type="button" class="btn btn-default" data-toggle="modal"
-											data-target="#modal-xl">
-											시작
-										</button></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td><span>HTML</span></td>
-									<td><span>000</span></td>
-									<td><button type="button" class="btn btn-default" data-toggle="modal"
-											data-target="#modal-xl">
-											시작
-										</button></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td><span>HTML</span></td>
-									<td><span>000</span></td>
-									<td><button type="button" class="btn btn-default" data-toggle="modal"
-											data-target="#modal-xl">
-											시작
-										</button></td>
-								</tr>
-							</tbody>
-						</table>
-						<!-- /.card-body -->
-						<div class="card-footer">
-						</div>
-					</div>
-					<div class="col-6">
-						<h2 class="p-2">테스트결과</h2>
-						<div class="card-tools">
-						</div>
-						<!-- /.card-header -->
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">번호</th>
-									<th scope="col">제목</th>
-									<th scope="col">결과</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td><span>HTML</span></td>
-									<td><a href="#" class="alert-link"><span>어쩌구 체점결과</span></a></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td><span>HTML</span></td>
-									<td><a href="#" class="alert-link"><span>어쩌구 체점결과</span></a></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td><span>HTML</span></td>
-									<td><a href="#" class="alert-link"><span>어쩌구 체점결과</span></a></td>
-								</tr>
-							</tbody>
-						</table>
-						<!-- /.card-body -->
-						<div class="card-footer">
-						</div>
-					</div>
+		<div class="col-12 p-5">
+			<div class="row">
+				<div class="col-6">
+					<h2>시험</h2>
 				</div>
 			</div>
+			<!-- /.card-header -->
+			<table class="table" id="addrow">
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">과목명</th>
+						<th scope="col">날짜</th>
+						<th scope="col">시작</th>
+					</tr>
+				</thead>
+
+				<tbody th:if="${exameList != null && exameList.size() > 0}">
+					<tr th:each="item, index : ${exameList}" th:if="${item.examDivn == 'Y'}">
+						<td th:text="${index.index + 1}"></td>
+						<td th:text="${item.registDt}"></td>
+						<td th:text="${item.registDt}"></td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-two"
+								th:attr="pkExamSeq=${item.pkExamSeq}" type="button" class="btn btn-primary updateBtn"
+								data-action="modify">
+								<span>시작</span>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
 		</div>
-	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-cented modal-xl">
-			<div class="modal-content">
-				<div class="col-12 modal-header">
-					<h4 class="col-12 modal-title text-center">00:00:00</h4>
-					<!--<button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">-->
-					<!--<span aria-hidden="true">×</span>-->
+		<div class="col-12 p-5">
+			<div class="row">
+				<div class="col-6">
+					<h2>평가 결과</h2>
+				</div>
+				<div class="card-tools col-6 text-right">
+					<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary"
+						data-action="create" onclick="changeButtonAction(this)">
+						<span>등록</span>
 					</button>
 				</div>
-				<div class="modal-body">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-12">
-								<div class="col-12">
-									<span>01. 웹페이지를 작성할 다음 언어의 단어를 풀어 쓰고 그 역할에 대해 적으시오.</span>
-								</div>
-								<hr>
-							</div>
-							<div class="col-12 pl-2">
-								<span>1 HTML: Hyper Text Markup Language</span>
-							</div>
-							<div class="col-12 pl-2">
-								<span>2 CSS</span>
-							</div>
-							<div class="col-12 pl-2">
-								<span>3 JavaScript</span>
-							</div>
-							<div class="col-12 pl-2 mt-4 mb-4">
-								<textarea class="form-control form-control-lg" row="4" id="validationTextarea"
-									placeholder="정답입력" required></textarea>
-							</div>
-						</div>
-						<hr class="mt-4 mb-4">
-						<div class="row">
-							<div class="col-12">
-								<div class="col-12 mt-2">
-									<span>02. 각 번호의 명칭을 서술하시오.</span>
-								</div>
-								<hr>
-							</div>
-							<div class="col-12">
-								<div class="text-center mt-4">
-									<img src="..." class="rounded" alt="...">
-								</div>
-								<div class="col-12 pl-2 mt-4 mb-4">
-									<textarea class="form-control form-control-lg" row="4" id="validationTextarea"
-										placeholder="정답입력" required></textarea>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer justify-content-between">6
-					<div class="col-12">
-						<div class="col-1 mx-auto">
-							<button type="button" class="btn btn-primary">제출</button>
-						</div>
-					</div>
-				</div>
+			</div>
+			<!-- /.card-header -->
+			<table class="table" id="addrow">
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">과목명</th>
+						<th scope="col">날짜</th>
+						<th scope="col">미리보기</th>
+						<th scope="col">시작</th>
+					</tr>
+				</thead>
+
+
+
+			</table>
+
+			<!-- /.card-body -->
+			<div class="card-footer">
 			</div>
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl-two" style="display: none;" aria-hidden="true">
+		<form action="/mng/exam/result" method="POST" onsubmit="return validation()">
+			<input id="pkExamSeq" name="pkExamSeq" type="hidden">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">시험</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div id="sampleDiv" class="row">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="submit" divn="delete" class="btn btn-primary modelBtn">
+							<span>제출</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+		var QUESTION_ARRAY = [];
+
+		function imgInit(index, item) {
+			var str = "";
+			if (item.pkFileSeq != 0) {
+				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
+					+ '<input type="hidden" name="pkExamDetailSeq" value="'+item.pkExamDetailSeq+'">'
+					+ '<input type="hidden" name="pkExamSeq" value="'+item.pkExamSeq+'">'
+					+ '<input type="hidden" name="pkSubjectSeq" value="'+item.pkSubjectSeq+'">'
+					+ '<img id="preview" key="src" index="' + index + '" class="card-img-top imgSrc"  alt="Thumbnail [100%x225]" src="' + item.filePath + '" style="height: 20rem; width: 100%; display: block;">'
+					+ '</div>'
+				return str;
+			} else {
+				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
+					+ '<input type="hidden" name="pkExamDetailSeq" value="'+item.pkExamDetailSeq+'">'
+					+ '<input type="hidden" name="pkExamSeq" value="'+item.pkExamSeq+'">'
+					+ '<input type="hidden" name="pkSubjectSeq" value="'+item.pkSubjectSeq+'">'
+					+ '<p>' + item.contents + '</p>'
+					+ '</div>'
+				return str;
+			}
+		}
+		function validation() {
+			var validate = true;
+			$(".validate").each(function () {
+				var value = $(this).val();
+
+				// 선택되지 않은 값이나 입력값이 없는 경우 처리
+				if (value == "" || value == null || value == '') {
+					$(this).addClass("is-invalid");
+					validate = false;
+				}
+			});
+			if (!validate) {
+				return false;
+			} else {
+
+			}
+		}
+
+		$(document).ready(function () {
+
+			$('.updateBtn').click(function () {
+				// AJAX 호출
+				var pkExamSeq = $(this).attr('pkExamSeq');
+				$.ajax({
+					url: '/getExamDetailList',
+					type: 'POST',
+					data: {
+						pkExamSeq: $(this).attr('pkExamSeq')
+					},
+					dataType: 'json',
+					success: function (data) {
+						var IMG_ARRAY = [];
+						IMG_ARRAY = data;
+						console.log(IMG_ARRAY)
+						$("#pkExamSeq").val(pkExamSeq);
+						$("#sampleDiv").empty();
+						$.each(IMG_ARRAY, function (index, item) {
+							$("#sampleDiv").append(
+								'<div class="col-12 hr">' +
+								'<div class="row align-items-center">' +
+								'<div class="col-2">' +
+								'<h3 class="p-3 num text-center">' + (index + 1) + '</h3>' +
+								'</div>' +
+								'<div class="col-10">' +
+								'<div class="input-group">' +
+								'<span>'
+								+ item.title +
+								'</span>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'<div class="col-12">' +
+								'<div class="row">' +
+								'<div class="col-6">' +
+								imgInit(index, item) +
+								'</div>' +
+								'<div class="col-6">' +
+								'<textarea name="answer" index="' + index + '" key="contents"' +
+								'class="form-control form-control-lg validate"' +
+								'style="height: 20rem;" row="6" id="answer" placeholder="정답">' +
+								'</textarea>' +
+								'</div>' +
+								'</div>' +
+								'</div>'
+							);
+						});
+
+
+					},
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
+			});
+		});
+
+	</script>
 	</th:block>
 
 </html>

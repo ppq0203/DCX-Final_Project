@@ -42,8 +42,8 @@
 							</button>
 						</td>
 						<td>
-							<button data-toggle="modal" data-target="#modal-xl" th:attr="pkExamSeq=${item.pkExamSeq}"
-								type="button" class="btn btn-primary" data-action="modify">
+							<button th:attr="pkExamSeq=${item.pkExamSeq}" type="button" class="btn btn-primary startBtn"
+								th:disabled="${item.examDivn == 'Y'}">
 								<span>시작</span>
 							</button>
 						</td>
@@ -93,8 +93,8 @@
 							</button>
 						</td>
 						<td>
-							<button data-toggle="modal" data-target="#modal-xl" th:attr="pkExamSeq=${item.pkExamSeq}"
-								type="button" class="btn btn-primary" data-action="modify">
+							<button th:attr="pkExamSeq=${item.pkExamSeq}" type="button"
+								class="btn btn-primary startBtn">
 								<span>시작</span>
 							</button>
 						</td>
@@ -358,6 +358,24 @@
 				QUESTION_ARRAY = [];
 				arrayInit();
 			});
+			$('.startBtn').click(function () {
+				// AJAX 호출
+				var pkExamSeq = $(this).attr('pkExamSeq');
+				$.ajax({
+					url: '/mng/exam/start',
+					type: 'POST',
+					data: {
+						pkExamSeq: pkExamSeq
+					},
+					dataType: 'json',
+					success: function (data) {
+
+					},
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
+			});
 			$('.updateBtn').click(function () {
 				// AJAX 호출
 				var pkExamSeq = $(this).attr('pkExamSeq');
@@ -372,7 +390,7 @@
 						var IMG_ARRAY = [];
 						IMG_ARRAY = data;
 						$("#pkExamSeq").val(pkExamSeq);
-						//$("#sampleDiv").empty();
+						$("#sampleDiv").empty();
 						$.each(IMG_ARRAY, function (index, item) {
 							$("#sampleDiv").append(
 								'<div class="col-12 hr">' +

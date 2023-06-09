@@ -12,12 +12,17 @@ public class ExamDto extends FileDto {
 	
 	private int pkExamSeq;
     private int pkSubjectSeq;
+    private int pkExamDetailSeq;
+    private int pkUserSeq;
     private String title;
     private String contents;
+    private String examDivn;
     private String registId;
     private String registDt;
     private String updateId;
     private String updateDt;
+    private String answer;
+    private String userDivn;
     private int pkFileSeq;
     private int returnId;
 
