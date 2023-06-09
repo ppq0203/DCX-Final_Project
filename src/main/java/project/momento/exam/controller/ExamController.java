@@ -54,6 +54,7 @@ public class ExamController {
 		subjectDto = subjectService.getSubject(pkSubjectSeq);
 		List<ExamDto> exameList = examService.getExamList(pkSubjectSeq);
 		request.getSession().setAttribute("subjectDto", subjectDto);
+		request.getSession().setAttribute("tab", 4);
 		model.addAttribute("exameList", exameList);
 
 		return "content/" + userDivn + "/exam/exam";
@@ -63,6 +64,7 @@ public class ExamController {
 	public String handleFormData(@RequestParam("imgPath") List<MultipartFile> files,
 			@RequestParam("title") List<String> titles, @RequestParam("contents") List<String> contents,
 			@PathVariable String userDivn, HttpServletRequest request) {
+		request.getSession().setAttribute("tab", 5);
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
 		try {

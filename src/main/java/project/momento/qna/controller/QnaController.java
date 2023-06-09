@@ -42,7 +42,7 @@ public class QnaController {
 		ModelAndView mv = new ModelAndView("content/"+userDivn+"/qna/qna");
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
-		
+		request.getSession().setAttribute("tab", 2);
 		if (userDivn.equals("mng")) {			
 			int total = qnaService.getQnaCountForMng(subjectDto.getPkSubjectSeq());
 //		total = chartService.getProductListCount(cri);
