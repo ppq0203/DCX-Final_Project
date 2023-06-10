@@ -11,7 +11,7 @@
 	<script th:src="@{/js/dice.js}"></script>
 
 	<!-- ------------------------ 대기방 ---------------------------- -->
-	<div id="waitRoom" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+	<div id="waitRoom" class="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 		<div class="waiting_room_header" id="header"></div>
 		<!--side right -->
 		<div class="waiting_room_sidebar" id="sidebar">
@@ -33,7 +33,7 @@
 					<button class="waiting_room_btnchat" type="button" id="button-send">전송</button>
 				</from>
 			</div>
-			<button class="waiting_room_btn" type="button" onclick="startButton();">시작</button>
+			<button class="waiting_room_btn" type="button" id="gamestart">시작</button>
 			<button class="waiting_room_btnlogout" type="button">나가기</button>
 		</div>
 		<div class="waiting_room_content" id="content">
@@ -101,6 +101,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div id="gameRoom" style="display:none;" class="container">
 		<div id="header"></div>
 		<!-- Main content -->
@@ -219,6 +220,11 @@
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
 
+				stomp.subscribe("/sub/chat/gamestart/" + roomId, function(chat) {
+            			$('#gameRoom').css('display', 'block'); 
+            			$('#waitRoom').css('display', 'none');
+                   });
+
 				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
 				stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
@@ -244,7 +250,6 @@
 					str += "</div></div>";
 					$("#msgArea").append(str);
 				});
-
 				stomp.subscribe("/sub/chat/List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
@@ -364,14 +369,11 @@
 					msg.value = '';
 				}
 			});
-		}); 
-	</script>
-	<script>
-		function startButton() {
-			document.getElementById('gameRoom').style.display = 'block';
-			document.getElementById('waitRoom').style.display = 'none';
-		}
 
+			$("#gamestart").on("click", function() {
+	    			stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+			});
+		}); 
 	</script>
 
 	<script>
