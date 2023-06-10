@@ -89,6 +89,7 @@ public class RoomService {
 		room.getTeam1().remove(userUUID);
 		room.getTeam2().remove(userUUID);
 		room.getTeam3().remove(userUUID);
+		room.getTeam4().remove(userUUID);
 		room.setParticipants(room.getParticipants() - 1);
 	}
 
@@ -113,8 +114,10 @@ public class RoomService {
 		else if(room.getTeam2().get(userUUID) != null){
 			userName = room.getTeam2().get(userUUID);
 		}
-		else {
+		else if(room.getTeam3().get(userUUID) != null){
 			userName = room.getTeam3().get(userUUID);
+		}else{
+			userName = room.getTeam4().get(userUUID);
 		}
 
         return userName;

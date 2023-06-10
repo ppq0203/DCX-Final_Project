@@ -91,8 +91,6 @@ public class RoomController {
 		
 		String roomSeq = (String) param.get("roomSeq");
 		
-		System.out.println(" [+] " + roomSeq);
-		
 		RoomDto room = service.findRoomById(roomSeq);
 		
 		roomInfo.put("participants", Integer.toString(room.getParticipants()));

@@ -38,24 +38,28 @@
 		</div>
 		<div class="waiting_room_content" id="content">
 			<div class="waiting_room_team1" id="team1">
+				<input type="hidden" id="team1Count">
 				<div class="waiting_room_t1-user1"></div>
 				<div class="waiting_room_t1-user2"></div>
 				<div class="waiting_room_t1-user3"></div>
 				<div class="waiting_room_t1-user4"></div>
 			</div>
 			<div class="waiting_room_team2" id="team2">
+				<input type="hidden" id="team2Count">
 				<div class="waiting_room_t2-user1"></div>
 				<div class="waiting_room_t2-user2"></div>
 				<div class="waiting_room_t2-user3"></div>
 				<div class="waiting_room_t2-user4"></div>
 			</div>
 			<div class="waiting_room_team3" id="team3">
+				<input type="hidden" id="team3Count">
 				<div class="waiting_room_t3-user1"></div>
 				<div class="waiting_room_t3-user2"></div>
 				<div class="waiting_room_t3-user3"></div>
 				<div class="waiting_room_t3-user4"></div>
 			</div>
 			<div class="waiting_room_team4" id="team4">
+				<input type="hidden" id="team4Count">
 				<div class="waiting_room_t4-user1"></div>
 				<div class="waiting_room_t4-user2"></div>
 				<div class="waiting_room_t4-user3"></div>
@@ -210,8 +214,6 @@
 			var roomId = /*[[${room.pkRoomSeq}]]*/0;
 			var username = "334"
 
-			console.log(roomName + ", " + roomId + ", " + username);
-
 			var sockJs = new SockJS("/stomp/chat");
 			//1. SockJS를 내부에 들고있는 stomp를 내어줌
 			var stomp = Stomp.over(sockJs);
@@ -250,7 +252,7 @@
 					str += "</div></div>";
 					$("#msgArea").append(str);
 				});
-				stomp.subscribe("/sub/chat/List/" + roomId, function (chat) {
+				stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
 						if ($("#team1").children("#" + index + "").length > 0) {
@@ -259,13 +261,14 @@
 							str = "<div class='col-sys' id = '" + index + "'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
+							$("#team1Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
 							$("#team1").children(".waiting_room_t1-user1").append(str);
 						}
 					});
 				});
 
-				stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
+				stomp.subscribe("/sub/chat/team2List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
 						if ($("#team2").children("#" + index + "").length > 0) {
@@ -274,13 +277,14 @@
 							str = "<div class='col-sys' id = '" + index + "'>"
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
+							$("#team2Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
 							$("#team2").children(".waiting_room_t2-user1").append(str);
 						}
 					});
 				});
 
-				stomp.subscribe("/sub/chat/team2List/" + roomId, function (chat) {
+				stomp.subscribe("/sub/chat/team3List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
 						if ($("#team3").children("#" + index + "").length > 0) {
@@ -289,13 +293,14 @@
 							str = "<div class='col-sys' id = '" + index + "'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
+							$("#team3Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
 							$("#team3").children(".waiting_room_t3-user1").append(str);
 						}
 					});
 				});
 
-				stomp.subscribe("/sub/chat/team3List/" + roomId, function (chat) {
+				stomp.subscribe("/sub/chat/team4List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
 						if ($("#team4").children("#" + index + "").length > 0) {
@@ -304,6 +309,7 @@
 							str = "<div class='col-sys' id = '" + index + "'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
+							$("#team4Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
 							$("#team4").children(".waiting_room_t4-user1").append(str);
 						}
@@ -321,25 +327,49 @@
 			});
 
 			$("#team1").on("click", function (e) {
-				stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId}))
+				if($("#team1Count").val() >= /*[[${room.teamNumber}]]*/0){
+					alert("팀이 꽉 찼습니다.");
+				}
+				else
+				{
+					stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
 
 			$("#team2").on("click", function (e) {
-				stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				if($("#team2Count").val() >= /*[[${room.teamNumber}]]*/0){
+					alert("팀이 꽉 찼습니다.");
+				}
+				else
+				{
+					stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
 
 			$("#team3").on("click", function (e) {
-				stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				if($("#team3Count").val() >= /*[[${room.teamNumber}]]*/0){
+					alert("팀이 꽉 찼습니다.");
+				}
+				else
+				{
+					stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
 
 			$("#team4").on("click", function (e) {
-				stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				if($("#team4Count").val() >= /*[[${room.teamNumber}]]*/0){
+					alert("팀이 꽉 찼습니다.");
+				}
+				else
+				{
+					stomp.send('/pub/chat/Team4Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
@@ -357,7 +387,6 @@
 			});
 
 			$(".teamchange").on("click", function (e) {
-				console.log("test");
 				$("#content").css("pointer-events", "all")
 				$("#content").css("opacity", "80%")
 			});

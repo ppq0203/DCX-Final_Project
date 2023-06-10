@@ -205,10 +205,10 @@
 						<div class="gameroom">
 							<div class="M_gameroom_left" th:each="room : ${list}">
 								<div class="left">
-				                    <form th:action="@{/chat/enterRoom}" method="post" id="enterRoom">
+				                    <form th:action="@{/chat/enterRoom}" method="post" id="enterRoom" th:onsubmit="return roomCheck([[${room}]])">
 					                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
 					                    <input type="hidden" id="pkRoomSeq" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
-										<input class="startbtn" value="START" th:onclick="roomCheck([[${room}]])">
+										<input class="startbtn" type="submit" value="START" >
 				                    </form>
 									<br>
 									<span id="room_name">[[${room.roomName}]]</span>
@@ -234,11 +234,13 @@
 	<script th:inline="javascript">
 		function roomCheck(room)
 		{
+			var flag = false;
 			$.ajax({
 				type: "POST",
 				url: "userCheck",
+				async: false,
 				data: {
-						roomSeq : $("#pkRoomSeq").val(),
+						roomSeq : room.pkRoomSeq,
 						participants : "",
 						total : ""
 				}
@@ -248,16 +250,19 @@
 					if(participants >= total)
 					{
 						alert("방이 가득찼습니다.");
+						flag = false;
 					}
 					else
 					{
-						$('#enterRoom').submit();
+						flag = true;
 					}
 				})
-			
+			return flag;
 		}
+		
 		$(document).ready(function () {
-			var radio_check = $('input:radio[name=roomType]').is(':checked');
+			/*	의미 없는 코드라 주석처리 BY 최승만.
+			var radio_check = $('input:radio[id="team"]').is(':checked');
 			if (radio_check == true) {
 				// gamemode-team 숨기기
 				$('.gamemode-team').hide();
@@ -265,7 +270,8 @@
 				$('.gamemode-solo').show();
 				$(".md_container2").css("height", "350px");
 				$(".md_content2").css("height", "210px");
-			}
+			}*/
+			
 			$('#solo').click(function () {
 				// gamemode-team 숨기기
 				$('.gamemode-team').hide();
