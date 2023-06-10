@@ -197,4 +197,10 @@ public class StompChatController {
         shambles.delUser(roomId,userUUID);
     }
 	
+    @MessageMapping(value= "/chat/gamestart")
+	public void gameStart(ChatDto message) {
+    	
+		template.convertAndSend("/sub/chat/gamestart/" + message.getPkRoomSeq(), message);
+	}
+    
 }

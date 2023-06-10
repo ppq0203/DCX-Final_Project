@@ -214,17 +214,23 @@
 				font-family: 'DungGeunMo';
 			}
 
-			.t5-user2 {
+			.score {
 				position: relative;
 				border: 2px solid white;
 				border-radius: 50px;
-				width: 15px;
-				height: 15px;
+				width: 35px;
+				height: 35px;
 				margin: 35px 45px;
-				padding: 10px;
-				font-family: 'DungGeunMo'
-
+				
 			}
+			.scorenum {
+				position: relative;
+				top: -63px;
+  				left: 11px;
+				font-family: 'GmarketSansMedium' ;
+				font-size : 15px;
+				color : white;
+			}			
 
 			/*content hover*/
 			.hover_y:hover {

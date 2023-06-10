@@ -44,7 +44,7 @@ public class testController {
 		System.out.println(testList);
 		return "content/std/test/test";
 	}
-	
+
 //	@RequestMapping(value = "/ybtest", produces = "application/text;charset=utf-8") /* value주소 이름 */
 //	public String ybtest() {
 		// 데이터 저장

@@ -3,8 +3,65 @@
 	layout:decorate="~{common/layout/emptyLayout}">
 <th:block layout:fragment="content">
 	<!--<link rel="stylesheet" type="text/css" href="1.css">-->
-	<link th:href="@{/css/gameinTeam.css}" rel="stylesheet">
 	<style>
+<<<<<<< HEAD
+			#container {
+				width: 976px;
+				height: 700px;
+				background-image : url('gameStart.png');
+				background-size : auto ;
+			}
+			#header {
+        		padding: 10px;
+				height : 70px;
+      		}
+	      	#content {
+	        	width: 665px;
+				height: 560px;
+	        	padding: 10px;
+	        	float: left;
+				margin-right : 5px;
+				margin-left : 10px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				border-radius: 10px;
+	      	}
+	      	#sidebar {
+	        	width: 250px;
+				height: 570px;
+	        	padding: 5px;
+	        	float: right;
+				margin-left : 5px;
+				margin-right : 5px;
+				background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+				position: relative;
+				border-radius: 10px;
+	      	}
+			 .fontp{
+				 font-family : 'DungGeunMo';
+				 font-size : 12px;
+				 color : white;
+				 line-height : 150%;
+			 }
+			 .fontb{
+				 font-family : 'DungGeunMo';
+				 font-size : 13px;
+				 color : yellow;
+				 line-height : 150%;
+			 }
+			 
+			/*content*/
+			/*Tab*/ 
+			.team1{
+				border-radius: 10px; 				/*테두리 둥글게*/ 
+				width: 300px;
+				height : 260px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid #FFC04D;
+				padding: 5px;
+				margin : 0px 5px 2px 8px; 
+			  	/*position: absolute;
+=======
 		#container {
 			width: 976px;
 			height: 700px;
@@ -67,6 +124,7 @@
 			padding: 5px;
 			margin: 0px 5px 2px 8px;
 			/*position: absolute;
+>>>>>>> refs/remotes/upstream/LMS_front_yujinsang
 			  	top: 22%;
 			 	left: 10%;
 				margin: -50px 0 0 -50px;
@@ -333,67 +391,34 @@
 				</div>
 				<button class="btn" type="button">시작</button>
 				<button class="btnlogout" type="button">나가기</button>
-				<div id="sidebar">
-					<div class="gameinfo">
-						<ul class="no_dot">
-							<li>게임 유형 :</li>
-							<li>난이도 : </li>
-							<li>문제당 시간 : </li>
-							<li>문제 개수 : </li>
-						</ul>
-					</div>
-					<div>
-						<button class="teamchange" type="button">팀 바꾸기</button>
-					</div>
-					<div class="chat-veiw">
-						<p class="fontp">
-							<b class="fontb">>>'Team_03' 방에 입장하셨습니다.</b><br>
-							>>'DCX'님이 입장하셨습니다.<br>
-							>>'스마트'님이 입장하셨습니다.<br>
-						</p>
-					</div>
-					<div class="chat-input">
-						<from><input type="text" id="chat" size=19>
-							<button class="btnchat" type="submit">등록</button>
-						</from>
-
-
-					</div>
-					<button class="btn" type="button">시작</button>
-					<button class="btnlogout" type="button">나가기</button>
+			</div>
+			<!--content game -->
+			<div id="content">
+				<div class="team1">
+					<div class="t1-user1"></div>
+					<div class="t1-user1"></div>
+					<div class="t1-user2"></div>
+					<div class="t1-user1"></div>
+				</div>
+				<div class="team2">
+					<div class="t2-user1"></div>
+					<div class="t2-user1"></div>
+					<div class="t2-user1"></div>
+					<div class="t2-user1"></div>
+				</div>
+				<div class="team3">
+					<div class="t3-user1"></div>
+					<div class="t3-user1"></div>
+					<div class="t3-user1"></div>
+					<div class="t3-user1"></div>
+				</div>
+				<div class="team4">
+					<div class="t4-user1"></div>
+					<div class="t4-user1"></div>
+					<div class="t4-user1"></div>
+					<div class="t4-user1"></div>
 				</div>
 
-				<!--content game -->
-				<div id="content">
-					<div class="team1">
-						<div class="t1-user1">
-
-						</div>
-						<div class="t1-user1"></div>
-						<div class="t1-user1"></div>
-						<div class="t1-user2"></div>
-						<div class="t1-user1"></div>
-					</div>
-					<div class="team2">
-						<div class="t2-user1"></div>
-						<div class="t2-user1"></div>
-						<div class="t2-user1"></div>
-						<div class="t2-user1"></div>
-					</div>
-					<div class="team3">
-						<div class="t3-user1"></div>
-						<div class="t3-user1"></div>
-						<div class="t3-user1"></div>
-						<div class="t3-user1"></div>
-					</div>
-					<div class="team4">
-						<div class="t4-user1"></div>
-						<div class="t4-user1"></div>
-						<div class="t4-user1"></div>
-						<div class="t4-user1"></div>
-					</div>
-
-				</div>
 			</div>
 			<script>
 

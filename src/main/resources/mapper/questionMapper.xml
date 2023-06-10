@@ -55,6 +55,6 @@
 		FROM
 		QUESTION
 		WHERE
-		PK_QUESTION_SEQ = pkQuestionSeq
+		PK_QUESTION_SEQ = #{pkQuestionSeq}
 	</select>
 </mapper>
