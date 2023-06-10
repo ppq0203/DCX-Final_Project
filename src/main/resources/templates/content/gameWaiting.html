@@ -59,21 +59,17 @@
 									<div class='roomleft2'>
 										<p class="left_p2">방 제목</p>
 									</div>
-									<input type="text" name="roomName" value=" 방 제목을 입력해주세요" class="roomright2"/>	
-									
-									<div class='roomleft2'>
-										<p class="left_p2">비밀번호</p>
-									</div>
-									<input type="text" name="roomPwd" class="roomright2"/>
-									
+									<input type="text" name="roomName" value=" 방 제목을 입력해주세요" class="roomright2" />
+
 									<div class='roomleft2'>
 										<p class="left_p">개인/팀</p>
 									</div>
-									
+
 									<div class='roomright2'>
 										<p class="right_p">
-											<input type="radio" id="solo" name="roomType" value="solo"> vs개인
-											<input type="radio" id="team" name="roomType" value="team"> vs팀
+											<input type="radio" id="solo" name="roomType" value="single"
+												checked="checked"> vs개인
+											<input type="radio" id="team" name="roomType" value="multi"> vs팀
 										</p>
 									</div>
 									<div class="gamemode-team">
@@ -82,7 +78,7 @@
 										</div>
 										<div class='roomright'>
 											<p class="right_p">
-												<input type="radio" name="roomNumber" value="2"> 2팀
+												<input type="radio" name="roomNumber" value="2" checked="checked"> 2팀
 												<input type="radio" name="roomNumber" value="3"> 3팀
 												<input type="radio" name="roomNumber" value="4"> 4팀
 												<!--input type="hidden" name="roomNumber" value="2" class="form-control"/-->
@@ -93,7 +89,7 @@
 										</div>
 										<div class='roomright'>
 											<p class="right_p">
-												<input type="radio" name="teamNumber" value="1"> 1명
+												<input type="radio" name="teamNumber" value="1" checked="checked"> 1명
 												<input type="radio" name="teamNumber" value="2"> 2명
 												<input type="radio" name="teamNumber" value="3"> 3명
 												<input type="radio" name="teamNumber" value="4"> 4명
@@ -106,7 +102,7 @@
 										</div>
 										<div class='roomright2'>
 											<p class="right_p2">
-												<input type="radio" name="roomNumber" value="2"> 2명
+												<input type="radio" name="roomNumber" value="2" checked="checked"> 2명
 												<input type="radio" name="roomNumber" value="3"> 3명
 												<input type="radio" name="roomNumber" value="4"> 4명
 											</p>
@@ -117,7 +113,7 @@
 									</div>
 									<div class='roomright2'>
 										<p class="right_p2">
-											<input type="radio" name="roomLevel" value="1"> EASY
+											<input type="radio" name="roomLevel" value="1" checked="checked"> EASY
 											<input type="radio" name="roomLevel" value="2"> MID
 											<input type="radio" name="roomLevel" value="3"> HARD
 											<input type="radio" name="roomLevel" value="4"> RONDOM
@@ -189,16 +185,16 @@
 			<div id="content">
 				<div id="tabwrap">
 					<form th:action="@{/chat/rooms}" method="get">
-	            		<button class="menu1 on">전체 </button>
-	        		</form>
-	        		<form th:action="@{/chat/rooms}" method="get">
-	        			<input type="hidden" name="roomType" value="team" class="form-control"/>
-	           		 	<button class="menu2">팀</button>
-	        		</form>
-	    	        <form th:action="@{/chat/rooms}" method="get">
-	    	        	<input type="hidden" name="roomType" value="solo" class="form-control"/>
-	            		<button class="menu3">개인</button>
-	        		</form>    		
+						<button class="menu1 on">전체 </button>
+					</form>
+					<form th:action="@{/chat/rooms}" method="get">
+						<input type="hidden" name="roomType" value="multi" class="form-control" />
+						<button class="menu2">팀</button>
+					</form>
+					<form th:action="@{/chat/rooms}" method="get">
+						<input type="hidden" name="roomType" value="single" class="form-control" />
+						<button class="menu3">개인</button>
+					</form>
 					<!--  현재 css 가져오는 파일에 class all을 display: none 처리되어있어-->
 					<div class="all" style="display: block">
 						<div class="fillter">
@@ -215,27 +211,22 @@
 										<input class="startbtn" value="START" th:onclick="roomCheck([[${room}]])">
 				                    </form>
 									<br>
-									<span>[[${room.roomName}]]</span>
+									<span id="room_name">[[${room.roomName}]]</span>
 									<br>
-									타입 : [[${room.roomType}]]
-									현재인원 : [[${room.participants}]]
-									총인원 : [[${room.total}]]
-									레벨: 
-									<span th:if="${room.roomLevel == 1}">Easy</span>
-									<span th:if="${room.roomLevel == 2}">Middle</span>
-									<span th:if="${room.roomLevel == 3}">Hard</span>
-									<span th:if="${room.roomLevel == 4}">Random</span>
-									
-									<hr style="border: dotted 1px #FFC04D;">
-									<br> <i class="fa-solid fa-users fa-xl"></i>&nbsp;1/4
-									<i class="fa-regular fa-circle-user fa-xl"></i>&nbsp;<span>2</span>&nbsp;
-									&nbsp;&nbsp;&nbsp;<span></span>
-				                </div>
+									<span id="room_participants">[[${room.participants}]]</span>
+									<span id="room_total">[[${room.total}]]</span>
+									<span class="difficulty" th:if="${room.roomLevel == 1}">Easy</span>
+									<span class="difficulty" th:if="${room.roomLevel == 2}">Middle</span>
+									<span class="difficulty" th:if="${room.roomLevel == 3}">Hard</span>
+									<span class="difficulty" th:if="${room.roomLevel == 4}">Random</span>
+
+									<hr id="room_name_hr" style="border: dotted 1px #FFC04D;">
+									<br> <i class="fa-solid fa-users fa-xl" id="all_people"></i>
+									<i class="fa-regular fa-circle-user fa-xl" id="people"></i>
+								</div>
 							</div>
 						</div>
-
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -253,14 +244,22 @@
 			}
 		}
 		$(document).ready(function () {
-			// 개인 라디오 버튼 클릭 시
+			var radio_check = $('input:radio[name=roomType]').is(':checked');
+			if (radio_check == true) {
+				// gamemode-team 숨기기
+				$('.gamemode-team').hide();
+				// gamemode-solo 보이기
+				$('.gamemode-solo').show();
+				$(".md_container2").css("height", "350px");
+				$(".md_content2").css("height", "210px");
+			}
 			$('#solo').click(function () {
 				// gamemode-team 숨기기
 				$('.gamemode-team').hide();
 				// gamemode-solo 보이기
 				$('.gamemode-solo').show();
-				$(".md_container2").css("height", "400px");
-				$(".md_content2").css("height", "262px");
+				$(".md_container2").css("height", "350px");
+				$(".md_content2").css("height", "210px");
 			});
 
 			// 팀 라디오 버튼 클릭 시
@@ -269,8 +268,8 @@
 				$('.gamemode-solo').hide();
 				// gamemode-team 보이기
 				$('.gamemode-team').show();
-				$(".md_container2").css("height", "450px");
-				$(".md_content2").css("height", "312px");
+				$(".md_container2").css("height", "400px");
+				$(".md_content2").css("height", "262px");
 			});
 		});	
 	</script>

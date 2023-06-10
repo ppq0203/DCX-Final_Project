@@ -5,6 +5,7 @@
   	<title>gameingteam</title>
 	<link th:href="@{/css/dice.css}" rel="stylesheet"> 
 	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
+	<link th:href="@{/css/gameingmulti.css}" rel="stylesheet">
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>	
 
 	</head>
@@ -49,13 +50,17 @@
 			<!--content game -->
       		<div id="content">
 				<div class="user">
-					<div class="team1">	
+					<div class="team1">
+						<div class="score" style="background-color:#BF9039" id="hover"><span>0</span></div>
 					</div>
 					<div class="team2">
+						<div class="score" style="background-color:#BF4C1F"><span>0</span></div>
 					</div>
 					<div class="team3">
+						<div class="score" style="background-color:#1454C2"><span>0</span></div>
 					</div>
 					<div class="team4">
+						<div class="score" style="background-color:#6F9C4C"><span>0</span></div>
 					</div>
 				</div>
 				<div class="dicearea">
@@ -75,68 +80,68 @@
 						<thead class="tableborder">
 							<tr>
 								<th></th>
-								<th>1</th>
-								<th>2</th>
-								<th>3</th>
-								<th>4</th>
-								<th>5</th>
-								<th>6</th>
+								<th class="hover_y">1</th>
+								<th class="hover_y">2</th>
+								<th class="hover_y">3</th>
+								<th class="hover_y">4</th>
+								<th class="hover_y">5</th>
+								<th class="hover_y">6</th>
 							</tr>
 						</thead>
 						<tbody lass="tableborder">
 							<tr>
 								<th>1</th>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
+								<td class="hover_y">1</td>
+								<td class="hover_y">2</td>
+								<td class="hover_y">3</td>
+								<td class="hover_y">4</td>
+								<td class="hover_y">5</td>
+								<td class="hover_y">6</td>
 							</tr>
 							<tr>
 								<th>2</th>
-								<td>7</td>
-								<td>8</td>
-								<td>9</td>
-								<td>10</td>
-								<td>11</td>
-								<td>12</td>
+								<td class="hover_y">7</td>
+								<td class="hover_y">8</td>
+								<td class="hover_y">9</td>
+								<td class="hover_y">10</td>
+								<td class="hover_y">11</td>
+								<td class="hover_y">12</td>
 							</tr>
 							<tr>
 								<th>3</th>
-								<td>13</td>
-								<td>14</td>
-								<td>15</td>
-								<td>16</td>
-								<td>17</td>
-								<td>18</td>
+								<td class="hover_y">13</td>
+								<td class="hover_y">14</td>
+								<td class="hover_y">15</td>
+								<td class="hover_y">16</td>
+								<td class="hover_y">17</td>
+								<td class="hover_y">18</td>
 							</tr>
 							<tr>
 								<th>4</th>
-								<td>19</td>
-								<td>20</td>
-								<td>21</td>
-								<td>22</td>
-								<td>23</td>
-								<td>24</td>
+								<td class="hover_y">19</td>
+								<td class="hover_y">20</td>
+								<td class="hover_y">21</td>
+								<td class="hover_y">22</td>
+								<td class="hover_y">23</td>
+								<td class="hover_y">24</td>
 							</tr>
 							<tr>
 								<th>5</th>
-								<td>25</td>
-								<td>26</td>
-								<td>27</td>
-								<td>28</td>
-								<td>29</td>
-								<td>30</td>
+								<td class="hover_y">25</td>
+								<td class="hover_y">26</td>
+								<td class="hover_y">27</td>
+								<td class="hover_y">28</td>
+								<td class="hover_y">29</td>
+								<td class="hover_y">30</td>
 							</tr>
 							<tr>
 								<th>6</th>
-								<td>31</td>
-								<td>32</td>
-								<td>33</td>
-								<td>34</td>
-								<td>35</td>
-								<td>36</td>
+								<td class="hover_y">31</td>
+								<td class="hover_y">32</td>
+								<td class="hover_y">33</td>
+								<td class="hover_y">34</td>
+								<td class="hover_y">35</td>
+								<td class="hover_y">36</td>
 							</tr>							
 						</tbody>
 					</table>
