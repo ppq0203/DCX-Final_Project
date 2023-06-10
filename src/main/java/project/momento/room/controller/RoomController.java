@@ -3,6 +3,8 @@ package project.momento.room.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import project.momento.question.dto.QuestionDto;
+import project.momento.question.dto.TestcaseDto;
+import project.momento.question.function.StringCodeCompile;
 import project.momento.question.mapper.QuestionMapper;
 import project.momento.question.service.QuestionService;
 import project.momento.question.service.TestcaseService;
@@ -19,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project.momento.room.service.RoomService; // 임시
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -78,6 +82,23 @@ public class RoomController {
 		mv.addObject("questionList", questionList);
 		mv.addObject("room", service.findRoomById(pkRoomSeq));
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/userCheck")
+	public HashMap<String, String> userCheck(@RequestParam Map<String, Object> param) {
+		HashMap<String, String> roomInfo = new HashMap<String, String>();
+		
+		String roomSeq = (String) param.get("roomSeq");
+		
+		System.out.println(" [+] " + roomSeq);
+		
+		RoomDto room = service.findRoomById(roomSeq);
+		
+		roomInfo.put("participants", Integer.toString(room.getParticipants()));
+		roomInfo.put("total", Integer.toString(room.getTotal()));
+
+		return roomInfo;
 	}
 	
 }

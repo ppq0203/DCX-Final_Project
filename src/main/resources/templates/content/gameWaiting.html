@@ -207,7 +207,7 @@
 								<div class="left">
 				                    <form th:action="@{/chat/enterRoom}" method="post" id="enterRoom">
 					                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
-					                    <input type="hidden" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
+					                    <input type="hidden" id="pkRoomSeq" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
 										<input class="startbtn" value="START" th:onclick="roomCheck([[${room}]])">
 				                    </form>
 									<br>
@@ -234,14 +234,27 @@
 	<script th:inline="javascript">
 		function roomCheck(room)
 		{
-			if(room.participants >= room.total)
-			{
-				alert("방이 가득찼습니다.");
-			}
-			else
-			{
-				$('#enterRoom').submit();
-			}
+			$.ajax({
+				type: "POST",
+				url: "userCheck",
+				data: {
+						roomSeq : $("#pkRoomSeq").val(),
+						participants : "",
+						total : ""
+				}
+				}).done(function(data){
+					participants = parseInt(data.participants);
+					total = parseInt(data.total);
+					if(participants >= total)
+					{
+						alert("방이 가득찼습니다.");
+					}
+					else
+					{
+						$('#enterRoom').submit();
+					}
+				})
+			
 		}
 		$(document).ready(function () {
 			var radio_check = $('input:radio[name=roomType]').is(':checked');
