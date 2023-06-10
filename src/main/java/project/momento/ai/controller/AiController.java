@@ -33,7 +33,23 @@ public class AiController {
 	@RequestMapping(value = "/{userDivn}/ai/main", produces = "application/text;charset=utf-8")
 	public String aiMain(@PathVariable String userDivn, HttpServletRequest request, Model model) {
 
-		return "content/" + userDivn + "/ai/article";
+		return "content/" + userDivn + "/ai/main";
+	}
+	/*
+	 * AI aiQuiz 화면 이동
+	 */
+	@RequestMapping(value = "/{userDivn}/ai/quiz", produces = "application/text;charset=utf-8")
+	public String aiQuiz(@PathVariable String userDivn, HttpServletRequest request, Model model) {
+
+		return "content/" + userDivn + "/aiquiz/aiquiz";
+	}
+	/*
+	 * AI aiDict 화면 이동
+	 */
+	@RequestMapping(value = "/{userDivn}/ai/dict", produces = "application/text;charset=utf-8")
+	public String aiDict(@PathVariable String userDivn, HttpServletRequest request, Model model) {
+
+		return "content/" + userDivn + "/aidict/aidict";
 	}
 
 }

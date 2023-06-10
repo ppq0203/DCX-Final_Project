@@ -2684,8 +2684,8 @@ input[type="radio"]:focus+label:before {
 }
 
 .blurEffect {
-	filter: blur(10px);
-	-webkit-filter: blur(10px);
+	filter: blur(3px);
+	-webkit-filter: blur(3px);
 }
 
 @media screen and (max-width: 736px) {

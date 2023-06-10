@@ -25,7 +25,6 @@
 	<script th:src="@{/js/adminlte.min.js}"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
-	
 
 	<script th:src="@{/plugins/codemirror/codemirror.js}"></script>
 	<script th:src="@{/plugins/codemirror/mode/css/css.js}"></script>
@@ -34,12 +33,13 @@
 </head>
 
 <body class="hold-transition">
-
 	<div class="wrapper">
-		<!--<th:block th:replace="common/fragments/header :: headFragment"></th:block>-->
-
-		<th:block layout:fragment="content"></th:block>
-
+		<th:block th:replace="common/fragments/std/stdHeader :: headFragment"></th:block>
+		<th:block th:replace="common/fragments/std/stdLeft :: leftFragment"></th:block>
+		<div class="content-wrapper" style="background-color: #fff;">
+			<th:block th:replace="common/fragments/std/stdAibanner :: bannerFragment"></th:block>
+			<th:block layout:fragment="content"></th:block>
+		</div>
 	</div>
 </body>
 
