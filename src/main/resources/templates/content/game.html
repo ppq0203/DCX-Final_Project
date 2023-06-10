@@ -338,7 +338,7 @@
 		// 문제를 포기하거나 맞췄을때 타입과 결과를 저장하는 함수
 		function resultSave(key, result)
 		{
-			if (resultMap.get('nonexistentKey') === undefined)
+			if (resultMap.get(key) === undefined)
 			{
 				resultMap.set(key, [0,0]);
 				console.log(resultMap.get(key));
