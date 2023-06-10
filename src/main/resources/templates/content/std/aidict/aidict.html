@@ -40,6 +40,7 @@
 								<span>시작</span>
 							</button>
 						</td>
+						<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
 					</tr>
 				</tbody>
 			</table>
@@ -117,6 +118,13 @@
 		$(document).ready(function () {
 
 		});
+		
+		// 삭제
+		function deleteRow(ths){
+			var ths = $(ths);
+
+			ths.parents("tr").remove();
+		}
 
 	</script>
 	</th:block>
