@@ -122,4 +122,18 @@ public class RoomService {
 
         return userName;
 	}
+
+	@Autowired
+	private RoomMapper RoomMapper;
+	
+	public void insertRoom(RoomDto rmDto) {
+		// TODO Auto-generated method stub
+		RoomMapper.insertRoom(rmDto);
+	}
+
+//	public List<RoomDto> selectRoom(int pkRoomSeq) {
+//		// TODO Auto-generated method stub
+//		return RoomMapper.selectRoom(pkRoomSeq);
+//	}
 }
+

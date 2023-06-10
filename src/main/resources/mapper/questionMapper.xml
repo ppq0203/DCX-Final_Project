@@ -8,6 +8,7 @@
 			    B.LEVEL AS Level,
 			    B.SCORE AS Score,
 			    B.TYPE AS Type,
+			    B.CONTENTS AS CONTENTS,
 			    B.CODE_FORMAT AS CodeFormat,
 			    B.SOLUTION AS Solution,
 			    B.CHANCE AS Chance,
@@ -30,5 +31,30 @@
             </foreach>
 		
 			ORDER BY RAND() LIMIT #{probNum}
+	</select>
+
+	<select id="selectQuestionSeq" parameterType="int" resultType="project.momento.question.dto.QuestionDto">
+		SELECT
+		PK_QUESTION_SEQ AS PkQuestionSeq,
+		QUESTION_NAME AS QuestionName,
+		LEVEL AS Level,
+		SCORE AS Score,
+		TYPE AS Type,
+		CODE_FORMAT AS CodeFormat,
+		SOLUTION AS Solution,
+		CHANCE AS Chance,
+		CLASS_NAME AS ClassName,
+		INPUT AS Input,
+		OUTPUT AS Output,
+		USE_YN AS UseYn,
+		DEL_YN AS DelYn,
+		REGIST_ID AS RegistId,
+		REGIST_DT AS RegistDt,
+		UPDATE_ID AS UpdateId,
+		UPDATE_DT AS UpdateDt
+		FROM
+		QUESTION
+		WHERE
+		PK_QUESTION_SEQ = #{pkQuestionSeq}
 	</select>
 </mapper>

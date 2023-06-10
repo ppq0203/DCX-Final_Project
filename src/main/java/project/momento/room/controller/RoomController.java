@@ -31,19 +31,19 @@ import java.util.Map;
 @RequestMapping(value = "/chat")
 public class RoomController {
 
-	private final RoomService service;
-	
+	@Autowired
+	private RoomService roomService;
 
 	@Autowired
 	private QuestionService questionService;
-	
+
 	// 채팅방 목록 조회
 	@GetMapping(value = "/rooms")
 	public ModelAndView rooms(String roomType) {
 		
 		log.info(" # All Chat Rooms");
 		ModelAndView mv = new ModelAndView("content/gameWaiting");
-		mv.addObject("list", service.findAllRooms(roomType));
+		mv.addObject("list", roomService.findAllRooms(roomType));
 		
 		return mv;
 	}
@@ -53,7 +53,7 @@ public class RoomController {
 	public String create(@ModelAttribute("RoomDto") RoomDto roomDto) {
 		System.out.println(roomDto);
 		log.info("# Create Chat Room , name: " + roomDto.getRoomName());
-		service.createRoomDto(roomDto);
+		roomService.createRoomDto(roomDto);
 //		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
 		
         return "redirect:/chat/rooms";
@@ -80,7 +80,7 @@ public class RoomController {
 		ModelAndView mv = new ModelAndView("content/room");
 		
 		mv.addObject("questionList", questionList);
-		mv.addObject("room", service.findRoomById(pkRoomSeq));
+		mv.addObject("room", roomService.findRoomById(pkRoomSeq));
 		return mv;
 	}
 	
@@ -91,12 +91,40 @@ public class RoomController {
 		
 		String roomSeq = (String) param.get("roomSeq");
 		
-		RoomDto room = service.findRoomById(roomSeq);
+		RoomDto room = roomService.findRoomById(roomSeq);
 		
 		roomInfo.put("participants", Integer.toString(room.getParticipants()));
 		roomInfo.put("total", Integer.toString(room.getTotal()));
 
 		return roomInfo;
+	}
+
+	@RequestMapping(value = "/ybytest", produces = "application/text;charset=utf-8") /* value주소 이름 */
+	public String ybytest() {
+		// 데이터 저장
+		RoomDto rmDto = new RoomDto();
+		rmDto.setPkRoomSeq("0");
+		rmDto.setRoomNo("0");
+		rmDto.setRoomName("0");
+		rmDto.setRoomPwd(0);
+		rmDto.setRoomType("0");
+		rmDto.setRoomPlay(0);
+		rmDto.setRoomPlaytime("0");
+		rmDto.setRoomNumber(0);
+		rmDto.setTeamNumber(0);
+		rmDto.setRoomLevel(0);
+		rmDto.setRoomId("0");
+		rmDto.setRoomTime("0");
+		rmDto.setUpdateDt("0");
+		roomService.insertRoom(rmDto);
+		System.out.println();
+//		/////////////
+//		// 데이터 불러오기
+//		List<RoomDto> room = service.selectRoom(0);
+//		System.out.println(room);
+//		/////////////
+//		// 데이터 삭제
+		return "index";
 	}
 	
 }

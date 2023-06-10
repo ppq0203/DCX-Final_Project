@@ -205,6 +205,22 @@
 			<button class="btnlogout" type="button">나가기</button>
 		</div>
 	</div>
+	<button onclick="resultCalc()">결과보기</button>
+	<div class="text-center">
+	결과창
+		<div>
+			총 문제 :<span id="total_count">36</span>
+		</div>
+		<div>
+			푼 문제 :<span id="solve_count">30</span>
+		</div>
+		<div>
+			포기 :<span id="giveup_count">6</span>
+		</div>
+		<div id="type_result_area">
+
+		</div>
+	</div>
 
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
@@ -231,6 +247,7 @@
 							</div>
 
 							<div class="card-body p-0">
+								<input type="hidden" id="questionType">
 								<p id="questionContents"></p>
 							</div>
 							<div class="card-footer">
@@ -285,6 +302,7 @@
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
+			type = question.type;
 			console.log(title);
 			console.log(name);
 			console.log(contents);
@@ -293,13 +311,13 @@
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
 			$('#nameQuestion').val(question.className);
+			$('#questionType').val(type);
 			$('#questionContents').text(contents);
 			$('#Demo').html(codeFormat);
 			temp_elem = elem;
 		}
     /*]]>*/
 	</script>
-	<!-- 진상 script -->
 	<script>
 		$(function () {
 			// CodeMirror
@@ -309,13 +327,56 @@
 			});
 		})
 		var count = size;
-
+		var resultMap = new Map();
 		// 생성된 템플릿을 타임리프 템플릿 영역에 추가
 
 		var line_length = Math.sqrt(count);
 		var gameroom_left_classes = document.getElementsByClassName('question_col');
 		var all_rooms_length = 490;
 		var one_room_length = all_rooms_length / line_length;
+		
+		// 문제를 포기하거나 맞췄을때 타입과 결과를 저장하는 함수
+		function resultSave(key, result)
+		{
+			if (resultMap.get(key) === undefined)
+			{
+				resultMap.set(key, [0,0]);
+				console.log(resultMap.get(key));
+			}
+			if (result == -1)
+			{
+				resultMap.get(key)[1] += 1;
+			}
+			if (result == 0)
+			{
+				resultMap.get(key)[0] += 1;
+				resultMap.get(key)[1] += 1;
+			}
+		}
+		// 결과값을 연산해주는 함수
+		function resultCalc()
+		{
+			var total = 0;
+			var solve = 0;
+			var str;
+			$("#type_result_area").empty();
+			
+			for (const [key, value] of resultMap.entries()) {
+				console.log(`Key: ${key}, Value: ${value}`);
+				str = '';
+				str = "<div>";
+				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
+				str += "</div>";
+				$("#type_result_area").append(str);
+				total += value[1];
+				solve += value[0];
+			}
+
+			$("#total_count").text(total);
+			$("#solve_count").text(solve);
+			$("#giveup_count").text(total-solve);
+		}
+		
 		for (var i = 0; i < gameroom_left_classes.length; i++) {
 			gameroom_left_classes[i].style.width = one_room_length + "px";
 		}
@@ -326,6 +387,7 @@
 			temp_elem.disabled = true;
 			$(temp_elem).css("background-color", "gray");
 			$(temp_elem).css("color", "darkgray");
+			resultSave($("#questionType").val(), -1);
 		})
 		$('#Question_submit').click(function () {
 			$.ajax({
@@ -344,6 +406,7 @@
 					temp_elem.disabled = true;
 					$(temp_elem).css("background-color", "#00b0f0");
 					$(temp_elem).css("color", "blue");
+					resultSave($("#questionType").val(), 0);
 				}
 			});
 			

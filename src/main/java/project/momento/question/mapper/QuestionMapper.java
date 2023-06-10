@@ -8,5 +8,6 @@ import project.momento.question.dto.QuestionDto;
 public interface QuestionMapper {
 
 	List<QuestionDto> selectQuestion(QuestionDto qtDto);
-
+	QuestionDto selectQuestionSeq(int pkQuestionSeq);
+	
 }
