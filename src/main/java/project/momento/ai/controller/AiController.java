@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
+import project.momento.ai.service.AiService;
 import project.momento.exam.dto.ExamDto;
 import project.momento.login.dto.LoginDto;
+import project.momento.question.dto.QuestionDto;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 import project.momento.subject.dto.SubjectDto;
@@ -25,7 +27,7 @@ import project.momento.subject.dto.SubjectDto;
 public class AiController {
 
 	@Autowired
-	private SignService SignService;
+	private AiService aiService;
 
 	/*
 	 * AI Main 화면 이동
@@ -40,7 +42,12 @@ public class AiController {
 	 */
 	@RequestMapping(value = "/{userDivn}/ai/quiz", produces = "application/text;charset=utf-8")
 	public String aiQuiz(@PathVariable String userDivn, HttpServletRequest request, Model model) {
-
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		QuestionDto questionDto = new QuestionDto();
+		questionDto.setPkUserSeq(loginDto.getPkUserSeq());
+		List<QuestionDto> resultList = aiService.selectQuestionResultList(questionDto);
+		model.addAttribute("resultList",resultList);
+		System.out.println(resultList);
 		return "content/" + userDivn + "/aiquiz/aiquiz";
 	}
 	/*
