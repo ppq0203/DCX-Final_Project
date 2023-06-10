@@ -13,7 +13,9 @@
 				PK_USER_SEQ,
 				ANSWER_USER,
 				ANSWER_Ox,
-				REGIST_DT
+				REGIST_DT,
+				TYPE,
+				SOLVE_TIME
 			) 
 			VALUES
 			(
@@ -21,7 +23,9 @@
 				#{pkUserSeq},
 				#{answerUser},
 				#{answerOx},
-				#{registDt}
+				#{registDt},
+				#{type},
+				#{solveTime}
 			)
 			
 		]]>
@@ -37,7 +41,9 @@
 				PK_USER_SEQ			AS pkUserSeq,
 				ANSWER_USER			AS answerUser,
 				ANSWER_OX 			AS answerOx,
-				REGIST_DT 			AS registDt
+				REGIST_DT 			AS registDt,
+				TYPE				AS type,
+				SOLVE_TIME			AS solveTime
 			FROM 
 				ANSWER
 			WHERE

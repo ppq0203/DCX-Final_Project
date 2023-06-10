@@ -11,12 +11,8 @@ import project.momento.answer.service.AnswerService;
 
 public class AnswerToDB {
 	
-	@Autowired
-	private AnswerService answerService;
-
-	
 	// 문제번호, 유저번호, 답변, 결과
-	public static void answerToDB (int pkQuestionSeq, int pkUserSeq, String answerUser, int result, String type)
+	public static void answerToDB (int pkQuestionSeq, int pkUserSeq, String answerUser, int result, String type, AnswerService answerService)
 	{
 		AnswerDto answerDto = new AnswerDto();
 		answerDto.setPkQuestionSeq(pkQuestionSeq);
@@ -34,7 +30,7 @@ public class AnswerToDB {
         LocalDateTime dateTime = LocalDateTime.of(date, time);
 		answerDto.setSolveTime(dateTime.toString());
 
-		AnswerToDB answerToDB = new AnswerToDB();
-		answerToDB.answerService.insertAnswer(answerDto);
+		System.out.println(answerDto);
+		answerService.insertAnswer(answerDto);
 	}
 }
