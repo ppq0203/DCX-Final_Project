@@ -26,7 +26,7 @@ public class GameResultController {
 		GameResultDto gameResultDto = new GameResultDto();
 		gameResultDto.setPkQuestionSeq(1);
 		gameResultDto.setMyTeamNum(1);
-		gameResultDto.setSloveTeamNum("1");
+		gameResultDto.setSolveTeamNum("1");
 		gameResultDto.setMyResult(4);
 		gameResultDto.setQuestionType("ff");
 		

@@ -81,41 +81,30 @@
 	</update>-->
 	<!-- namespace는 Mapper 인터페이스의 경로로 설정 -->
 	
-    <insert id="insertRoom" parameterType="project.momento.room.dto.RoomDto">
+    <insert id="insertRoom" parameterType="project.momento.gameresult.dto.GameResultDto">
         INSERT INTO GAME_RESULT(
        			PK_GAME_RESULT_SEQ
         		, MY_TEAM_NUM
-				, SLOVE_TEAM_NUM
+				, SOLVE_TEAM_NUM
 				, MY_RESULT
 				, QUESTION_TYPE
 
         )
         VALUES (
         #{PkQuestionSeq}
-        , #{roomName}
-        , #{roomPwd}
-        , #{roomType}
-        , #{roomPlay}
-        , #{roomPlaytime}
-        , #{roomNumber}
-        , #{roomId}
-        , #{roomTime}
-        , #{roomUpdate}
-        , #{teamNumber}
-        , #{roomLevel}
+        , #{myTeamNum}
+        , #{solveTeamNum}
+        , #{myResult}
+        , #{questionType}
         )
     </insert>
 
-    <select id="getAllRooms" resultType="project.momento.room.dto.RoomDto">
-        SELECT * FROM ROOM
+    <select id="findDistinctSolveTimeByUserSeq" resultType="project.momento.gameresult.dto.GameResultDto">
+        SELECT DISTINCT SOLVE_TIME FROM game_results WHERE PK_USER_SEQ = #{userSeq}
     </select>
 
-    <select id="getRoomByPkRoomSeq" parameterType="int" resultType="project.momento.room.dto.RoomDto">
-        SELECT * FROM ROOM WHERE PK_ROOM_SEQ = #{pkRoomSeq}
+    <select id="findResultsByUserSeqAndSolveTime" parameterType="int" resultType="project.momento.gameresult.dto.GameResultDto">
+        SELECT * FROM game_results WHERE PK_USER_SEQ = #{userSeq} AND SOLVE_TIME = #{solveTime}
     </select>
-
-    <delete id="deleteRoomByPkRoomSeq" parameterType="int">
-        DELETE FROM ROOM WHERE PK_ROOM_SEQ = #{pkRoomSeq}
-    </delete>
 
 </mapper>
