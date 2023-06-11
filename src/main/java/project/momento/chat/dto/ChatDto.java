@@ -15,6 +15,8 @@ public class ChatDto {
 	
 	private String pkRoomSeq; // 방에 부여되는 고유번호 roomId / 임시적으로 String형으로 변경
 	
+	private String userTeamNumber; //유저가 속한 팀 번호
+	
 	//private String chatStamp; // 유저 채팅 시간 기록 (로비)
 	
 	private String chatContent; // 유저 채팅 로그 내용 기록 (로비) message

@@ -89,23 +89,23 @@
 					
 						
 				</div>
-				<button class="btn" type="button">시작</button>	
+				<button class="btn" type="button" id="test">시작</button>	
 				<button class="btnlogout" type="button">나가기</button>		
 			</div>
 			
 			<!--content game -->
       		<div id="content">
 				<div class="user">
-					<div class="team1">
+					<div class="team1" id="game1">
 						<div class="score" style="background-color:#BF9039" id="hover"><span>0</span></div>
 					</div>
-					<div class="team2">
+					<div class="team2" id="game2">
 						<div class="score" style="background-color:#BF4C1F"><span>0</span></div>
 					</div>
-					<div class="team3">
+					<div class="team3" id="game3">
 						<div class="score" style="background-color:#1454C2"><span>0</span></div>
 					</div>
-					<div class="team4">
+					<div class="team4" id="game4">
 						<div class="score" style="background-color:#6F9C4C"><span>0</span></div>
 					</div>
 				</div>
@@ -205,7 +205,9 @@
 
 			var roomName = /*[[${room.roomName}]]*/0;
 			var roomId = /*[[${room.pkRoomSeq}]]*/0;
-			var username = "334"
+			//var username = /*[[${user.name}]]*/0;
+			var username = "335"
+			
 
 			var sockJs = new SockJS("/stomp/chat");
 			//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -218,6 +220,10 @@
 				console.log("STOMP Connection")
 
 				stomp.subscribe("/sub/chat/gamestart/" + roomId, function(chat) {
+						content = chat.body;
+						$("#test").on("click", function() {
+							console.log(content.userTeamNumber);
+						});
             			$('#gameRoom').css('display', 'block'); 
             			$('#waitRoom').css('display', 'none');
                    });
@@ -259,6 +265,9 @@
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team1").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game1").prepend(gtr);
 						}
 					});
 				});
@@ -275,6 +284,9 @@
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team2").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game2").prepend(gtr);
 						}
 					});
 				});
@@ -291,6 +303,9 @@
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team3").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game3").prepend(gtr);
 						}
 					});
 				});
@@ -303,10 +318,13 @@
 						} else {
 							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
-							str += "<b class='fontp'>" + value + "</b>";
+							str += "<b class='fontp' style='text-align'>" + value + "</b>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team4").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game4").prepend(gtr);
 						}
 					});
 				});
@@ -315,6 +333,7 @@
 					var content = chat.body;
 					console.log(content);
 					$("#" + content + "").remove();
+					$("#game-" + content + "").remove();
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
@@ -346,7 +365,7 @@
 			})
 
 			$("#team3").on("click", function (e) {
-				if(/*[[${room.roomNumber}]]*/0 < 3){
+				if(3 > /*[[${room.roomNumber}]]*/0){
 					alert('[[${room.roomNumber}]]팀 방 입니다!');
 				}
 				else
@@ -364,7 +383,7 @@
 			})
 
 			$("#team4").on("click", function (e) {
-				if(/*[[${room.roomNumber}]]*/0 < 4){
+				if(4 > /*[[${room.roomNumber}]]*/0){
 					alert('[[${room.roomNumber}]]팀 방 입니다!');
 				}
 				else
@@ -408,8 +427,9 @@
 			});
 
 			$("#gamestart").on("click", function() {
-	    			stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+	    		stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
 			});
+			
 		}); 
 	</script>
 
@@ -427,7 +447,6 @@
 		var temp_elem;
 		/*<![CDATA[*/
 		function loadQuestion(elem, question) {
-			console.log("test");
 			title = question.pkQuestionSeq + "번째 문제";
 			name = question.questionName;
 			contents = question.contents;
