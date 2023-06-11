@@ -1,4 +1,7 @@
 package project.momento.page;
+
+import project.momento.file.dto.FileDto;
+
 /* sign.html에 있는 가져오는 정보의 이름를 연결해주는 곳 */
 
 /* sign.html에 있는 가져오는 정보의 이름를 연결해주는 곳 */
@@ -7,7 +10,7 @@ package project.momento.page;
 
 
 //게시판 하단의 페이징
-public class Paging {
+public class Paging extends FileDto {
 
 	private int totalCount; // 게시판 전체 데이터 개수
 	private int displayPageNum = 9; // 게시판 화면에서 한번에 보여질 페이지 번호의 개수

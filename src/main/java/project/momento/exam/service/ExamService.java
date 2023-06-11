@@ -62,6 +62,16 @@ public class ExamService {
 		return examMapper.getExamResultList(examDto);
 	}
 
+	public List<ExamDto> selectExamResultDetailList(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		return examMapper.selectExamResultDetailList(examDto);
+	}
+
+	public void updateScore(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.updateScore(examDto);
+	}
+
 	
 	
 }

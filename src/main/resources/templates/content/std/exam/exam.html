@@ -46,12 +46,6 @@
 				<div class="col-6">
 					<h2>평가 결과</h2>
 				</div>
-				<div class="card-tools col-6 text-right">
-					<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary"
-						data-action="create" onclick="changeButtonAction(this)">
-						<span>등록</span>
-					</button>
-				</div>
 			</div>
 			<!-- /.card-header -->
 			<table class="table" id="addrow">
@@ -60,15 +54,26 @@
 						<th scope="col">No.</th>
 						<th scope="col">과목명</th>
 						<th scope="col">날짜</th>
-						<th scope="col">미리보기</th>
-						<th scope="col">시작</th>
+						<th scope="col">이름</th>
+						<th scope="col">결과</th>
 					</tr>
 				</thead>
-
-
-
+				<tbody>
+					<tr th:each="item, index : ${exameResultList}">
+						<td th:text="${index.index + 1}"></td>
+						<td th:text="${item.subjectName}"></td>
+						<td th:text="${item.registDt}"></td>
+						<td th:text="${item.name}"></td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-three"
+								th:attr="pkUserSeq=${item.pkUserSeq}" type="button" class="btn btn-info resultBtn"
+								data-action="modify">
+								<span>보기</span>
+							</button>
+						</td>
+					</tr>
+				</tbody>
 			</table>
-
 			<!-- /.card-body -->
 			<div class="card-footer">
 			</div>
@@ -77,7 +82,7 @@
 
 	<!-- Modal -->
 	<div class="modal fade" id="modal-xl-two" style="display: none;" aria-hidden="true">
-		<form action="/mng/exam/result" method="POST" onsubmit="return validation()">
+		<form action="/std/exam/result" method="POST" onsubmit="return validation()">
 			<input id="pkExamSeq" name="pkExamSeq" type="hidden">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
@@ -102,6 +107,28 @@
 			</div>
 		</form>
 	</div>
+	<div class="modal fade" id="modal-xl-three" style="display: none;" aria-hidden="true">
+		<form action="/mng/exam/result/score" method="POST">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">시험 결과</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div id="resultDiv" class="row">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 	<script>
 		var QUESTION_ARRAY = [];
 
@@ -109,21 +136,40 @@
 			var str = "";
 			if (item.pkFileSeq != 0) {
 				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
-					+ '<input type="hidden" name="pkExamDetailSeq" value="'+item.pkExamDetailSeq+'">'
-					+ '<input type="hidden" name="pkExamSeq" value="'+item.pkExamSeq+'">'
-					+ '<input type="hidden" name="pkSubjectSeq" value="'+item.pkSubjectSeq+'">'
+					+ '<input type="hidden" name="pkExamDetailSeqArray" value="' + item.pkExamDetailSeq + '">'
+					+ '<input type="hidden" name="pkExamSeq" value="' + item.pkExamSeq + '">'
+					+ '<input type="hidden" name="pkSubjectSeq" value="' + item.pkSubjectSeq + '">'
 					+ '<img id="preview" key="src" index="' + index + '" class="card-img-top imgSrc"  alt="Thumbnail [100%x225]" src="' + item.filePath + '" style="height: 20rem; width: 100%; display: block;">'
 					+ '</div>'
 				return str;
 			} else {
 				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
-					+ '<input type="hidden" name="pkExamDetailSeq" value="'+item.pkExamDetailSeq+'">'
-					+ '<input type="hidden" name="pkExamSeq" value="'+item.pkExamSeq+'">'
-					+ '<input type="hidden" name="pkSubjectSeq" value="'+item.pkSubjectSeq+'">'
+					+ '<input type="hidden" name="pkExamDetailSeqArray" value="' + item.pkExamDetailSeq + '">'
+					+ '<input type="hidden" name="pkExamSeq" value="' + item.pkExamSeq + '">'
+					+ '<input type="hidden" name="pkSubjectSeq" value="' + item.pkSubjectSeq + '">'
 					+ '<p>' + item.contents + '</p>'
 					+ '</div>'
 				return str;
 			}
+		}
+		
+		function areaInit(index, item){
+			var str = "";
+			var className = "is-warning";
+			if(item.resultDivn == "N"){
+				str += '<textarea value="' + item.answer + '" name="answer" index="' + index + '" key="contents"'
+				+ 'class="form-control form-control-lg validate is-warning"'
+				+ 'style="height: 20rem;" row="6" id="answer" placeholder="정답">'
+				+ '' + item.answer + ''
+				+ '</textarea>'
+			}else{
+				str += '<textarea value="' + item.answer + '" name="answer" index="' + index + '" key="contents"'
+				+ 'class="form-control form-control-lg validate '+(item.ansResult == "Y" ? "is-valid" : "is-invalid")+'"'
+				+ 'style="height: 20rem;" row="6" id="answer" placeholder="정답">'
+				+ '' + item.answer + ''
+				+ '</textarea>'
+			}
+			return str;
 		}
 		function validation() {
 			var validate = true;
@@ -194,6 +240,56 @@
 						});
 
 
+					},
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
+			});
+			
+			$('.resultBtn').click(function () {
+				// AJAX 호출
+				var pkUserSeq = $(this).attr('pkUserSeq');
+				$.ajax({
+					url: '/getExamResultDetailList',
+					type: 'POST',
+					data: {
+						pkUserSeq: $(this).attr('pkUserSeq')
+					},
+					dataType: 'json',
+					success: function (data) {
+						var IMG_ARRAY = [];
+						IMG_ARRAY = data;
+						//$("#pkExamSeq").val(pkExamSeq);
+						$("#resultDiv").empty();
+						$.each(IMG_ARRAY, function (index, item) {
+							$("#resultDiv").append(
+								'<div class="col-12 hr">' +
+								'<div class="row align-items-center">' +
+								'<div class="col-2">' +
+								'<h3 class="p-3 num text-center">' + (index + 1) + '</h3>' +
+								'</div>' +
+								'<div class="col-10">' +
+								'<div class="input-group">' +
+								'<span>'
+								+ item.title +
+								'</span>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'<div class="col-12">' +
+								'<div class="row">' +
+								'<div class="col-6">' +
+								imgInit(index, item) +
+								'</div>' +
+								'<div class="col-6">' +
+								areaInit(index, item) +
+								'<input type="hidden" name="pkUserSeq" value="' + item.pkUserSeq + '">' +
+								'</div>' +
+								'</div>' +
+								'</div>'
+							);
+						});
 					},
 					error: function (xhr, status, error) {
 						console.log(error); // 에러 처리

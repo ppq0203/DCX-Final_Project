@@ -40,4 +40,14 @@ public class NoticeService {
 		return noticeMapper.selectNotice(pkNoticeSeq);
 	}
 
+	public void deleteNotice(String pkNoticeSeq) {
+		// TODO Auto-generated method stub
+		noticeMapper.deleteNotice(pkNoticeSeq);
+	}
+
+	public void updateNotice(NoticeDto noticeDto) {
+		// TODO Auto-generated method stub
+		noticeMapper.updateNotice(noticeDto);
+	}
+
 }

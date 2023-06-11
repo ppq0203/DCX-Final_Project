@@ -2,10 +2,11 @@ package project.momento.question.dto;
 
 import org.springframework.context.annotation.PropertySource;
 import lombok.Data;
+import project.momento.login.dto.LoginDto;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
-public class QuestionDto {
+public class QuestionDto extends LoginDto {
 	
 	/*문제에 부여되는 고유번호*/ 
 	private int pkQuestionSeq;
