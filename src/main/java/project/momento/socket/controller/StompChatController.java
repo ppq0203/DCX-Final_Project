@@ -1,12 +1,22 @@
 package project.momento.socket.controller;
 
 import lombok.RequiredArgsConstructor;
+import project.momento.answer.dto.AnswerDto;
+import project.momento.answer.service.AnswerService;
 import project.momento.chat.dto.ChatDto;
+import project.momento.question.dto.QuestionDto;
+import project.momento.question.dto.TestcaseDto;
+import project.momento.question.function.AnswerToDB;
+import project.momento.question.function.StringCodeCompile;
+import project.momento.question.service.QuestionService;
 import project.momento.question.service.TestcaseService;
 import project.momento.room.dto.RoomDto;
 import project.momento.room.service.RoomService;
+import project.momento.socket.dto.MultigameResultDto;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -16,7 +26,13 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,6 +42,15 @@ public class StompChatController {
 	
 	@Autowired
 	private RoomService shambles;
+	
+	@Autowired
+	private TestcaseService testcaseService;
+	
+	@Autowired
+	private AnswerService answerService;
+	
+	@Autowired
+	private QuestionService questionService;
 	
 	@MessageMapping(value = "/chat/enter")
 	public void enter(ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
@@ -228,4 +253,66 @@ public class StompChatController {
 		template.convertAndSend("/sub/chat/gamestart/" + message.getPkRoomSeq(), message);
 	}
     
+    @MessageMapping(value= "/chat/correct")
+	public void correctUser(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
+        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        String userTeamNumber = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
+    	message.setTeamNo(userTeamNumber.replace("team", ""));
+    	message.setUserNo(userUUID);
+    	String json = null;
+		try {
+			json = new ObjectMapper().writeValueAsString(message);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(json);
+		template.convertAndSend("/sub/chat/correct/" + message.getRoomId(), json);
+	}
+    @MessageMapping(value= "/chat/giveup")
+	public void giveup(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
+        // 포기한사람을 저장
+    	
+    	// 전부 포기 했을때
+    	if(false)
+        {
+    		message.setTeamNo("0");
+        	message.setUserNo("0");
+        	String json = null;
+    		try {
+    			json = new ObjectMapper().writeValueAsString(message);
+    		} catch (JsonProcessingException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		template.convertAndSend("/sub/chat/correct/" + message.getRoomId(), json);
+        }
+	}
+    
+    @MessageMapping(value="/chat/sendAnswer")
+	public void sendAnswer(AnswerDto answerDto, SimpMessageHeaderAccessor headerAccessor) {
+
+        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+		String code = answerDto.getAnswerUser();
+		String name = answerDto.getAnswerOx();
+		int num = answerDto.getPkQuestionSeq();
+		
+		System.out.println(" [+] " + code + " [+] " + name + " [+] " + num);
+		
+		List<TestcaseDto> testcaseDtos = testcaseService.selectTestcaseList(num);
+		
+													// 방넘버, 유저넘저, 함수명, 인풋list, 함수실행코드
+		int result = StringCodeCompile.stringCodeCompile(roomId, userUUID, name, testcaseDtos, code);
+		// 문제번호, 유저번호, 코드, 결과, 문제타입
+		AnswerToDB.answerToDB(num, 1, code, result, questionService.selectQuestionSeq(num).getType(), answerService);
+		if (result == 0)
+			answerDto.setAnswerOx("O");
+		else
+			answerDto.setAnswerOx("X");
+//		answerDto.setPkUserSeq(userUUID);
+		answerDto.setUserUUID(userUUID);
+		System.out.println("/sub/chat/sendAnswer/" + roomId + "/" + userUUID);
+		template.convertAndSend("/sub/chat/sendAnswer/" + roomId, answerDto);
+	}
 }

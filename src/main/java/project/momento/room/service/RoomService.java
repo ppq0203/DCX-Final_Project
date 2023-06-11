@@ -67,6 +67,13 @@ public class RoomService {
 		else
 			roomDto.setTotal(roomDto.getRoomNumber());
 		roomDto.setParticipants(0);
+		Integer[] intArray = new Integer[36];
+		for(int i=0; i < 36; i++)
+			intArray[i] = i+1;
+		
+		List<Integer> intList = Arrays.asList(intArray);
+		Collections.shuffle(intList);
+		roomDto.setShuffleNo(intList);
 //		RoomDto room = RoomDto.create(roomDto);
 		roomDtoMap.put(roomDto.getPkRoomSeq(), roomDto);
 		
@@ -76,6 +83,7 @@ public class RoomService {
 	public String addUser(ChatDto message) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
+		// 현재는 임시로 생성해 두었지만 실제로 완성시 세션의 유저고유번호를 저장해야함
 		String userUUID = UUID.randomUUID().toString();
 		room.getUserList().put(userUUID, message.getPkUserSeq());
 		room.setParticipants(room.getParticipants() + 1);

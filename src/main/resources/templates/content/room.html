@@ -1,15 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/emptyLayout}">
 <th:block layout:fragment="content">
-	<script th:inline="javascript">
-		var size =/*[[${questionList.size}]]*/0;
-	</script>
 	<link rel="stylesheet" type="text/css" href="/css/game.css">
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<link th:href="@{/css/waitroom.css}" rel="stylesheet">	
 	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
 	<link th:href="@{/css/gameingmulti.css}" rel="stylesheet">
-	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>	
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 	<!--<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">-->
 	<script th:src="@{/js/dice.js}"></script>
 
@@ -59,7 +56,7 @@
 
 	<!-- ------------------------게임방------------------------------ -->
 	<div id="gameRoom" style="display:none;">
-	<div class="container">
+		<div class="container">
       		<div id="header"></div>
 			
 			<!--side right -->
@@ -85,28 +82,25 @@
 					<form>
 						<input type="text" id="chat" size=19>
 						<button class="btnchat" type="submit">등록</button>
+						<button type="button" data-toggle="modal" data-target="#modal-xl">문제 열기</button>
 					</form>
-					
-						
 				</div>
-				<button class="btn" type="button" id="test">시작</button>	
-				<button class="btnlogout" type="button">나가기</button>		
 			</div>
 			
 			<!--content game -->
       		<div id="content">
 				<div class="user">
 					<div class="team1" id="game1">
-						<div class="score" style="background-color:#BF9039" id="hover"><span>0</span></div>
+						<div class="score" style="background-color:#BF9039" id="hover"><span id="score1">0</span></div>
 					</div>
 					<div class="team2" id="game2">
-						<div class="score" style="background-color:#BF4C1F"><span>0</span></div>
+						<div class="score" style="background-color:#BF4C1F"><span id="score2">0</span></div>
 					</div>
 					<div class="team3" id="game3">
-						<div class="score" style="background-color:#1454C2"><span>0</span></div>
+						<div class="score" style="background-color:#1454C2"><span id="score3">0</span></div>
 					</div>
 					<div class="team4" id="game4">
-						<div class="score" style="background-color:#6F9C4C"><span>0</span></div>
+						<div class="score" style="background-color:#6F9C4C"><span id="score4">0</span></div>
 					</div>
 				</div>
 				<div class="dicearea">
@@ -137,96 +131,180 @@
 						<tbody lass="tableborder">
 							<tr>
 								<th>1</th>
-								<td class="hover_y">1</td>
-								<td class="hover_y">2</td>
-								<td class="hover_y">3</td>
-								<td class="hover_y">4</td>
-								<td class="hover_y">5</td>
-								<td class="hover_y">6</td>
+								<td class="hover_y" id="q1">1</td>
+								<td class="hover_y" id="q2">2</td>
+								<td class="hover_y" id="q3">3</td>
+								<td class="hover_y" id="q4">4</td>
+								<td class="hover_y" id="q5">5</td>
+								<td class="hover_y" id="q6">6</td>
 							</tr>
 							<tr>
 								<th>2</th>
-								<td class="hover_y">7</td>
-								<td class="hover_y">8</td>
-								<td class="hover_y">9</td>
-								<td class="hover_y">10</td>
-								<td class="hover_y">11</td>
-								<td class="hover_y">12</td>
+								<td class="hover_y" id="q7">7</td>
+								<td class="hover_y" id="q8">8</td>
+								<td class="hover_y" id="q9">9</td>
+								<td class="hover_y" id="q10">10</td>
+								<td class="hover_y" id="q1">11</td>
+								<td class="hover_y" id="q12">12</td>
 							</tr>
 							<tr>
 								<th>3</th>
-								<td class="hover_y">13</td>
-								<td class="hover_y">14</td>
-								<td class="hover_y">15</td>
-								<td class="hover_y">16</td>
-								<td class="hover_y">17</td>
-								<td class="hover_y">18</td>
+								<td class="hover_y" id="q13">13</td>
+								<td class="hover_y" id="q14">14</td>
+								<td class="hover_y" id="q15">15</td>
+								<td class="hover_y" id="q16">16</td>
+								<td class="hover_y" id="q17">17</td>
+								<td class="hover_y" id="q18">18</td>
 							</tr>
 							<tr>
 								<th>4</th>
-								<td class="hover_y">19</td>
-								<td class="hover_y">20</td>
-								<td class="hover_y">21</td>
-								<td class="hover_y">22</td>
-								<td class="hover_y">23</td>
-								<td class="hover_y">24</td>
+								<td class="hover_y" id="q19">19</td>
+								<td class="hover_y" id="q20">20</td>
+								<td class="hover_y" id="q21">21</td>
+								<td class="hover_y" id="q22">22</td>
+								<td class="hover_y" id="q23">23</td>
+								<td class="hover_y" id="q24">24</td>
 							</tr>
 							<tr>
 								<th>5</th>
-								<td class="hover_y">25</td>
-								<td class="hover_y">26</td>
-								<td class="hover_y">27</td>
-								<td class="hover_y">28</td>
-								<td class="hover_y">29</td>
-								<td class="hover_y">30</td>
+								<td class="hover_y" id="q25">25</td>
+								<td class="hover_y" id="q26">26</td>
+								<td class="hover_y" id="q27">27</td>
+								<td class="hover_y" id="q28">28</td>
+								<td class="hover_y" id="q29">29</td>
+								<td class="hover_y" id="q30">30</td>
 							</tr>
 							<tr>
 								<th>6</th>
-								<td class="hover_y">31</td>
-								<td class="hover_y">32</td>
-								<td class="hover_y">33</td>
-								<td class="hover_y">34</td>
-								<td class="hover_y">35</td>
-								<td class="hover_y">36</td>
+								<td class="hover_y" id="q31">31</td>
+								<td class="hover_y" id="q32">32</td>
+								<td class="hover_y" id="q33">33</td>
+								<td class="hover_y" id="q34">34</td>
+								<td class="hover_y" id="q35">35</td>
+								<td class="hover_y" id="q36">36</td>
 							</tr>							
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
+		<!-- 문제 풀이 창 -->
+		<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title"></h4>
+						<input type="hidden" id="questionNo">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="card card-outline card-info">
+							<div class="card-header">
+								<h3 id="questionName" class="card-title"></h3>
+								<input type="hidden" id="nameQuestion">
+	
+							</div>
+							<div class="card card-outline card-info">
+								<div class="card-header">
+									<h3 class="card-title">
+										문제
+									</h3>
+								</div>
+	
+								<div class="card-body p-0">
+									<input type="hidden" id="questionType">
+									<p id="questionContents"></p>
+								</div>
+								<div class="card-footer">
+								</div>
+							</div>
+							<!-- 기존 코드 -->
+							<div class="card card-outline card-info">
+								<div class="card-header">
+									<h3 class="card-title">
+										풀이 작성
+									</h3>
+								</div>
+	
+								<div class="card-body p-0">
+									<textarea id="Demo" class="p-3" style="width:100%; height: 500px"></textarea>
+								</div>
+								<div class="card-footer">
+								</div>
+							</div>
+							<!-- 기존 코드 끝-->
+							<!-- 진상 코드-->
+							<div class="modal-footer justify-content-between">
+								<button id="giveup" type="button" class="btn btn-default"
+									onclick="giveup()">포기</button>
+								<button type="button" onclick="correctTest()">임시 정답테스트</button>
+								<button onclick="question_submit()" type="button" class="btn btn-primary">등록</button>
+							</div>
+							<!-- 진상 코드 끝-->
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		<div id="test">
+			<button onclick="get_index_and_prob()">임시 테스트</button>
+			<div id="test_value"></div>
+		</div>
+		<button onclick="resultCalc()">결과보기</button>
+		<div class="text-center">
+		결과창
+			<div>
+				총 문제 :<span id="total_count">36</span>
+			</div>
+			<div>
+				푼 문제 :<span id="solve_count">30</span>
+			</div>
+			<div>
+				포기 :<span id="giveup_count">6</span>
+			</div>
+			<div id="type_result_area">
+	
+			</div>
+		</div>
+	</div>
 
 	<!-- ----------------------- 게임방 끝 ---------------------------- -->
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+	<!-- stomp script -->
 	<script th:inline="javascript">
+		var questionList =  /*[[${questionList}]]*/0;
+		var shuffleNo =  /*[[${room.shuffleNo}]]*/0;
+		var roomName = /*[[${room.roomName}]]*/0;
+		var roomId = /*[[${room.pkRoomSeq}]]*/0;
+		var stomp;
+		var username = "0";
+
+		var sockJs = new SockJS("/stomp/chat");
+		//1. SockJS를 내부에 들고있는 stomp를 내어줌
+		var stomp = Stomp.over(sockJs);
+
+		//console.log(" [+] 팀 개수 :: " + /*[[${room.roomNumber}]]*/0);
+		
 		$(document).ready(function () {
-
-			var roomName = /*[[${room.roomName}]]*/0;
-			var roomId = /*[[${room.pkRoomSeq}]]*/0;
-			//var username = /*[[${user.name}]]*/0;
-			var username = "335"
-			
-
-			var sockJs = new SockJS("/stomp/chat");
-			//1. SockJS를 내부에 들고있는 stomp를 내어줌
-			var stomp = Stomp.over(sockJs);
-			
-			console.log(" [+] 팀 개수 :: " + /*[[${room.roomNumber}]]*/0);
 
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
 
 				stomp.subscribe("/sub/chat/gamestart/" + roomId, function(chat) {
-						content = chat.body;
-						$("#test").on("click", function() {
-							console.log(content.userTeamNumber);
-						});
-            			$('#gameRoom').css('display', 'block'); 
-            			$('#waitRoom').css('display', 'none');
-                   });
+					content = chat.body;
+					$("#test").on("click", function() {
+						console.log(content.userTeamNumber);
+					});
+					$('#gameRoom').css('display', 'block'); 
+					$('#waitRoom').css('display', 'none');
+					// 주사위결과를 보여주는 함수 실행
+					get_index_and_prob();
+				});
 
 				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
 				stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
@@ -244,6 +322,13 @@
 
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
+					// 첫접속시 유저 고유번호 저장
+						console.log("username : " + content.pkUserSeq);
+					if (username == "0")
+					{
+						username = content.pkUserSeq;
+					}
+					
 					var chatContent = content.chatContent;
 					var writer = ">>SYSTEM";
 					var str = '';
@@ -253,6 +338,7 @@
 					str += "</div></div>";
 					$("#msgArea").append(str);
 				});
+				
 				stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
@@ -331,9 +417,53 @@
 
 				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
 					var content = chat.body;
-					console.log(content);
+					//console.log(content);
 					$("#" + content + "").remove();
 					$("#game-" + content + "").remove();
+				});
+				
+				stomp.subscribe("/sub/chat/correct/" + roomId, function (result) {
+					var content = JSON.parse(result.body);
+					var qtype = $('#questionType').val();
+					//console.log(content);
+					resultFillColor(content.teamNo);
+					// 정답을 맞춘 사람이 본인 일때 타입결과 저장
+					if (content.userNo == username)
+					{
+						resultSave(qtype, 0);
+					}
+					// 정답을 맞춘 사람이 타인 일때 타입결과 저장
+					else
+					{
+						resultSave(qtype, -1);
+					}
+					alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
+					$('.modal').modal('hide');
+					nowNo += 1;
+					
+					setTimeout(function() {
+					    // Code to be executed after the delay
+						get_index_and_prob();
+					  }, 2000); // Delay of 2000 milliseconds (2 seconds)
+				});
+
+				stomp.subscribe("/sub/chat/sendAnswer/" + roomId, function (result) {
+					var content = JSON.parse(result.body);
+					
+					// if (content.pkUserSeq == username)
+					// 임시코드 uuid가아닌 유저고유번호 변경시 위의 if문 사용
+					if (content.userUUID == username)
+					{
+						if (content.answerOx == "O")
+						{
+							alert("정답입니다");
+							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
+						}
+						else
+						{
+							alert("오답입니다");
+						}					
+					}
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
@@ -351,7 +481,7 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-
+	
 			$("#team2").on("click", function (e) {
 				if($("#team2").children().length >= /*[[${room.teamNumber}]]*/0){
 					alert("팀이 꽉 찼습니다.");
@@ -363,7 +493,7 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-
+	
 			$("#team3").on("click", function (e) {
 				if(3 > /*[[${room.roomNumber}]]*/0){
 					alert('[[${room.roomNumber}]]팀 방 입니다!');
@@ -381,7 +511,7 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-
+	
 			$("#team4").on("click", function (e) {
 				if(4 > /*[[${room.roomNumber}]]*/0){
 					alert('[[${room.roomNumber}]]팀 방 입니다!');
@@ -400,24 +530,24 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-
+	
 			$("#system-test").on("click", function (e) {
 				stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId}))
 			})
-
+	
 			$("#button-send").on("click", function (e) {
 				var msg = document.getElementById("msg");
-
+	
 				console.log(username + ":" + msg.value);
 				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
 				msg.value = '';
 			});
-
+	
 			$(".teamchange").on("click", function (e) {
 				$("#content").css("pointer-events", "all")
 				$("#content").css("opacity", "80%")
 			});
-
+	
 			$("#msg").keyup(function () {
 				if (event.keyCode == 13) {
 					var msg = document.getElementById("msg");
@@ -425,12 +555,12 @@
 					msg.value = '';
 				}
 			});
-
+	
 			$("#gamestart").on("click", function() {
 	    		stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
 			});
-			
-		}); 
+		});
+
 	</script>
 
 	<script>
@@ -451,10 +581,6 @@
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
-			console.log(title);
-			console.log(name);
-			console.log(contents);
-			console.log(codeFormat);
 			$('.modal-title').text(title);
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
@@ -493,26 +619,143 @@
 			$(temp_elem).css("background-color", "gray");
 			$(temp_elem).css("color", "darkgray");
 		})
-		$('#Question_submit').click(function () {
-			var obj = {
-				format: $("#Demo").val(),
-				name: $("#nameQuestion").val(),
-				number: $("#questionNo").val()
+	</script>
+	<script>
+		var resultMap = new Map();
+		// 문제를 포기하거나 맞췄을때 타입과 결과를 저장하는 함수
+		function resultSave(key, result)
+		{
+			if (resultMap.get(key) === undefined)
+			{
+				resultMap.set(key, [0,0]);
+				//console.log(resultMap.get(key));
 			}
-			$.ajax({
-				type: "POST",
-				url: "sendAnswer",
-				data: obj,
-				success: function (data) {
-					
-				},
-				error: function () {
-				}
-			});
-			temp_elem.disabled = true;
-			$(temp_elem).css("background-color", "#00b0f0");
-			$(temp_elem).css("color", "blue");
-		})
+			if (result == -1)
+			{
+				resultMap.get(key)[1] += 1;
+			}
+			if (result == 0)
+			{
+				resultMap.get(key)[0] += 1;
+				resultMap.get(key)[1] += 1;
+			}
+		}
+		// 결과값을 연산해주는 함수
+		function resultCalc()
+		{
+			var total = 0;
+			var solve = 0;
+			var str;
+			$("#type_result_area").empty();
+			
+			for (const [key, value] of resultMap.entries()) {
+				//console.log(`Key: ${key}, Value: ${value}`);
+				str = '';
+				str = "<div>";
+				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
+				str += "</div>";
+				$("#type_result_area").append(str);
+				total += value[1];
+				solve += value[0];
+			}
+	
+			$("#total_count").text(total);
+			$("#solve_count").text(solve);
+			$("#giveup_count").text(total-solve);
+		}
+		var nowNo = 0;
+		var dice1 = 0;
+		var dice2 = 0;
+		function get_index_and_prob()
+		{			
+			// 주사위 눈
+			dice1 = Math.floor((shuffleNo[nowNo]-1)/6+1);
+			dice2 = ((shuffleNo[nowNo])%6==0?6:(shuffleNo[nowNo])%6);
+
+			// 주사위 굴러가다가 멈추는 함수 이곳에 구현해야함.
+			// code
+			// ////////////////////////////////////
+			
+			// 임시 테스트용 코드
+			str = '';
+			str = "questionNo : " + questionList[nowNo].pkQuestionSeq + "  suffleNo : " + shuffleNo[nowNo] + "  dice1: " + dice1 + "  dice2: " + dice2;
+			$("#test_value").text(str);
+			// //////////////////////////////
+			
+			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
+			$('.modal').modal('show');
+			loadQuestion(questionList[nowNo]);
+		}
+		
+		function correctTest()
+		{
+			$('.modal').modal('hide');
+			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
+		}
+		
+		function resultFillColor(teamNo)
+		{
+			tagId = "#q"+shuffleNo[nowNo];
+			if(teamNo == 0)	// all giveup
+			{
+				$(tagId).css("background-color", "gray");
+				// resultSave($("#questionType").val(), -1);			
+			}
+			else if(teamNo == 1)
+			{
+				$(tagId).css("background-color", "yellow");
+				// resultSave($("#questionType").val(), -1);	
+			}
+			else if(teamNo == 2)
+			{
+				$(tagId).css("background-color", "red");
+				// resultSave($("#questionType").val(), -1);	
+			}
+			else if(teamNo == 3)
+			{
+				$(tagId).css("background-color", "blue");
+				// resultSave($("#questionType").val(), -1);	
+			}
+			else if(teamNo == 4)
+			{
+				$(tagId).css("background-color", "green");
+				// resultSave($("#questionType").val(), -1);	
+			}
+			if(teamNo != 0)
+			{
+				tagId="#score"+teamNo;
+				var value = $(tagId).text();
+				$(tagId).text(1+parseInt(value, 10));
+			}
+		}
+		
+		// 문제정보를 모달창에 저장하는 함수
+		function loadQuestion(question) {
+			//console.log("test");
+			title = question.pkQuestionSeq + "번째 문제";
+			name = question.questionName;
+			contents = question.contents;
+			codeFormat = question.codeFormat;
+			type = question.type;
+			$('.modal-title').text(title);
+			$('#questionNo').val(question.pkQuestionSeq);
+			$('#questionName').text(name);
+			$('#nameQuestion').val(question.className);
+			$('#questionType').val(type);
+			$('#questionContents').text(contents);
+			$('#Demo').html(codeFormat);
+		}
+		
+		// 정답 등록시 수행되는 함수
+		function question_submit()
+		{
+			var code = $("#Demo").val();
+			var name = $("#nameQuestion").val();
+			var pkQuestionSeq = $("#questionNo").val();
+			// alert("click");
+			console.log(username);
+			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq : pkQuestionSeq, answerUser: code, answerOx:name}));
+		}
 	</script>
 </th:block>
 

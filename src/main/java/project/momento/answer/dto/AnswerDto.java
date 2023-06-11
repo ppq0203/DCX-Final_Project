@@ -26,4 +26,6 @@ public class AnswerDto extends QuestionDto {
 	private String type;
 	
 	private String solveTime;
+	// 임시변수 유저고유번호 int로 받을수있게되면 삭제
+	private String userUUID;
 }
