@@ -2,6 +2,7 @@ package project.momento.room.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import project.momento.login.dto.LoginDto;
 import project.momento.question.dto.QuestionDto;
 import project.momento.question.dto.TestcaseDto;
 import project.momento.question.function.StringCodeCompile;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpServletRequest;
 import project.momento.room.service.RoomService; // 임시
 
 import java.util.HashMap;
@@ -76,10 +78,11 @@ public class RoomController {
 	
 	// 채팅방 들어갈 시
 	@PostMapping("/enterRoom")
-	public ModelAndView getRoom(String pkRoomSeq) {
+	public ModelAndView getRoom(String pkRoomSeq, HttpServletRequest request) {
 		
 		RoomDto roomDto = roomService.findRoomById(pkRoomSeq);
 		List<QuestionDto> questionList = roomDto.getQuestionList();
+		LoginDto user = (LoginDto)request.getSession().getAttribute("loginDto");
 		System.out.println(questionList);
 		
         log.info("# get Chat Room, roomSeq : " + pkRoomSeq);
@@ -87,6 +90,7 @@ public class RoomController {
 		
 		mv.addObject("questionList", questionList);
 		mv.addObject("room", roomDto);
+		mv.addObject("user", user);
 		return mv;
 	}
 	

@@ -91,6 +91,7 @@ public class StompChatController {
         }
         
         HashMap<String, String> userList = room.getTeam1();
+        headerAccessor.getSessionAttributes().put("userTeamNumber", "team1");
         
 		template.convertAndSend("/sub/chat/team1List/" + message.getPkRoomSeq(), userList);
 	}
@@ -123,6 +124,7 @@ public class StompChatController {
         }
         
         HashMap<String, String> userList = room.getTeam2();
+        headerAccessor.getSessionAttributes().put("userTeamNumber", "team2");
                 
 		template.convertAndSend("/sub/chat/team2List/" + message.getPkRoomSeq(), userList);
 	}
@@ -155,6 +157,7 @@ public class StompChatController {
         }
         
         HashMap<String, String> userList = room.getTeam3();
+        headerAccessor.getSessionAttributes().put("userTeamNumber", "team3");
         
 		template.convertAndSend("/sub/chat/team3List/" + message.getPkRoomSeq(), userList);
 	}
@@ -187,6 +190,7 @@ public class StompChatController {
         }
         
         HashMap<String, String> userList = room.getTeam4();
+        headerAccessor.getSessionAttributes().put("userTeamNumber", "team4");
         
 		template.convertAndSend("/sub/chat/team4List/" + message.getPkRoomSeq(), userList);
 	}
@@ -224,8 +228,7 @@ public class StompChatController {
     }
 	
     @MessageMapping(value= "/chat/gamestart")
-	public void gameStart(ChatDto message) {
-    	
+	public void gameStart(ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
 		template.convertAndSend("/sub/chat/gamestart/" + message.getPkRoomSeq(), message);
 	}
     

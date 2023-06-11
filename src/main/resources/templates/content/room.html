@@ -38,28 +38,16 @@
 		</div>
 		<div class="waiting_room_content" id="content">
 			<div class="waiting_room_team1" id="team1">
-				<input type="hidden" id="team1Count">
+				
 			</div>
 			<div class="waiting_room_team2" id="team2">
-				<input type="hidden" id="team2Count">
-				<div class="waiting_room_t2-user1"></div>
-				<div class="waiting_room_t2-user2"></div>
-				<div class="waiting_room_t2-user3"></div>
-				<div class="waiting_room_t2-user4"></div>
+				
 			</div>
 			<div class="waiting_room_team3" id="team3">
-				<input type="hidden" id="team3Count">
-				<div class="waiting_room_t3-user1"></div>
-				<div class="waiting_room_t3-user2"></div>
-				<div class="waiting_room_t3-user3"></div>
-				<div class="waiting_room_t3-user4"></div>
+				
 			</div>
 			<div class="waiting_room_team4" id="team4">
-				<input type="hidden" id="team4Count">
-				<div class="waiting_room_t4-user1"></div>
-				<div class="waiting_room_t4-user2"></div>
-				<div class="waiting_room_t4-user3"></div>
-				<div class="waiting_room_t4-user4"></div>
+				
 			</div>
 		</div>
 	</div>
@@ -101,16 +89,16 @@
 			<!--content game -->
       		<div id="content">
 				<div class="user">
-					<div class="team1">
+					<div class="team1" id="game1">
 						<div class="score" style="background-color:#BF9039" id="hover"><span id="score1">0</span></div>
 					</div>
-					<div class="team2">
+					<div class="team2" id="game2">
 						<div class="score" style="background-color:#BF4C1F"><span id="score2">0</span></div>
 					</div>
-					<div class="team3">
+					<div class="team3" id="game3">
 						<div class="score" style="background-color:#1454C2"><span id="score3">0</span></div>
 					</div>
-					<div class="team4">
+					<div class="team4" id="game4">
 						<div class="score" style="background-color:#6F9C4C"><span id="score4">0</span></div>
 					</div>
 				</div>
@@ -279,20 +267,27 @@
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
 		var stomp;
 		var username = "334"
-		$(document).ready(function () {
 
-			var sockJs = new SockJS("/stomp/chat");
-			//1. SockJS를 내부에 들고있는 stomp를 내어줌
-			stomp = Stomp.over(sockJs);
+		var sockJs = new SockJS("/stomp/chat");
+		//1. SockJS를 내부에 들고있는 stomp를 내어줌
+		var stomp = Stomp.over(sockJs);
+
+		console.log(" [+] 팀 개수 :: " + /*[[${room.roomNumber}]]*/0);
+		
+		$(document).ready(function () {
 
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
 
 				stomp.subscribe("/sub/chat/gamestart/" + roomId, function(chat) {
-            			$('#gameRoom').css('display', 'block');
-            			$('#waitRoom').css('display', 'none');
-                   });
+					content = chat.body;
+					$("#test").on("click", function() {
+						console.log(content.userTeamNumber);
+					});
+					$('#gameRoom').css('display', 'block'); 
+					$('#waitRoom').css('display', 'none');
+				});
 
 				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
 				stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
@@ -330,10 +325,11 @@
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
-							$("#team1Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							
 							$("#team1").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game1").prepend(gtr);
 						}
 					});
 				});
@@ -344,12 +340,15 @@
 						if ($("#team2").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
-							str = "<div class='col-sys' id = '" + index + "'>"
+							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
-							$("#team2Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							$("#team2").children(".waiting_room_t2-user1").append(str);
+							$("#team2").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game2").prepend(gtr);
 						}
 					});
 				});
@@ -360,12 +359,15 @@
 						if ($("#team3").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
-							str = "<div class='col-sys' id = '" + index + "'>";
+							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
-							$("#team3Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							$("#team3").children(".waiting_room_t3-user1").append(str);
+							$("#team3").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game3").prepend(gtr);
 						}
 					});
 				});
@@ -376,12 +378,15 @@
 						if ($("#team4").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
-							str = "<div class='col-sys' id = '" + index + "'>";
-							str += "<b class='fontp'>" + value + "</b>";
+							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp' style='text-align'>" + value + "</b>";
 							str += "</div></div>";
-							$("#team4Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							$("#team4").children(".waiting_room_t4-user1").append(str);
+							$("#team4").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game4").prepend(gtr);
 						}
 					});
 				});
@@ -390,6 +395,7 @@
 					var content = chat.body;
 					console.log(content);
 					$("#" + content + "").remove();
+					$("#game-" + content + "").remove();
 				});
 				
 				stomp.subscribe("/sub/chat/correct/" + roomId, function (result) {
@@ -403,7 +409,7 @@
 			});
 
 			$("#team1").on("click", function (e) {
-				if($("#team1Count").val() >= /*[[${room.teamNumber}]]*/0){
+				if($("#team1").children().length >= /*[[${room.teamNumber}]]*/0){
 					alert("팀이 꽉 찼습니다.");
 				}
 				else
@@ -415,7 +421,7 @@
 			})
 
 			$("#team2").on("click", function (e) {
-				if($("#team2Count").val() >= /*[[${room.teamNumber}]]*/0){
+				if($("#team2").children().length >= /*[[${room.teamNumber}]]*/0){
 					alert("팀이 꽉 찼습니다.");
 				}
 				else
@@ -427,25 +433,38 @@
 			})
 
 			$("#team3").on("click", function (e) {
-				if($("#team3Count").val() >= /*[[${room.teamNumber}]]*/0){
-					alert("팀이 꽉 찼습니다.");
+				if(3 > /*[[${room.roomNumber}]]*/0){
+					alert('[[${room.roomNumber}]]팀 방 입니다!');
 				}
 				else
 				{
-					stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					if($("#team3").children().length >= /*[[${room.teamNumber}]]*/0){
+						alert("팀이 꽉 찼습니다.");
+					}
+					else
+					{
+						stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					}
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
 
 			$("#team4").on("click", function (e) {
-				if($("#team4Count").val() >= /*[[${room.teamNumber}]]*/0){
-					alert("팀이 꽉 찼습니다.");
+				if(4 > /*[[${room.roomNumber}]]*/0){
+					alert('[[${room.roomNumber}]]팀 방 입니다!');
 				}
 				else
 				{
-					stomp.send('/pub/chat/Team4Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					if($("#team4").children().length >= /*[[${room.teamNumber}]]*/0){
+						alert("팀이 꽉 찼습니다.");
+					}
+					else
+					{
+						stomp.send('/pub/chat/Team4Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					}
 				}
+				
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
@@ -476,8 +495,9 @@
 			});
 
 			$("#gamestart").on("click", function() {
-	    			stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+	    		stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
 			});
+			
 		}); 
 	</script>
 
@@ -495,7 +515,6 @@
 		var temp_elem;
 		/*<![CDATA[*/
 		function loadQuestion(elem, question) {
-			console.log("test");
 			title = question.pkQuestionSeq + "번째 문제";
 			name = question.questionName;
 			contents = question.contents;
