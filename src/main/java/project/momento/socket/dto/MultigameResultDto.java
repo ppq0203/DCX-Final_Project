@@ -7,7 +7,8 @@ import lombok.Setter;
 @Setter
 public class MultigameResultDto {
 	private String roomId;
-    private String teamNum;
-    private String UserNum;
+    private String teamNo;
+    private String UserNo;
+    private String UserName;
     private String type;
 }

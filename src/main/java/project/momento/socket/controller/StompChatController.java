@@ -5,6 +5,7 @@ import project.momento.chat.dto.ChatDto;
 import project.momento.question.service.TestcaseService;
 import project.momento.room.dto.RoomDto;
 import project.momento.room.service.RoomService;
+import project.momento.socket.dto.MultigameResultDto;
 
 import java.util.HashMap;
 
@@ -17,6 +18,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequiredArgsConstructor
@@ -223,6 +227,23 @@ public class StompChatController {
 	public void gameStart(ChatDto message) {
     	
 		template.convertAndSend("/sub/chat/gamestart/" + message.getPkRoomSeq(), message);
+	}
+    
+    @MessageMapping(value= "/chat/correct")
+	public void correctUser(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
+        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+    	message.setTeamNo("4");
+    	message.setType("Array");
+    	message.setUserNo(userUUID);
+    	String json = null;
+		try {
+			json = new ObjectMapper().writeValueAsString(message);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(json);
+		template.convertAndSend("/sub/chat/correct/" + message.getRoomId(), json);
 	}
     
 }

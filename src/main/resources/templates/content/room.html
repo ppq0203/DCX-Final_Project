@@ -277,19 +277,20 @@
 		var shuffleNo =  /*[[${room.shuffleNo}]]*/0;
 		var roomName = /*[[${room.roomName}]]*/0;
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
+		var stomp;
+		var username = "334"
 		$(document).ready(function () {
-			var username = "334"
 
 			var sockJs = new SockJS("/stomp/chat");
 			//1. SockJS를 내부에 들고있는 stomp를 내어줌
-			var stomp = Stomp.over(sockJs);
+			stomp = Stomp.over(sockJs);
 
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
 
 				stomp.subscribe("/sub/chat/gamestart/" + roomId, function(chat) {
-            			$('#gameRoom').css('display', 'block'); 
+            			$('#gameRoom').css('display', 'block');
             			$('#waitRoom').css('display', 'none');
                    });
 
@@ -318,6 +319,7 @@
 					str += "</div></div>";
 					$("#msgArea").append(str);
 				});
+				
 				stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
@@ -388,6 +390,12 @@
 					var content = chat.body;
 					console.log(content);
 					$("#" + content + "").remove();
+				});
+				
+				stomp.subscribe("/sub/chat/correct/" + roomId, function (result) {
+					var content = JSON.parse(result.body);
+					console.log(content);
+					resultFillColor(content.teamNo);
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
@@ -536,16 +544,24 @@
 		})
 		$('#Question_submit').click(function () {
 			var obj = {
-				format: $("#Demo").val(),
-				name: $("#nameQuestion").val(),
-				number: $("#questionNo").val()
+				format : $("#Demo").val(),
+				name : $("#nameQuestion").val(),
+				number : $("#questionNo").val(),
+				answer : ""
 			}
 			$.ajax({
 				type: "POST",
 				url: "sendAnswer",
 				data: obj,
 				success: function (data) {
-					console.log("test");
+					if(data.answer != "-1")
+					{
+						temp_elem.disabled = true;
+						$(temp_elem).css("background-color", "#00b0f0");
+						$(temp_elem).css("color", "blue");
+						resultSave($("#questionType").val(), 0);
+						stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
+					}
 				},
 				error: function () {
 				}
@@ -618,12 +634,12 @@
 		function modalClose()
 		{
 			$('.modal').modal('hide');
-			resultFillColor(1);
+			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
 		}
 		
 		function resultFillColor(teamNo)
 		{
-			tagId = "#q"+shuffleNo[nowNo];
+			tagId = "#q"+shuffleNo[nowNo-1];
 			if(teamNo == 0)	// all giveup
 			{
 				$(tagId).css("background-color", "gray");
