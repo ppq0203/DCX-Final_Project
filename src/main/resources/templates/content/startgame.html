@@ -11,12 +11,13 @@
 			font-weight: normal;
 			font-style: normal;
 		}
+
 		@font-face {
 			font-family: 'GmarketSansMedium';
 			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
 			font-weight: normal;
 			font-style: normal;
-			}		
+		}
 
 		.bi {
 			position: fixed;
@@ -101,7 +102,7 @@
 			margin: 0;
 			padding: 0;
 			margin-left: 190px;
-			margin-top: 220px;
+			margin-top: 195px;
 		}
 
 		ul.list::after {
@@ -131,6 +132,7 @@
 			background-color: gray;
 			margin-left: 20px;
 		}
+		
 	</style>
 	</head>
 
@@ -154,7 +156,7 @@
 								<span>1. 같이하기를 선택합니다.</span>
 								<span>2. 개인과 팀, 명수, 난이도를 선택하고 누르면 방이 생성됩니다.</span>
 								<span>2-2. 만들어진 방의 정보를 확인하고 START 버튼 클릭</span>
-								<span>3. 유저가 모두 입장하면 방장은 시작버튼을 눌러 게임이 시작됩니다.</span>
+								<span>3. 유저가 모두 입장하면 방장은 시작버튼을 눌러 게임이 <br> 시작됩니다.</span>
 								<span>4. 주사위는 좌표의 위치를 나타냅니다. 게임 시작후, 문제가 끝날 때 랜덤으로 나타납니다</span>
 								<span>5. 문제를 먼저 푼 팀/개인이 구역(번호)를 차지 합니다.</span>
 								<span>6. 가장 많은 구역(번호)를 차지하는 팀/개인이 승리합니다.</span>
@@ -174,19 +176,19 @@
 		</div>
 		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 			<button class="btninfo" data-toggle="modal" data-target="#exampleModalCenter">게임설명</button>
-			<button class="btnstart" onclick="location.href='gameroom.html'">START</button>
+			<button class="btnstart" onclick="location.href='/chat/rooms'">START</button>
 		</div>
 
 		<script>
 			$('.btninfo').click(function () {
-				$(".md_content2").css("height", "250px");
+				$(".md_content2").css("height", "210px");
 				$(".md_content2").css("top", "48%")
 				$(".md_content2").css("width", "460px");
 				$(".md_content2").css("background-color", "white");
 				$(".md_content2").css("border-radius", "0px");
 				$(".madebtn12").css("left", "195px");
 				$(".md_container2").css("font-size", "33px");
-				$(".md_container2").css("height", "400px");
+				$(".md_container2").css("height", "370px");
 				$('.slider2').css('display', 'none')
 
 
@@ -210,10 +212,33 @@
 						// slider1 보이기, slider2 숨기기
 						$('.slider1').show();
 						$('.slider2').hide();
+						$(".slider1").css("height", "210px");
+						$(".slider1").css("top", "48%")
+						$(".slider1").css("width", "460px");
+						$(".slider1").css("background-color", "white");
+						$(".slider1").css("border-radius", "0px");
+						$(".madebtn12").css("left", "195px");
+						$(".md_container2").css("font-size", "33px");
+						$(".md_container2").css("height", "370px");
+						$('ul.list').css("margin-top", '192px')
+						$('.tab-button-1').css('background-color','red')
+						$('.tab-button-2').css('background-color','gray')
+
 					} else if (id === 1) {
 						// slider2 보이기, slider1 숨기기
 						$('.slider2').show();
 						$('.slider1').hide();
+						$(".slider2").css("height", "335px");
+						$(".slider2").css("top", "48%")
+						$(".slider2").css("width", "460px");
+						$(".slider2").css("background-color", "white");
+						$(".slider2").css("border-radius", "0px");
+						$(".madebtn12").css("left", "195px");
+						$(".md_container2").css("font-size", "33px");
+						$(".md_container2").css("height", "490px");
+						$('ul.list').css("margin-top", '309px')
+						$('.tab-button-1').css('background-color','gray')
+						$('.tab-button-2').css('background-color','red')
 					}
 				});
 			});
