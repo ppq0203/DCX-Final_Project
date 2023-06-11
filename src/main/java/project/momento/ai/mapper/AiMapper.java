@@ -17,5 +17,9 @@ public interface AiMapper {
 
 	List<QuestionDto> selectQuestionResultList(QuestionDto questionDto);
 
+	List<QuestionDto> selectQuestionList(Criteria cri);
+
+	int selectQuestionListCount();
+
 
 }

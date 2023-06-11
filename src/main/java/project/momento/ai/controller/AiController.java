@@ -18,6 +18,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import project.momento.ai.service.AiService;
 import project.momento.exam.dto.ExamDto;
 import project.momento.login.dto.LoginDto;
+import project.momento.page.Criteria;
+import project.momento.page.Paging;
 import project.momento.question.dto.QuestionDto;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
@@ -33,8 +35,20 @@ public class AiController {
 	 * AI Main 화면 이동
 	 */
 	@RequestMapping(value = "/{userDivn}/ai/main", produces = "application/text;charset=utf-8")
-	public String aiMain(@PathVariable String userDivn, HttpServletRequest request, Model model) {
-
+	public String aiMain(@PathVariable String userDivn, HttpServletRequest request, Criteria cri, Model model) {
+		int total = 0;
+		total = aiService.selectQuestionListCount();
+		// 페이징 객체
+		Paging paging = new Paging();
+		paging.setCri(cri);
+		paging.setTotalCount(total);
+		System.out.println(paging);
+		System.out.println(cri);
+		
+		List<QuestionDto> resultList = aiService.selectQuestionList(cri);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("resultList",resultList);
 		return "content/" + userDivn + "/ai/main";
 	}
 	/*

@@ -49,4 +49,14 @@ public class QuestionDto extends LoginDto {
 	
 	private int probNum;
 	
+	
+	/*AI 문제 요약*/   
+	private String summary;
+	/*AI 문제 주제*/   
+	private String title;
+	/*AI 문제 원문*/   
+	private String passage;
+	/*AI 문제 URL*/   
+	private String url;
+	
 }
