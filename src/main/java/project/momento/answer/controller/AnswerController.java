@@ -30,40 +30,55 @@ public class AnswerController {
 		
 //		asDto.setPkQuestionSeq(7);
 //		asDto.setPkUserSeq(2);
-//		asDto.setAnswerUser("h");
-//		asDto.setAnswerOx("O");
-//		asDto.setType("3");
+//		asDto.setAnswerUser("public class Solution {\r\n"
+//				+ "\r\n"
+//				+ "    public boolean isAnagram(String s, String t) {\r\n"
+//				+ "        if (s.length() != t.length()) return false;\r\n"
+//				+ "\r\n"
+//				+ "        int[] store = new int[26];\r\n"
+//				+ "\r\n"
+//				+ "        for (int i = 0; i < s.length(); i++) {\r\n"
+//				+ "            store[s.charAt(i) - 'a']++;\r\n"
+//				+ "            store[t.charAt(i) - 'a']--;\r\n"
+//				+ "        }\r\n"
+//				+ "\r\n"
+//				+ "        for (int n : store) if (n != 0) return false;\r\n"
+//				+ "\r\n"
+//				+ "        return true;\r\n"
+//				+ "    }\r\n"
+//				+ "}");
+//		asDto.setAnswerOx("X");
+//		asDto.setType("Hash Table");
 //		
 //		answerService.insertAnswer(asDto);
 //		System.out.println(asDto);
 		
 		/////////////
 		// 데이터 불러오기
-//		List<AnswerDto> answers = answerService.selectAnswer(2);
+//		List<AnswerDto> answers = answerService.selectAnswer(1);
 //		System.out.println(answers);
 		
 		////////////
-		//TYPE,PkAnswerSeq 불러오기
-//		asDto.setPkAnswerSeq(2);
-//		asDto.setType("20");
+		//TYPE,PkUserSeq 불러오기
+//		asDto.setPkUserSeq(1);
+//		asDto.setType("Hash Table");
 //		AnswerDto answersType = answerService.selectAnswerType(asDto);
 //		System.out.println(answersType);
 		
 		////////////
-		//solveTime,PkAnswerSeq 불러오기
-		asDto.setPkAnswerSeq(2);
-		asDto.setSolveTime("2023-06-09 16:29:01");
-		AnswerDto answersTime = answerService.selectAnswerTime(asDto);
-		System.out.println(answersTime);
+		//solveTime,PkUserSeq 불러오기
+//		asDto.setPkUserSeq(2);
+//		asDto.setSolveTime("2023-06-11 13:49:10");
+//		AnswerDto answersTime = answerService.selectAnswerTime(asDto);
+//		System.out.println(answersTime);
 
 		////////////
 		//solveTime,TYPE,PkAnswerSeq 불러오기
-//		asDto.setPkAnswerSeq(2);
-//		asDto.setType("2");
-//		asDto.setSolveTime("2023-06-09 16:29:01");
-//		
-//		AnswerDto answersTY = answerService.selectAnswerTY(asDto);
-//		System.out.println(answersTY);
+		asDto.setPkUserSeq(2);
+		asDto.setType("Hash Table");
+		asDto.setSolveTime("2023-06-11 13:49:10");
+		AnswerDto answersTY = answerService.selectAnswerTY(asDto);
+		System.out.println(answersTY);
 		
 		
 		/////////////

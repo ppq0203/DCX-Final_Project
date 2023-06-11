@@ -71,13 +71,13 @@
  <select id="selectAnswerTime" resultType="project.momento.answer.dto.AnswerDto" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			SELECT
-				PK_USER_SEQ										AS pkUserSeq,
-				DATE_FORMAT(SOLVE_TIME, '%Y-%m-%d %T')			AS solveTime
+				PK_USER_SEQ			AS pkUserSeq,
+				SOLVE_TIME			AS solveTime
 			FROM 
 				ANSWER
 			WHERE
-				PK_USER_SEQ 								= #{pkUserSeq},
-				DATE_FORMAT(SOLVE_TIME, '%Y-%m-%d %T')	= #{solveTime}
+				PK_USER_SEQ = #{pkUserSeq}
+				AND SOLVE_TIME = #{solveTime}
 		]]>
 	</select>
 	
@@ -85,7 +85,7 @@
 		<![CDATA[
 			SELECT
 				PK_USER_SEQ										AS pkUserSeq,
-				DATE_FORMAT(SOLVE_TIME, '%Y-%m-%d %T')			AS solveTime
+				DATE_FORMAT(SOLVE_TIME, '%Y-%m-%d %T')이거 사용하면 NULL뜸..			AS solveTime
 			FROM 
 				ANSWER
 			WHERE
@@ -97,16 +97,15 @@
 	<select id="selectAnswerTY" resultType="project.momento.answer.dto.AnswerDto" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			SELECT
-				PK_USER_SEQ									AS pkUserSeq,
-				TYPE										AS type,
-				DATE_FORMAT(SOLVE_TIME, '%Y-%m-%d %T')		AS solveTime
+				PK_USER_SEQ		AS pkUserSeq,
+				TYPE			AS type,
+				SOLVE_TIME		AS solveTime
 			FROM 
 				ANSWER
 			WHERE
-				PK_USER_SEQ 								= #{pkUserSeq}
-				AND TYPE									= #{type}
-				AND DATE_FORMAT(SOLVE_TIME, '%Y-%m-%d')
-				FROM 'SOLVE_TIME' WHERE ID=1				= #{solveTime}
+				PK_USER_SEQ 			= #{pkUserSeq}
+				AND TYPE				= #{type}
+				AND SOLVE_TIME			= #{solveTime}
 				
 		]]>
 	</select>
