@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiLayout}">
+
+<!-- Wrapper -->
+<div layout:fragment="content">
+	<div class="row">
+		<div class="col-12 p-5">
+			<div class="row">
+				<div class="col-6">
+					<h2>관리자 문제생성 페이지</h2>
+				</div>
+			</div>
+			<div style="float: right;">
+				<ul class="actions">
+					<li><a href="#" class="button primary" type="button">ADD</a></li>
+				</ul>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Name</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td><a href="#">article_name</a></td>
+						<td>2023.06.05</td>
+						<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td><a href="#">article_name</a></td>
+						<td>2023.06.05</td>
+						<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td><a href="#">article_name</a></td>
+						<td>2023.06.05</td>
+						<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- pagination -->
+	<footer>
+		<div class="pagination">
+			<!--<a href="#" class="previous">Prev</a>-->
+			<a href="#" class="page active">1</a>
+			<a href="#" class="page">2</a>
+			<a href="#" class="page">3</a>
+			<span class="extra">&hellip;</span>
+			<a href="#" class="page">8</a>
+			<a href="#" class="page">9</a>
+			<a href="#" class="page">10</a>
+		</div>
+	</footer>
+
+</div>
+
+<script>
+	<!-- 삭제 -->
+	function deleteRow(ths) {
+		var ths = $(ths);
+
+		ths.parents("tr").remove();
+	}
+</script>
+
+</html>

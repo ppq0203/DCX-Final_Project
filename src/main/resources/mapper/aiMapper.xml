@@ -8,7 +8,7 @@
 			A.PK_QUSITION_SEQ				AS pkQusitionSeq
 			, A.TYPE						AS type
 			, A.LEVEL						AS level
-			, A.QUSITION					AS questionName
+			, A.QUESTION					AS questionName
 			, A.SOLUTION					AS solution
 			, A.REGIST_ID					AS registId
 			, A.UPDATE_ID					AS updateId
@@ -20,4 +20,33 @@
 		ON A.PK_QUSITION_SEQ = B.PK_QUSITION_SEQ
 		WHERE B.PK_USER_SEQ = #{pkUserSeq}
 	</select>
+	
+	<select id="selectQuestionList" parameterType="hashmap" resultType="project.momento.question.dto.QuestionDto">
+		SELECT
+			A.PK_QUSITION_SEQ				AS pkQusitionSeq
+			, A.TYPE						AS type
+			, A.QUESTION					AS questionName
+			, A.SOLUTION					AS solution
+			, A.SUMMARY						AS summary
+			, A.TITLE						AS title
+			, A.PASSAGE						AS passage
+			, A.URL							AS url
+			, A.SOLUTION					AS solution
+			, A.REGIST_ID					AS registId
+			, A.UPDATE_ID					AS updateId
+			, A.UPDATE_DT					AS updateDt
+		FROM AI_QUESTION A
+		WHERE 1=1
+		ORDER BY A.PK_QUSITION_SEQ ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="selectQuestionListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM AI_QUESTION A
+	</select>
+	
+	
+	
 </mapper>

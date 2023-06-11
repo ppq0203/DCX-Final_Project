@@ -23,5 +23,15 @@ public class AiService {
 		return aiMapper.selectQuestionResultList(questionDto);
 	}
 
+	public List<QuestionDto> selectQuestionList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return aiMapper.selectQuestionList(cri);
+	}
+
+	public int selectQuestionListCount() {
+		// TODO Auto-generated method stub
+		return aiMapper.selectQuestionListCount();
+	}
+
 	
 }
