@@ -61,17 +61,17 @@
 									</div>
 									<input type="text" name="roomName" value=" 방 제목을 입력해주세요" class="roomright2" />
 
-									<div class='roomleft2'>
+									<!-- <div class='roomleft2'>
 										<p class="left_p">개인/팀</p>
-									</div>
+									</div> -->
 
-									<div class='roomright2'>
+									<!-- <div class='roomright2'>
 										<p class="right_p">
 											<input type="radio" id="solo" name="roomType" value="single"
 												checked="checked"> vs개인
 											<input type="radio" id="team" name="roomType" value="multi"> vs팀
 										</p>
-									</div>
+									</div> -->
 									<div class="gamemode-team">
 										<div class='roomleft'>
 											<p class="left_p"> 팀 </p>
@@ -96,7 +96,7 @@
 											</p>
 										</div>
 									</div>
-									<div class="gamemode-solo">
+									<!--<div class="gamemode-solo">
 										<div class='roomleft2'>
 											<p class="left_p">인원</p>
 										</div>
@@ -107,7 +107,7 @@
 												<input type="radio" name="roomNumber" value="4"> 4명
 											</p>
 										</div>
-									</div>
+									</div> -->
 									<div class='roomleft2'>
 										<p class="left_p2">난이도</p>
 									</div>
@@ -259,9 +259,9 @@
 				})
 			return flag;
 		}
-		
-		$(document).ready(function () {
-			/*	의미 없는 코드라 주석처리 BY 최승만.
+		/* 개인탭 없애기로 해서 주석처리 BY 유진상.
+		 $(document).ready(function () {
+				의미 없는 코드라 주석처리 BY 최승만.
 			var radio_check = $('input:radio[id="team"]').is(':checked');
 			if (radio_check == true) {
 				// gamemode-team 숨기기
@@ -270,7 +270,7 @@
 				$('.gamemode-solo').show();
 				$(".md_container2").css("height", "350px");
 				$(".md_content2").css("height", "210px");
-			}*/
+			}
 			
 			$('#solo').click(function () {
 				// gamemode-team 숨기기
@@ -290,7 +290,7 @@
 				$(".md_container2").css("height", "400px");
 				$(".md_content2").css("height", "262px");
 			});
-		});	
+		});	*/
 	</script>
 </th:block>
 
