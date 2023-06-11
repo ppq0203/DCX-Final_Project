@@ -175,7 +175,7 @@
 					<img th:src="@{/img/solo.png}" padding="10px;" alt="exit" width="55px"
 						height="55px">&nbsp;<span>혼자하기</span>
 				</button>
-				<button class="btnlogout" type="button">
+				<button onclick="location.href='/startgame.com'" class="btnlogout" type="button">
 					<img th:src="@{/img/out.png}" padding="5px;" alt="exit" width="55px" height="55px">&nbsp;<span>나 가
 						기</span>
 				</button>
@@ -185,7 +185,7 @@
 			<div id="content">
 				<div id="tabwrap">
 					<form th:action="@{/chat/rooms}" method="get">
-						<button class="menu1 on">전체 </button>
+						<button class="menu1">전체 </button>
 					</form>
 					<form th:action="@{/chat/rooms}" method="get">
 						<input type="hidden" name="roomType" value="multi" class="form-control" />
@@ -205,11 +205,13 @@
 						<div class="gameroom">
 							<div class="M_gameroom_left" th:each="room : ${list}">
 								<div class="left">
-				                    <form th:action="@{/chat/enterRoom}" method="post" id="enterRoom" th:onsubmit="return roomCheck([[${room}]])">
-					                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
-					                    <input type="hidden" id="pkRoomSeq" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
-										<input class="startbtn" type="submit" value="START" >
-				                    </form>
+									<form th:action="@{/chat/enterRoom}" method="post" id="enterRoom"
+										th:onsubmit="return roomCheck([[${room}]])">
+										<!-- 방이름을 전송해주기위해 input hidden 사용 -->
+										<input type="hidden" id="pkRoomSeq" name="pkRoomSeq"
+											th:value="${room.pkRoomSeq}" />
+										<input class="startbtn" type="submit" value="START">
+									</form>
 									<br>
 									<span id="room_name">[[${room.roomName}]]</span>
 									<br>
@@ -232,31 +234,28 @@
 		</div>
 	</body>
 	<script th:inline="javascript">
-		function roomCheck(room)
-		{
+		function roomCheck(room) {
 			var flag = false;
 			$.ajax({
 				type: "POST",
 				url: "userCheck",
 				async: false,
 				data: {
-						roomSeq : room.pkRoomSeq,
-						participants : "",
-						total : ""
+					roomSeq: room.pkRoomSeq,
+					participants: "",
+					total: ""
 				}
-				}).done(function(data){
-					participants = parseInt(data.participants);
-					total = parseInt(data.total);
-					if(participants >= total)
-					{
-						alert("방이 가득찼습니다.");
-						flag = false;
-					}
-					else
-					{
-						flag = true;
-					}
-				})
+			}).done(function (data) {
+				participants = parseInt(data.participants);
+				total = parseInt(data.total);
+				if (participants >= total) {
+					alert("방이 가득찼습니다.");
+					flag = false;
+				}
+				else {
+					flag = true;
+				}
+			})
 			return flag;
 		}
 		/* 개인탭 없애기로 해서 주석처리 BY 유진상.
@@ -291,6 +290,28 @@
 				$(".md_content2").css("height", "262px");
 			});
 		});	*/
+		$(document).ready(function () {
+			// 페이지가 로드될 때 기억한 메뉴가 있다면 해당 메뉴에 on 클래스를 추가
+			var selectedMenu = sessionStorage.getItem('selectedMenu');
+			if (selectedMenu) {
+				$('.' + selectedMenu).addClass('on');
+			}
+
+			// 메뉴 클릭 이벤트 처리
+			$('.menu1, .menu2, .menu3').click(function () {
+				// 선택한 메뉴에 on 클래스 추가
+				$(this).addClass('on');
+
+				// 선택한 메뉴의 클래스 이름을 sessionStorage에 저장
+				var menuClassName = $(this).attr('class').split(' ')[0];
+				sessionStorage.setItem('selectedMenu', menuClassName);
+
+				// menu2를 클릭한 경우 다른 메뉴의 on 클래스 제거
+				if (menuClassName === 'menu2') {
+					$('.menu1, .menu3').removeClass('on');
+				}
+			});
+		});
 	</script>
 </th:block>
 
