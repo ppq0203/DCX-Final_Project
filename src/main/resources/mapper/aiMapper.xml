@@ -13,7 +13,7 @@
 			, A.REGIST_ID					AS registId
 			, A.UPDATE_ID					AS updateId
 			, A.UPDATE_DT					AS updateDt
-			, B.PK_QUSITION_RESULT_SEQ		AS pkQusitionResultSeq
+			, B.PK_QUESTION_RESULT_SEQ		AS pkQuestionResultSeq
 			, B.PK_USER_SEQ					AS pkUserSeq
 		FROM AI_QUESTION A
 		INNER JOIN AI_QUESTION_RESULT B
