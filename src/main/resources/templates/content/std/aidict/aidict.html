@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/std/stdAiLayout}">
 
-<div layout:fragment="content">
+<th:block layout:fragment="content">
 	<div class="row">
 		<div class="col-12 p-5">
 			<div class="row">
@@ -40,6 +40,7 @@
 								<span>시작</span>
 							</button>
 						</td>
+						<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
 					</tr>
 				</tbody>
 			</table>
@@ -117,6 +118,13 @@
 		$(document).ready(function () {
 
 		});
+		
+		// 삭제
+		function deleteRow(ths){
+			var ths = $(ths);
+
+			ths.parents("tr").remove();
+		}
 
 	</script>
 	</th:block>

@@ -2,29 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/std/stdAiLayout}">
 
-<div layout:fragment="content">
+<th:block layout:fragment="content">
 	<div class="card-header p-0 border-bottom-0">
 		<ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-			<li class="nav-item">
-				<a class="nav-link">알고리즘</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link">컴퓨터</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link">정보처리</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link">기사</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link">문제</a>
+			<li class="nav-item" th:each="item, status : ${resultList}">
+				<a class="nav-link" th:text="${item.type}"
+					th:if="${status.index == resultList.![type].indexOf(item.type)}"
+					onclick="hideTypeDiv(this.innerText); setActive(this)"></a>
 			</li>
 		</ul>
 	</div>
 
 	<div class="row">
-		<div class="col-xl-4 col-lg-4 col-sm-12 p-5" th:each="item, index : ${resultList}">
+		<div class="col-xl-4 col-lg-4 col-sm-12 p-5 typeDiv" th:attr="data-type=${item.type}"
+			th:each="item, index : ${resultList}">
 			<div class="card card-info">
 				<div class="card-header ui-sortable-handle" style="cursor: move;">
 					<h3 class="card-title" th:text="${item.type}"></h3>
@@ -36,7 +27,7 @@
 				</div>
 				<form class="form-horizontal">
 					<div class="card-body">
-						<p th:text="${item.questionName}">
+						<p th:utext="${item.questionName}">
 						</p>
 					</div>
 					<div class="card-footer">
@@ -99,12 +90,25 @@
 		</form>
 	</div>
 	<script>
+		function hideTypeDiv(type, atag) {
 
+			$('.typeDiv').each(function () {
+				if ($(this).data('type') === type) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			});
+		}
+		function setActive(element) {
+			$('.nav-link').removeClass('active'); // 모든 nav-link에서 active 클래스 제거
+			$(element).addClass('active'); // 클릭한 요소에 active 클래스 추가
+		}
 		$(document).ready(function () {
 
 		});
 
 	</script>
-	</th:block>
+</th:block>
 
 </html>
