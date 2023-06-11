@@ -41,28 +41,16 @@
 		</div>
 		<div class="waiting_room_content" id="content">
 			<div class="waiting_room_team1" id="team1">
-				<input type="hidden" id="team1Count">
+				
 			</div>
 			<div class="waiting_room_team2" id="team2">
-				<input type="hidden" id="team2Count">
-				<div class="waiting_room_t2-user1"></div>
-				<div class="waiting_room_t2-user2"></div>
-				<div class="waiting_room_t2-user3"></div>
-				<div class="waiting_room_t2-user4"></div>
+				
 			</div>
 			<div class="waiting_room_team3" id="team3">
-				<input type="hidden" id="team3Count">
-				<div class="waiting_room_t3-user1"></div>
-				<div class="waiting_room_t3-user2"></div>
-				<div class="waiting_room_t3-user3"></div>
-				<div class="waiting_room_t3-user4"></div>
+				
 			</div>
 			<div class="waiting_room_team4" id="team4">
-				<input type="hidden" id="team4Count">
-				<div class="waiting_room_t4-user1"></div>
-				<div class="waiting_room_t4-user2"></div>
-				<div class="waiting_room_t4-user3"></div>
-				<div class="waiting_room_t4-user4"></div>
+				
 			</div>
 		</div>
 	</div>
@@ -222,6 +210,8 @@
 			var sockJs = new SockJS("/stomp/chat");
 			//1. SockJS를 내부에 들고있는 stomp를 내어줌
 			var stomp = Stomp.over(sockJs);
+			
+			console.log(" [+] 팀 개수 :: " + /*[[${room.roomNumber}]]*/0);
 
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
@@ -267,9 +257,7 @@
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
-							$("#team1Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							
 							$("#team1").append(str);
 						}
 					});
@@ -281,12 +269,12 @@
 						if ($("#team2").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
-							str = "<div class='col-sys' id = '" + index + "'>"
+							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
-							$("#team2Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							$("#team2").children(".waiting_room_t2-user1").append(str);
+							$("#team2").append(str);
 						}
 					});
 				});
@@ -297,12 +285,12 @@
 						if ($("#team3").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
-							str = "<div class='col-sys' id = '" + index + "'>";
+							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
-							$("#team3Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							$("#team3").children(".waiting_room_t3-user1").append(str);
+							$("#team3").append(str);
 						}
 					});
 				});
@@ -313,12 +301,12 @@
 						if ($("#team4").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
-							str = "<div class='col-sys' id = '" + index + "'>";
+							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
-							$("#team4Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							$("#team4").children(".waiting_room_t4-user1").append(str);
+							$("#team4").append(str);
 						}
 					});
 				});
@@ -334,7 +322,7 @@
 			});
 
 			$("#team1").on("click", function (e) {
-				if($("#team1Count").val() >= /*[[${room.teamNumber}]]*/0){
+				if($("#team1").children().length >= /*[[${room.teamNumber}]]*/0){
 					alert("팀이 꽉 찼습니다.");
 				}
 				else
@@ -346,7 +334,7 @@
 			})
 
 			$("#team2").on("click", function (e) {
-				if($("#team2Count").val() >= /*[[${room.teamNumber}]]*/0){
+				if($("#team2").children().length >= /*[[${room.teamNumber}]]*/0){
 					alert("팀이 꽉 찼습니다.");
 				}
 				else
@@ -358,25 +346,38 @@
 			})
 
 			$("#team3").on("click", function (e) {
-				if($("#team3Count").val() >= /*[[${room.teamNumber}]]*/0){
-					alert("팀이 꽉 찼습니다.");
+				if(/*[[${room.roomNumber}]]*/0 < 3){
+					alert('[[${room.roomNumber}]]팀 방 입니다!');
 				}
 				else
 				{
-					stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					if($("#team3").children().length >= /*[[${room.teamNumber}]]*/0){
+						alert("팀이 꽉 찼습니다.");
+					}
+					else
+					{
+						stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					}
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
 
 			$("#team4").on("click", function (e) {
-				if($("#team4Count").val() >= /*[[${room.teamNumber}]]*/0){
-					alert("팀이 꽉 찼습니다.");
+				if(/*[[${room.roomNumber}]]*/0 < 4){
+					alert('[[${room.roomNumber}]]팀 방 입니다!');
 				}
 				else
 				{
-					stomp.send('/pub/chat/Team4Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					if($("#team4").children().length >= /*[[${room.teamNumber}]]*/0){
+						alert("팀이 꽉 찼습니다.");
+					}
+					else
+					{
+						stomp.send('/pub/chat/Team4Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					}
 				}
+				
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
@@ -484,7 +485,7 @@
 				url: "sendAnswer",
 				data: obj,
 				success: function (data) {
-					console.log("test");
+					
 				},
 				error: function () {
 				}
