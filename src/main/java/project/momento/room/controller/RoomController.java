@@ -53,17 +53,9 @@ public class RoomController {
 	public String create(@ModelAttribute("RoomDto") RoomDto roomDto) {
 		System.out.println(roomDto);
 		log.info("# Create Chat Room , name: " + roomDto.getRoomName());
-		roomService.createRoomDto(roomDto);
-//		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
 		
-        return "redirect:/chat/rooms";
-	}
-	
-	// 채팅방 들어갈 시
-	@PostMapping("/enterRoom")
-	public ModelAndView getRoom(String pkRoomSeq, String level, String questionNum) {
-		level = "4";
-		questionNum = "36";
+		String level = Integer.toString(roomDto.getRoomLevel());
+		String questionNum = "36";
 		
 		QuestionDto qtDto = new QuestionDto();
 		String[] levels = null;
@@ -73,14 +65,28 @@ public class RoomController {
 			levels = new String[]{level};
 		qtDto.setLevels(levels);
 		qtDto.setProbNum(Integer.parseInt(questionNum));
-		List<QuestionDto> questionList= questionService.selectQuestion(qtDto);
-		System.out.println(questionList.size());
+		
+		roomDto.setQuestionList(questionService.selectQuestion(qtDto));
+		System.out.println(roomDto.getQuestionList());
+		roomService.createRoomDto(roomDto);
+//		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
+		
+        return "redirect:/chat/rooms";
+	}
+	
+	// 채팅방 들어갈 시
+	@PostMapping("/enterRoom")
+	public ModelAndView getRoom(String pkRoomSeq) {
+		
+		RoomDto roomDto = roomService.findRoomById(pkRoomSeq);
+		List<QuestionDto> questionList = roomDto.getQuestionList();
+		System.out.println(questionList);
 		
         log.info("# get Chat Room, roomSeq : " + pkRoomSeq);
 		ModelAndView mv = new ModelAndView("content/room");
 		
 		mv.addObject("questionList", questionList);
-		mv.addObject("room", roomService.findRoomById(pkRoomSeq));
+		mv.addObject("room", roomDto);
 		return mv;
 	}
 	
