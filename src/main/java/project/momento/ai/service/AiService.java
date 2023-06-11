@@ -38,5 +38,20 @@ public class AiService {
 		return aiMapper.selectQuestion(questionDto);
 	}
 
+	public void insertAiQuestion(QuestionDto questionDto) {
+		// TODO Auto-generated method stub
+		aiMapper.insertAiQuestion(questionDto);
+	}
+
+	public void updateAiQuestion(QuestionDto questionDto) {
+		// TODO Auto-generated method stub
+		aiMapper.updateAiQuestion(questionDto);
+	}
+
+	public void deleteAiQuestion(QuestionDto questionDto) {
+		// TODO Auto-generated method stub
+		aiMapper.deleteAiQuestion(questionDto);
+	}
+
 	
 }

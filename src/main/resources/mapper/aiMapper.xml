@@ -20,7 +20,6 @@
 		ON A.PK_QUESTION_SEQ = B.PK_QUESTION_SEQ
 		WHERE B.PK_USER_SEQ = #{pkUserSeq}
 	</select>
-	
 	<select id="selectQuestionList" parameterType="hashmap" resultType="project.momento.question.dto.QuestionDto">
 		SELECT
 			A.PK_QUESTION_SEQ				AS pkQuestionSeq
@@ -40,7 +39,6 @@
 		ORDER BY A.PK_QUESTION_SEQ ASC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
-	
 	<select id="selectQuestionListCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -65,6 +63,49 @@
 		AND A.PK_QUESTION_SEQ = #{pkQuestionSeq}
 		ORDER BY A.PK_QUESTION_SEQ ASC
 	</select>
-	
+	<insert id="insertAiQuestion" parameterType="project.momento.question.dto.QuestionDto">
+	    INSERT INTO AI_QUESTION (
+    		TYPE
+    		, LEVEL
+    		, QUESTION
+    		, SOLUTION
+    		, SUMMARY
+    		, TITLE
+    		, PASSAGE
+    		, URL
+    		, REGIST_ID
+    		, REGIST_DT
+  		) VALUES (
+    		#{type}
+    		, #{level}
+    		, #{questionName}
+    		, #{solution}
+    		, #{summary}
+    		, #{title}
+    		, #{passage}
+    		, #{url}
+    		, #{registId}
+    		, SYSDATE()
+  		)
+	</insert>
+	<update id="updateAiQuestion" parameterType="project.momento.question.dto.QuestionDto">
+		UPDATE AI_QUESTION
+		SET TYPE = #{type}
+		    , LEVEL = #{level}
+		    , QUESTION = #{questionName}
+		    , SOLUTION = #{solution}
+		    , SUMMARY = #{summary}
+		    , TITLE = #{title}
+		    , PASSAGE = #{passage}
+		    , URL = #{url}
+		    , UPDATE_ID = #{registId}
+		    , UPDATE_DT = SYSDATE()
+		WHERE PK_QUESTION_SEQ = #{pkQuestionSeq}
+
+	</update>
+	<delete id="deleteAiQuestion" parameterType="project.momento.question.dto.QuestionDto">
+		DELETE FROM AI_QUESTION
+  		WHERE PK_QUESTION_SEQ = #{pkQuestionSeq}
+	</delete>
 	
 </mapper>

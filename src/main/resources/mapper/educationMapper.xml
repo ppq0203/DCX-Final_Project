@@ -194,7 +194,7 @@
 		    A.PK_USER_SEQ 				AS pkUserSeq,
 		    C.NAME						AS name,
 		    C.PHONE						AS phone,
-		    C.BIRTHDAY					AS birthday,
+		    DATE_FORMAT(C.BIRTHDAY, '%Y-%m-%d')					AS birthday,
 		    A.ATTEND_DIVN 				AS attendDivn,
 		    A.ATTEND_DT 				AS attendDt,
 		    A.EARLY_DIVN 				AS earlyDivn,
@@ -209,7 +209,7 @@
 		    A.OUT_DT 					AS outDt,
 		    A.IN_DT						AS inDt,
 		    A.REGIST_ID 				AS registId,
-		    A.REGIST_DT 				AS registDt,
+		    DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d') 				AS registDt,
 		    A.UPDATE_ID 				AS updateId,
 		    A.UPDATE_DT 				AS updateDt
 		FROM EDUCATION_STUD A

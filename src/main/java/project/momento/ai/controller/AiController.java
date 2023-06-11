@@ -54,18 +54,42 @@ public class AiController {
 	/*
 	 * AI Main 화면 이동
 	 */
-	@RequestMapping(value = "/{userDivn}/ai/question/form/{pkQuestionSeq}", produces = "application/text;charset=utf-8")
-	public String aiQuestionForm(@PathVariable String userDivn, @PathVariable int pkQuestionSeq, HttpServletRequest request, Criteria cri, Model model) {
+	@RequestMapping(value = "/{userDivn}/ai/question/form/{divn}/{pkQuestionSeq}", produces = "application/text;charset=utf-8")
+	public String aiQuestionForm(@PathVariable String userDivn, @PathVariable String divn, @PathVariable int pkQuestionSeq, HttpServletRequest request, Criteria cri, Model model) {
 		
 		
 		QuestionDto questionDto = new QuestionDto();
 		questionDto.setPkQuestionSeq(pkQuestionSeq);
 		QuestionDto selectDto = aiService.selectQuestion(questionDto);
 		
-		
+		model.addAttribute("divn", divn);
 		model.addAttribute("result", selectDto);
 		return "content/" + userDivn + "/ai/aiQuestionForm";
 	}
+	
+	@RequestMapping(value = "/{userDivn}/ai/question/{divn}", produces = "application/text;charset=utf-8")
+	public String aiQuestionSubmit(QuestionDto questionDto,@PathVariable String userDivn, @PathVariable String divn, HttpServletRequest request, Model model) {
+		
+		if(divn.equals("create")) {
+			aiService.insertAiQuestion(questionDto);
+		}else {
+			aiService.updateAiQuestion(questionDto);
+		}
+		//aiService.selectQuestion(questionDto);
+		
+		return "redirect:/" + userDivn + "/ai/main";
+	}
+	
+	@RequestMapping(value = "/{userDivn}/ai/question/delete/{pkQuestionSeq}", produces = "application/text;charset=utf-8")
+	public String aiQuestionSubmit(@PathVariable int pkQuestionSeq, @PathVariable String userDivn, HttpServletRequest request, Model model) {
+		QuestionDto questionDto = new QuestionDto();
+		questionDto.setPkQuestionSeq(pkQuestionSeq);
+		aiService.deleteAiQuestion(questionDto);
+		//aiService.selectQuestion(questionDto);
+		
+		return "redirect:/" + userDivn + "/ai/main";
+	}
+	
 	/*
 	 * AI aiQuiz 화면 이동
 	 */

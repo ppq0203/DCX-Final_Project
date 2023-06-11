@@ -3,40 +3,125 @@
 	layout:decorate="~{common/layout/mng/mngDeshboardLayout}">
 <!-- Wrapper -->
 <th:block layout:fragment="content">
-	<div class="row">
-		<div class="col-12 p-5">
-			<div class="row">
-				<div class="col-6">
-					<h2>용어사전</h2>
+	<form th:action="@{${divn == 'create' ? '/mng/ai/question/create' : '/mng/ai/question/update'}}" method="post">
+		<input id="pkQuestionSeq" name="pkQuestionSeq" type="hidden" class="form-control validate"
+			th:if="${result != null}" th:value="${result.pkQuestionSeq}" />
+
+		<div class="row p-3">
+			<div class="col-sm-9 p-3">
+				<div class="form-group">
+					<label>문제</label>
+					<textarea id="questionName" name="questionName" type="text" class="form-control validate"
+						th:if="${result != null}" th:text="${result.questionName}"></textarea>
+					<textarea id="questionName" name="questionName" type="text" class="form-control validate"
+						th:if="${result == null}"></textarea>
 				</div>
 			</div>
-			<section class="post">
-				<header class="major">
-					<h1>제목 : <input text><br /></h1>
-				</header>
-				<h3>caterory : </h3>
-				<label><input type="radio" name="IT" value="컴퓨팅 기술"> 컴퓨팅 기술</label>
-				<label><input type="radio" name="IT" value="디지털 디바이스와 IoT"> 디지털 디바이스와 IoT</label>
-				<label><input type="radio" name="IT" value="미래 기술과 혁신"> 미래 기술과 혁신</label>
-				<label><input type="radio" name="IT" value="보안과 개인 정보 보호"> 보안과 개인 정보 보호</label>
-				<label><input type="radio" name="IT" value="기업과 협업"> 기업과 협업</label>
-				<h3>article : </h3>
-				<p><textarea cols="50" rows="10" placeholder="write..."></textarea></p>
-				<ul class="actions special">
-					<li><input type="button" value="요약"></li>
-				</ul>
-				<h3>summary : </h3>
-				<p><textarea cols="50" rows="3" placeholder="요약된 내용"></textarea></p>
-				<hr />
-				<h3>keyword : </h3>
-				<span>(1)keyword</span>
-				<p><textarea cols="50" rows="3" placeholder="ex: 삼성에서 (1)를 출시했다."></textarea></p>
-				<ul class="actions special">
-					<li><button type="submit" class="btn btn-primary">저장</button></li>
-				</ul>
-			</section>
+			<div class="col-sm-9 p-3">
+				<div class="form-group">
+					<label>답지</label>
+					<textarea id="solution" name="solution" type="text" class="form-control validate"
+						th:if="${result != null}" th:text="${result.solution}"></textarea>
+					<textarea id="solution" name="solution" type="text" class="form-control validate"
+						th:if="${result == null}"></textarea>
+				</div>
+			</div>
+			<div class="col-sm-12 p-3">
+				<div class="form-group">
+					<label>유형</label>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" id="customRadio1" name="type"
+										th:if="${result != null}" value="기업과 협업"
+										th:checked="${result.type == '기업과 협업'}">
+									<input class="custom-control-input" type="radio" id="customRadio1" name="type"
+										th:if="${result == null}" value="기업과 협업">
+									<label for="customRadio1" class="custom-control-label">기업과 협업</label>
+								</div>
+							</div>
+							<div class="col-2">
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" id="customRadio2" name="type"
+										th:if="${result != null}" value="디지털 디바이스와 IoT"
+										th:checked="${result.type == '디지털 디바이스와 IoT'}">
+									<input class="custom-control-input" type="radio" id="customRadio2" name="type"
+										th:if="${result == null}" value="디지털 디바이스와 IoT">
+									<label for="customRadio2" class="custom-control-label">디지털 디바이스와 IoT</label>
+								</div>
+							</div>
+							<div class="col-2">
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" id="customRadio3" name="type"
+										th:if="${result != null}" value="미래기술과 혁신"
+										th:checked="${result.type == '미래기술과 혁신'}">
+									<input class="custom-control-input" type="radio" id="customRadio3" name="type"
+										th:if="${result == null}" value="미래기술과 혁신">
+									<label for="customRadio3" class="custom-control-label">미래기술과 혁신</label>
+								</div>
+							</div>
+							<div class="col-2">
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" id="customRadio4" name="type"
+										th:if="${result != null}" value="보안 및 오픈소스"
+										th:checked="${result.type == '보안 및 오픈소스'}">
+									<input class="custom-control-input" type="radio" id="customRadio4" name="type"
+										th:if="${result == null}" value="보안 및 오픈소스">
+									<label for="customRadio4" class="custom-control-label">보안 및 오픈소스</label>
+								</div>
+							</div>
+							<div class="col-2">
+								<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" id="customRadio5" name="type"
+										th:if="${result != null}" value="컴퓨팅 기술"
+										th:checked="${result.type == '컴퓨팅 기술'}">
+									<input class="custom-control-input" type="radio" id="customRadio5" name="type"
+										th:if="${result == null}" value="컴퓨팅 기술">
+									<label for="customRadio5" class="custom-control-label">컴퓨팅 기술</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9 p-3">
+				<div class="form-group">
+					<label>주제</label>
+					<textarea id="title" name="title" type="text" class="form-control validate"
+						th:if="${result != null}" th:text="${result.title}" th:remove="tag"></textarea>
+					<textarea id="title" name="title" type="text" class="form-control validate"
+						th:if="${result == null}"></textarea>
+				</div>
+			</div>
+			<div class="col-sm-9 p-3">
+				<div class="form-group">
+					<label>URL</label>
+					<input id="url" name="url" type="text" class="form-control validate" th:if="${result != null}"
+						th:value="${result.url}" />
+					<input id="url" name="url" type="text" class="form-control validate" th:if="${result == null}" />
+				</div>
+			</div>
+			<div class="col-sm-9 p-3">
+				<div class="form-group">
+					<label>기사</label>
+					<textarea id="passage" name="passage" type="text" class="form-control validate"
+						th:if="${result != null}" th:text="${result.passage}" th:remove="tag"></textarea>
+					<textarea id="passage" name="passage" type="text" class="form-control validate"
+						th:if="${result == null}"></textarea>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
+		<div class="modal-footer">
+			<button type="submit" th:if="${divn == 'create'}" class="btn btn-primary modelBtn"
+				onclick="validation(this)">
+				<span>등록</span>
+			</button>
+			<button type="submit" th:if="${divn == 'update'}" class="btn btn-info modelBtn" onclick="validation(this)">
+				<span>수정</span>
+			</button>
+		</div>
+	</form>
 </th:block>
+
 </html>
