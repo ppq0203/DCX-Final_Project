@@ -33,4 +33,8 @@ public interface ExamMapper {
 
 	List<ExamDto> getExamResultList(ExamDto examDto);
 
+	List<ExamDto> selectExamResultDetailList(ExamDto examDto);
+
+	void updateScore(ExamDto examDto);
+
 }

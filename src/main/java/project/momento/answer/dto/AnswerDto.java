@@ -3,11 +3,12 @@ package project.momento.answer.dto;
 import org.springframework.context.annotation.PropertySource;
 
 import lombok.Data;
+import project.momento.question.dto.QuestionDto;
 
 @Data
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
 /*풀이 답*/
-public class AnswerDto {
+public class AnswerDto extends QuestionDto {
 
 	/*답변에 부여되는 고유번호*/
 	private int pkAnswerSeq;

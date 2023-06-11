@@ -79,6 +79,24 @@ public class NoticeController {
 		return resultList;			
 	}
 	
+	@RequestMapping(value="/mng/notice/update", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String deleteNotice(NoticeDto noticeDto, HttpServletRequest request) {
+		System.out.println(noticeDto);
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
+		noticeService.updateNotice(noticeDto);
+		return "redirect:/mng/" + pkSubjectSeq + "/subject/main";
+	}
+	
+	@RequestMapping(value="/deleteNotice", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String deleteNotice(@RequestBody HashMap<String, Object> map, Model model, HttpServletRequest request) {
+		String pkNoticeSeq = (String) map.get("pkNoticeSeq");
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
+		noticeService.deleteNotice(pkNoticeSeq);
+		return "redirect:/mng/" + pkSubjectSeq + "/subject/main";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/openNotice", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
 	public NoticeDto openAskInfo(@RequestBody HashMap<String, Object> map, Model model, HttpServletRequest request) {
