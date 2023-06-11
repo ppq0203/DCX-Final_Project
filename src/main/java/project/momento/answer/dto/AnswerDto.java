@@ -21,5 +21,8 @@ public class AnswerDto {
 	private String answerOx;
 	/*답안 제출 일자*/
 	private String registDt;
-	
+	/*걸리는 시간*/
+	private String solveTime;
+	/*문제 유형*/
+	private String type;
 }
