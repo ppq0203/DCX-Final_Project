@@ -39,10 +39,6 @@
 		<div class="waiting_room_content" id="content">
 			<div class="waiting_room_team1" id="team1">
 				<input type="hidden" id="team1Count">
-				<div class="waiting_room_t1-user1"></div>
-				<div class="waiting_room_t1-user2"></div>
-				<div class="waiting_room_t1-user3"></div>
-				<div class="waiting_room_t1-user4"></div>
 			</div>
 			<div class="waiting_room_team2" id="team2">
 				<input type="hidden" id="team2Count">
@@ -109,7 +105,7 @@
 	<div id="gameRoom" style="display:none;" class="container">
 		<div id="header"></div>
 		<!-- Main content -->
-		<div id="content">
+		<div id="game_content">
 			<div class="chess-board">
 				<div class="question_col" th:each="n, m : ${questionList}">
 					<!--<p th:text="${n.pkQuestionSeq}"></p>-->
@@ -258,12 +254,14 @@
 						if ($("#team1").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
-							str = "<div class='col-sys' id = '" + index + "'>";
+							str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>" + value + "</b>";
 							str += "</div></div>";
 							$("#team1Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							$("#team1").children(".waiting_room_t1-user1").append(str);
+							
+							$("#team1").append(str);
 						}
 					});
 				});
