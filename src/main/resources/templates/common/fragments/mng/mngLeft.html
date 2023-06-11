@@ -12,7 +12,7 @@
                <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
                   <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                      <div class="image">
-                        <img th:src="@{/img/}" class="img-circle elevation-2" alt="User Image">
+                        <img th:src="@{/img/headimg-2.jpg}" class="img-circle elevation-2" alt="User Image">
                      </div>
                      <div class="info">
                         <a href="#" th:utext="${session.loginDto.userId}" class="d-block"></a>
@@ -36,7 +36,7 @@
          $.each(data, function (i) {
             if (x == data[i].UPPER_MENU_NO) {
                str += '<li class="nav-item">'
-                  + '<a href="../index.html" class="nav-link">'
+                  + '<a href="'+data[i].PATH+'" class="nav-link">'
                   + '<i class="far ' + logo + ' nav-icon"></i>'
                   + '<p>' + data[i].MENU_NAME + '</p></a>'
                   + recursive(data, data[i].PK_MENU_SEQ, 'fa-dat-circle')
@@ -90,7 +90,7 @@
                $.each(menuList, function (i) {
                   if (0 == menuList[i].UPPER_MENU_NO) {
                      str += '<li class="nav-item">'
-                        + '<a href="#" class="nav-link">'
+                        + '<a href="'+menuList[i].PATH+'" class="nav-link">'
                         + '<i class="nav-icon fas fa-th"></i>'
                         + '<p>' + menuList[i].MENU_NAME + '</p>'
                         + '<i class="right fas fa-angle-left"></i></a>'
