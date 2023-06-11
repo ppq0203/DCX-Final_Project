@@ -82,6 +82,7 @@
 					<form>
 						<input type="text" id="chat" size=19>
 						<button class="btnchat" type="submit">등록</button>
+						<button type="button" data-toggle="modal" data-target="#modal-xl">문제 열기</button>
 					</form>
 				</div>
 			</div>
@@ -235,14 +236,12 @@
 							</div>
 							<!-- 기존 코드 끝-->
 							<!-- 진상 코드-->
-							<form>
-								<div class="modal-footer justify-content-between">
-									<button id="giveup" type="button" class="btn btn-default"
-										onclick="modalClose()">포기</button>
-									<button id="Question_submit" data-dismiss="modal" type="submit"
-										class="btn btn-primary">등록</button>
-								</div>
-							</form>
+							<div class="modal-footer justify-content-between">
+								<button id="giveup" type="button" class="btn btn-default"
+									onclick="giveup()">포기</button>
+								<button type="button" onclick="correctTest()">임시 정답테스트</button>
+								<button onclick="question_submit()" type="button" class="btn btn-primary">등록</button>
+							</div>
 							<!-- 진상 코드 끝-->
 						</div>
 					</div>
@@ -252,6 +251,22 @@
 		<div id="test">
 			<button onclick="get_index_and_prob()">임시 테스트</button>
 			<div id="test_value"></div>
+		</div>
+		<button onclick="resultCalc()">결과보기</button>
+		<div class="text-center">
+		결과창
+			<div>
+				총 문제 :<span id="total_count">36</span>
+			</div>
+			<div>
+				푼 문제 :<span id="solve_count">30</span>
+			</div>
+			<div>
+				포기 :<span id="giveup_count">6</span>
+			</div>
+			<div id="type_result_area">
+	
+			</div>
 		</div>
 	</div>
 
@@ -266,13 +281,13 @@
 		var roomName = /*[[${room.roomName}]]*/0;
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
 		var stomp;
-		var username = "334"
+		var username = "0";
 
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
 		var stomp = Stomp.over(sockJs);
 
-		console.log(" [+] 팀 개수 :: " + /*[[${room.roomNumber}]]*/0);
+		//console.log(" [+] 팀 개수 :: " + /*[[${room.roomNumber}]]*/0);
 		
 		$(document).ready(function () {
 
@@ -287,6 +302,8 @@
 					});
 					$('#gameRoom').css('display', 'block'); 
 					$('#waitRoom').css('display', 'none');
+					// 주사위결과를 보여주는 함수 실행
+					get_index_and_prob();
 				});
 
 				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
@@ -305,6 +322,13 @@
 
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
+					// 첫접속시 유저 고유번호 저장
+						console.log("username : " + content.pkUserSeq);
+					if (username == "0")
+					{
+						username = content.pkUserSeq;
+					}
+					
 					var chatContent = content.chatContent;
 					var writer = ">>SYSTEM";
 					var str = '';
@@ -393,15 +417,53 @@
 
 				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
 					var content = chat.body;
-					console.log(content);
+					//console.log(content);
 					$("#" + content + "").remove();
 					$("#game-" + content + "").remove();
 				});
 				
 				stomp.subscribe("/sub/chat/correct/" + roomId, function (result) {
 					var content = JSON.parse(result.body);
-					console.log(content);
+					var qtype = $('#questionType').val();
+					//console.log(content);
 					resultFillColor(content.teamNo);
+					// 정답을 맞춘 사람이 본인 일때 타입결과 저장
+					if (content.userNo == username)
+					{
+						resultSave(qtype, 0);
+					}
+					// 정답을 맞춘 사람이 타인 일때 타입결과 저장
+					else
+					{
+						resultSave(qtype, -1);
+					}
+					alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
+					$('.modal').modal('hide');
+					nowNo += 1;
+					
+					setTimeout(function() {
+					    // Code to be executed after the delay
+						get_index_and_prob();
+					  }, 2000); // Delay of 2000 milliseconds (2 seconds)
+				});
+
+				stomp.subscribe("/sub/chat/sendAnswer/" + roomId, function (result) {
+					var content = JSON.parse(result.body);
+					
+					// if (content.pkUserSeq == username)
+					// 임시코드 uuid가아닌 유저고유번호 변경시 위의 if문 사용
+					if (content.userUUID == username)
+					{
+						if (content.answerOx == "O")
+						{
+							alert("정답입니다");
+							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
+						}
+						else
+						{
+							alert("오답입니다");
+						}					
+					}
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
@@ -419,7 +481,7 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-
+	
 			$("#team2").on("click", function (e) {
 				if($("#team2").children().length >= /*[[${room.teamNumber}]]*/0){
 					alert("팀이 꽉 찼습니다.");
@@ -431,7 +493,7 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-
+	
 			$("#team3").on("click", function (e) {
 				if(3 > /*[[${room.roomNumber}]]*/0){
 					alert('[[${room.roomNumber}]]팀 방 입니다!');
@@ -449,7 +511,7 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-
+	
 			$("#team4").on("click", function (e) {
 				if(4 > /*[[${room.roomNumber}]]*/0){
 					alert('[[${room.roomNumber}]]팀 방 입니다!');
@@ -468,24 +530,24 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-
+	
 			$("#system-test").on("click", function (e) {
 				stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId}))
 			})
-
+	
 			$("#button-send").on("click", function (e) {
 				var msg = document.getElementById("msg");
-
+	
 				console.log(username + ":" + msg.value);
 				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
 				msg.value = '';
 			});
-
+	
 			$(".teamchange").on("click", function (e) {
 				$("#content").css("pointer-events", "all")
 				$("#content").css("opacity", "80%")
 			});
-
+	
 			$("#msg").keyup(function () {
 				if (event.keyCode == 13) {
 					var msg = document.getElementById("msg");
@@ -493,12 +555,12 @@
 					msg.value = '';
 				}
 			});
-
+	
 			$("#gamestart").on("click", function() {
 	    		stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
 			});
-			
-		}); 
+		});
+
 	</script>
 
 	<script>
@@ -519,10 +581,6 @@
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
-			console.log(title);
-			console.log(name);
-			console.log(contents);
-			console.log(codeFormat);
 			$('.modal-title').text(title);
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
@@ -561,34 +619,6 @@
 			$(temp_elem).css("background-color", "gray");
 			$(temp_elem).css("color", "darkgray");
 		})
-		$('#Question_submit').click(function () {
-			var obj = {
-				format : $("#Demo").val(),
-				name : $("#nameQuestion").val(),
-				number : $("#questionNo").val(),
-				answer : ""
-			}
-			$.ajax({
-				type: "POST",
-				url: "sendAnswer",
-				data: obj,
-				success: function (data) {
-					if(data.answer != "-1")
-					{
-						temp_elem.disabled = true;
-						$(temp_elem).css("background-color", "#00b0f0");
-						$(temp_elem).css("color", "blue");
-						resultSave($("#questionType").val(), 0);
-						stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
-					}
-				},
-				error: function () {
-				}
-			});
-			temp_elem.disabled = true;
-			$(temp_elem).css("background-color", "#00b0f0");
-			$(temp_elem).css("color", "blue");
-		})
 	</script>
 	<script>
 		var resultMap = new Map();
@@ -598,7 +628,7 @@
 			if (resultMap.get(key) === undefined)
 			{
 				resultMap.set(key, [0,0]);
-				console.log(resultMap.get(key));
+				//console.log(resultMap.get(key));
 			}
 			if (result == -1)
 			{
@@ -619,7 +649,7 @@
 			$("#type_result_area").empty();
 			
 			for (const [key, value] of resultMap.entries()) {
-				console.log(`Key: ${key}, Value: ${value}`);
+				//console.log(`Key: ${key}, Value: ${value}`);
 				str = '';
 				str = "<div>";
 				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
@@ -637,20 +667,27 @@
 		var dice1 = 0;
 		var dice2 = 0;
 		function get_index_and_prob()
-		{
+		{			
+			// 주사위 눈
 			dice1 = Math.floor((shuffleNo[nowNo]-1)/6+1);
 			dice2 = ((shuffleNo[nowNo])%6==0?6:(shuffleNo[nowNo])%6);
+
+			// 주사위 굴러가다가 멈추는 함수 이곳에 구현해야함.
+			// code
+			// ////////////////////////////////////
+			
 			// 임시 테스트용 코드
 			str = '';
 			str = "questionNo : " + questionList[nowNo].pkQuestionSeq + "  suffleNo : " + shuffleNo[nowNo] + "  dice1: " + dice1 + "  dice2: " + dice2;
 			$("#test_value").text(str);
 			// //////////////////////////////
+			
+			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
 			$('.modal').modal('show');
 			loadQuestion(questionList[nowNo]);
-			nowNo += 1;
 		}
 		
-		function modalClose()
+		function correctTest()
 		{
 			$('.modal').modal('hide');
 			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
@@ -658,7 +695,7 @@
 		
 		function resultFillColor(teamNo)
 		{
-			tagId = "#q"+shuffleNo[nowNo-1];
+			tagId = "#q"+shuffleNo[nowNo];
 			if(teamNo == 0)	// all giveup
 			{
 				$(tagId).css("background-color", "gray");
@@ -692,17 +729,14 @@
 			}
 		}
 		
+		// 문제정보를 모달창에 저장하는 함수
 		function loadQuestion(question) {
-			console.log("test");
+			//console.log("test");
 			title = question.pkQuestionSeq + "번째 문제";
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
 			type = question.type;
-			console.log(title);
-			console.log(name);
-			console.log(contents);
-			console.log(codeFormat);
 			$('.modal-title').text(title);
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
@@ -710,6 +744,17 @@
 			$('#questionType').val(type);
 			$('#questionContents').text(contents);
 			$('#Demo').html(codeFormat);
+		}
+		
+		// 정답 등록시 수행되는 함수
+		function question_submit()
+		{
+			var code = $("#Demo").val();
+			var name = $("#nameQuestion").val();
+			var pkQuestionSeq = $("#questionNo").val();
+			// alert("click");
+			console.log(username);
+			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq : pkQuestionSeq, answerUser: code, answerOx:name}));
 		}
 	</script>
 </th:block>

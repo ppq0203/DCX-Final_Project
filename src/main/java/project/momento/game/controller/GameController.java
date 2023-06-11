@@ -86,7 +86,7 @@ public class GameController {
 		List<TestcaseDto> testcaseDtos = testcaseService.selectTestcaseList(num);
 		
 													// 방넘버, 유저넘저, 함수명, 인풋list, 함수실행코드
-		int result = StringCodeCompile.stringCodeCompile(0, 1, name, testcaseDtos, code);
+		int result = StringCodeCompile.stringCodeCompile("0", "1", name, testcaseDtos, code);
 		answer.put("answer", Integer.toString(result));
 		System.out.println(" [+] " + result);
 		// 문제번호, 유저번호, 코드, 결과, 문제타입
