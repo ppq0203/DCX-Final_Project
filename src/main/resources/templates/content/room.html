@@ -6,15 +6,15 @@
 	</script>
 	<link rel="stylesheet" type="text/css" href="/css/game.css">
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
-	<link th:href="@{/css/waitroom.css}" rel="stylesheet">	
+	<link th:href="@{/css/waitroom.css}" rel="stylesheet">
 	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
 	<link th:href="@{/css/gameingmulti.css}" rel="stylesheet">
-	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>	
-	<!--<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">-->
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+	<!--<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet"> -->
 	<script th:src="@{/js/dice.js}"></script>
 
 	<!-- ------------------------ 대기방 ---------------------------- -->
-	<div id="waitRoom" class="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+	<div id="waitRoom" class="waiting_room_container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 		<div class="waiting_room_header" id="header"></div>
 		<!--side right -->
 		<div class="waiting_room_sidebar" id="sidebar">
@@ -71,15 +71,15 @@
 
 	<!-- ------------------------게임방------------------------------ -->
 	<div id="gameRoom" style="display:none;">
-	<div class="container">
-      		<div id="header"></div>
-			
+		<div class="gameing_container">
+			<div class="gameing_header" id="header"></div>
+
 			<!--side right -->
-			<div id="sidebar">
+			<div class="gameing_sidebar" id="sidebar">
 				<div class="gamequiz">
 					<p class="pfont">
 						Time : 15:00 min<br>
-						유형 :<br> 
+						유형 :<br>
 						문제 <span>7</span>번<br>
 						...
 					</p>
@@ -98,38 +98,39 @@
 						<input type="text" id="chat" size=19>
 						<button class="btnchat" type="submit">등록</button>
 					</form>
-					
-						
+
+
 				</div>
-				<button class="btn" type="button">시작</button>	
-				<button class="btnlogout" type="button">나가기</button>		
+				<button class="btn" type="button">시작</button>
+				<button class="btnlogout" type="button">나가기</button>
 			</div>
-			
+
 			<!--content game -->
-      		<div id="content">
-				<div class="user">
-					<div class="team1">
+			<div class="gameing_content" id="content">
+				<div class="gameing_user">
+					<div class="gameing_team1">
 						<div class="score" style="background-color:#BF9039" id="hover"><span>0</span></div>
 					</div>
-					<div class="team2">
+					<div class="gameing_team2">
 						<div class="score" style="background-color:#BF4C1F"><span>0</span></div>
 					</div>
-					<div class="team3">
+					<div class="gameing_team3">
 						<div class="score" style="background-color:#1454C2"><span>0</span></div>
 					</div>
-					<div class="team4">
+					<div class="gameing_team4">
 						<div class="score" style="background-color:#6F9C4C"><span>0</span></div>
 					</div>
 				</div>
-				<div class="dicearea">
-					<div class="lottie-container">
-						<div class="ricearea_col">
-							<lottie-player class="rice1" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" 
-										background="transparent" speed="1" loop autoplay></lottie-player><!--loop autoplay-->
+				<div class="gameing_dicearea">
+					<div class="gameing_lottie-container">
+						<div class="gameing_ricearea_col">
+							<lottie-player class="rice1" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
+								background="transparent" speed="1" loop autoplay></lottie-player>
+							<!--loop autoplay-->
 						</div>
-						<div class="ricearea_row">
-							<lottie-player class="rice2" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" 
-									background="transparent" speed="1" loop autoplay></lottie-player>  
+						<div class="gameing_ricearea_row">
+							<lottie-player class="rice2" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
+								background="transparent" speed="1" loop autoplay></lottie-player>
 						</div>
 					</div>
 				</div>
@@ -200,13 +201,13 @@
 								<td class="hover_y">34</td>
 								<td class="hover_y">35</td>
 								<td class="hover_y">36</td>
-							</tr>							
+							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 
 	<!-- ----------------------- 게임방 끝 ---------------------------- -->
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -227,10 +228,10 @@
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
 
-				stomp.subscribe("/sub/chat/gamestart/" + roomId, function(chat) {
-            			$('#gameRoom').css('display', 'block'); 
-            			$('#waitRoom').css('display', 'none');
-                   });
+				stomp.subscribe("/sub/chat/gamestart/" + roomId, function (chat) {
+					$('#gameRoom').css('display', 'block');
+					$('#waitRoom').css('display', 'none');
+				});
 
 				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
 				stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
@@ -269,7 +270,7 @@
 							str += "</div></div>";
 							$("#team1Count").val(Object.keys(content).length);
 							$("#" + index + "").remove();
-							
+
 							$("#team1").append(str);
 						}
 					});
@@ -334,11 +335,10 @@
 			});
 
 			$("#team1").on("click", function (e) {
-				if($("#team1Count").val() >= /*[[${room.teamNumber}]]*/0){
+				if ($("#team1Count").val() >= /*[[${room.teamNumber}]]*/0) {
 					alert("팀이 꽉 찼습니다.");
 				}
-				else
-				{
+				else {
 					stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
 				}
 				$("#content").css("pointer-events", "none")
@@ -346,11 +346,10 @@
 			})
 
 			$("#team2").on("click", function (e) {
-				if($("#team2Count").val() >= /*[[${room.teamNumber}]]*/0){
+				if ($("#team2Count").val() >= /*[[${room.teamNumber}]]*/0) {
 					alert("팀이 꽉 찼습니다.");
 				}
-				else
-				{
+				else {
 					stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
 				}
 				$("#content").css("pointer-events", "none")
@@ -358,11 +357,10 @@
 			})
 
 			$("#team3").on("click", function (e) {
-				if($("#team3Count").val() >= /*[[${room.teamNumber}]]*/0){
+				if ($("#team3Count").val() >= /*[[${room.teamNumber}]]*/0) {
 					alert("팀이 꽉 찼습니다.");
 				}
-				else
-				{
+				else {
 					stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
 				}
 				$("#content").css("pointer-events", "none")
@@ -370,11 +368,10 @@
 			})
 
 			$("#team4").on("click", function (e) {
-				if($("#team4Count").val() >= /*[[${room.teamNumber}]]*/0){
+				if ($("#team4Count").val() >= /*[[${room.teamNumber}]]*/0) {
 					alert("팀이 꽉 찼습니다.");
 				}
-				else
-				{
+				else {
 					stomp.send('/pub/chat/Team4Change', {}, JSON.stringify({pkRoomSeq: roomId}))
 				}
 				$("#content").css("pointer-events", "none")
@@ -406,8 +403,8 @@
 				}
 			});
 
-			$("#gamestart").on("click", function() {
-	    			stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+			$("#gamestart").on("click", function () {
+				stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
 			});
 		}); 
 	</script>
