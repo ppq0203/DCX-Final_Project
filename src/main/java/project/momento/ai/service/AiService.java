@@ -33,5 +33,10 @@ public class AiService {
 		return aiMapper.selectQuestionListCount();
 	}
 
+	public QuestionDto selectQuestion(QuestionDto questionDto) {
+		// TODO Auto-generated method stub
+		return aiMapper.selectQuestion(questionDto);
+	}
+
 	
 }

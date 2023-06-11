@@ -52,6 +52,21 @@ public class AiController {
 		return "content/" + userDivn + "/ai/main";
 	}
 	/*
+	 * AI Main 화면 이동
+	 */
+	@RequestMapping(value = "/{userDivn}/ai/question/form/{pkQuestionSeq}", produces = "application/text;charset=utf-8")
+	public String aiQuestionForm(@PathVariable String userDivn, @PathVariable int pkQuestionSeq, HttpServletRequest request, Criteria cri, Model model) {
+		
+		
+		QuestionDto questionDto = new QuestionDto();
+		questionDto.setPkQuestionSeq(pkQuestionSeq);
+		QuestionDto selectDto = aiService.selectQuestion(questionDto);
+		
+		
+		model.addAttribute("result", selectDto);
+		return "content/" + userDivn + "/ai/aiQuestionForm";
+	}
+	/*
 	 * AI aiQuiz 화면 이동
 	 */
 	@RequestMapping(value = "/{userDivn}/ai/quiz", produces = "application/text;charset=utf-8")

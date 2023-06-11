@@ -5,7 +5,7 @@
 	<!-- Heidisql연결후 입력 저장-->
 	<select id="selectQuestionResultList" parameterType="project.momento.question.dto.QuestionDto" resultType="project.momento.question.dto.QuestionDto">
 		SELECT
-			A.PK_QUSITION_SEQ				AS pkQusitionSeq
+			A.PK_QUESTION_SEQ				AS pkQuestionSeq
 			, A.TYPE						AS type
 			, A.LEVEL						AS level
 			, A.QUESTION					AS questionName
@@ -17,13 +17,13 @@
 			, B.PK_USER_SEQ					AS pkUserSeq
 		FROM AI_QUESTION A
 		INNER JOIN AI_QUESTION_RESULT B
-		ON A.PK_QUSITION_SEQ = B.PK_QUSITION_SEQ
+		ON A.PK_QUESTION_SEQ = B.PK_QUESTION_SEQ
 		WHERE B.PK_USER_SEQ = #{pkUserSeq}
 	</select>
 	
 	<select id="selectQuestionList" parameterType="hashmap" resultType="project.momento.question.dto.QuestionDto">
 		SELECT
-			A.PK_QUSITION_SEQ				AS pkQusitionSeq
+			A.PK_QUESTION_SEQ				AS pkQuestionSeq
 			, A.TYPE						AS type
 			, A.QUESTION					AS questionName
 			, A.SOLUTION					AS solution
@@ -37,7 +37,7 @@
 			, A.UPDATE_DT					AS updateDt
 		FROM AI_QUESTION A
 		WHERE 1=1
-		ORDER BY A.PK_QUSITION_SEQ ASC
+		ORDER BY A.PK_QUESTION_SEQ ASC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
@@ -46,7 +46,25 @@
 			COUNT(*)
 		FROM AI_QUESTION A
 	</select>
-	
+	<select id="selectQuestion" parameterType="project.momento.question.dto.QuestionDto" resultType="project.momento.question.dto.QuestionDto">
+		SELECT
+			A.PK_QUESTION_SEQ				AS pkQuestionSeq
+			, A.TYPE						AS type
+			, A.QUESTION					AS questionName
+			, A.SOLUTION					AS solution
+			, A.SUMMARY						AS summary
+			, A.TITLE						AS title
+			, A.PASSAGE						AS passage
+			, A.URL							AS url
+			, A.SOLUTION					AS solution
+			, A.REGIST_ID					AS registId
+			, A.UPDATE_ID					AS updateId
+			, A.UPDATE_DT					AS updateDt
+		FROM AI_QUESTION A
+		WHERE 1=1
+		AND A.PK_QUESTION_SEQ = #{pkQuestionSeq}
+		ORDER BY A.PK_QUESTION_SEQ ASC
+	</select>
 	
 	
 </mapper>

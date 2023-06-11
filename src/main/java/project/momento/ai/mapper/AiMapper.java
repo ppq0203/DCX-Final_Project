@@ -21,5 +21,7 @@ public interface AiMapper {
 
 	int selectQuestionListCount();
 
+	QuestionDto selectQuestion(QuestionDto questionDto);
+
 
 }
