@@ -1,6 +1,7 @@
 package project.momento.main.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import project.momento.education.dto.EducationDto;
 import project.momento.education.service.EducationService;
 import project.momento.login.dto.LoginDto;
+import project.momento.question.dto.QuestionDto;
+import project.momento.question.service.QuestionService;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -25,6 +28,8 @@ public class MainController {
 	private SignService SignService;
 	@Autowired
 	private EducationService educationService;
+	@Autowired
+	private QuestionService questionService;
 	
 	/*
 	 * 
@@ -59,6 +64,23 @@ public class MainController {
 		educationDto.setPkManagerSeq(loginDto.getPkManagerSeq());
 		educationDto.setPkUserSeq(loginDto.getPkUserSeq());
 		List<EducationDto> resultList = educationService.selectSubjectList(educationDto);
+		return resultList;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/chart/list/{pkUserSeq}", produces = "application/json;charset=utf-8") /* value주소 이름 */
+	public Map<String, List<QuestionDto>> ChartList(@PathVariable int pkUserSeq, Model model, HttpServletRequest request) {
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		QuestionDto questionDto = new QuestionDto();
+		questionDto.setPkUserSeq(pkUserSeq);
+		
+		Map<String, List<QuestionDto>> resultList = new HashMap<>();
+
+		//List<QuestionDto> gameResultList = questionService.selectGameChartList(questionDto);
+		//resultList.put("gameResultList", gameResultList);
+
+		
+		
 		return resultList;
 	}
 	
