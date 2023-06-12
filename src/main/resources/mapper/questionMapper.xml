@@ -76,10 +76,11 @@
 			, B.PK_USER_SEQ					AS pkUserSeq
 			, B.ANSWER_USER					AS answerUser
 			, B.ANSWER_OX					AS answerOx
+			, B.SOLVE_TIME					AS solveTime
 		FROM QUESTION A
 		INNER JOIN ANSWER B
 		ON A.PK_QUESTION_SEQ = B.PK_QUESTION_SEQ
-		WHERE B.PK_USER_SEQ = #{pkUserSeq}
+		WHERE B.PK_USER_SEQ = #{pkUserSeq} GROUP BY B.SOLVE_TIME
 	</select>
 	
 	<select id="selectQuestionList" parameterType="hashmap" resultType="project.momento.question.dto.QuestionDto">
