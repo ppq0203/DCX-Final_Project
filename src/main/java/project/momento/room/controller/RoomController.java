@@ -95,20 +95,27 @@ public class RoomController {
 			}
 			else
 			{
-				String roomSeq = (String) request.getSession().getAttribute("roomSeq");
-				roomDto = roomService.findRoomById(roomSeq);
+				roomDto = roomService.findRoomById((String) request.getSession().getAttribute("roomSeq"));
 			}
 		}
 		
-		List<QuestionDto> questionList = roomDto.getQuestionList();
 		LoginDto user = (LoginDto)request.getSession().getAttribute("loginDto");
 		
         log.info("# get Chat Room, roomSeq : " + pkRoomSeq);
-		ModelAndView mv = new ModelAndView("content/room");
+		ModelAndView mv = new ModelAndView();
 		
-		mv.addObject("questionList", questionList);
-		mv.addObject("room", roomDto);
-		mv.addObject("user", user);
+		if(roomDto == null) {
+			mv.setViewName("redirect:/chat/rooms");
+		}
+		else {
+			
+			List<QuestionDto> questionList = roomDto.getQuestionList();
+			mv.setViewName("content/room");
+			mv.addObject("questionList", questionList);
+			mv.addObject("room", roomDto);
+			mv.addObject("user", user);
+		}
+		
 		return mv;
 	}
 	

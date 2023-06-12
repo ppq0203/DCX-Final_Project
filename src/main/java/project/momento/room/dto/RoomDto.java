@@ -18,11 +18,7 @@ import project.momento.question.dto.QuestionDto;
 /*방*/
 public class RoomDto {
 	
-	private HashMap<String,String> userList = new HashMap<>(); /*참여중인 대기유저의 리스트를 뽑기 위한 리스트*/
-	private HashMap<String,String> team1 = new HashMap<>(); /*팀1에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
-	private HashMap<String,String> team2 = new HashMap<>(); /*팀2에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
-	private HashMap<String,String> team3 = new HashMap<>(); /*팀3에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
-	private HashMap<String,String> team4 = new HashMap<>(); /*팀4에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
+	private HashMap<String,HashMap> userList = new HashMap<>(); /*참여중인 유저의 리스트를 뽑기 위한 리스트*/
 
 	private List<QuestionDto> questionList;
 	private List<Integer> shuffleNo;

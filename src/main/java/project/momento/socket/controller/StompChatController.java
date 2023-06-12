@@ -59,23 +59,15 @@ public class StompChatController {
 		message.setChatContent(message.getPkUserSeq() + "님이 채팅방에 참여하였습니다.");
 		
 		String userUUID = shambles.addUser(message);
-		HashMap<String, String> userList = room.getUserList();
-		HashMap<String, String> team1List = room.getTeam1();
-		HashMap<String, String> team2List = room.getTeam2();
-		HashMap<String, String> team3List = room.getTeam3();
-		HashMap<String, String> team4List = room.getTeam4();
+		HashMap<String, HashMap> userList = room.getUserList();
 		
 		headerAccessor.getSessionAttributes().put("userUUID",userUUID);
         headerAccessor.getSessionAttributes().put("roomId",message.getPkRoomSeq());
+        headerAccessor.getSessionAttributes().put("userTeamNumber", "waitList");
         
         message.setPkUserSeq(userUUID);
-        
 		template.convertAndSend("/sub/chat/system/" + message.getPkRoomSeq(), message);
-		template.convertAndSend("/sub/chat/waitList/" + message.getPkRoomSeq(), userList);
-		template.convertAndSend("/sub/chat/team1List/" + message.getPkRoomSeq(), team1List);
-		template.convertAndSend("/sub/chat/team2List/" + message.getPkRoomSeq(), team2List);
-		template.convertAndSend("/sub/chat/team3List/" + message.getPkRoomSeq(), team3List);
-		template.convertAndSend("/sub/chat/team4List/" + message.getPkRoomSeq(), team4List);
+		template.convertAndSend("/sub/chat/userList/" + message.getPkRoomSeq(), userList);
 	}
 	
 	@MessageMapping(value="/chat/system")
@@ -85,137 +77,33 @@ public class StompChatController {
 		template.convertAndSend("/sub/chat/system/" + message.getPkRoomSeq(), message);
 	}
 	
-	@MessageMapping(value="/chat/Team1Change")
+	@MessageMapping(value="/chat/TeamChange")
 	public void changeTeam(@Payload ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
 		RoomDto room = shambles.roomDtoMap.get(message.getPkRoomSeq());
-		
+
 		String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+        String team = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
         
-        if(room.getUserList().get(userUUID) != null)
+        if(room.getUserList().get(message.getUserTeamNumber()) == null)
+		{
+			HashMap dump = new HashMap();
+			dump.put("dump", "dump");
+			room.getUserList().put(message.getUserTeamNumber(), dump);
+			room.getUserList().get(message.getUserTeamNumber()).put(userUUID, room.getUserList().get(team).get(userUUID));
+			room.getUserList().get(message.getUserTeamNumber()).remove("dump");
+		}
+        else
         {
-        	room.getTeam1().put(userUUID, room.getUserList().get(userUUID));
-        	room.getUserList().remove(userUUID);
+        	room.getUserList().get(message.getUserTeamNumber()).put(userUUID, room.getUserList().get(team).get(userUUID));
         }
-        else if(room.getTeam2().get(userUUID) != null){
-        	room.getTeam1().put(userUUID, room.getTeam2().get(userUUID));
-        	room.getTeam2().remove(userUUID);
-        }
-        if(room.getTeam3().get(userUUID) != null)
-        {
-        	room.getTeam1().put(userUUID, room.getTeam3().get(userUUID));
-        	room.getTeam3().remove(userUUID);
-        }
-        else if(room.getTeam4().get(userUUID) != null)
-        {
-        	room.getTeam1().put(userUUID, room.getTeam4().get(userUUID));
-        	room.getTeam4().remove(userUUID);
-        }
+        room.getUserList().get(team).remove(userUUID);
         
-        HashMap<String, String> userList = room.getTeam1();
-        headerAccessor.getSessionAttributes().put("userTeamNumber", "team1");
-        
-		template.convertAndSend("/sub/chat/team1List/" + message.getPkRoomSeq(), userList);
+        HashMap<String, HashMap> userList = room.getUserList();
+        headerAccessor.getSessionAttributes().put("userTeamNumber", message.getUserTeamNumber());
+		template.convertAndSend("/sub/chat/userList/" + message.getPkRoomSeq(), userList);
 	}
 	
-	@MessageMapping(value="/chat/Team2Change")
-	public void change1Team(@Payload ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
-		RoomDto room = shambles.roomDtoMap.get(message.getPkRoomSeq());
-		
-		String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
-        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-        
-        if(room.getUserList().get(userUUID) != null)
-        {
-        	room.getTeam2().put(userUUID, room.getUserList().get(userUUID));
-        	room.getUserList().remove(userUUID);
-        }
-        else if(room.getTeam1().get(userUUID) != null){
-        	room.getTeam2().put(userUUID, room.getTeam1().get(userUUID));
-        	room.getTeam1().remove(userUUID);
-        }
-        if(room.getTeam3().get(userUUID) != null)
-        {
-        	room.getTeam2().put(userUUID, room.getTeam3().get(userUUID));
-        	room.getTeam3().remove(userUUID);
-        }
-        else if(room.getTeam4().get(userUUID) != null)
-        {
-        	room.getTeam2().put(userUUID, room.getTeam4().get(userUUID));
-        	room.getTeam4().remove(userUUID);
-        }
-        
-        HashMap<String, String> userList = room.getTeam2();
-        headerAccessor.getSessionAttributes().put("userTeamNumber", "team2");
-                
-		template.convertAndSend("/sub/chat/team2List/" + message.getPkRoomSeq(), userList);
-	}
-	
-	@MessageMapping(value="/chat/Team3Change")
-	public void change2Team(@Payload ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
-		RoomDto room = shambles.roomDtoMap.get(message.getPkRoomSeq());
-		
-		String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
-        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-        
-        if(room.getUserList().get(userUUID) != null)
-        {
-        	room.getTeam3().put(userUUID, room.getUserList().get(userUUID));
-        	room.getUserList().remove(userUUID);
-        }
-        else if(room.getTeam2().get(userUUID) != null){
-        	room.getTeam3().put(userUUID, room.getTeam2().get(userUUID));
-        	room.getTeam2().remove(userUUID);
-        }
-        if(room.getTeam1().get(userUUID) != null)
-        {
-        	room.getTeam3().put(userUUID, room.getTeam1().get(userUUID));
-        	room.getTeam1().remove(userUUID);
-        }
-        else if(room.getTeam4().get(userUUID) != null)
-        {
-        	room.getTeam3().put(userUUID, room.getTeam4().get(userUUID));
-        	room.getTeam4().remove(userUUID);
-        }
-        
-        HashMap<String, String> userList = room.getTeam3();
-        headerAccessor.getSessionAttributes().put("userTeamNumber", "team3");
-        
-		template.convertAndSend("/sub/chat/team3List/" + message.getPkRoomSeq(), userList);
-	}
-	
-	@MessageMapping(value="/chat/Team4Change")
-	public void change3Team(@Payload ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
-		RoomDto room = shambles.roomDtoMap.get(message.getPkRoomSeq());
-		
-		String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
-        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-        
-        if(room.getUserList().get(userUUID) != null)
-        {
-        	room.getTeam4().put(userUUID, room.getUserList().get(userUUID));
-        	room.getUserList().remove(userUUID);
-        }
-        else if(room.getTeam2().get(userUUID) != null){
-        	room.getTeam4().put(userUUID, room.getTeam2().get(userUUID));
-        	room.getTeam2().remove(userUUID);
-        }
-        if(room.getTeam3().get(userUUID) != null)
-        {
-        	room.getTeam4().put(userUUID, room.getTeam3().get(userUUID));
-        	room.getTeam3().remove(userUUID);
-        }
-        else if(room.getTeam1().get(userUUID) != null)
-        {
-        	room.getTeam4().put(userUUID, room.getTeam1().get(userUUID));
-        	room.getTeam1().remove(userUUID);
-        }
-        
-        HashMap<String, String> userList = room.getTeam4();
-        headerAccessor.getSessionAttributes().put("userTeamNumber", "team4");
-        
-		template.convertAndSend("/sub/chat/team4List/" + message.getPkRoomSeq(), userList);
-	}
 	
 	@MessageMapping(value= "/chat/message")
 	public void message(ChatDto message) {
@@ -232,12 +120,13 @@ public class StompChatController {
         // stomp 세션에 있던 uuid 와 roomId 를 확인하여 채팅방 유저 리스트와 room에서 해당 유저를 삭제
         String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+        String team = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
         
         // 채팅방 유저 -1
 //        shambles.decreaseUser(roomId);
 
         //채팅방 유저 리스트에서 UUID 유저 닉네임 조회 및 리스트에서 유저 삭제
-        String userName = shambles.getUserName(roomId, userUUID);
+        String userName = shambles.getUserName(roomId, userUUID, team);
 
         if(userName != null){
         	ChatDto test = new ChatDto();
@@ -246,11 +135,14 @@ public class StompChatController {
             template.convertAndSend("/sub/chat/rm/" + roomId, userUUID);
         }
         
-        shambles.delUser(roomId,userUUID);
+        shambles.delUser(roomId,userUUID, team);
         
         RoomDto room = shambles.roomDtoMap.get(roomId);
-        if(room.getUserList().isEmpty() && room.getTeam1().isEmpty() && room.getTeam2().isEmpty() 
-        		&& room.getTeam3().isEmpty() && room.getTeam4().isEmpty()) 
+        if((room.getUserList().get("waitList") == null || room.getUserList().get("waitList").isEmpty()) 
+        		&& (room.getUserList().get("team1") == null || room.getUserList().get("team1").isEmpty()) 
+        		&& (room.getUserList().get("team2") == null || room.getUserList().get("team2").isEmpty())
+        		&& (room.getUserList().get("team3") == null || room.getUserList().get("team3").isEmpty()) 
+        		&& (room.getUserList().get("team4") == null || room.getUserList().get("team4").isEmpty()))
         {
         	shambles.roomDtoMap.remove(roomId);
         }
@@ -305,8 +197,6 @@ public class StompChatController {
 		String code = answerDto.getAnswerUser();
 		String name = answerDto.getAnswerOx();
 		int num = answerDto.getPkQuestionSeq();
-		
-		System.out.println(" [+] " + code + " [+] " + name + " [+] " + num);
 		
 		List<TestcaseDto> testcaseDtos = testcaseService.selectTestcaseList(num);
 		
