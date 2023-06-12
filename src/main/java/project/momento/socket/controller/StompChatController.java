@@ -250,8 +250,13 @@ public class StompChatController {
     }
 	
     @MessageMapping(value= "/chat/gamestart")
-	public void gameStart(ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
-		template.convertAndSend("/sub/chat/gamestart/" + message.getPkRoomSeq(), message);
+	public void gameStart(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        String userTeamNumber = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
+    	message.setTeamNo(userTeamNumber.replace("team", ""));
+    	message.setUserNo(userUUID);
+		template.convertAndSend("/sub/chat/gamestart/" + roomId, message);
 	}
     
     @MessageMapping(value= "/chat/correct")

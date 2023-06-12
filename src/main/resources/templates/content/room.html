@@ -260,13 +260,25 @@
 		<div class="text-center">
 		결과창
 			<div>
+				ID: 푼문제/총문제
+			</div>
+			<div id="t1result">
+				팀1 : <span id="t1total">0</span>/36
+			</div>
+			<div id="t2result">
+				팀2 : <span id="t2total">0</span>/36
+			</div>
+			<div id="t3result">
+				팀3 : <span id="t3total">0</span>/36
+			</div>
+			<div id="t4result">
+				팀4 : <span id="t4total">0</span>/36
+			</div>
+			<div>
 				총 문제 :<span id="total_count">36</span>
 			</div>
 			<div>
 				푼 문제 :<span id="solve_count">30</span>
-			</div>
-			<div>
-				포기 :<span id="giveup_count">6</span>
 			</div>
 			<div id="type_result_area">
 	
@@ -284,8 +296,10 @@
 		var shuffleNo =  /*[[${room.shuffleNo}]]*/0;
 		var roomName = /*[[${room.roomName}]]*/0;
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
+		var roomNumber = /*[[${room.roomNumber}]]*/"0";
 		var stomp;
 		var username = "0";
+		var userTeamNo = "0";
 
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -299,10 +313,8 @@
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
 				stomp.subscribe("/sub/chat/gamestart/" + roomId, function(chat) {
-					content = chat.body;
-					$("#test").on("click", function() {
-						console.log(content.userTeamNumber);
-					});
+					var content = JSON.parse(chat.body);
+					userTeamNo = content.teamNo;
 					$('#gameRoom').css('display', 'block'); 
 					$('#waitRoom').css('display', 'none');
 					// 주사위결과를 보여주는 함수 실행
@@ -580,25 +592,6 @@
 			});
 		})
 	</script>
-	<script th:inline="javascript">
-		//보드 판 테스트
-		var temp_elem;
-		/*<![CDATA[*/
-		function loadQuestion(elem, question) {
-			title = question.pkQuestionSeq + "번째 문제";
-			name = question.questionName;
-			contents = question.contents;
-			codeFormat = question.codeFormat;
-			$('.modal-title').text(title);
-			$('#questionNo').val(question.pkQuestionSeq);
-			$('#questionName').text(name);
-			$('#nameQuestion').val(question.className);
-			$('#questionContents').text(contents);
-			$('#Demo').html(codeFormat);
-			temp_elem = elem;
-		}
-    /*]]>*/
-	</script>
 	<!-- 진상 script -->
 	<script>
 		$(function () {
@@ -661,10 +654,23 @@
 				total += value[1];
 				solve += value[0];
 			}
+			for (var i = 1; i <= 4; ++i)
+			{
+				if (roomNumber >= i)
+				{
+					var scoreTagId = "#score"+i;
+					var totalTagId = "#t"+i+"total";
+					$(totalTagId).text($(scoreTagId).text()); 
+				}
+				else
+				{
+					var resultTagId = "#t"+i+"result";
+					$(resultTagId).remove();
+				}
+			}
 	
 			$("#total_count").text(total);
 			$("#solve_count").text(solve);
-			$("#giveup_count").text(total-solve);
 		}
 		var nowNo = 0;
 		var dice1 = 0;
@@ -746,7 +752,7 @@
 			$('#nameQuestion').val(question.className);
 			$('#questionType').val(type);
 			$('#questionContents').text(contents);
-			$('#Demo').html(codeFormat);
+			$('#Demo').val(codeFormat);
 		}
 		
 		// 정답 등록시 수행되는 함수
