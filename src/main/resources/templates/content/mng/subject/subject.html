@@ -69,62 +69,49 @@
 				<thead>
 					<tr>
 						<th style="width: 5%;">No.</th>
-						<th style="width: 50%;">강의명</th>
+						<th style="width: 45%;">강의명</th>
 						<th style="width: 20%;">과목명</th>
 						<th style="width: 10%;">날짜</th>
 						<th style="width: 7.5%;">강의자료</th>
 						<th style="width: 7.5%;">과제답안</th>
+						<th style="width: 5%;"></th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>1</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>2</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>3</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">4</th>
-						<td><button type="button" class="btn btn-link">날짜 링크연결</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>4</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
+				<tbody class="tbody-class-info">
+					<th:block th:if="${classList != null}">
+						<tr th:each="class, classStat : ${classList}">
+							<th th:text="${classStat.count}">no</th>
+							<td>
+								<button type="button" class="btn btn-link" th:text="${class.className}">강의명</button>
+							</td>
+							<td>
+								<span th:text="${session.subjectDto.subjectName}">과목명</span>
+							</td>
+							<td>
+								<span th:text="${#strings.substring(class.classDt, 0, 10)}">날짜</span>
+							</td>
+							<td class="align-items-center">
+								<a th:if="${class.pkFileClassSeq == 0}"><i class="fas fa-download"></i></a>
+								<a th:unless="${class.pkFileClassSeq == 0}" th:href="@{/mng/download/{pkFileSeq}/file(pkFileSeq = ${class.pkFileClassSeq})}" download><i class="fas fa-download"></i></a>
+							</td>
+							<td>
+								<a th:if="${class.pkFileHomeworkSeq == 0}"><i class="fas fa-download"></i></a>
+								<a th:unless="${class.pkFileHomeworkSeq == 0}" th:href="@{/mng/download/{pkFileSeq}/file(pkFileSeq = ${class.pkFileHomeworkSeq})}" download><i class="fas fa-download"></i></a>
+							</td>
+							<td class="align-items-center">
+								<button data-toggle="modal" data-target="#modal-create-class" type="button"
+									th:value="${class.pkClassSeq}"
+									th:onclick="openUpdateClassModal([[${class.classDt}]], [[${class.classDt}]], [[${class.className}]])"
+									class="btn btn-success btn-sm">
+									<span>열기</span>
+								</button>
+							</td>
+						</tr>
+					</th:block>
 				</tbody>
 			</table>
 			<!-- /.card-body -->
-			<div class="card-footer">
+			<div th:unless="${classList != null}" class="card-footer">
 			</div>
 		</div>
 	</div>
@@ -220,68 +207,21 @@
 	<!-- Modal-create-class -->
 	<div class="modal fade" id="modal-create-class" style="display: none;" aria-hidden="true">
 		<form action="/mng/classes/create" method="POST" enctype="multipart/form-data">
-			<div class="modal-dialog modal-dialog-cented modal-xl">
+			<div class="modal-dialog modal-dialog-cented modal-lg">
 				<div class="modal-content">
 					<div class="col-12 modal-header">
 						<div class="col-6">
-							<h4 class="col-12 modal-title">시험 등록</h4>
+							<h3 class="col-12 modal-title">&LT;시험 등록&GT;</h3>
 						</div>
 						<div class="card-tools col-6 text-right">
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 					<div class="modal-body">
 						<div class="container-fluid">
 
 							<div id="classDiv" class="row">
-								<!-- 강의정보 등록 모달창에 each문으로 뿌릴 HTML 형식!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-								<!--<div class="col-12">
-									<div class="row">
-										<div class="col-12">
-											<div class="row align-items-center">
-												<div class="col-3">
-													<h4 class="p-3 text-center">2023년 6월 1일</h4>
-												</div>
-												<div class="col-9">
-													<input value="" name="className" type="text" key="className" index="0" class="form-control questionTitle validate" placeholder="강의명">
-												</div>
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="row">
-												<div class="col-6">	
-													<div class="row align-items-center">
-														<div class="col-3">
-															<h4 class="p-3 text-center">강의자료</h4>
-														</div>
-														<div class="col-9">
-															<div class="custom-file mt-3 mb-3">
-																<input style="display:none;" th:value="${item.classFile === undefined ? '' : item.classFile}" name="classFilePath" key="classFilePath" type="file" index="0" class="custom-file-input classFile" id="customFile0">
-																<input th:value="${item.classFilePath === undefined ? '' : item.classFilePath}" name="classFileName" key="classFileName" type="hidden" index="0" class="imgName selected" id="imgName0">
-																<label class="custom-file-label" for="customFile0"></label>
-															</div>
-														</div>
-													</div>
-													<div class="col-6">
-														<div class="row align-items-center">
-															<div class="col-3">
-																<h4 class="p-3 text-center">과제답안</h4>
-															</div>
-															<div class="col-9">
-																<div class="custom-file mt-3 mb-3">
-																	<input style="display:none;" value="${item.file === undefined ? '' : item.file}" name="imgPath" key="imgPath" type="file" index="0" class="custom-file-input imgFile" id="customFile0">
-																	<input value="${item.imgPath === undefined ? '' : item.imgPath}" name="imgName" key="imgName" type="hidden" index="0" class="imgName selected" id="imgName0">
-																	<label class="custom-file-label" for="customFile0"></label>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-12"></div>
-									</div>
-								</div>-->
-								<!-- 강의정보 등록 모달창에 each문으로 뿌릴 HTML 형식!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+								
 							</div>
 
 						</div>
@@ -291,9 +231,11 @@
 						<button type="submit" divn="create" class="btn btn-primary modelBtn">
 							<span>등록</span>
 						</button>
-						<button type="button" divn="delete" class="btn btn-danger modelBtn">
-							<span>삭제</span>
-						</button>
+						
+						<div id="create-delete-button">
+							
+						</div>
+					
 					</div>
 				</div>
 			</div>
@@ -323,6 +265,45 @@
 					CLASS_ARRAY.push({});
 				}
 				arrayInit(startDate);
+				$("#create-delete-button").empty();
+				if (btDay == 1) {
+					$("#create-delete-button").append(
+						'<button type="button" divn="delete" class="btn btn-danger modelBtn" onclick="location.href=\'/mng/classes/' + dateFormat(startDate, true) + '/delete\'">' +
+							'<span>삭제</span>' +
+						'</button>'
+					);
+				}
+				$('.modal').on('hidden.bs.modal', function (e) {
+					// 모달이 닫힐 때 실행되는 코드
+					$(this).find('form')[0].reset(); // 입력 필드 초기화
+					$('.summernote-in-subject').summernote('code', ''); // 에디터 초기화
+				});
+			} else {
+				alert("강의 시작일보다 강의 종료일이 더 빠릅니다.");
+			}
+		}
+		
+		// 강의정보 수정 버튼이 눌릴때 실행되는 코드
+		function openUpdateClassModal(start, end, className) {
+			var startDate = new Date(start.substring(0,11));
+			var endDate = new Date(end.substring(0,11));
+			
+			var btDay = ((endDate.getTime()-startDate.getTime()) / (1000*60*60*24)) + 1;
+			
+			if (btDay > 0) {
+				CLASS_ARRAY = [];
+				for (var i=0; i<btDay; i++) {
+					CLASS_ARRAY.push({});
+				}
+				arrayInit(startDate, className);
+				$("#create-delete-button").empty();
+				if (btDay == 1) {
+					$("#create-delete-button").append(
+						'<button type="button" divn="delete" class="btn btn-danger modelBtn" onclick="location.href=\'/mng/classes/' + dateFormat(startDate, true) + '/delete\'">' +
+							'<span>삭제</span>' +
+						'</button>'
+					);
+				}
 				$('.modal').on('hidden.bs.modal', function (e) {
 					// 모달이 닫힐 때 실행되는 코드
 					$(this).find('form')[0].reset(); // 입력 필드 초기화
@@ -448,61 +429,16 @@
 				}
 			}
 		}
-
-//			function arrayInit() {
-//			$("#classDiv").empty();
-//			$.each(CLASS_ARRAY, function (index, item) {
-//				$("#classDiv").append(
-//					"<div class=\"col-12\">" +
-//					"<div class=\"row\">" +
-//					"<div class=\"col-12 hr\">" +
-//					"<div class=\"row align-items-center\">" +
-//					"<div class=\"col-2\">" +
-//					"<h3 class=\"p-3 num text-center\">" + (index + 1) + "</h3>" +
-//					"</div>" +
-//					"<div class=\"col-10\">" +
-//					"<div class=\"input-group\">" +
-//					'<input value="' + (item.title === undefined ? '' : item.title) + '" name="title" type=\"text\" key=\"title\" index=\"' + index + '\" class=\"form-control questionTitle validate\" placeholder=\"제목\">' +
-//					"</div>" +
-//					"</div>" +
-//					"</div>" +
-//					"</div>" +
-//					"<div class=\"col-12\">" +
-//					"<div class=\"row\">" +
-//					"<div class=\"col-2\">" +
-//					"<div class=\"col-sm-12\">" +
-//					"<img id=\"preview" + index + "\" key=\"src\" index=\"" + index + "\" class=\"card-img-top imgSrc\" data-src=\"holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail\" " +
-//					"alt=\"Thumbnail [100%x225]\" src=\"" + (item.src === undefined ? "/img/thumbnail.svg" : item.src) + "\" " +
-//					"data-holder-rendered=\"true\" style=\"height: 10rem; width: 100%; display: block;\">" +
-//					"</div>" +
-//					"<div class=\"col-sm-12\">" +
-//					"<div class=\"custom-file mt-3 mb-3\">" +
-//					'<input style="display:none;" value="' + (item.file === undefined ? '' : item.file) + '" name=\"imgPath\" key=\"imgPath\" type=\"file\" index=\"' + index + '\" class=\"custom-file-input imgFile\" id=\"customFile' + index + '\">' +
-//					"<input value=\"" + (item.imgPath === undefined ? '' : item.imgPath) + "\" name=\"imgName\" key=\"imgName\" type=\"hidden\" index=\"" + index + "\" class=\"imgName selected\" id=\"imgName" + index + "\">" +
-//					"<label class=\"custom-file-label\" for=\"customFile" + index + "\">" +
-//					'' + (item.imgName === undefined ? '' : item.imgName) + '' +
-//					"</label>" +
-//					"</div>" +
-//					"</div>" +
-//					"</div>" +
-//					"<div class=\"col-10\">" +
-//					"<textarea name=\"contents\"  value=\"" + (item.contents === undefined ? '' : item.contents) + "\" index=\"" + index + "\" key=\"contents\" class=\"form-control form-control-lg questionTestArea validate\" style=\"height: 100%;\" row=\"4\" id=\"validationTextarea\" placeholder=\"문제\">" +
-//					"" + (item.contents === undefined ? '' : item.contents) + "" +
-//					"</textarea>" +
-//					"</div>" +
-//					"</div>" +
-//					"</div>" +
-//					"</div>" +
-//					"</div>"
-//				);
-//			});
-
-		function dateFormat(date) {
+		
+		// Date 형식 변경
+		function dateFormat(date, postController) {
 			let month = date.getMonth() + 1;
 			let day = date.getDate();
 			let hour = date.getHours();
 			let minute = date.getMinutes();
 			let second = date.getSeconds();
+			const weekDay = ['일', '월', '화', '수', '목', '금', '토'];
+			let dotw = weekDay[date.getDay()];
 			
 			month = month >= 10 ? month : '0' + month;
 			day = day >= 10 ? day : '0' + day;
@@ -510,25 +446,34 @@
 			minute = minute >= 10 ? minute : '0' + minute;
 			second = second >= 10 ? second : '0' + second;
 			
-			return date.getFullYear() + '년' + month + '월' + day + '일';
+			if (postController) {
+				return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+			} else {
+				return date.getFullYear() + '-' + month + '-' + day + ' (' + dotw + ')';
+			}
 		}
-			
-		function arrayInit(startDate) {
+		
+		// 강의 정보 등록 버튼 클릭시 틀 만들어 주는 function
+		function arrayInit(startDate, className="") {
 			var Date = startDate;
 			Date.setDate(startDate.getDate()-1);
 			$("#classDiv").empty();
 			$.each(CLASS_ARRAY, function (index, item) {
 				Date.setDate(startDate.getDate()+1);
+				if (index != 0) {
+					$("#classDiv").append('<div class="col-12 pt-2"><hr></div>');
+				}
 				$("#classDiv").append(
-					'<div class="col-12 mb-5">' +
+					'<div class="col-12">' +
 						'<div class="row">' +
 							'<div class="col-12">' +
 								'<div class="row align-items-center">' +
-									'<div class="col-3">' +
-										'<h4 class="p-3 text-center">' + dateFormat(Date) + '</h4>' +
+									'<div class="col-4">' +
+										'<h4 class="p-4">' + dateFormat(Date, false) + '</h4>' +
+										'<input value="' + dateFormat(Date, true) + '" name="classDate" index="' + index + '" style="display:none;">' +
 									'</div>' +
-									'<div class="col-9">' +
-										'<input value="" name="className" type="text" key="className" index="' + index + '" class="form-control questionTitle validate" placeholder="강의명">' +
+									'<div class="col-8">' +
+										'<input value="' + className + '" name="className" type="text" key="className" index="' + index + '" class="form-control className className' + index + ' validate" placeholder="강의명을 입력해야 저장이 가능합니다.">' +
 									'</div>' +
 								'</div>' +
 							'</div>' +
@@ -536,28 +481,26 @@
 								'<div class="row">' +
 									'<div class="col-6">' +
 										'<div class="row align-items-center">' +
-											'<div class="col-3">' +
-												'<h5 class="p-3 text-center">강의자료</h5>' +
+											'<div class="col-4">' +
+												'<h5 class="text-center">강의자료</h5>' +
 											'</div>' +
-											'<div class="col-9">' +
-												'<div class="custom-file mt-3 mb-3">' +
-													'<input style="display:none;" value="' + (item.classFile === undefined ? '' : item.classFile) + '" name="classFilePath" key="classFilePath" type="file" index="' + index + '" class="custom-file-input classFile" id="customFile' + index + '">' +
-													'<input value="' + (item.classFilePath === undefined ? '' : item.classFilePath) + ' name="classFileName" key="classFileName" type="hidden" index="' + index + '" class="imgName selected" id="imgName' + index + '">' +
-													'<label class="custom-file-label" for="customFile' + index + '"></label>' +
+											'<div class="col-8">' +
+												'<div class="mb-3">' +
+													'<label style="display:none;" class="form-label" for="classFile' + index + '"></label>' +
+													'<input value="' + (item.classFile === undefined ? '' : item.classFile) + '" name="classFilePath" key="classFilePath" type="file" index="' + index + '" class="class-file-input classFile pt-2" id="classFile' + index + '">' +
 												'</div>' +
 											'</div>' +
 										'</div>' +
 									'</div>' +
 									'<div class="col-6">' +
 										'<div class="row align-items-center">' +
-											'<div class="col-3">' +
-												'<h5 class="p-3 text-center">과제답안</h5>' +
+											'<div class="col-4">' +
+												'<h5 class="text-center">과제답안</h5>' +
 											'</div>' +
-											'<div class="col-9">' +
-												'<div class="custom-file mt-3 mb-3">' +
-													'<input style="display:none;" value="' + (item.file === undefined ? '' : item.file) + '" name="imgPath" key="imgPath" type="file" index="' + index + '" class="custom-file-input imgFile" id="customFile' + index + '">' +
-													'<input value="' + (item.imgPath === undefined ? '' : item.imgPath) + '" name="imgName" key="imgName" type="hidden" index="' + index + '" class="imgName selected" id="imgName' + index + '">' +
-													'<label class="custom-file-label" for="customFile' + index + '"></label>' +
+											'<div class="col-8">' +
+												'<div class="mb-3">' +
+													'<label style="display:none;" class="form-label" for="homeworkFile' + index + '"></label>' +
+													'<input value="' + (item.file === undefined ? '' : item.file) + '" name="homeworkFilePath" key="homeworkFilePath" type="file" index="' + index + '" class="homework-file-input homeworkFile pt-2" id="homeworkFile' + index + '">' +
 												'</div>' +
 											'</div>' +
 										'</div>' +
@@ -569,14 +512,14 @@
 				);
 			});
 			
-			$(".questionTestArea, .questionTitle").change(function () {
+			$(".className").change(function () {
 				var index = $(this).attr('index');
 				var value = $(this).val();
 				var key = $(this).attr('key');
 				CLASS_ARRAY[index][key] = value;
 			});
 
-			$(".custom-file-input").on("change", function (e) {
+			$(".class-file-input").on("change", function (e) {
 				var fileName = $(this).val().split("\\").pop();
 				var filePath = $(this).val();
 				var index = $(this).attr('index');
@@ -590,8 +533,31 @@
 					reader.onload = function (event) {
 						$('#preview' + index).attr('src', event.target.result);
 						CLASS_ARRAY[index]['src'] = event.target.result;
-						CLASS_ARRAY[index]['imgPath'] = filePath;
-						CLASS_ARRAY[index]['imgName'] = fileName;
+						CLASS_ARRAY[index]['classFilePath'] = filePath;
+						CLASS_ARRAY[index]['classFileName'] = fileName;
+						CLASS_ARRAY[index]['file'] = file;
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+
+			$(".homework-file-input").on("change", function (e) {
+				var fileName = $(this).val().split("\\").pop();
+				var filePath = $(this).val();
+				var index = $(this).attr('index');
+				var file = $(this)[0].files[0];
+				console.log('파일 : ' + file);
+				console.log('파일 경로 : ' + filePath);
+				console.log('파일명 : ' + fileName);
+				$(this).siblings(this).addClass("selected").html(fileName);
+				$("#homeworkFileName" + index).val(filePath);
+				if (fileName != '') {
+					var reader = new FileReader();
+					reader.onload = function (event) {
+						$('#preview' + index).attr('src', event.target.result);
+						CLASS_ARRAY[index]['src'] = event.target.result;
+						CLASS_ARRAY[index]['homeworkFilePath'] = filePath;
+						CLASS_ARRAY[index]['homeworkFileName'] = fileName;
 						CLASS_ARRAY[index]['file'] = file;
 					};
 					reader.readAsDataURL(file);
@@ -617,44 +583,6 @@
 				}
 			});
 		}
-//												</div>
-//												<div class="col-9">
-//													<input value="" name="className" type="text" key="className" index="0" class="form-control questionTitle validate" placeholder="강의명">
-//												</div>
-//											</div>
-//										</div>
-//										<div class="col-12">
-//											<div class="row align-items-center">
-//												<div class="col-3">
-//													<h4 class="p-3 text-center">강의자료</h4>
-//												</div>
-//												<div class="col-9">
-//													<div class="custom-file mt-3 mb-3">
-//														<input style="display:none;" th:value="${item.classFile === undefined ? '' : item.classFile}" name="classFilePath" key="classFilePath" type="file" index="0" class="custom-file-input classFile" id="customFile0">
-//														<input th:value="${item.classFilePath === undefined ? '' : item.classFilePath}" name="classFileName" key="classFileName" type="hidden" index="0" class="imgName selected" id="imgName0">
-//														<label class="custom-file-label" for="customFile0"></label>
-//													</div>
-//												</div>
-//											</div>
-//										</div>
-//										<div class="col-12">
-//											<div class="row align-items-center">
-//												<div class="col-3">
-//													<h4 class="p-3 text-center">과제답안</h4>
-//												</div>
-//												<div class="col-9">
-//													<div class="custom-file mt-3 mb-3">
-//														<input style="display:none;" value="${item.file === undefined ? '' : item.file}" name="imgPath" key="imgPath" type="file" index="0" class="custom-file-input imgFile" id="customFile0">
-//														<input value="${item.imgPath === undefined ? '' : item.imgPath}" name="imgName" key="imgName" type="hidden" index="0" class="imgName selected" id="imgName0">
-//														<label class="custom-file-label" for="customFile0"></label>
-//													</div>
-//												</div>
-//											</div>
-//										</div>
-//										<div class="col-12"></div>
-//									</div>
-//								</div>
-//				);
 
 		$(document).ready(function () {
 
@@ -694,7 +622,8 @@
 					}
 				});
 			});
-
+			
+			// 강의 자료 미리보기 버튼
 			$('.updateBtn').click(function () {
 				// AJAX 호출
 				var pkExamSeq = $(this).attr('pkExamSeq');
@@ -744,85 +673,6 @@
 						});
 
 
-					},
-					error: function (xhr, status, error) {
-						console.log(error); // 에러 처리
-					}
-				});
-			});
-
-			$('.resultBtn').click(function () {
-				// AJAX 호출
-				var pkUserSeq = $(this).attr('pkUserSeq');
-				$.ajax({
-					url: '/getExamResultDetailList',
-					type: 'POST',
-					data: {
-						pkUserSeq: $(this).attr('pkUserSeq')
-					},
-					dataType: 'json',
-					success: function (data) {
-						var IMG_ARRAY = [];
-						IMG_ARRAY = data;
-						//$("#pkExamSeq").val(pkExamSeq);
-						$("#resultDiv").empty();
-						$.each(IMG_ARRAY, function (index, item) {
-							$("#resultDiv").append(
-								'<div class="col-12 hr">' +
-								'<div class="row align-items-center">' +
-								'<div class="col-2">' +
-								'<h3 class="p-3 num text-center">' + (index + 1) + '</h3>' +
-								'</div>' +
-								'<div class="col-5">' +
-								'<div class="input-group">' +
-								'<span>'
-								+ item.title +
-								'</span>' +
-								'</div>' +
-								'</div>' +
-								'<div class="col-5">' +
-								'<div class="row">' +
-								'<div class="6">' +
-								'<div class="form-group pr-1">' +
-								'<div class="custom-control custom-radio">' +
-								'<input class="custom-control-input checkAns" pkExamResultSeq="' + item.pkExamResultSeq + '" value="Y" type="checkbox" id="true' + index + '" name="ansResult" checked>' +
-								'<label for="true' + index + '" class="custom-control-label">정답</label>' +
-								'</div>' +
-								'</div>' +
-								'</div>' +
-								'</div>' +
-								'</div>' +
-								'</div>' +
-								'<div class="col-12">' +
-								'<div class="row">' +
-								'<div class="col-6">' +
-								imgInit(index, item) +
-								'</div>' +
-								'<div class="col-6">' +
-								'<textarea value="' + item.answer + '" name="answer" index="' + index + '" key="contents"' +
-								'class="form-control form-control-lg validate"' +
-								'style="height: 20rem;" row="6" id="answer" placeholder="정답">' +
-								'' + item.answer + '' +
-								'</textarea>' +
-								'<input type="hidden" name="pkUserSeq" value="' + item.pkUserSeq + '">' +
-								'</div>' +
-								'</div>' +
-								'</div>'
-							);
-						});
-						
-						$(".checkAns").click(function () {
-							// 클릭한 checkAns 클래스를 가진 요소의 라디오 버튼을 선택
-							var radio = $(this);
-							// 라디오 버튼이 체크되어 있는지 확인
-							if (radio.is(":checked")) {
-								// 체크되어 있다면 value 값을 "Y"로 설정
-								score(radio.attr('pkExamResultSeq'), "Y");
-							} else {
-								// 체크되어 있지 않다면 value 값을 "N"으로 설정
-								score(radio.attr('pkExamResultSeq'), "N");
-							}
-						});
 					},
 					error: function (xhr, status, error) {
 						console.log(error); // 에러 처리
