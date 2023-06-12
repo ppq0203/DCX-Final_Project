@@ -11,17 +11,17 @@
 				font-style: normal;
 			}
 
-			.gameing_container {
+			.container {
 				width: 976px;
 				height: 700px;
 				background-image : url('gameStart.png');
 				background-size : auto ;
 			}
-			.gameing_header {
+			.header {
         		padding: 10px;
 				height : 70px;
       		}
-	      	.gameing_content {
+	      	.content {
 	        	width: 665px;
 				height: 560px;
 	        	padding: 10px;
@@ -31,7 +31,7 @@
 				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
 				border-radius: 10px;
 	      	}
-	      	.gameing_sidebar {
+	      	.sidebar {
 	        	width: 250px;
 				height: 570px;
 	        	padding: 5px;
@@ -56,7 +56,7 @@
 			 }
 			 
 			/*content*/
-			 .gameing_user{
+			 .user{
 				border-radius: 5px; 				/*테두리 둥글게*/ 
 				width: 150px;
 				height : 540px;
@@ -66,7 +66,7 @@
 				margin : 2px;
 				font-family: 'DungGeunMo';
 			 }
-			.gameing_team1{
+			.team1{
 				background : #FFC04D;
 				border-radius: 10px; 
 				width: 130px;
@@ -99,7 +99,7 @@
 				font-family: 'DungGeunMo';
 			 }
 
-			.gameing_team2{
+			.team2{
 				background : #FF652A;
 				border-radius: 10px; 
 				width: 130px;
@@ -233,7 +233,7 @@
 				/* border-radius:6px; */
 				/* overflow:hidden; */
 				width:380px;
-				height : 380px;
+				height : 360px;
 				margin:3px auto;
 				text-align : center;
 				font-size : 12px;
@@ -247,7 +247,7 @@
 			thead tr th{
 				background: #0070c0;
 				font-size : 22px;
-				height : 54.28px;
+				height : 50px;
 				color : white;
 			   
 			}
