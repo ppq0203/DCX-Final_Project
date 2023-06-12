@@ -33,7 +33,7 @@
          $.each(data, function (i) {
             if (x == data[i].UPPER_MENU_NO) {
                str += '<li class="nav-item">'
-                  + '<a href="'+data[i].PATH+'" class="nav-link">'
+                  + '<a href="'+data[i].PATH+'" class="nav-link" target="'+data[i].TARGET+'">'
                   + '<i class="far ' + logo + ' nav-icon"></i>'
                   + '<p>' + data[i].MENU_NAME + '</p></a>'
                   + recursive(data, data[i].PK_MENU_SEQ, 'fa-dat-circle')

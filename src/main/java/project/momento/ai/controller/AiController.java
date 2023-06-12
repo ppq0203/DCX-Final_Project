@@ -51,6 +51,49 @@ public class AiController {
 		model.addAttribute("resultList",resultList);
 		return "content/" + userDivn + "/ai/main";
 	}
+	
+	
+	/*
+	 * AI Main 화면 이동
+	 */
+	@RequestMapping(value = "/{userDivn}/ai/article", produces = "application/text;charset=utf-8")
+	public String aiArticle(@PathVariable String userDivn, HttpServletRequest request, Criteria cri, Model model) {
+		int total = 0;
+		total = aiService.selectQuestionListCount();
+		// 페이징 객체
+		Paging paging = new Paging();
+		paging.setCri(cri);
+		paging.setTotalCount(total);
+		System.out.println(paging);
+		System.out.println(cri);
+		
+		List<QuestionDto> resultList = aiService.selectQuestionList(cri);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("resultList",resultList);
+		return "content/" + userDivn + "/ai/article";
+	}
+	
+	/*
+	 * AI Main 화면 이동
+	 */
+	@RequestMapping(value = "/{userDivn}/ai/keyword", produces = "application/text;charset=utf-8")
+	public String aiKeyword(@PathVariable String userDivn, HttpServletRequest request, Criteria cri, Model model) {
+		int total = 0;
+		total = aiService.selectQuestionListCount();
+		// 페이징 객체
+		Paging paging = new Paging();
+		paging.setCri(cri);
+		paging.setTotalCount(total);
+		System.out.println(paging);
+		System.out.println(cri);
+		
+		List<QuestionDto> resultList = aiService.selectQuestionList(cri);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("resultList",resultList);
+		return "content/" + userDivn + "/ai/keyword";
+	}
 	/*
 	 * AI Main 화면 이동
 	 */

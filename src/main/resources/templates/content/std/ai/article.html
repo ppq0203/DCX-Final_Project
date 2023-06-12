@@ -1,126 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{common/layout/std/stdAiLayout}">
+	layout:decorate="~{common/layout/std/stdAiEmptyLayout}">
 
-<div layout:fragment="content">
-	<body class="is-preload">
-		<!-- Wrapper -->
-		<div id="wrapper" class="fade-in">
-			<!-- Main -->
-			<div id="main">
+<th:block layout:fragment="content">
+	
+	<!-- Wrapper -->
+	<div id="wrapper" class="fade-in">
 
-				<!-- Featured Post -->
-				<article class="post featured">
-					<header class="major">
-						<h2>article</h2>
-						<p>기사를 읽고 퀴즈를 풀어보자 ~!</p>
+		<div id="main">
+
+			<!-- Featured Post -->
+			<article class="post featured">
+				<header class="major">
+					<h2>article</h2>
+					<p>기사를 읽고 퀴즈를 풀어보자 ~!</p>
+				</header>
+			</article>
+
+			<!-- Posts -->
+			<section class="posts">
+				<article th:each="question : ${resultList}">
+					<header>
+						<span class="sort" th:text="${question.type}"></span>
+						<span class="date" th:text="${question.registDt}"></span>
+						<h2 th:text="${question.title}"></h2>
 					</header>
+					<span class="blurEffect" style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" th:text="${question.passage}"></span>
+					</span>
+					<ul class="actions special">
+						<li><a href="quiz.html" class="button">Quiz</a></li>
+					</ul>
 				</article>
+			</section>
 
-				<!-- Posts -->
-				<section class="posts">
-					<article>
-						<header>
-							<span class="sort">IT</span>
-							<span class="date">June 06, 2023</span>
-							<h2><a href="#">소비자 선택 폭 넓혔다···삼성전자, 윈도 OS 탑재 키오스크</a></h2>
-						</header>
-						<span>
-							<p>삼성전자는 랜도 쉰(OS)을 탑재한 스마트 주문 솔루션 '삼성 키오스크'를 국내에 기한을 6일로 연장합니다.</p>
-						</span>
-						<span class="blurEffect">
-							<p>삼성전자는 2021년 타이젠 OS를 탑재한 제품을 내는데 이어 이번 윈도 OS를 탑재한 제품으로 소비자 선택의 폭을 넓혔습니다.</p>
-							<p>삼성 키오스크는 상품을 선택하고 주문과 결제까지 할 수 있는 올인원(All-in-one) 제품으로 식당·카페·편의점·마트 등에서 활용되고 있다.</p>
-						</span>
-						<ul class="actions special">
-							<li><a href="quiz.html" class="button">QUIZ</a></li>
-						</ul>
-					</article>
-					<article>
-						<header>
-							<span class="date">June 1, 2023</span>
-							<h2><a href="#">title
-									: 2</a></h2>
-						</header>
-						<div class="blurEffect">
-							<p>요약된 문장 <input placeholder="빈칸문제">' 이다.</p>
-						</div>
-						<ul class="actions special">
-							<li><a href="#" class="button">QUIZ</a></li>
-						</ul>
-					</article>
-					<article>
-						<header>
-							<span class="date">June 1, 2023</span>
-							<h2><a href="#">title
-									: 3</a></h2>
-						</header>
-						<div class="blurEffect">
-							<p>요약된 문장 <input placeholder="빈칸문제">' 이다.</p>
-						</div>
-						<ul class="actions special">
-							<li><a href="#" class="button">QUIZ</a></li>
-						</ul>
-					</article>
-					<article>
-						<header>
-							<span class="date">June 1, 2023</span>
-							<h2><a href="#">title
-									: 4</a></h2>
-						</header>
-						<div class="blurEffect">
-							<p>요약된 문장 <input placeholder="빈칸문제">' 이다.</p>
-						</div>
-						<ul class="actions special">
-							<li><a href="#" class="button">QUIZ</a></li>
-						</ul>
-					</article>
-					<article>
-						<header>
-							<span class="date">June 1, 2023</span>
-							<h2><a href="#">title
-									: 5</a></h2>
-						</header>
-						<div class="blurEffect">
-							<p>요약된 문장 <input placeholder="빈칸문제">' 이다.</p>
-						</div>
-						<ul class="actions special">
-							<li><a href="#" class="button">QUIZ</a></li>
-						</ul>
-					</article>
-					<article>
-						<header>
-							<span class="date">June 1, 2023</span>
-							<h2><a href="#">title
-									: 6</a></h2>
-						</header>
-						<div class="blurEffect">
-							<p>요약된 문장 <input placeholder="빈칸문제">' 이다.</p>
-						</div>
-						<ul class="actions special">
-							<li><a href="#" class="button">QUIZ</a></li>
-						</ul>
-					</article>
-				</section>
+			<!-- Footer -->
+			<footer>
 
-				<!-- Footer -->
-				<footer>
-					<div class="pagination">
-						<!--<a href="#" class="previous">Prev</a>-->
-						<a href="#" class="page active">1</a>
-						<a href="#" class="page">2</a>
-						<a href="#" class="page">3</a>
-						<span class="extra">&hellip;</span>
-						<a href="#" class="page">8</a>
-						<a href="#" class="page">9</a>
-						<a href="#" class="page">10</a>
-						<a href="#" class="next">Next</a>
-					</div>
-				</footer>
-			</div>
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item previous th-disabled"
+							th:classappend="${paging.prev == false} ? 'disabled'">
+							<a th:href="@{/std/ai/article(page=${paging.startPage - 1})}" tabindex="0"
+								class="page-link">Previous</a>
+						</li>
+						<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+							<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
+								<a th:href="@{/std/ai/article(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+									class="page-link" th:text="${pNo}"></a>
+							</li>
+						</div>
+						<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
+							<a th:href="@{/std/ai/article(page=${paging.endPage + 1})}" tabindex="0"
+								aria-controls="dataTable" class="page-link">Next</a>
+						</li>
+					</ul>
+				</nav>
+			</footer>
 		</div>
-	</body>
+	</div>
+	<!-- Main -->
+	</div>
 
-	</th:block>
+</th:block>
 
 </html>

@@ -10,6 +10,10 @@
 			, A.LEVEL						AS level
 			, A.QUESTION					AS questionName
 			, A.SOLUTION					AS solution
+			, A.SUMMARY						AS summary
+			, A.TITLE						AS title
+			, A.PASSAGE						AS passage
+			, A.URL							AS url
 			, A.REGIST_ID					AS registId
 			, A.UPDATE_ID					AS updateId
 			, A.UPDATE_DT					AS updateDt
@@ -32,6 +36,7 @@
 			, A.URL							AS url
 			, A.SOLUTION					AS solution
 			, A.REGIST_ID					AS registId
+			, DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d')					AS registDt
 			, A.UPDATE_ID					AS updateId
 			, A.UPDATE_DT					AS updateDt
 		FROM AI_QUESTION A
@@ -56,6 +61,7 @@
 			, A.URL							AS url
 			, A.SOLUTION					AS solution
 			, A.REGIST_ID					AS registId
+			, DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d')					AS registDt
 			, A.UPDATE_ID					AS updateId
 			, A.UPDATE_DT					AS updateDt
 		FROM AI_QUESTION A
