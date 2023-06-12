@@ -1,14 +1,30 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiEmptyLayout}">
 
-<head>
-	<title>keyword</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="css/main.css" />
-	<noscript>
-		<link rel="stylesheet" href="css/noscript.css" />
-	</noscript>
+<th:block layout:fragment="content">
+	<script>
+		function addList() {
+			const addValue
+				= document.getElementById('addValue1').value;
+			const dt = document.createElement("dt");
+			dt.setAttribute('id', addValue);
+			const textNode = document.createTextNode(addValue);
+			dt.appendChild(textNode);
+			document
+				.getElementById('list')
+				.appendChild(dt);
+		}
+
+		function removeItem() {
+			const dl = document
+				.getElementById('list');
+			const items = dl.getElementsByTagName('dt');
+			if (items.length > 0) {
+				items[0].remove();
+			}
+		}
+	</script>
 	<style>
 		div.left {
 			width: 50%;
@@ -36,11 +52,6 @@
 			background: #fff;
 		}
 	</style>
-
-</head>
-
-<body class="is-preload">
-
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -50,76 +61,52 @@
 			<article class="post featured">
 				<header class="major">
 					<h2>Keyword</h2>
-					<p><a href="vocabulary.html">vocabulary</a></p>
+					<p><a href="#">article</a></p>
 				</header>
 			</article>
 
 			<!-- Post -->
 			<div class="left">
 				<header class="major">
-					<h2>소비자 선택 폭 넓혔다···삼성전자, 윈도 OS 탑재 키오스크<br /></h2>
-					<span class="date">June 06, 2023</span>
+					<h2 th:text="${result.title}"></h2>
+					<span th:text="${result.registDt}" class="date"></span>
 				</header>
 				<section class="post">
-					<p>삼성전자는 윈도 운영체제(OS)를 탑재한 스마트 주문 솔루션 ‘삼성 키오스크’를 국내에 출시한다고 6일 밝혔다.
-						삼성 키오스크는 상품 선택에서부터 주문과 결제까지 할 수 있는 올인원(All-in-one) 제품으로 식당·카페·편의점·마트 등에서 활용되고 있다.
-						삼성전자는 2021년 타이젠 OS를 탑재한 제품을 내놓은 데 이어 이번 윈도 OS를 탑재한 제품으로 소비자 선택의 폭을 넓혔다.
-						‘윈도10 사물인터넷(IoT) 엔터프라이즈’ 기반의 신제품(KMC-W)은 ▲24인치 터치 디스플레이 ▲11세대 인텔 코어 프로세서 ▲256GB 용량의 SSD 저장장치와
-						8GB 메모리를 탑재했다.
-						별도 PC 없이 콘텐츠 관리와 결제에 필요한 키오스크의 필수 기능을 모두 제공한다. 카드 리더기와 영수증 프린터, QR·바코드 스캐너, 근거리 무선 통신(NFC), 와이파이
-						등을 지원한다.
-						또 테이블형·스탠드형·벽걸이형 등 3가지 형태로 출시돼 다양한 매장 환경에 맞춰 사용할 수 있다.
-						키오스크 신제품은 올해 1월 스페인 바르셀로나에서 열린 유럽 최대 디스플레이 전시회 ‘ISE 2023’에서 최고 제품으로 선정되기도 했다.
-						국내에서는 전 세계 호텔·레저·식음 공간을 겨냥해 글로벌 여행 솔루션 기술 혁신을 선도하는 야놀자클라우드에 삼성 키오스크 신제품 1000대를 공급한다.
-						야놀자클라우드는 오는 14~16일 서울 삼성동 코엑스에서 열리는 국내 최대 호텔산업 전시회 ‘2023 코리아 호텔쇼’에서도 삼성 키오스크 신제품을 소개할 계획이다.
-						정훈 삼성전자 영상디스플레이사업부 부사장은 “삼성 키오스크는 현재까지 전 세계 35개국 60여 개 파트너사에 공급되며 글로벌 시장에서의 입지를 지속해서 확대하고 있다”며
-						“앞으로도 누구나 쉽고 편리하게 다양한 사용 환경에서 사용할 수 있는 제품을 선보이겠다”고 전했다.
+					<p th:text="${result.passage}">
 					</p>
-					<p>이한수 기자</p>
-					<p>han85@thereport.co.kr</p>
-					<p>출처 : https://www.thereport.co.kr/news/articleView.html?idxno=35979</p>
+					<p>
+						<a th:href="${result.url}" th:text="'출처: '+${result.url}"></a>
+					</p>
 					<hr />
 				</section>
 			</div>
 			<div class="rightup">
 				<section class="post">
 					<h2>summary</h2>
-					<p>삼성전자는 랜도 쉰(OS)을 탑재한 스마트 주문 솔루션 '삼성 키오스크'를 국내에 기한을 6일로 연장합니다.</p>
-					<p>삼성전자는 2021년 타이젠 OS를 탑재한 제품을 내는데 이어 이번 윈도 OS를 탑재한 제품으로 소비자 선택의 폭을 넓혔습니다.</p>
-					<p>삼성 키오스크는 상품을 선택하고 주문과 결제까지 할 수 있는 올인원(All-in-one) 제품으로 식당·카페·편의점·마트 등에서 활용되고 있다.</p>
+					<p th:utext="${result.summary}">
+					</p>
 				</section>
 			</div>
 			<div class="rightdown">
 				<section class="post">
 					<!-- Lists -->
 					<h2>My List</h2>
-					<dl>
-						<dt>keyword 1</dt>
-						<dd>
-							<p><textarea cols="50" rows="2" placeholder="write..."></textarea></p>
-						</dd>
-						<dt>keyword 2</dt>
-						<dd>
-							<p><textarea cols="50" rows="2" placeholder="write..."></textarea></p>
-						</dd>
-					</dl>
-					<ul class="actions">
-						<li><a href="#" class="button primary">add</a></li>
-						<li><a href="keyword_edit" class="button">edit</a></li>
-					</ul>
-					<hr />
+					<span>
+						<dl id='list'></dl>
+						<input type='text' id='addValue1' placeholder="input keyword and add" />
+					</span>
 				</section>
+				<br>
+				<ul class="actions">
+					<li><input class="button primary" type='button' value='ADD' onclick='addList()' />
+					</li>
+					<li><input class="button" type='button' value='DELETE' onclick='removeItem()' /></li>
+					<li><input class="button primary" type='submit' value='SAVE' /></li>
+				</ul>
+				<hr />
 			</div>
 		</div>
 	</div>
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-</body>
+</th:block>
 
 </html>
