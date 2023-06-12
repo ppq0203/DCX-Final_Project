@@ -25,8 +25,8 @@ public class AnswerToDB {
 			answerOx = "X";
 		answerDto.setAnswerOx(answerOx);
 		answerDto.setType(type);
-		LocalDate date = LocalDate.of(2015, 03, 18);
-        LocalTime time = LocalTime.of(11, 30, 30);
+		LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
         LocalDateTime dateTime = LocalDateTime.of(date, time);
 		answerDto.setSolveTime(dateTime.toString());
 

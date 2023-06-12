@@ -440,7 +440,10 @@
 					{
 						resultSave(qtype, -1);
 					}
-					alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
+					if (content.teamNo == 0)
+						alert(content.teamNo + "전원 포기하셨습니다.");
+					else
+						alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
 					$('.modal').modal('hide');
 					nowNo += 1;
 					
@@ -619,11 +622,6 @@
 		$("#total_modal").click(function () {
 			$(".total_modal").text("점수표");
 		});
-		$('#giveup').click(function () {
-			temp_elem.disabled = true;
-			$(temp_elem).css("background-color", "gray");
-			$(temp_elem).css("color", "darkgray");
-		})
 	</script>
 	<script>
 		var resultMap = new Map();
@@ -760,6 +758,11 @@
 			// alert("click");
 			console.log(username);
 			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq : pkQuestionSeq, answerUser: code, answerOx:name}));
+		}
+		
+		function giveup()
+		{
+			stomp.send('/pub/chat/giveup', {}, JSON.stringify({}));
 		}
 	</script>
 </th:block>

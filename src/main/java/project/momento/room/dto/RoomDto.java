@@ -23,6 +23,7 @@ public class RoomDto {
 	private HashMap<String,String> team2 = new HashMap<>(); /*팀2에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
 	private HashMap<String,String> team3 = new HashMap<>(); /*팀3에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
 	private HashMap<String,String> team4 = new HashMap<>(); /*팀4에 참여중인 유저의 리스트를 뽑기 위한 리스트*/
+	private Set<String> giveupList = new HashSet<String>();
 
 	private List<QuestionDto> questionList;
 	private List<Integer> shuffleNo;
