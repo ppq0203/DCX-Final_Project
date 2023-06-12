@@ -263,6 +263,7 @@ public class StompChatController {
 	public void correctUser(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
         String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
         String userTeamNumber = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
     	message.setTeamNo(userTeamNumber.replace("team", ""));
     	message.setUserNo(userUUID);
     	String json = null;
@@ -274,6 +275,9 @@ public class StompChatController {
 		}
 		System.out.println(json);
 		template.convertAndSend("/sub/chat/correct/" + message.getRoomId(), json);
+        RoomDto roomDto = shambles.roomDtoMap.get(roomId);
+        Set<String> giveupList = roomDto.getGiveupList();
+		giveupList.clear();
 	}
     @MessageMapping(value= "/chat/giveup")
 	public void giveup(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
