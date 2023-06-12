@@ -59,19 +59,19 @@
 									<div class='roomleft2'>
 										<p class="left_p2">방 제목</p>
 									</div>
-									<input type="text" name="roomName" value=" 방 제목을 입력해주세요" class="roomright2" />
+									<input type="text" name="roomName" placeholder="방 제목을 입력해주세요." class="roomright2" />
 
-									<div class='roomleft2'>
+									<!-- <div class='roomleft2'>
 										<p class="left_p">개인/팀</p>
-									</div>
+									</div> -->
 
-									<div class='roomright2'>
+									<!-- <div class='roomright2'>
 										<p class="right_p">
 											<input type="radio" id="solo" name="roomType" value="single"
 												checked="checked"> vs개인
 											<input type="radio" id="team" name="roomType" value="multi"> vs팀
 										</p>
-									</div>
+									</div> -->
 									<div class="gamemode-team">
 										<div class='roomleft'>
 											<p class="left_p"> 팀 </p>
@@ -96,7 +96,7 @@
 											</p>
 										</div>
 									</div>
-									<div class="gamemode-solo">
+									<!--<div class="gamemode-solo">
 										<div class='roomleft2'>
 											<p class="left_p">인원</p>
 										</div>
@@ -107,7 +107,7 @@
 												<input type="radio" name="roomNumber" value="4"> 4명
 											</p>
 										</div>
-									</div>
+									</div> -->
 									<div class='roomleft2'>
 										<p class="left_p2">난이도</p>
 									</div>
@@ -175,7 +175,7 @@
 					<img th:src="@{/img/solo.png}" padding="10px;" alt="exit" width="55px"
 						height="55px">&nbsp;<span>혼자하기</span>
 				</button>
-				<button class="btnlogout" type="button">
+				<button onclick="location.href='/startgame.com'" class="btnlogout" type="button">
 					<img th:src="@{/img/out.png}" padding="5px;" alt="exit" width="55px" height="55px">&nbsp;<span>나 가
 						기</span>
 				</button>
@@ -185,15 +185,15 @@
 			<div id="content">
 				<div id="tabwrap">
 					<form th:action="@{/chat/rooms}" method="get">
-						<button class="menu1 on">전체 </button>
+						<button class="menu1">전체 </button>
 					</form>
 					<form th:action="@{/chat/rooms}" method="get">
 						<input type="hidden" name="roomType" value="multi" class="form-control" />
-						<button class="menu2">팀</button>
+						<button class="menu2">대기</button>
 					</form>
 					<form th:action="@{/chat/rooms}" method="get">
 						<input type="hidden" name="roomType" value="single" class="form-control" />
-						<button class="menu3">개인</button>
+						<button class="menu3">진행</button>
 					</form>
 					<!--  현재 css 가져오는 파일에 class all을 display: none 처리되어있어-->
 					<div class="all" style="display: block">
@@ -205,11 +205,13 @@
 						<div class="gameroom">
 							<div class="M_gameroom_left" th:each="room : ${list}">
 								<div class="left">
-				                    <form th:action="@{/chat/enterRoom}" method="post" id="enterRoom" th:onsubmit="return roomCheck([[${room}]])">
-					                    <!-- 방이름을 전송해주기위해 input hidden 사용 -->
-					                    <input type="hidden" id="pkRoomSeq" name="pkRoomSeq" th:value="${room.pkRoomSeq}"/>
-										<input class="startbtn" type="submit" value="START" >
-				                    </form>
+									<form th:action="@{/chat/enterRoom}" method="post" id="enterRoom"
+										th:onsubmit="return roomCheck([[${room}]])">
+										<!-- 방이름을 전송해주기위해 input hidden 사용 -->
+										<input type="hidden" id="pkRoomSeq" name="pkRoomSeq"
+											th:value="${room.pkRoomSeq}" />
+										<input class="startbtn" type="submit" value="START">
+									</form>
 									<br>
 									<span id="room_name">[[${room.roomName}]]</span>
 									<br>
@@ -232,36 +234,33 @@
 		</div>
 	</body>
 	<script th:inline="javascript">
-		function roomCheck(room)
-		{
+		function roomCheck(room) {
 			var flag = false;
 			$.ajax({
 				type: "POST",
 				url: "userCheck",
 				async: false,
 				data: {
-						roomSeq : room.pkRoomSeq,
-						participants : "",
-						total : ""
+					roomSeq: room.pkRoomSeq,
+					participants: "",
+					total: ""
 				}
-				}).done(function(data){
-					participants = parseInt(data.participants);
-					total = parseInt(data.total);
-					if(participants >= total)
-					{
-						alert("방이 가득찼습니다.");
-						flag = false;
-					}
-					else
-					{
-						flag = true;
-					}
-				})
+			}).done(function (data) {
+				participants = parseInt(data.participants);
+				total = parseInt(data.total);
+				if (participants >= total) {
+					alert("방이 가득찼습니다.");
+					flag = false;
+				}
+				else {
+					flag = true;
+				}
+			})
 			return flag;
 		}
-		
-		$(document).ready(function () {
-			/*	의미 없는 코드라 주석처리 BY 최승만.
+		/* 개인탭 없애기로 해서 주석처리 BY 유진상.
+		 $(document).ready(function () {
+				의미 없는 코드라 주석처리 BY 최승만.
 			var radio_check = $('input:radio[id="team"]').is(':checked');
 			if (radio_check == true) {
 				// gamemode-team 숨기기
@@ -270,7 +269,7 @@
 				$('.gamemode-solo').show();
 				$(".md_container2").css("height", "350px");
 				$(".md_content2").css("height", "210px");
-			}*/
+			}
 			
 			$('#solo').click(function () {
 				// gamemode-team 숨기기
@@ -290,7 +289,29 @@
 				$(".md_container2").css("height", "400px");
 				$(".md_content2").css("height", "262px");
 			});
-		});	
+		});	*/
+		$(document).ready(function () {
+			// 페이지가 로드될 때 기억한 메뉴가 있다면 해당 메뉴에 on 클래스를 추가
+			var selectedMenu = sessionStorage.getItem('selectedMenu');
+			if (selectedMenu) {
+				$('.' + selectedMenu).addClass('on');
+			}
+
+			// 메뉴 클릭 이벤트 처리
+			$('.menu1, .menu2, .menu3').click(function () {
+				// 선택한 메뉴에 on 클래스 추가
+				$(this).addClass('on');
+
+				// 선택한 메뉴의 클래스 이름을 sessionStorage에 저장
+				var menuClassName = $(this).attr('class').split(' ')[0];
+				sessionStorage.setItem('selectedMenu', menuClassName);
+
+				// menu2를 클릭한 경우 다른 메뉴의 on 클래스 제거
+				if (menuClassName === 'menu2') {
+					$('.menu1, .menu3').removeClass('on');
+				}
+			});
+		});
 	</script>
 </th:block>
 

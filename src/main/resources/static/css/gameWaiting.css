@@ -94,14 +94,14 @@
 
 			.menu2.on,
 			.menu2:hover {
-				background: #007351;
+				background: #00C484;
 				color: white;
 				border: 1px solid #007351
 			}
 
 			.menu3.on,
 			.menu3:hover {
-				background: #007351;
+				background: #00C484;
 				color: white;
 				border: 1px solid #007351
 			}
@@ -824,9 +824,9 @@
 				padding : 5px 0px 5px 0px;
 				font-size:25px;
 			}
-			.gamemode-team{
+			/* .gamemode-team{
 				display: none;
 			}
 			.gamemode-solo{
 				display: none;
-			}
+			} */
