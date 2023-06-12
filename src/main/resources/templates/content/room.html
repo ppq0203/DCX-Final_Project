@@ -756,6 +756,32 @@
 			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq: pkQuestionSeq, answerUser: code, answerOx: name}));
 		}
 	</script>
+
+	<!--       클릭하면 주사위 굴러가는 애니메이션         -->
+	<script>
+		LottieInteractivity.create({
+			player: '#fourteenthLottie',
+			mode: "cursor",
+			actions: [
+				{
+					type: "click",
+					forceFlag: false
+				}
+			]
+		});
+
+		LottieInteractivity.create({
+			player: '#seventhLottie',
+			mode: "cursor",
+			actions: [
+				{
+					type: "click",
+					forceFlag: false
+				}
+			]
+		});
+
+	</script>
 </th:block>
 
 </html>

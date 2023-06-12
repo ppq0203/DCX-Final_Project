@@ -17,6 +17,7 @@ import project.momento.socket.dto.MultigameResultDto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -249,14 +250,20 @@ public class StompChatController {
     }
 	
     @MessageMapping(value= "/chat/gamestart")
-	public void gameStart(ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
-		template.convertAndSend("/sub/chat/gamestart/" + message.getPkRoomSeq(), message);
+	public void gameStart(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        String userTeamNumber = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
+    	message.setTeamNo(userTeamNumber.replace("team", ""));
+    	message.setUserNo(userUUID);
+		template.convertAndSend("/sub/chat/gamestart/" + roomId, message);
 	}
     
     @MessageMapping(value= "/chat/correct")
 	public void correctUser(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
         String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
         String userTeamNumber = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
     	message.setTeamNo(userTeamNumber.replace("team", ""));
     	message.setUserNo(userUUID);
     	String json = null;
@@ -268,25 +275,28 @@ public class StompChatController {
 		}
 		System.out.println(json);
 		template.convertAndSend("/sub/chat/correct/" + message.getRoomId(), json);
+        RoomDto roomDto = shambles.roomDtoMap.get(roomId);
+        Set<String> giveupList = roomDto.getGiveupList();
+		giveupList.clear();
 	}
     @MessageMapping(value= "/chat/giveup")
 	public void giveup(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
+        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+        RoomDto roomDto = shambles.roomDtoMap.get(roomId);
         // 포기한사람을 저장
-    	
+        Set<String> giveupList = roomDto.getGiveupList();
+        giveupList.add(userUUID);
+        System.out.println(giveupList.size());
     	// 전부 포기 했을때
-    	if(false)
+    	if(giveupList.size() >= roomDto.getParticipants())
         {
     		message.setTeamNo("0");
         	message.setUserNo("0");
         	String json = null;
-    		try {
-    			json = new ObjectMapper().writeValueAsString(message);
-    		} catch (JsonProcessingException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-    		template.convertAndSend("/sub/chat/correct/" + message.getRoomId(), json);
-        }
+    		template.convertAndSend("/sub/chat/correct/" + roomId, message);
+    		giveupList.clear();
+    	}
 	}
     
     @MessageMapping(value="/chat/sendAnswer")

@@ -189,7 +189,7 @@
 			<div class="side_User">
 					<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px"height="150px">
 					<div class="" style="font-weight:bold;">
-						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+						<span th:utext="${session.loginDto.name}"></span><br><span th:utext="${session.loginDto.userId}"></span>
 					</div>
 			</div>
 			<div class="chat-veiw">

@@ -190,23 +190,11 @@
 		actions: [
 			{
 				type: "click",
-				callback: rollDice
+				forceFlag: false
 			}
 		]
 	});
 
-	function rollDice() {
-		var lottiePlayer = document.getElementById('fourteenthLottie');
-
-		// 주사위 눈금을 랜덤하게 생성
-		var randomNumber = Math.floor(Math.random() * 6);
-
-		// 주사위 눈금을 설정
-		lottiePlayer.setSubframe(randomNumber);
-
-		// 주사위 애니메이션 재생
-		lottiePlayer.play();
-	}
 	LottieInteractivity.create({
 		player: '#seventhLottie',
 		mode: "cursor",
