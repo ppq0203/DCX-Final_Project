@@ -7,7 +7,8 @@
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-	<link rel="stylesheet" href="./social-media-icons.css"> <!--글자 강조 홈페이지-->
+	<link rel="stylesheet" href="./social-media-icons.css">
+	<!--글자 강조 홈페이지-->
 	<script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
 
 
@@ -63,7 +64,7 @@
 					<div class="t1-user1"></div>
 					<div class="t1-nouser"></div>
 					<div class="score" style="background-color:rgb(128, 128, 255)" id="hover">
-						<span class = "scorenum">0</span>
+						<span class="scorenum">0</span>
 					</div>
 				</div>
 				<div class="team2">
@@ -72,7 +73,7 @@
 					<div class="t2-user1"></div>
 					<div class="t2-nouser"></div>
 					<div class="score" style="background-color:rgb(0, 255, 128)">
-						<span class = "scorenum">0</span>
+						<span class="scorenum">0</span>
 					</div>
 				</div>
 				<div class="team3">
@@ -81,31 +82,31 @@
 					<div class="t3-user1"></div>
 					<div class="t3-nouser"></div>
 					<div class="score" style="background-color:rgb(255, 128, 255)">
-						<span class = "scorenum">0</span>
+						<span class="scorenum">0</span>
 					</div>
 				</div>
 				<div class="team4">
-					
+
 					<div class="t4-user1"></div>
 					<div class="t4-user1"></div>
 					<div class="t4-user1"></div>
 					<div class="t4-nouser"></div>
 					<div class="score" style="background-color:gold">
-						<span class = "scorenum">0</span>
+						<span class="scorenum">0</span>
 					</div>
-					
+
 				</div>
 			</div>
 			<div class="dicearea">
 				<div class="lottie-container">
 					<div class="ricearea_col">
-						<lottie-player class="rice1" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
-							background="transparent" speed="1"></lottie-player>
+						<lottie-player class="rice1" id="seventhLottie" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
+							background="transparent"></lottie-player>
 						<!--loop autoplay-->
 					</div>
 					<div class="ricearea_row">
-						<lottie-player class="rice2" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
-							background="transparent" speed="1"></lottie-player>
+						<lottie-player class="rice2" id="seventhLottie" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
+							background="transparent"></lottie-player>
 					</div>
 				</div>
 			</div>
@@ -184,6 +185,22 @@
 	</div>
 </body>
 <script>
-	
+	LottieInteractivity.create({
+		mode: "cursor",
+		player: "#seventhLottie",
+		actions: [
+			{
+				position: {x: [0, 1], y: [0, 1]},
+				type: "loop",
+				frames: [25, 50]
+			},
+			{
+				position: {x: -1, y: -1},
+				type: 'stop',
+				frames: [25],
+			}
+		]
+	});
 </script>
+
 </html>
