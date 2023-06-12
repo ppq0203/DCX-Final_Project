@@ -246,6 +246,13 @@ public class StompChatController {
         }
         
         shambles.delUser(roomId,userUUID);
+        
+        RoomDto room = shambles.roomDtoMap.get(roomId);
+        if(room.getUserList().isEmpty() && room.getTeam1().isEmpty() && room.getTeam2().isEmpty() 
+        		&& room.getTeam3().isEmpty() && room.getTeam4().isEmpty()) 
+        {
+        	shambles.roomDtoMap.remove(roomId);
+        }
     }
 	
     @MessageMapping(value= "/chat/gamestart")

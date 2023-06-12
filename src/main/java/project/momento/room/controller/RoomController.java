@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import project.momento.room.service.RoomService; // 임시
@@ -52,7 +53,7 @@ public class RoomController {
 	
 	// 채팅방 개설
 	@PostMapping(value = "/room")
-	public String create(@ModelAttribute("RoomDto") RoomDto roomDto) {
+	public String create(@ModelAttribute("RoomDto") RoomDto roomDto, RedirectAttributes re) {
 		System.out.println(roomDto);
 		log.info("# Create Chat Room , name: " + roomDto.getRoomName());
 		
@@ -69,21 +70,30 @@ public class RoomController {
 		qtDto.setProbNum(Integer.parseInt(questionNum));
 		
 		roomDto.setQuestionList(questionService.selectQuestion(qtDto));
-		System.out.println(roomDto.getQuestionList());
+		//System.out.println(roomDto.getQuestionList());
 		roomService.createRoomDto(roomDto);
 //		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
 		
-        return "redirect:/chat/rooms";
+		re.addFlashAttribute("roomDto", roomDto);
+		
+        return "redirect:/chat/enterRoom";
 	}
 	
 	// 채팅방 들어갈 시
-	@PostMapping("/enterRoom")
+	@RequestMapping("/enterRoom")
 	public ModelAndView getRoom(String pkRoomSeq, HttpServletRequest request) {
+		Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
+		RoomDto roomDto;
+		if(flashMap != null) {
+			roomDto = (RoomDto) flashMap.get("roomDto");
+		}
+		else {
+			roomDto = roomService.findRoomById(pkRoomSeq);
+		}
 		
-		RoomDto roomDto = roomService.findRoomById(pkRoomSeq);
 		List<QuestionDto> questionList = roomDto.getQuestionList();
 		LoginDto user = (LoginDto)request.getSession().getAttribute("loginDto");
-		System.out.println(questionList);
+		//System.out.println(questionList);
 		
         log.info("# get Chat Room, roomSeq : " + pkRoomSeq);
 		ModelAndView mv = new ModelAndView("content/room");
