@@ -80,7 +80,7 @@
 		FROM QUESTION A
 		INNER JOIN ANSWER B
 		ON A.PK_QUESTION_SEQ = B.PK_QUESTION_SEQ
-		WHERE B.PK_USER_SEQ = #{pkUserSeq} GROUP BY B.SOLVE_TIME
+		WHERE B.PK_USER_SEQ = #{pkUserSeq} ORDER BY B.PK_QUESTION_SEQ DESC
 	</select>
 	
 	<select id="selectQuestionList" parameterType="hashmap" resultType="project.momento.question.dto.QuestionDto">
