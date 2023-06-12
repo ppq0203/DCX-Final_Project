@@ -6,7 +6,7 @@
 <th:block layout:fragment="content">
 	<div class="container">
 		<h2 style=" text-align: center; padding: 50px;">학생 정보</h2>
-		<form method="post" action="/login/update" name="userInfo" onsubmit="return checkValue()">
+		<form method="post" action="update" name="userInfo" onsubmit="return checkValue()">
 			<input type="hidden" th:each="loginDto : ${loginDto}" value="hidden">
 			<div class="row">
 				<div class="col-sm-9">

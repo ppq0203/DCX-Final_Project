@@ -75,8 +75,9 @@ public class LoginController {
 		return resultList;
 	}
 
-	@RequestMapping(value = "/login/info", produces = "application/text;charset=utf-8")
-	public String selectUser(Model model, LoginDto loginDto, HttpServletRequest request) {
+	@RequestMapping(value = "{userDivn}/login/info", produces = "application/text;charset=utf-8")
+	public String selectUser(@PathVariable String userDivn, Model model, LoginDto loginDto,
+			HttpServletRequest request) {
 
 		loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		int pkUserSeq = loginDto.getPkUserSeq();
@@ -85,13 +86,15 @@ public class LoginController {
 			// loginService.selectUser() 메소드 호출 시 loginDto 전달해서 로직 후 dto로 리턴
 			LoginDto dto = loginService.selectUser(loginDto);
 			model.addAttribute(dto);
-		}
-		String userDivn = loginDto.getUserDivn();
+		}// 세션에서 userDivn 값을 가져옴
+		String sessionUserDivn = (String) request.getSession().getAttribute("userDivn");
+		// 세션에 userDivn 값이 존재할 경우 해당 값을 사용, 그렇지 않으면 기존의 userDivn 값을 사용
+		userDivn = sessionUserDivn != null ? sessionUserDivn : userDivn;
 		return "content/" + userDivn + "/sign/sign2";
 	}
 
-	@RequestMapping(value = "/login/update", produces = "application/text;charset=utf-8")
-	public String updateUser(LoginDto loginDto, HttpServletRequest request) {
+	@RequestMapping(value = "{userDivn}/login/update", produces = "application/text;charset=utf-8")
+	public String updateUser(@PathVariable String userDivn, LoginDto loginDto, HttpServletRequest request) {
 
 		// 세션에 있는 pkUserSeq 가져와서 loginDto에 담기
 		LoginDto beforeDto = (LoginDto) request.getSession().getAttribute("loginDto");
@@ -102,12 +105,19 @@ public class LoginController {
 			// loginService.updateUser() 메소드 호출 시 loginDto 전달
 			loginService.updateUser(loginDto);
 		}
-		String userDivn = beforeDto.getUserDivn();
+		// 세션에서 userDivn 값을 가져옴
+		String sessionUserDivn = (String) request.getSession().getAttribute("userDivn");
+		// 세션에 userDivn 값이 존재할 경우 해당 값을 사용, 그렇지 않으면 기존의 userDivn 값을 사용
+		userDivn = sessionUserDivn != null ? sessionUserDivn : userDivn;
+		LoginDto dto = loginService.selectUser(loginDto);
+		dto.setName(loginDto.getName());
+		// 변경된 객체를 세션에 다시 저장
+		request.getSession().setAttribute("loginDto", loginDto);
 		return "content/" + userDivn + "/main/main";
 	}
 
-	@RequestMapping(value = "/login/delete", produces = "application/text;charset=utf-8")
-	public String deleteUser(LoginDto loginDto, HttpServletRequest request) {
+	@RequestMapping(value = "{userDivn}/login/delete", produces = "application/text;charset=utf-8")
+	public String deleteUser(@PathVariable String userDivn, LoginDto loginDto, HttpServletRequest request) {
 		loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		int pkUserSeq = loginDto.getPkUserSeq();
 		loginDto.setPkUserSeq(pkUserSeq);
@@ -115,7 +125,7 @@ public class LoginController {
 			// loginService.deleteUser() 메소드 호출 시 loginDto 전달
 			loginService.deleteUser(loginDto);
 		}
-		String userDivn = loginDto.getUserDivn();
+		userDivn = loginDto.getUserDivn();
 		return "content/" + userDivn + "/main/main";
 	}
 

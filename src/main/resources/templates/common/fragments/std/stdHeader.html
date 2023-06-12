@@ -15,8 +15,8 @@
 		<ul class="navbar-nav ml-auto">
 			<!-- Notifications Dropdown Menu -->
 			<li class="nav-item"><a th:if="${session.loginDto != null}" class="nav-link"
-					th:utext="${session.loginDto.name +' 님 환영 합니다.'}" href="#" role="button">
-					<span></span>
+					 href="#" role="button">
+					<span th:utext="${session.loginDto.name +' 님 환영 합니다.'}"></span>
 				</a></li>
 			<li class="nav-item"><a th:if="${session.loginDto != null}" th:text="로그아웃" class="nav-link" th:href="@{/{userDivn}/login/out(userDivn = ${session.loginDto.userDivn})}" role="button">
 				</a>
