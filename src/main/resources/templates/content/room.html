@@ -38,16 +38,16 @@
 		</div>
 		<div class="waiting_room_content" id="content">
 			<div class="waiting_room_team1" id="team1">
-				
+
 			</div>
 			<div class="waiting_room_team2" id="team2">
-				
+
 			</div>
 			<div class="waiting_room_team3" id="team3">
-				
+
 			</div>
 			<div class="waiting_room_team4" id="team4">
-				
+
 			</div>
 		</div>
 	</div>
@@ -57,10 +57,10 @@
 	<!-- ------------------------게임방------------------------------ -->
 	<div id="gameRoom" style="display:none;">
 		<div class="gameing_container">
-      		<div class="gameing_header" id="header"></div>
+			<div class="gameing_header" id="header"></div>
 			<!--side right -->
 			<div class="gameing_sidebar" id="sidebar">
-				<div class="gamequiz">
+				<div class="gameing_gamequiz">
 					<p class="pfont">
 						Time : 15:00 min<br>
 						유형 :<br>
@@ -68,8 +68,9 @@
 						...
 					</p>
 				</div>
-
-				<div class="chat-veiw">
+				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제
+					열기</button>
+				<div class="gameing_chat-veiw">
 					<p class="fontp">
 						<b class="fontb">>>게임을 시작합니다.</b><br>
 						>>7번 문제 입니다. <br>
@@ -79,49 +80,67 @@
 				</div>
 				<div class="gameing_chat-input">
 					<form>
-						<input type="text" class = "gameing_msg" id="chat" size=19>
+						<input type="text" class="gameing_msg" id="chat" size=19>
 						<button class="btnchat" type="submit">등록</button>
-						<button class="gameing_room_btnchat gameing_button-send" type="button" data-toggle="modal" data-target="#modal-xl">문제 열기</button>
 					</form>
 				</div>
+				<button class="gameing_btnlogout" type="button">나가기</button>
 			</div>
 
 			<!--content game -->
-      		<div class="gameing_content" id="content">
-				<div class="gameing_user">>
-					<!-- <div class="gameing_team1"> -->
-					<div class="team1" id="game1">
-						<div class="gameing_score" style="background-color:#BF9039" id="hover"><span id="score1">0</span></div>
+			<div class="gameing_content" id="content">
+				<div class="gameing_user">
+					<div class="gameing_team1" id="game1">
+						<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-nouser"></div>
+						<div class="gameing_score" style="background-color:#BF9039" id="hover"><span
+								class="gameing_scorenum" id="score1">0</span></div>
 					</div>
-					<!-- <div class="gameing_team2"> -->
-					<div class="team2" id="game2">
-						<div class="gameing_score" style="background-color:#BF4C1F"><span id="score2">0</span></div>
+					<div class="gameing_team2" id="game2">
+						<div class="gameing_t2-user1"></div>
+						<div class="gameing_t2-user1"></div>
+						<div class="gameing_t2-user1"></div>
+						<div class="gameing_t2-nouser"></div>
+						<div class="gameing_score" style="background-color:#BF4C1F"><span class="gameing_scorenum"
+								id="score2">0</span></div>
 					</div>
-					<!-- <div class="gameing_team3"> -->
-					<div class="team3" id="game3">
-						<div class="gameing_score" style="background-color:#1454C2"><span id="score3">0</span></div>
+					<div class="gameing_team3" id="game3">
+						<div class="gameing_t3-user1"></div>
+						<div class="gameing_t3-user1"></div>
+						<div class="gameing_t3-user1"></div>
+						<div class="gameing_t3-nouser"></div>
+						<div class="gameing_score" style="background-color:#1454C2"><span class="gameing_scorenum"
+								id="score3">0</span></div>
 					</div>
-					<!-- <div class="gameing_team4"> -->
-					<div class="team4" id="game4">
-						<div class="gameing_score" style="background-color:#6F9C4C"><span id="score4">0</span></div>
+					<div class="gameing_team4" id="game4">
+						<div class="gameing_t4-user1"></div>
+						<div class="gameing_t4-user1"></div>
+						<div class="gameing_t4-user1"></div>
+						<div class="gameing_t4-nouser"></div>
+						<div class="gameing_score" style="background-color:#6F9C4C"><span class="gameing_scorenum"
+								id="score4">0</span></div>
 					</div>
 				</div>
 				<div class="gameing_dicearea">
 					<div class="gameing_lottie-container">
 						<div class="gameing_ricearea_col">
-							<lottie-player class="rice1" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
-								background="transparent" speed="1" loop autoplay></lottie-player>
+							<lottie-player class="gameing_rice1"
+								src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent"
+								speed="1" loop autoplay></lottie-player>
 							<!--loop autoplay-->
 						</div>
 						<div class="gameing_ricearea_row">
-							<lottie-player class="rice2" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
-								background="transparent" speed="1" loop autoplay></lottie-player>
+							<lottie-player class="gameing_rice2"
+								src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent"
+								speed="1" loop autoplay></lottie-player>
 						</div>
 					</div>
 				</div>
 				<div class="gameing_quiz">
-					<table class="table">
-						<thead class="tableborder">
+					<table class="gameing_table">
+						<thead class="gameing_tableborder">
 							<tr>
 								<th></th>
 								<th class="hover_y">1</th>
@@ -132,7 +151,7 @@
 								<th class="hover_y">6</th>
 							</tr>
 						</thead>
-						<tbody class="tableborder">
+						<tbody class="gameing_tableborder">
 							<tr>
 								<th>1</th>
 								<td class="hover_y" id="q1">1</td>
@@ -186,7 +205,7 @@
 								<td class="hover_y" id="q34">34</td>
 								<td class="hover_y" id="q35">35</td>
 								<td class="hover_y" id="q36">36</td>
-							</tr>							
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -208,7 +227,7 @@
 							<div class="card-header">
 								<h3 id="questionName" class="card-title"></h3>
 								<input type="hidden" id="nameQuestion">
-	
+
 							</div>
 							<div class="card card-outline card-info">
 								<div class="card-header">
@@ -216,7 +235,7 @@
 										문제
 									</h3>
 								</div>
-	
+
 								<div class="card-body p-0">
 									<input type="hidden" id="questionType">
 									<p id="questionContents"></p>
@@ -231,7 +250,7 @@
 										풀이 작성
 									</h3>
 								</div>
-	
+
 								<div class="card-body p-0">
 									<textarea id="Demo" class="p-3" style="width:100%; height: 500px"></textarea>
 								</div>
@@ -241,8 +260,7 @@
 							<!-- 기존 코드 끝-->
 							<!-- 진상 코드-->
 							<div class="modal-footer justify-content-between">
-								<button id="giveup" type="button" class="btn btn-default"
-									onclick="giveup()">포기</button>
+								<button id="giveup" type="button" class="btn btn-default" onclick="giveup()">포기</button>
 								<button type="button" onclick="correctTest()">임시 정답테스트</button>
 								<button onclick="question_submit()" type="button" class="btn btn-primary">등록</button>
 							</div>
@@ -258,7 +276,7 @@
 		</div>
 		<button onclick="resultCalc()">결과보기</button>
 		<div class="text-center">
-		결과창
+			결과창
 			<div>
 				총 문제 :<span id="total_count">36</span>
 			</div>
@@ -269,7 +287,7 @@
 				포기 :<span id="giveup_count">6</span>
 			</div>
 			<div id="type_result_area">
-	
+
 			</div>
 		</div>
 	</div>
@@ -292,18 +310,18 @@
 		var stomp = Stomp.over(sockJs);
 
 		//console.log(" [+] 팀 개수 :: " + /*[[${room.roomNumber}]]*/0);
-		
+
 		$(document).ready(function () {
 
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
-				stomp.subscribe("/sub/chat/gamestart/" + roomId, function(chat) {
+				stomp.subscribe("/sub/chat/gamestart/" + roomId, function (chat) {
 					content = chat.body;
-					$("#test").on("click", function() {
+					$("#test").on("click", function () {
 						console.log(content.userTeamNumber);
 					});
-					$('#gameRoom').css('display', 'block'); 
+					$('#gameRoom').css('display', 'block');
 					$('#waitRoom').css('display', 'none');
 					// 주사위결과를 보여주는 함수 실행
 					get_index_and_prob();
@@ -326,12 +344,11 @@
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					// 첫접속시 유저 고유번호 저장
-						console.log("username : " + content.pkUserSeq);
-					if (username == "0")
-					{
+					console.log("username : " + content.pkUserSeq);
+					if (username == "0") {
 						username = content.pkUserSeq;
 					}
-					
+
 					var chatContent = content.chatContent;
 					var writer = ">>SYSTEM";
 					var str = '';
@@ -341,7 +358,7 @@
 					str += "</div></div>";
 					$("#msgArea").append(str);
 				});
-				
+
 				stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
@@ -424,48 +441,43 @@
 					$("#" + content + "").remove();
 					$("#game-" + content + "").remove();
 				});
-				
+
 				stomp.subscribe("/sub/chat/correct/" + roomId, function (result) {
 					var content = JSON.parse(result.body);
 					var qtype = $('#questionType').val();
 					//console.log(content);
 					resultFillColor(content.teamNo);
 					// 정답을 맞춘 사람이 본인 일때 타입결과 저장
-					if (content.userNo == username)
-					{
+					if (content.userNo == username) {
 						resultSave(qtype, 0);
 					}
 					// 정답을 맞춘 사람이 타인 일때 타입결과 저장
-					else
-					{
+					else {
 						resultSave(qtype, -1);
 					}
 					alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
 					$('.modal').modal('hide');
 					nowNo += 1;
-					
-					setTimeout(function() {
-					    // Code to be executed after the delay
+
+					setTimeout(function () {
+						// Code to be executed after the delay
 						get_index_and_prob();
-					  }, 2000); // Delay of 2000 milliseconds (2 seconds)
+					}, 2000); // Delay of 2000 milliseconds (2 seconds)
 				});
 
 				stomp.subscribe("/sub/chat/sendAnswer/" + roomId, function (result) {
 					var content = JSON.parse(result.body);
-					
+
 					// if (content.pkUserSeq == username)
 					// 임시코드 uuid가아닌 유저고유번호 변경시 위의 if문 사용
-					if (content.userUUID == username)
-					{
-						if (content.answerOx == "O")
-						{
+					if (content.userUUID == username) {
+						if (content.answerOx == "O") {
 							alert("정답입니다");
-							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
+							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: username}));
 						}
-						else
-						{
+						else {
 							alert("오답입니다");
-						}					
+						}
 					}
 				});
 
@@ -475,7 +487,7 @@
 
 			$("#team1").on("click", function (e) {
 				// if ($("#team1Count").val() >= /*[[${room.teamNumber}]]*/0) {
-				if($("#team1").children().length >= /*[[${room.teamNumber}]]*/0){
+				if ($("#team1").children().length >= /*[[${room.teamNumber}]]*/0) {
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
@@ -484,10 +496,10 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-	
+
 			$("#team2").on("click", function (e) {
 				// if ($("#team2Count").val() >= /*[[${room.teamNumber}]]*/0) {
-				if($("#team2").children().length >= /*[[${room.teamNumber}]]*/0){
+				if ($("#team2").children().length >= /*[[${room.teamNumber}]]*/0) {
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
@@ -496,63 +508,59 @@
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-	
+
 			$("#team3").on("click", function (e) {
-				if(3 > /*[[${room.roomNumber}]]*/0){
+				if (3 > /*[[${room.roomNumber}]]*/0) {
 					alert('[[${room.roomNumber}]]팀 방 입니다!');
 				}
-				else
-				{
+				else {
 					// if ($("#team3Count").val() >= /*[[${room.teamNumber}]]*/0) {
-					if($("#team3").children().length >= /*[[${room.teamNumber}]]*/0){
+					if ($("#team3").children().length >= /*[[${room.teamNumber}]]*/0) {
 						alert("팀이 꽉 찼습니다.");
 					}
-					else
-					{
+					else {
 						stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
 					}
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-	
+
 			$("#team4").on("click", function (e) {
-				if(4 > /*[[${room.roomNumber}]]*/0){
+				if (4 > /*[[${room.roomNumber}]]*/0) {
 					alert('[[${room.roomNumber}]]팀 방 입니다!');
 				}
-				else
-				{
+				else {
 					// if ($("#team4Count").val() >= /*[[${room.teamNumber}]]*/0) {
-					if($("#team4").children().length >= /*[[${room.teamNumber}]]*/0){
+					if ($("#team4").children().length >= /*[[${room.teamNumber}]]*/0) {
 						alert("팀이 꽉 찼습니다.");
 					}
-					else
-					{
+					else {
 						stomp.send('/pub/chat/Team4Change', {}, JSON.stringify({pkRoomSeq: roomId}))
 					}
 				}
-				
+
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
 			})
-	
+
 			$("#system-test").on("click", function (e) {
 				stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId}))
 			})
-	
+
 			$("#button-send").on("click", function (e) {
 				var msg = document.getElementById("msg");
-	
+
 				console.log(username + ":" + msg.value);
 				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
 				msg.value = '';
 			});
-	
+
 			$(".teamchange").on("click", function (e) {
 				$("#content").css("pointer-events", "all")
 				$("#content").css("opacity", "80%")
 			});
-	
+
 			$("#msg").keyup(function () {
 				if (event.keyCode == 13) {
 					var msg = document.getElementById("msg");
@@ -561,8 +569,8 @@
 				}
 			});
 
-			$("#gamestart").on("click", function() {
-	    		stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+			$("#gamestart").on("click", function () {
+				stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
 			});
 		});
 
@@ -628,31 +636,26 @@
 	<script>
 		var resultMap = new Map();
 		// 문제를 포기하거나 맞췄을때 타입과 결과를 저장하는 함수
-		function resultSave(key, result)
-		{
-			if (resultMap.get(key) === undefined)
-			{
-				resultMap.set(key, [0,0]);
+		function resultSave(key, result) {
+			if (resultMap.get(key) === undefined) {
+				resultMap.set(key, [0, 0]);
 				//console.log(resultMap.get(key));
 			}
-			if (result == -1)
-			{
+			if (result == -1) {
 				resultMap.get(key)[1] += 1;
 			}
-			if (result == 0)
-			{
+			if (result == 0) {
 				resultMap.get(key)[0] += 1;
 				resultMap.get(key)[1] += 1;
 			}
 		}
 		// 결과값을 연산해주는 함수
-		function resultCalc()
-		{
+		function resultCalc() {
 			var total = 0;
 			var solve = 0;
 			var str;
 			$("#type_result_area").empty();
-			
+
 			for (const [key, value] of resultMap.entries()) {
 				//console.log(`Key: ${key}, Value: ${value}`);
 				str = '';
@@ -663,77 +666,69 @@
 				total += value[1];
 				solve += value[0];
 			}
-	
+
 			$("#total_count").text(total);
 			$("#solve_count").text(solve);
-			$("#giveup_count").text(total-solve);
+			$("#giveup_count").text(total - solve);
 		}
 		var nowNo = 0;
 		var dice1 = 0;
 		var dice2 = 0;
-		function get_index_and_prob()
-		{			
+		function get_index_and_prob() {
 			// 주사위 눈
-			dice1 = Math.floor((shuffleNo[nowNo]-1)/6+1);
-			dice2 = ((shuffleNo[nowNo])%6==0?6:(shuffleNo[nowNo])%6);
+			dice1 = Math.floor((shuffleNo[nowNo] - 1) / 6 + 1);
+			dice2 = ((shuffleNo[nowNo]) % 6 == 0 ? 6 : (shuffleNo[nowNo]) % 6);
 
 			// 주사위 굴러가다가 멈추는 함수 이곳에 구현해야함.
 			// code
 			// ////////////////////////////////////
-			
+
 			// 임시 테스트용 코드
 			str = '';
 			str = "questionNo : " + questionList[nowNo].pkQuestionSeq + "  suffleNo : " + shuffleNo[nowNo] + "  dice1: " + dice1 + "  dice2: " + dice2;
 			$("#test_value").text(str);
 			// //////////////////////////////
-			
+
 			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
 			$('.modal').modal('show');
 			loadQuestion(questionList[nowNo]);
 		}
-		
-		function correctTest()
-		{
+
+		function correctTest() {
 			$('.modal').modal('hide');
-			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName:username}));
+			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: username}));
 		}
-		
-		function resultFillColor(teamNo)
-		{
-			tagId = "#q"+shuffleNo[nowNo];
-			if(teamNo == 0)	// all giveup
+
+		function resultFillColor(teamNo) {
+			tagId = "#q" + shuffleNo[nowNo];
+			if (teamNo == 0)	// all giveup
 			{
 				$(tagId).css("background-color", "gray");
 				// resultSave($("#questionType").val(), -1);			
 			}
-			else if(teamNo == 1)
-			{
+			else if (teamNo == 1) {
 				$(tagId).css("background-color", "yellow");
 				// resultSave($("#questionType").val(), -1);	
 			}
-			else if(teamNo == 2)
-			{
+			else if (teamNo == 2) {
 				$(tagId).css("background-color", "red");
 				// resultSave($("#questionType").val(), -1);	
 			}
-			else if(teamNo == 3)
-			{
+			else if (teamNo == 3) {
 				$(tagId).css("background-color", "blue");
 				// resultSave($("#questionType").val(), -1);	
 			}
-			else if(teamNo == 4)
-			{
+			else if (teamNo == 4) {
 				$(tagId).css("background-color", "green");
 				// resultSave($("#questionType").val(), -1);	
 			}
-			if(teamNo != 0)
-			{
-				tagId="#score"+teamNo;
+			if (teamNo != 0) {
+				tagId = "#score" + teamNo;
 				var value = $(tagId).text();
-				$(tagId).text(1+parseInt(value, 10));
+				$(tagId).text(1 + parseInt(value, 10));
 			}
 		}
-		
+
 		// 문제정보를 모달창에 저장하는 함수
 		function loadQuestion(question) {
 			//console.log("test");
@@ -750,16 +745,15 @@
 			$('#questionContents').text(contents);
 			$('#Demo').html(codeFormat);
 		}
-		
+
 		// 정답 등록시 수행되는 함수
-		function question_submit()
-		{
+		function question_submit() {
 			var code = $("#Demo").val();
 			var name = $("#nameQuestion").val();
 			var pkQuestionSeq = $("#questionNo").val();
 			// alert("click");
 			console.log(username);
-			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq : pkQuestionSeq, answerUser: code, answerOx:name}));
+			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq: pkQuestionSeq, answerUser: code, answerOx: name}));
 		}
 	</script>
 </th:block>
