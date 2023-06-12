@@ -82,13 +82,22 @@ public class RoomController {
 	// 채팅방 들어갈 시
 	@RequestMapping("/enterRoom")
 	public ModelAndView getRoom(String pkRoomSeq, HttpServletRequest request) {
-		Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		RoomDto roomDto;
 		if(flashMap != null) {
 			roomDto = (RoomDto) flashMap.get("roomDto");
+			request.getSession().setAttribute("roomSeq", roomDto.getPkRoomSeq());
 		}
 		else {
-			roomDto = roomService.findRoomById(pkRoomSeq);
+			if(pkRoomSeq != null)
+			{
+				roomDto = roomService.findRoomById(pkRoomSeq);
+			}
+			else
+			{
+				String roomSeq = (String) request.getSession().getAttribute("roomSeq");
+				roomDto = roomService.findRoomById(roomSeq);
+			}
 		}
 		
 		List<QuestionDto> questionList = roomDto.getQuestionList();
