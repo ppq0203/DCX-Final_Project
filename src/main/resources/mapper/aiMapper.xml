@@ -94,6 +94,27 @@
     		, SYSDATE()
   		)
 	</insert>
+	
+	
+	<insert id="insertQuestionResult" parameterType="project.momento.question.dto.QuestionDto">
+	    INSERT INTO AI_QUESTION_RESULT (
+    		PK_QUESTION_SEQ
+    		, PK_USER_SEQ
+    		, ANSWER
+    		, QUESTION_NUM
+    		, ANSWER_NUM
+    		, REGIST_ID
+    		, REGIST_DT
+  		) VALUES (
+    		#{pkQuestionSeq}
+    		, #{pkUserSeq}
+    		, #{answer}
+    		, #{questionNum}
+    		, #{answerNum}
+    		, #{registId}
+    		, SYSDATE()
+  		)
+	</insert>
 	<update id="updateAiQuestion" parameterType="project.momento.question.dto.QuestionDto">
 		UPDATE AI_QUESTION
 		SET TYPE = #{type}

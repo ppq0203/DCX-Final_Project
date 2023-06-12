@@ -53,5 +53,10 @@ public class AiService {
 		aiMapper.deleteAiQuestion(questionDto);
 	}
 
+	public void insertQuestionResult(QuestionDto questionDto) {
+		// TODO Auto-generated method stub
+		aiMapper.insertQuestionResult(questionDto);
+	}
+
 	
 }

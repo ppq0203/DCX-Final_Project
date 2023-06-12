@@ -73,6 +73,43 @@ public class AiController {
 		model.addAttribute("resultList",resultList);
 		return "content/" + userDivn + "/ai/article";
 	}
+	/*
+	 * AI Main 화면 이동
+	 */
+	@RequestMapping(value = "/{userDivn}/ai/explanation/{pkQuestionSeq}", produces = "application/text;charset=utf-8")
+	public String aiArticle(@PathVariable String userDivn, @PathVariable int pkQuestionSeq, HttpServletRequest request, Criteria cri, Model model) {
+		QuestionDto questionDto = new QuestionDto();
+		questionDto.setPkQuestionSeq(pkQuestionSeq);
+		QuestionDto selectDto = aiService.selectQuestion(questionDto);
+		
+		model.addAttribute("result",selectDto);
+		return "content/" + userDivn + "/ai/explanation";
+	}
+	
+	/*
+	 * AI Main 화면 이동
+	 */
+	@RequestMapping(value = "/{userDivn}/ai/question/answer", produces = "application/text;charset=utf-8")
+	public String aiAnswer(QuestionDto questionDto, @PathVariable String userDivn, HttpServletRequest request, Criteria cri, Model model) {
+		
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		questionDto.setPkUserSeq(loginDto.getPkUserSeq());
+		String[] solutions = questionDto.getSolution().split(",");
+		String[] answers = questionDto.getAnswer().split(",");
+		int count = 0;
+		for(int i = 0; i < solutions.length; i++) {
+			if(solutions[i].equals(answers[i])) {
+				count++;
+			}
+		}
+		questionDto.setQuestionNum(solutions.length);
+		questionDto.setAnswerNum(count);
+		aiService.insertQuestionResult(questionDto);
+		QuestionDto selectDto = aiService.selectQuestion(questionDto);
+		model.addAttribute("result",selectDto);
+		return "content/" + userDivn + "/ai/keyword";
+	}
+	
 	
 	/*
 	 * AI Main 화면 이동

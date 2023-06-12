@@ -29,5 +29,7 @@ public interface AiMapper {
 
 	void deleteAiQuestion(QuestionDto questionDto);
 
+	void insertQuestionResult(QuestionDto questionDto);
+
 
 }

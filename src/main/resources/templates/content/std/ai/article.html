@@ -28,7 +28,8 @@
 					<span class="blurEffect" style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" th:text="${question.passage}"></span>
 					</span>
 					<ul class="actions special">
-						<li><a href="quiz.html" class="button">Quiz</a></li>
+						<li><a th:href="@{/std/ai/explanation/{pkQuestionSeq}(pkQuestionSeq=${question.pkQuestionSeq})}" class="button">Quiz</a></li>
+
 					</ul>
 				</article>
 			</section>
