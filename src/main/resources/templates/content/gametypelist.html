@@ -31,7 +31,7 @@
 					<td _msttexthash="4459" _msthash="19">알고리즘</td>
 					<td>
 						<a data-toggle="modal" data-target="#modal-notice" type="button" value="28"
-							onclick="openNotice(this)" style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							 style="color:#87ceeb; font-weight: bold; text-decoration:underline">
 							<span _msttexthash="9249084" _msthash="23">No.12</span>
 						</a>
 					</td>
@@ -44,7 +44,7 @@
 					<td _msttexthash="4550" _msthash="24">반복문</td>
 					<td>
 						<a data-toggle="modal" data-target="#modal-notice" type="button" value="12"
-							onclick="openNotice(this)" style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							 style="color:#87ceeb; font-weight: bold; text-decoration:underline">
 							<span _msttexthash="9249084" _msthash="28">No.21</span>
 						</a>
 					</td>
@@ -57,7 +57,7 @@
 					<td _msttexthash="4641" _msthash="29">수학</td>
 					<td>
 						<a data-toggle="modal" data-target="#modal-notice" type="button" value="12"
-							onclick="openNotice(this)" style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							 style="color:#87ceeb; font-weight: bold; text-decoration:underline">
 							<span _msttexthash="9249084" _msthash="28">No.200</span>
 						</a>
 					</td>
@@ -70,7 +70,7 @@
 					<td _msttexthash="4732" _msthash="34">while문</td>
 					<td>
 						<a data-toggle="modal" data-target="#modal-notice" type="button" value="14"
-							onclick="openNotice(this)" style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							style="color:#87ceeb; font-weight: bold; text-decoration:underline">
 							<span _msttexthash="9249084" _msthash="38">No.30</span>
 						</a>
 					</td>
@@ -83,7 +83,7 @@
 					<td _msttexthash="4823" _msthash="39">유형1</td>
 					<td>
 						<a data-toggle="modal" data-target="#modal-notice" type="button" value="16"
-							onclick="openNotice(this)" style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							 style="color:#87ceeb; font-weight: bold; text-decoration:underline">
 							<span _msttexthash="9249084" _msthash="43">No.42</span>
 						</a>
 					</td>
@@ -178,7 +178,7 @@
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h4 class="modal-title">Insert Link</h4>
+													
 													<button type="button" class="close" data-dismiss="modal"
 														aria-label="Close" aria-hidden="true">×
 													</button>
@@ -197,7 +197,7 @@
 </th:block>
 
 <script>
-
+	
 	var SUBJECT_ARRAY = [];
 	$(document).ready(function () {
 		// Summernote
@@ -234,33 +234,7 @@
 		//});
 	})
 
-	function openNotice(arg0) {
-		//$(".title-append").empty();
-		//$(".textarea-append").empty();
-		var buttonValue = arg0.value;
-		var form = {
-			pkNoticeSeq: buttonValue
-		};
-		$.ajax({
-			type: "POST",
-			url: "/openNotice",
-			data: JSON.stringify(form),
-			contentType: "application/json",
-			dataType: "json",
-			success: function (data) {
-				$('#summernote').summernote({
-					tabsize: 2,
-					height: 300
-				});
-				$("#pkNoticeSeq").val(data.pkNoticeSeq);
-				$("#title_notice").val(data.title);
-				$(".summernote").summernote('code', data.contents);
-			},
-			error: function (request, status, error) {
-				alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-			}
-		});
-	}
+	
 
 
 
