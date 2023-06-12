@@ -69,6 +69,26 @@ public class RoomController {
 		qtDto.setProbNum(Integer.parseInt(questionNum));
 		
 		roomDto.setQuestionList(questionService.selectQuestion(qtDto));
+		int questionCount = roomDto.getQuestionList().size();
+		while(questionCount < 36)
+		{
+			if(level.equals("1") || level.equals("3"))
+			{
+				level = "2";
+			}
+			else
+			{
+				level = "1";
+			}
+
+			levels = new String[]{level};
+			qtDto.setLevels(levels);
+			qtDto.setProbNum(Integer.parseInt(questionNum)-questionCount);
+			List<QuestionDto> questionList = questionService.selectQuestion(qtDto);
+			roomDto.getQuestionList().addAll(questionList);
+			questionCount = roomDto.getQuestionList().size();
+		}
+		
 		System.out.println(roomDto.getQuestionList());
 		roomService.createRoomDto(roomDto);
 //		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
