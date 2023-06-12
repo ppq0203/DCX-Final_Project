@@ -3,6 +3,10 @@
 	layout:decorate="~{common/layout/std/stdAiLayout}">
 <link rel="stylesheet" href="../assets/css/androidstudio_quiz.css">
 <link rel="stylesheet" href="../assets/css/quiz.css">
+<link rel="stylesheet" href="css/main.css" />
+<noscript>
+	<link rel="stylesheet" href="css/noscript.css" />
+</noscript>
 
 <head>
 	<style>
@@ -30,78 +34,94 @@
 		}
 	</style>
 </head>
-<div layout:fragment="content">
-	<div class="row">
-		<div class="col-12 p-5">
-			<div class="row">
-				<div class="col-6">
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div layout:fragment="content">
+		<div id="main">
+			<article class="post featured">
+				<header class="major">
 					<h2>quiz</h2>
+					<p><a href="article.html">article</a></p>
+				</header>
+			</article>
+			<div class="row">
+				<div class="col-12 p-5">
+					<div class="row">
+						<div class="col-6">
+							<h2>quiz</h2>
+						</div>
+					</div>
+					<div id="main">
+						<!-- Post -->
+						<section class="post">
+							<header class="major">
+								<h2>소비자 선택 폭 넓혔다···삼성전자, 윈도 OS 탑재 키오스크<br /></h2>
+								<span class="date">June 06, 2023</span>
+							</header>
+
+							<div class="quiz">
+								<span class="quiz__type"></span>
+								<h3 class="quiz__question">
+									<span class="number"></span>
+									<div class="ask"></div>
+								</h3>
+								<div class="quiz__view">
+									<div class="true">정답입니다 !</div>
+									<div class="false">오답입니다 !</div>
+								</div>
+								<div class="quiz__answer">
+									<p>삼성전자는 랜도 쉰(OS)을 탑재한 스마트 주문 솔루션 '<input type="text" class="input"
+											style="width: 200pt; height: 50pt" placeholder="정답을 적어주세요."><strong
+											class="result"></strong>'를 국내에 기한을 6일로 연장합니다.</p>
+									<input type="button" class="confirm" value="CHECK ANSWER">
+								</div>
+							</div>
+							<div class="quiz">
+								<span class="quiz__type"></span>
+								<h3 class="quiz__question">
+									<span class="number"></span>
+									<div class="ask"></div>
+								</h3>
+								<div class="quiz__view">
+									<div class="true">정답입니다 !</div>
+									<div class="false">오답입니다 !</div>
+								</div>
+								<div class="quiz__answer">
+									<p>삼성전자는 2021년 타이젠 OS를 탑재한 제품을 내는데 이어 이번 <input type="text" class="input"
+											style="width: 200pt; height: 50pt" placeholder="정답을 적어주세요."><strong
+											class="result"></strong>를 탑재한 제품으로 소비자 선택의 폭을 넓혔습니다.</p>
+									<input type="button" class="confirm" value="CHECK ANSWER">
+								</div>
+							</div>
+							<div class="quiz">
+								<span class="quiz__type"></span>
+								<h3 class="quiz__question">
+									<span class="number"></span>
+									<div class="ask"></div>
+								</h3>
+								<div class="quiz__view">
+									<div class="true">정답입니다 !</div>
+									<div class="false">오답입니다 !</div>
+								</div>
+								<div class="quiz__answer">
+									<p>삼성 키오스크는 상품을 선택하고 주문과 결제까지 할 수 있는 <input type="text" class="input"
+											style="width: 200pt; height: 50pt" placeholder="정답을 적어주세요."><strong
+											class="result"></strong>제품으로 식당·카페·편의점·마트 등에서 활용되고 있다.</p>
+									<input type="button" class="confirm" value="CHECK ANSWER">
+								</div>
+							</div>
+							<ul class="actions special">
+								<li><input class="button" type="submit" value="SAVE KEYWORD"></li>
+							</ul>
+						</section>
+					</div>
 				</div>
-			</div>
-			<div id="main">
-				<!-- Post -->
-				<section class="post">
-					<header class="major">
-						<h2>소비자 선택 폭 넓혔다···삼성전자, 윈도 OS 탑재 키오스크<br /></h2>
-						<span class="date">June 06, 2023</span>
-					</header>
-
-					<div class="quiz">
-						<span class="quiz__type"></span>
-						<h3 class="quiz__question">
-							<span class="number"></span>
-							<div class="ask"></div>
-						</h3>
-						<div class="quiz__view">
-							<div class="true">정답</div>
-							<div class="false">오답</div>
-						</div>
-						<div class="quiz__answer">
-							<p>삼성전자는 랜도 쉰(OS)을 탑재한 스마트 주문 솔루션 '<input type="text" class="input" placeholder="정답을 적어주세요."><strong class="result"></strong>'를 국내에 기한을 6일로 연장합니다.</p>
-							
-							
-							<br /><button class="confirm">정답 확인</button>
-						</div>
-					</div>
-					<div class="quiz">
-						<span class="quiz__type"></span>
-						<h3 class="quiz__question">
-							<span class="number"></span>
-							<div class="ask"></div>
-						</h3>
-						<div class="quiz__view">
-							<div class="true">정답</div>
-							<div class="false">오답입니다</div>
-						</div>
-						<div class="quiz__answer">
-							<p>삼성전자는 2021년 타이젠 OS를 탑재한 제품을 내는데 이어 이번 <input type="text" class="input" placeholder="정답을 적어주세요."><strong class="result"></strong>를 탑재한 제품으로 소비자 선택의 폭을 넓혔습니다.</p>
-							<br /><button class="confirm">정답 확인</button>
-						</div>
-					</div>
-					<div class="quiz">
-						<span class="quiz__type"></span>
-						<h3 class="quiz__question">
-							<span class="number"></span>
-							<div class="ask"></div>
-						</h3>
-						<div class="quiz__view">
-							<div class="true">정답</div>
-							<div class="false">오답입니다</div>
-						</div>
-						<div class="quiz__answer">
-							<p>삼성 키오스크는 상품을 선택하고 주문과 결제까지 할 수 있는 <input type="text" class="input" placeholder="정답을 적어주세요."><strong class="result"></strong>제품으로 식당·카페·편의점·마트 등에서 활용되고 있다.</p>
-							<br /><button class="confirm">정답 확인</button>
-						</div>
-					</div>
-
-
-
-
-				</section>
 			</div>
 		</div>
 	</div>
-</div>
+</body>
 
 <script src="../assets/js/highlight.min.js"></script>
 <script src="../assets/js/quizcommon.js"></script>
@@ -116,27 +136,27 @@
 	const quizconfirm = document.querySelectorAll(".quiz__answer .confirm");       // 정답 확인 버튼
 	const quizResult = document.querySelectorAll(".quiz__answer .result");         // 정답 결과
 	const quizInput = document.querySelectorAll(".quiz__answer .input");           // 사용자 정답
-	const quizView = document.querySelectorAll(".quiz__view");                 // 댕댕이
+	const quizView = document.querySelectorAll(".quiz__view");
 
 	// 문제정보
 	const quizInfo = [
 		{
-			answerType: "", // 퀴즈 종류
+			answerType: "IT", // 퀴즈 종류
 			answerNum: "1", // 퀴즈 번호
-			answerAsk: "", // 퀴즈 질문
+			answerAsk: "_?", // 퀴즈 질문
 			answerResult: "삼성 키오스크" // 퀴즈 정답
 		},
 		{
 			answerType: "",
 			answerNum: "2",
 			answerAsk: "_?",
-			answerResult: ""
+			answerResult: "."
 		},
 		{
 			answerType: "",
 			answerNum: "3",
 			answerAsk: "_?",
-			answerResult: ""
+			answerResult: "."
 		}
 	]
 
