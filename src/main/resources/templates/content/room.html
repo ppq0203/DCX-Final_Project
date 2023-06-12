@@ -37,6 +37,9 @@
 			<button class="waiting_room_btnlogout" type="button">나가기</button>
 		</div>
 		<div class="waiting_room_content" id="content">
+			<div class="waiting_room_wait" id="waitList">
+				
+			</div>
 			<div class="waiting_room_team1" id="team1">
 				
 			</div>
@@ -342,6 +345,19 @@
 					$("#msgArea").append(str);
 				});
 				
+				stomp.subscribe("/sub/chat/waitList/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					$.each(content, function (index, value) {
+						if ($("#team1").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='waiting_room_wait' display:none' id = '" + index + "'></div>";
+							$("#" + index + "").remove();
+							$("#waitList").append(str);
+						}
+					});
+				});
+				
 				stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					$.each(content, function (index, value) {
@@ -562,10 +578,10 @@
 			});
 
 			$("#gamestart").on("click", function() {
+				console.log(/*[[${room.team1}]]*/0);
 				var allReady = 1;
 				for(var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++)
 				{
-					console.log("test" + i);
 					if($("#team" + i + "").children().length < 1)
 					{
 						allReady = 0;
@@ -575,7 +591,14 @@
 				}
 				if(allReady != 0)
 				{
-					stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+					if($("#waitList").children().length > 0)
+					{
+						alert("모든 참가자가 팀에 참여해야 합니다.!");
+					}
+					else{
+						stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+					}
+					
 				}
 	    		
 			});

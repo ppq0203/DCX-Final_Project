@@ -71,6 +71,7 @@ public class StompChatController {
         message.setPkUserSeq(userUUID);
         
 		template.convertAndSend("/sub/chat/system/" + message.getPkRoomSeq(), message);
+		template.convertAndSend("/sub/chat/waitList/" + message.getPkRoomSeq(), userList);
 		template.convertAndSend("/sub/chat/team1List/" + message.getPkRoomSeq(), team1List);
 		template.convertAndSend("/sub/chat/team2List/" + message.getPkRoomSeq(), team2List);
 		template.convertAndSend("/sub/chat/team3List/" + message.getPkRoomSeq(), team3List);

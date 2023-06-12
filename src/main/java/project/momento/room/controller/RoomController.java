@@ -102,7 +102,6 @@ public class RoomController {
 		
 		List<QuestionDto> questionList = roomDto.getQuestionList();
 		LoginDto user = (LoginDto)request.getSession().getAttribute("loginDto");
-		//System.out.println(questionList);
 		
         log.info("# get Chat Room, roomSeq : " + pkRoomSeq);
 		ModelAndView mv = new ModelAndView("content/room");
