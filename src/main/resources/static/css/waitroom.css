@@ -17,18 +17,16 @@
 	height: 70px;
 }
 
-/*#content {
+#content {
 	width: 665px;
 	height: 560px;
 	padding: 10px;
 	float: left;
 	margin-right: 5px;
 	margin-left: 10px;
-	background: repeating-linear-gradient(-45deg, #005255, #282A46 2px);
+	background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
 	border-radius: 10px;
-	pointer-events: none;
-	opacity: 100%;
-}*/
+}
 
 #sidebar {
 	width: 250px;
@@ -210,6 +208,44 @@
 }
 
 /*side*/
+			.gameing_quizbtn {
+				width: 220px;
+				height: 30px;
+				margin: 5px;
+				border: 3px solid white;
+			}
+
+			.gameing_answer {
+				width: 80px;
+				height: 28px;
+				text-align: center;
+				float: left;
+				background-color: #4C6ED4;
+				font-size: 13px;
+				font-family: 'DungGeunMo';
+				color: white;
+				margin: auto 1px;
+				border-color: #1454C2;
+			}
+
+			.gameing_discard {
+				width: 80px;
+				height: 28px;
+				text-align: center;
+				float: right;
+				background-color: gray;
+				font-size: 13px;
+				font-family: 'DungGeunMo';
+				color: red;
+			}
+			.chat-veiw {
+				width: 220px;
+				height: 180px;
+				padding: 5px;
+				float: center;
+				margin: 5px;
+				border: 3px solid white;
+			}			
 .gameinfo {
 	width: 220px;
 	height: 120px;
@@ -386,6 +422,9 @@
 	color: #005255;
 }
 #msg {
+	height: 25px;
+}
+.gameing_msg {
 	height: 25px;
 }
 .waiting_room_btn {
@@ -646,3 +685,296 @@
 	padding: 5px;
 	float: left;
 }
+
+/*gameroom*/
+.gameing_container {
+	width: 976px;
+	height: 700px;
+	background-image : url('gameStart.png');
+	background-size : auto ;
+}
+.gameing_header {
+    padding: 10px;
+	height : 70px;
+}
+.gameing_content {
+	width: 665px;
+	height: 570px;
+	padding: 10px;
+	float: left;
+	margin-right : 5px;
+	margin-left : 10px;
+	background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+	border-radius: 10px;
+}
+.gameing_sidebar {
+	width: 250px;
+	height: 570px;
+	padding: 5px;
+	float: right;
+	margin-left : 5px;
+	margin-right : 5px;
+	background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+	position: relative;
+	border-radius: 10px;
+}
+/*side*/
+.gameing_gamequiz {
+	width: 220px;
+	height: 180px;
+	padding: 5px;
+	float: center;
+	margin: 5px;
+	background-color: white;
+	border: 3px solid white;
+}
+.gameing_quizbtn {
+	width: 220px;
+	height: 35px;
+	margin: 5px;
+	border: 3px solid white;
+}
+
+.gameing_answer {
+	width: 80px;
+	height: 28px;
+	text-align: center;
+	float: left;
+	background-color: #4C6ED4;
+	font-size: 13px;
+	font-family: 'DungGeunMo';
+	color: white;
+	margin: auto 1px;
+	border-color: #1454C2;
+}
+
+.gameing_discard {
+	width: 80px;
+	height: 28px;
+	text-align: center;
+	float: right;
+	background-color: gray;
+	font-size: 13px;
+	font-family: 'DungGeunMo';
+	color: red;
+}
+.gameing_chat-veiw {
+	width: 220px;
+	height: 220px;
+	padding: 5px;
+	float: center;
+	margin: 5px;
+	border: 3px solid white;
+}
+
+.gameing_chat-input {
+	width: 220px;
+	height: 34px;
+	padding: 2px;
+	float: center;
+	margin: 5px;
+	border: 3px solid white;
+}
+
+.gameing_room_btn {
+	width: 220px;
+	height: 50px;
+	padding: 5px;
+	text-align: center;
+	margin: 0px 5px 5px 5px;
+	/*border-top-left-radius: 5px;*/
+	border-radius: 5px;
+	background-color: #FFC04D;
+	font-size: 20px;
+	font-family: 'DungGeunMo';
+	color: #c55a11;
+}
+.gameing_room_btnchat {
+	width: 40px;
+	height: 25px;
+	text-align: center;
+	float: right;
+	background-color: white;
+	font-size: 12px;
+	font-family: 'DungGeunMo';
+	color: #005255;
+}
+
+.gameing_out {
+	width: 220px;
+	height: 50px;
+	padding: 5px;d
+	text-align: center;
+	margin: 5px 5px 5px 5px;
+	/*border-top-left-radius: 5px;*/
+	border-radius: 5px;
+	background-color: gray;
+	font-size: 20px;
+	font-family: 'DungGeunMo';
+	color: 'Darkgary';
+}
+/*gameroom*/
+/*contant*/
+			 .gameing_user{
+				border-radius: 5px; 				/*테두리 둥글게*/ 
+				width: 150px;
+				height : 540px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid white;
+				margin : 2px;
+				font-family: 'DungGeunMo';
+			 }
+			.gameing_team1{
+				background : #FFC04D;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 10px 5px 6px 5px; 
+				padding : 5px;
+				float : left;	
+				font-family: 'DungGeunMo';
+			}
+			.gameing_team2{
+				background : #FF652A;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 6px 5px 6px 5px; 
+				padding : 5px;
+				float : left;	
+				font-family: 'DungGeunMo';
+			}
+			.gameing_team3{
+				background : #4C6ED4;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 6px 5px 6px 5px; 
+				padding : 5px;
+				float : left;	
+				font-family: 'DungGeunMo';
+			}
+			.gameing_team4{
+				background : #9BDB6B;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 6px 5px 6px 5px; 
+				padding : 5px;
+				float : left;	
+				font-family: 'DungGeunMo';
+			}
+			.gameing_score {
+				position: relative;
+				border: 2px solid white;
+				border-radius: 50px;
+				width: 35px;
+				height: 35px;
+				margin: 35px 45px;
+				
+			}
+			
+			/*content dice*/
+			 .gameing_dicearea{
+				border-radius: 5px; 				/*테두리 둥글게*/ 
+				width: 480px;
+				height : 135px;
+				float : left;
+				vertical-align : center;
+				border : hidden;
+				margin : 2px 0px 2px 7px;
+				font-family: 'DungGeunMo';
+			 }
+			.gameing_lottie-container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin : auto;			
+			}
+			.gameing_ricearea_col{
+				width: 125px;
+				height: 125px;
+				background : #92d050;
+				border: 5px solid #6F9C4C;
+				border-radius: 10px;
+				margin : 0px 20px 0px 0px;
+			}
+			.gameing_ricearea_row{
+				width: 125px;
+				height: 125px;
+				background : #0070c0;
+				border: 5px solid #1454C2;
+				border-radius: 10px;
+				margin : 0px 0px 0px 0px;
+			}
+
+			.rice1 {
+				width: 220px;
+				height: 220px;
+				align-items : center;
+				position: fixed;
+    			top: 70px;
+    			left: 250px;
+				color : #0070c0;
+			}
+			.rice2 {
+				width: 220px;
+				height: 220px;
+				align-items : center;
+				position: fixed;
+    			top: 70px;
+    		}
+			.gameing_quiz{
+				border-radius: 5px; 				/*테두리 둥글게*/ 
+				width: 480px;
+				height : 387px;
+				float : left;
+				vertical-align : center;
+				border : hidden;
+				margin : 10px 0px 2px 7px;
+				font-family: 'DungGeunMo';
+			 }
+			 /*table*/
+			.table             { 
+				border-spacing: 1; 
+				border-collapse: collapse; 
+				background: white;
+				border : 2px solid white;
+				/* border-radius:6px; */
+				/* overflow:hidden; */
+				width:380px;
+				height : 360px;
+				margin:3px auto;
+				text-align : center;
+				font-size : 12px;
+				table-layout: fixed; /*동일 너비*/
+				font-family :'GmarketSansMedium';
+			
+			}
+			table td, th{
+				border : 2px solid #282A46;
+			}
+			thead tr th{
+				background: #0070c0;
+				font-size : 22px;
+				
+				color : white;
+			   
+			}
+			tbody tr th{
+				background: #92d050;
+				font-size : 22px;
+				color : white;
+			}
+			.hover_y:hover {
+				position: absolute;
+				transform: translate(10%, -10%);
+				background-color: rgb(255, 255, 255);
+				box-shadow: 1px 5px 5px 1px rgb(0, 0, 0);
+				width: 50px;
+				border: 1px;
+				font-size: 20px;
+				line-height: 50px;
+			}						 		    			
+    						 															
