@@ -406,6 +406,7 @@
 	float: center;
 	margin: 5px 10px;
 	border: 3px solid white;
+	overflow: scroll;
 }
 
 .waiting_room_chat-input {
@@ -1133,4 +1134,18 @@ tbody tr th {
 	border: 1px;
 	font-size: 20px;
 	line-height: 50px;
+}
+
+.stop_dice_style {
+	width: 80px;
+    position: absolute;
+    top: 108px;
+    left: 308px;
+}
+
+.stop_dice_style2 {
+	width: 80px;
+    position: absolute;
+    top: 108px;
+    left: 465px;
 }
