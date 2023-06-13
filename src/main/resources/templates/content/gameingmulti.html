@@ -154,18 +154,11 @@
 </body>
 <script>
 	LottieInteractivity.create({
+		player: '#fourteenthLottie',
 		mode: "cursor",
-		player: "#seventhLottie",
 		actions: [
 			{
-				position: {x: [0, 1], y: [0, 1]},
-				type: "loop",
-				frames: [25, 50]
-			},
-			{
-				position: {x: -1, y: -1},
-				type: 'stop',
-				frames: [25],
+				type: "pauseHold",
 			}
 		]
 	});
