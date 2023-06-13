@@ -56,6 +56,8 @@ public class RoomDto {
 
 	private String updateDt; /*방 수정 시간*/
 	
+	private int isRunning; /*현재 게임중인지 체크*/
+	
 //	private Set<WebSocketSession> sessions = new HashSet<>();
 //	
 //	public static RoomDto create(String name) {

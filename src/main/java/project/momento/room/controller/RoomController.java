@@ -149,6 +149,7 @@ public class RoomController {
 		
 		roomInfo.put("participants", Integer.toString(room.getParticipants()));
 		roomInfo.put("total", Integer.toString(room.getTotal()));
+		roomInfo.put("isRunning", Integer.toString(room.getIsRunning()));
 
 		return roomInfo;
 	}
