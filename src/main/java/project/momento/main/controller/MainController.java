@@ -49,6 +49,18 @@ public class MainController {
 			educationDto.setPkUserSeq(loginDto.getPkUserSeq());
 			List<EducationDto> resultList = educationService.selectEducationStudList(educationDto);
 			
+			MainDto mainDto = new MainDto();
+			mainDto.setPkUserSeq(loginDto.getPkUserSeq());
+			
+			MainDto gameResult = mainService.selectGameChart(mainDto);
+			model.addAttribute("gameResult", gameResult);
+			
+			MainDto aiResult = mainService.selectAiChart(mainDto);
+			model.addAttribute("aiResult", aiResult);
+			
+			MainDto examResult = mainService.selectExamChart(mainDto);
+			model.addAttribute("examResult", examResult);
+			
 			model.addAttribute("list", resultList);
 			return "content/" + userDivn + "/main/main";
 		} else {

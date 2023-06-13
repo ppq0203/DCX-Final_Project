@@ -51,7 +51,7 @@
 	<div class="content">
 		<div class="row">
 			<!--캘린더-->
-			<div class="col-6">
+			<div class="col-8">
 				<div class="card card-primary card-outline">
 					<div class="card-body">
 						<div id="calendar"></div>
@@ -59,7 +59,7 @@
 
 				</div>
 			</div>
-			<div class="col-6">
+			<div class="col-4">
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<div class="row">
@@ -80,11 +80,16 @@
 						<div class="info-box" style="height: 15rem;">
 							<span class="info-box-icon bg-info elevation-1" style="height: 100px; width: 100px;"><i
 									class="fas fa-cog"></i></span>
-							<div class="info-box-content" style="display: inline;">
-								<span class="info-box-text" th:utext="${session.loginDto.name}"></span>
-								<span class="info-box-number">
-									10
-									<small>%</small>
+							<div class="info-box-content" >
+								<span class="info-box-number" th:utext="${session.loginDto.name}"></span>
+								<span class="info-box-number">AI</span>
+								<span class="info-box-text" th:text="${'정답문제: '+ aiResult.oValue + ' 틀린문제: '+ aiResult.xValue}">
+								</span>
+								<span class="info-box-number">Game</span>
+								<span class="info-box-text" th:text="${'정답문제: '+ gameResult.oValue + ' 틀린문제: '+ gameResult.xValue}">
+								</span>
+								<span class="info-box-number">test</span>
+								<span class="info-box-text" th:text="${'정답문제: '+ examResult.oValue + ' 틀린문제: '+ examResult.xValue}">
 								</span>
 							</div>
 
@@ -95,45 +100,6 @@
 			<!--차트-->
 		</div>
 		<!--1번 row-->
-		<!--출결관리-->
-		<div class="row">
-			<div class="col-12">
-				<div class="card card-primary card-outline">
-					<div class="card-header">
-						<div class="row">
-							<div class="col-6">
-								<h4>학생정보</h4>
-							</div>
-						</div>
-					</div>
-					<div class="card-body table-responsive">
-						<table class="table table-hover text-nowrap text-center">
-							<thead>
-								<tr>
-									<th>No.</th>
-									<th>교육명</th>
-									<th>이름</th>
-									<th>생년월일</th>
-									<th>전화번호</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="item, index : ${list}">
-									<td th:text="${index.index + 1}"></td>
-									<td th:text="${item.educationName}"></td>
-									<td th:text="${item.name}"></td>
-									<td th:text="${item.birthday}"></td>
-									<td th:text="${item.phone}"></td>
-								</tr>
-
-							</tbody>
-						</table>
-					</div>
-					<!--미구현-->
-				</div>
-			</div>
-
-		</div>
 	</div>
 	<script>
 		var CALENDAR_ARRAY = [];
@@ -193,6 +159,7 @@
 				success: function (data) {
 					// 이벤트 리스트를 배열로 변환
 					var CALENDAR_ARRAY = data.map(function (event) {
+						
 						return {
 							id: event.pkSubjectSeq,
 							title: event.subjectName,
@@ -226,8 +193,8 @@
 						GAME_CHART_DATA = '';
 						AI_CHART_DATA = '';
 						EXAM_CHART_DATA = '';
-						GAME_CHART_DATA = data.aiResult;
-						AI_CHART_DATA = data.gameResult;
+						GAME_CHART_DATA = data.gameResult;
+						AI_CHART_DATA = data.aiResult;
 						EXAM_CHART_DATA = data.examResult;
 						var marksData = {
 							labels: ["AI", "GAME", "TEST"],
@@ -248,12 +215,12 @@
 							pointHoverBorderColor: 'rgb(54, 162, 235)',
 							data: [AI_CHART_DATA.maxVal, GAME_CHART_DATA.maxVal, EXAM_CHART_DATA.maxVal]
 						});
-						
+
 						var RGB_1 = Math.floor(Math.random() * (255 + 1))
 						var RGB_2 = Math.floor(Math.random() * (255 + 1))
 						var RGB_3 = Math.floor(Math.random() * (255 + 1))
 						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
-						
+
 						marksData.datasets.push({
 							label: ["최소"],
 							backgroundColor: strRGBA,
@@ -292,8 +259,8 @@
 							pointHoverBorderColor: 'rgb(54, 162, 235)',
 							data: [AI_CHART_DATA.avgVal, GAME_CHART_DATA.avgVal, EXAM_CHART_DATA.avgVal]
 						});
-						
-						
+
+
 						var marksCanvas = document.getElementById("aiChart");
 
 						var chartOptions = {

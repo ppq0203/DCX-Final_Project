@@ -17,6 +17,9 @@ public class MainDto extends LoginDto {
 	/*학생 평균점수*/
 	private float avgVal;
 	/*학생 점수*/
-	private float userValue;
-	
+	private float userVal;
+	/*틀린 갯숫*/
+	private int xValue;
+	/*맞은 갯숫*/
+	private int oValue;
 }

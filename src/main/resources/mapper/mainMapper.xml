@@ -17,14 +17,20 @@
 		        A.PK_USER_SEQ = #{pkUserSeq}
 		    GROUP BY
 		        A.PK_USER_SEQ) AS userVal
+		        , bb				AS xValue
+		        , qq				AS oValue
 		FROM
 		    (SELECT
 		        MAX(ss) AS maxVal,
 		        MIN(ss) AS minVal,
-		        AVG(ss) AS avgVal
+		        AVG(ss) AS avgVal,
+		        bb
+		        , qq
 		    FROM
 		        (SELECT
 		            COUNT(CASE WHEN A.ANSWER_OX = 'O' THEN 1 END)/COUNT(A.ANSWER_OX) AS ss
+		            , COUNT(CASE WHEN A.ANSWER_OX = 'O' THEN 1 END) AS qq
+		            , COUNT(A.ANSWER_OX) AS bb
 		        FROM
 		            ANSWER A
 		        GROUP BY
@@ -38,6 +44,8 @@
 		    , MAX(SA.ss) AS maxVal
 		    , MIN(SA.ss) AS minVal
 		    , AVG(SA.ss) AS avgVal
+		    , qq			AS oValue
+		    , bb-qq		AS	xValue
 		FROM
 		    (SELECT
 		        (SELECT
@@ -49,6 +57,8 @@
 		        GROUP BY
 		            A.PK_USER_SEQ) AS userVal,
 		        SUM(A.ANSWER_NUM)/SUM(A.QUESTION_NUM) AS ss
+		        , SUM(A.ANSWER_NUM)		AS qq
+		        , SUM(A.QUESTION_NUM)		AS bb
 		    FROM
 		        AI_QUESTION_RESULT A
 		    GROUP BY
@@ -64,9 +74,12 @@
 			 , (SELECT COUNT(CASE WHEN SA.ANS_RESULT = 'Y' THEN 1 END) / COUNT(SA.ANS_RESULT)
 		     FROM LMS_EXAM_RESULT SA
 		     WHERE SA.PK_USER_SEQ = #{pkUserSeq}) AS userVal
+		     , ss				AS oValue
+		     , qq				AS xValue
 		FROM (
 		    SELECT
 		        COUNT(CASE WHEN A.ANS_RESULT = 'Y' THEN 1 END) AS ss,
+		        COUNT(CASE WHEN A.ANS_RESULT = 'N' THEN 1 END) AS qq,
 		        COUNT(A.ANS_RESULT) AS dd
 		    FROM LMS_EXAM_RESULT A
 		    GROUP BY A.PK_USER_SEQ
