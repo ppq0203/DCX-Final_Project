@@ -324,6 +324,7 @@
 		var stomp;
 		var pkUserSeq = /*[[${session.loginDto.pkUserSeq}]]*/0;
 		var userName = /*[[${session.loginDto.name}]]*/0;
+		var userTeamNo;
 		
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -337,11 +338,7 @@
 					var content = JSON.parse(chat.body);
 					$('#gameRoom').css('display', 'block'); 
 					$('#waitRoom').css('display', 'none');
-					for (var i = 1; i<=4; ++i){
-						if ($("#team"+i).children("#" + userName + "").length > 0){
-							userTeamNo = i;
-						}
-					}
+					console.log(userTeamNo);
 					// 주사위결과를 보여주는 함수 실행
 					get_index_and_prob();
 				});
@@ -500,7 +497,7 @@
 					if (content.pkUserSeq == pkUserSeq) {
 						if (content.answerOx == "O") {
 							alert("정답입니다");
-							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: pkUserSeq}));
+							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userNo: pkUserSeq}));
 						}
 						else {
 							alert("오답입니다");
@@ -519,6 +516,7 @@
 				}
 				else {
 					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team1").attr('id')}))
+					userTeamNo = 1;
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
@@ -531,6 +529,7 @@
 				}
 				else {
 					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team2").attr('id')}))
+					userTeamNo = 2;
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
@@ -548,6 +547,7 @@
 					else
 					{
 						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team3").attr('id')}))
+						userTeamNo = 3;
 					}
 				}
 				$("#content").css("pointer-events", "none")
@@ -566,6 +566,7 @@
 					else
 					{
 						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team4").attr('id')}))
+						userTeamNo = 4;
 					}
 				}
 
@@ -751,7 +752,7 @@
 		}
 
 		function correctTest() {
-			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: pkUserSeq}));
+			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userNo: pkUserSeq}));
 		}
 
 		function resultFillColor(teamNo) {

@@ -168,7 +168,6 @@ public class StompChatController {
         String userTeamNumber = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
     	message.setTeamNo(userTeamNumber.replace("team", ""));
-    	message.setUserNo(userUUID);
     	String json = null;
 		try {
 			json = new ObjectMapper().writeValueAsString(message);

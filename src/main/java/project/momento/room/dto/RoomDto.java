@@ -17,7 +17,7 @@ import project.momento.question.dto.QuestionDto;
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
 /*방*/
 public class RoomDto {
-	
+
 	private Set<String> giveupList = new HashSet<String>();
 	private HashMap<String,HashMap> userList = new HashMap<>(); /*참여중인 유저의 리스트를 뽑기 위한 리스트*/
 
