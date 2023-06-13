@@ -322,8 +322,8 @@
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
 		var roomNumber = /*[[${room.roomNumber}]]*/"0";
 		var stomp;
-		var pkUserSeq = [[${session.loginDto.pkUserSeq}]];
-		var userName = [[${session.loginDto.name}]];
+		var pkUserSeq = /*[[${session.loginDto.pkUserSeq}]]*/0;
+		var userName = /*[[${session.loginDto.name}]]*/0;
 		
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -497,7 +497,7 @@
 
 					// if (content.pkUserSeq == pkUserSeq)
 					// 임시코드 uuid가아닌 유저고유번호 변경시 위의 if문 사용
-					if (content.userUUID == pkUserSeq) {
+					if (content.pkUserSeq == pkUserSeq) {
 						if (content.answerOx == "O") {
 							alert("정답입니다");
 							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: pkUserSeq}));
