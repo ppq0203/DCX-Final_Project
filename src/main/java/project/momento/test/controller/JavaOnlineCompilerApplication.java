@@ -63,7 +63,7 @@ public class JavaOnlineCompilerApplication {
 		List<TestcaseDto> testcaseDtos = this.csvToInput("question/csv/num6sol.csv");
 //		System.out.println(testcaseDtos.size());
 		// 방넘버, 유저넘저, 함수명, 인풋list, 함수실행코드
-		int result = StringCodeCompile.stringCodeCompile(0, 0, "convert", testcaseDtos, code);
+		int result = StringCodeCompile.stringCodeCompile("0", "0", "convert", testcaseDtos, code);
 		System.out.println(result);
         return "index";
 	}
@@ -137,7 +137,7 @@ public class JavaOnlineCompilerApplication {
 //			System.out.println(t.getInput().equals("3,3;6"));
 		}
 //		System.out.println(testcaseDtos.size());
-		int result = StringCodeCompile.stringCodeCompile(0, 0, "convert", testcaseDtos, code);
+		int result = StringCodeCompile.stringCodeCompile("0", "0", "convert", testcaseDtos, code);
 		// 정답0, 오답-1
 		System.out.println(result);
         return "index";

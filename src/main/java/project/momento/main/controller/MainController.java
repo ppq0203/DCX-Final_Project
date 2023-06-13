@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import project.momento.education.dto.EducationDto;
 import project.momento.education.service.EducationService;
 import project.momento.login.dto.LoginDto;
+import project.momento.main.dto.MainDto;
+import project.momento.main.service.MainService;
 import project.momento.question.dto.QuestionDto;
 import project.momento.question.service.QuestionService;
 import project.momento.sign.dto.SignDto;
@@ -25,11 +27,13 @@ import project.momento.sign.service.SignService;
 public class MainController {
 
 	@Autowired
-	private SignService SignService;
+	private SignService signService;
 	@Autowired
 	private EducationService educationService;
 	@Autowired
 	private QuestionService questionService;
+	@Autowired
+	private MainService mainService;
 	
 	/*
 	 * 
@@ -69,19 +73,23 @@ public class MainController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/chart/list/{pkUserSeq}", produces = "application/json;charset=utf-8") /* value주소 이름 */
-	public Map<String, List<QuestionDto>> ChartList(@PathVariable int pkUserSeq, Model model, HttpServletRequest request) {
+	public Map<String, MainDto> ChartList(@PathVariable int pkUserSeq, Model model, HttpServletRequest request) {
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
-		QuestionDto questionDto = new QuestionDto();
-		questionDto.setPkUserSeq(pkUserSeq);
+		MainDto mainDto = new MainDto();
+		mainDto.setPkUserSeq(pkUserSeq);
 		
-		Map<String, List<QuestionDto>> resultList = new HashMap<>();
+		Map<String, MainDto> result = new HashMap<>();
 
-		//List<QuestionDto> gameResultList = questionService.selectGameChartList(questionDto);
-		//resultList.put("gameResultList", gameResultList);
+		MainDto gameResult = mainService.selectGameChart(mainDto);
+		result.put("gameResult", gameResult);
+		
+		MainDto aiResult = mainService.selectAiChart(mainDto);
+		result.put("aiResult", aiResult);
+		
+		MainDto examResult = mainService.selectExamChart(mainDto);
+		result.put("examResult", examResult);
 
-		
-		
-		return resultList;
+		return result;
 	}
 	
 

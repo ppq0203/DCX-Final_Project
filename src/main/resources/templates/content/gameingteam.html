@@ -7,10 +7,14 @@
 	<link th:href="@{/css/dice.css}" rel="stylesheet">
 	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
+	<link rel="stylesheet" href="./social-media-icons.css">
+	<script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"></script>
+	<!--글자 강조 홈페이지-->
+	<script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
 	<div id="container">
 		<div id="header"></div>
 
@@ -56,42 +60,58 @@
 					<div class="t1-user1"></div>
 					<div class="t1-user1"></div>
 					<div class="t1-nouser"></div>
+					<div class="score" style="background-color:rgb(128, 128, 255)" id="hover">
+						<span class="scorenum">0</span>
+					</div>
 				</div>
 				<div class="team2">
 					<div class="t2-user1"></div>
 					<div class="t2-user1"></div>
 					<div class="t2-user1"></div>
 					<div class="t2-nouser"></div>
+					<div class="score" style="background-color:rgb(0, 255, 128)">
+						<span class="scorenum">0</span>
+					</div>
 				</div>
 				<div class="team3">
 					<div class="t3-user1"></div>
 					<div class="t3-user1"></div>
 					<div class="t3-user1"></div>
 					<div class="t3-nouser"></div>
+					<div class="score" style="background-color:rgb(255, 128, 255)">
+						<span class="scorenum">0</span>
+					</div>
 				</div>
 				<div class="team4">
+
 					<div class="t4-user1"></div>
 					<div class="t4-user1"></div>
 					<div class="t4-user1"></div>
 					<div class="t4-nouser"></div>
+					<div class="score" style="background-color:gold">
+						<span class="scorenum">0</span>
+					</div>
+
 				</div>
 			</div>
 			<div class="dicearea">
 				<div class="lottie-container">
 					<div class="ricearea_col">
-						<lottie-player class="rice1" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
-							background="transparent" speed="1"></lottie-player>
+						<lottie-player class="rice1" id="fourteenthLottie"
+							src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent">
+						</lottie-player>
 						<!--loop autoplay-->
 					</div>
 					<div class="ricearea_row">
-						<lottie-player class="rice2" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
-							background="transparent" speed="1"></lottie-player>
+						<lottie-player class="rice2" id="seventhLottie"
+							src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent">
+						</lottie-player>
 					</div>
 				</div>
 			</div>
 			<div class="quiz">
 				<table class="table" id="board_table">
-					<thead class="tableborder">
+					<thead>
 						<tr>
 							<th></th>
 							<th>1</th>
@@ -105,57 +125,57 @@
 					<tbody lass="tableborder">
 						<tr>
 							<th>1</th>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-							<td>5</td>
-							<td>6</td>
+							<td class="hover_y">1</td>
+							<td class="hover_y">2</td>
+							<td class="hover_y">3</td>
+							<td class="hover_y">4</td>
+							<td class="hover_y">5</td>
+							<td class="hover_y">6</td>
 						</tr>
 						<tr>
 							<th>2</th>
-							<td>7</td>
-							<td>8</td>
-							<td>9</td>
-							<td>10</td>
-							<td>11</td>
-							<td>12</td>
+							<td class="hover_y">7</td>
+							<td class="hover_y">8</td>
+							<td class="hover_y">9</td>
+							<td class="hover_y">10</td>
+							<td class="hover_y">11</td>
+							<td class="hover_y">12</td>
 						</tr>
 						<tr>
 							<th>3</th>
-							<td>13</td>
-							<td>14</td>
-							<td>15</td>
-							<td>16</td>
-							<td>17</td>
-							<td>18</td>
+							<td class="hover_y">13</td>
+							<td class="hover_y">14</td>
+							<td class="hover_y">15</td>
+							<td class="hover_y">16</td>
+							<td class="hover_y">17</td>
+							<td class="hover_y">18</td>
 						</tr>
 						<tr>
 							<th>4</th>
-							<td>19</td>
-							<td>20</td>
-							<td>21</td>
-							<td>22</td>
-							<td>23</td>
-							<td>24</td>
+							<td class="hover_y">19</td>
+							<td class="hover_y">20</td>
+							<td class="hover_y">21</td>
+							<td class="hover_y">22</td>
+							<td class="hover_y">23</td>
+							<td class="hover_y">24</td>
 						</tr>
 						<tr>
 							<th>5</th>
-							<td>25</td>
-							<td>26</td>
-							<td>27</td>
-							<td>28</td>
-							<td>29</td>
-							<td>30</td>
+							<td class="hover_y">25</td>
+							<td class="hover_y">26</td>
+							<td class="hover_y">27</td>
+							<td class="hover_y">28</td>
+							<td class="hover_y">29</td>
+							<td class="hover_y">30</td>
 						</tr>
 						<tr>
 							<th>6</th>
-							<td>31</td>
-							<td>32</td>
-							<td>33</td>
-							<td>34</td>
-							<td>35</td>
-							<td>36</td>
+							<td class="hover_y">31</td>
+							<td class="hover_y">32</td>
+							<td class="hover_y">33</td>
+							<td class="hover_y">34</td>
+							<td class="hover_y">35</td>
+							<td class="hover_y">36</td>
 						</tr>
 					</tbody>
 				</table>
@@ -163,5 +183,29 @@
 		</div>
 	</div>
 </body>
+<script>
+	LottieInteractivity.create({
+		player: '#fourteenthLottie',
+		mode: "cursor",
+		actions: [
+			{
+				type: "click",
+				forceFlag: false
+			}
+		]
+	});
+
+	LottieInteractivity.create({
+		player: '#seventhLottie',
+		mode: "cursor",
+		actions: [
+			{
+				type: "click",
+				forceFlag: false
+			}
+		]
+	});
+
+</script>
 
 </html>

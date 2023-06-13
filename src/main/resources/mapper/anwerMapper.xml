@@ -12,16 +12,20 @@
 				PK_QUESTION_SEQ,
 				PK_USER_SEQ,
 				ANSWER_USER,
-				ANSWER_OX,
-				REGIST_DT
+				ANSWER_Ox,
+				REGIST_DT,
+				TYPE,
+				SOLVE_TIME
 			) 
 			VALUES
 			(
-				#{pkQuesTionSeq},
+				#{pkQuestionSeq},
 				#{pkUserSeq},
 				#{answerUser},
-				#{answerOX},
-				#{registDt}
+				#{answerOx},
+				#{registDt},
+				#{type},
+				#{solveTime}
 			)
 			
 		]]>
@@ -33,11 +37,13 @@
 		<![CDATA[
 			SELECT
 				PK_ANSWER_SEQ 		AS PkAnswerSeq,
-				PK_QUESTION_SEQ		AS pkQuesTionSeq,
+				PK_QUESTION_SEQ		AS pkQuestionSeq,
 				PK_USER_SEQ			AS pkUserSeq,
 				ANSWER_USER			AS answerUser,
 				ANSWER_OX 			AS answerOx,
-				REGIST_DT 			AS registDt
+				REGIST_DT 			AS registDt,
+				TYPE				AS type,
+				SOLVE_TIME			AS solveTime
 			FROM 
 				ANSWER
 			WHERE
