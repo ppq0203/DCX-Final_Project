@@ -303,7 +303,7 @@
 		var roomName = /*[[${room.roomName}]]*/0;
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
 		var stomp;
-		var username = "0";
+		var username = [[${session.loginDto.name}]];
 
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -345,7 +345,7 @@
 					var content = JSON.parse(chat.body);
 					// 첫접속시 유저 고유번호 저장
 					console.log("username : " + content.pkUserSeq);
-					if (username == "0") {
+					if (username == [[${session.loginDto.name}]]) {
 						username = content.pkUserSeq;
 					}
 
