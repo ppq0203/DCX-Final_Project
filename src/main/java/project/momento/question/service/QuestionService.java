@@ -23,5 +23,5 @@ public class QuestionService {
 		// TODO Auto-generated method stub
 		return questionMapper.selectQuestionSeq(pkQuestionSeq);
 	}
-	
+
 }

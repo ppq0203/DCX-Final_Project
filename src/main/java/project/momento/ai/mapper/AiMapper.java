@@ -23,5 +23,13 @@ public interface AiMapper {
 
 	QuestionDto selectQuestion(QuestionDto questionDto);
 
+	void insertAiQuestion(QuestionDto questionDto);
+
+	void updateAiQuestion(QuestionDto questionDto);
+
+	void deleteAiQuestion(QuestionDto questionDto);
+
+	void insertQuestionResult(QuestionDto questionDto);
+
 
 }
