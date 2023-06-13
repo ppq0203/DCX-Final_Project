@@ -378,9 +378,11 @@
 			$(temp_elem).css("background-color", "gray");
 			$(temp_elem).css("color", "darkgray");
 			resultSave($("#questionType").val(), -1);
+			/* 포기버튼 카운트 */
 			giveup_count++;
 			total_score();
 		})
+		/* 문제가 전부 비활성화 됐을때 점수표 출력 */
 		function total_score() {
 			if (giveup_count + Question_submit_count == count) {
 				$('#total_modal').trigger('click');
@@ -405,6 +407,7 @@
 					resultSave($("#questionType").val(), 0);
 				}
 			});
+			/* 등록버튼 카운트 */
 			Question_submit_count++;
 			total_score();
 		})
