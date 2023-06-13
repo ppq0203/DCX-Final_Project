@@ -6,7 +6,7 @@
 <th:block layout:fragment="content">
 	<div class="container">
 		<h2 style=" text-align: center; padding: 50px;">관리자 회원가입</h2>
-		<form method="post" action="/mng/sign/form" name="userInfo" onsubmit="return checkValue()">
+		<form method="post" action="/mng/sign/form" name="userInfo" onsubmit="return checkValue()" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-sm-9">
 					<div class="col-sm-12">
@@ -141,9 +141,8 @@
 			//input file 태그.
 			var file = $(".custom-file-input")[0].files[0];
 			//파일 경로.
-			var filePath = file.value;
 
-			console.log('파일 경로 : ' + e.target.result);
+			console.log('파일 경로 : ' + filePath);
 			console.log('파일명 : ' + fileName);
 			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 			if (fileName != '') {
@@ -151,7 +150,7 @@
 				reader.readAsDataURL(e.target.files[0]);
 				reader.onload = function (event) { //파일 로드한 값을 표현, e는 이벤트안에 result값이 파일의 정보 가지고 있음 
 					$('#preview').attr('src', event.target.result);
-					$('#imgPath').val(test);
+					$('#imgPath').val(filePath);
 				}
 			}
 		});
