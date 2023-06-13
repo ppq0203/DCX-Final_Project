@@ -85,6 +85,9 @@ public class MainController {
 		
 		MainDto aiResult = mainService.selectAiChart(mainDto);
 		result.put("aiResult", aiResult);
+		
+		MainDto examResult = mainService.selectExamChart(mainDto);
+		result.put("examResult", examResult);
 
 		return result;
 	}

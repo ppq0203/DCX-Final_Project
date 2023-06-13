@@ -15,6 +15,8 @@ public interface MainMapper {
 	MainDto selectGameChart(MainDto mainDto);
 
 	MainDto selectAiChart(MainDto mainDto);
+
+	MainDto selectExamChart(MainDto mainDto);
 	
 
 }

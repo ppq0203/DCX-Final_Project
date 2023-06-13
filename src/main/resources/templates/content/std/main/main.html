@@ -13,25 +13,15 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-6">
-							<div class="card">
-								<div class="chart">
-									<canvas id="gameChart"
-										style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 406px;"
-										width="812" height="500" class="chartjs-render-monitor gameChart"></canvas>
-								</div>
-							</div>
-						</div>
-						<div class="col-6">
+						<div class="col-12">
 							<div class="card">
 								<div class="chart">
 									<canvas id="aiChart"
-										style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 406px;"
+										style="min-height: 250px; height: 500px; max-height: 500px; max-width: 100%; display: block; width: 406px;"
 										width="812" height="500" class="chartjs-render-monitor gameChart"></canvas>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">
@@ -149,6 +139,7 @@
 		var CALENDAR_ARRAY = [];
 		var GAME_CHART_DATA = '';
 		var AI_CHART_DATA = '';
+		var EXAM_CHART_DATA = '';
 		// 랜덤 색상 생성 함수
 		function getRandomColor() {
 			var letters = '0123456789ABCDEF';
@@ -234,138 +225,88 @@
 					success: function (data) {
 						GAME_CHART_DATA = '';
 						AI_CHART_DATA = '';
+						EXAM_CHART_DATA = '';
 						GAME_CHART_DATA = data.aiResult;
 						AI_CHART_DATA = data.gameResult;
-
-
-						var data = {
-							datasets: [{
-								data: [
-									GAME_CHART_DATA.minVal,
-									GAME_CHART_DATA.avgVal,
-									GAME_CHART_DATA.userVal,
-									GAME_CHART_DATA.maxVal
-								],
-								backgroundColor: [
-									`rgba(60, 141, 188, 0.5)`,
-									`rgba(0, 0, 255, 0.5)`,
-									`rgba(255, 255, 0, 0.5)`,
-									`rgba(0, 128, 0, 0.5)`
-								],
-								label: 'Game 역량', // for legend
-							}],
-							labels: [
-								"최소",
-								"평균",
-								"나의위치",
-								"최대",
-							],
+						EXAM_CHART_DATA = data.examResult;
+						var marksData = {
+							labels: ["AI", "GAME", "TEST"],
+							datasets: []
 						};
-						var ctx = $("#gameChart");
-						new Chart(ctx, {
-							data: data,
-							type: 'polarArea',
-							options: {
-							}
+						var RGB_1 = Math.floor(Math.random() * (255 + 1))
+						var RGB_2 = Math.floor(Math.random() * (255 + 1))
+						var RGB_3 = Math.floor(Math.random() * (255 + 1))
+						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+
+						marksData.datasets.push({
+							label: ["최대"],
+							backgroundColor: strRGBA,
+							borderColor: strRGBA,
+							pointBackgroundColor: strRGBA,
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [AI_CHART_DATA.maxVal, GAME_CHART_DATA.maxVal, EXAM_CHART_DATA.maxVal]
+						});
+						
+						var RGB_1 = Math.floor(Math.random() * (255 + 1))
+						var RGB_2 = Math.floor(Math.random() * (255 + 1))
+						var RGB_3 = Math.floor(Math.random() * (255 + 1))
+						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+						
+						marksData.datasets.push({
+							label: ["최소"],
+							backgroundColor: strRGBA,
+							borderColor: strRGBA,
+							pointBackgroundColor: strRGBA,
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [AI_CHART_DATA.minVal, GAME_CHART_DATA.minVal, EXAM_CHART_DATA.minVal]
+						});
+						var RGB_1 = Math.floor(Math.random() * (255 + 1))
+						var RGB_2 = Math.floor(Math.random() * (255 + 1))
+						var RGB_3 = Math.floor(Math.random() * (255 + 1))
+						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+						marksData.datasets.push({
+							label: ["나"],
+							backgroundColor: strRGBA,
+							borderColor: strRGBA,
+							pointBackgroundColor: strRGBA,
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [AI_CHART_DATA.userVal, GAME_CHART_DATA.userVal, EXAM_CHART_DATA.userVal]
+						});
+						var RGB_1 = Math.floor(Math.random() * (255 + 1))
+						var RGB_2 = Math.floor(Math.random() * (255 + 1))
+						var RGB_3 = Math.floor(Math.random() * (255 + 1))
+						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+						marksData.datasets.push({
+							label: ["평균"],
+							backgroundColor: strRGBA,
+							borderColor: strRGBA,
+							pointBackgroundColor: strRGBA,
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [AI_CHART_DATA.avgVal, GAME_CHART_DATA.avgVal, EXAM_CHART_DATA.avgVal]
+						});
+						
+						
+						var marksCanvas = document.getElementById("aiChart");
+
+						var chartOptions = {
+							responsive: true
+
+						};
+
+						var radarChart = new Chart(marksCanvas, {
+							type: 'radar',
+							data: marksData,
+							options: chartOptions
 						});
 
-
-						/* ChartJS
-						 * -------
-						 * Here we will create a few charts using ChartJS
-						 */
-
-						var aiChartData = {
-							labels: ['Ai 역량'],
-							datasets: [
-								{
-									label: '최저',
-									backgroundColor: 'rgba(210, 214, 222, 1)',
-									borderColor: 'rgba(210, 214, 222, 1)',
-									pointRadius: false,
-									pointColor: 'rgba(210, 214, 222, 1)',
-									pointStrokeColor: '#c1c7d1',
-									pointHighlightFill: '#fff',
-									pointHighlightStroke: 'rgba(220,220,220,1)',
-									data: [AI_CHART_DATA.minVal]
-								},
-								{
-									label: '평균',
-									backgroundColor: 'rgba(210, 214, 222, 1)',
-									borderColor: 'rgba(210, 214, 222, 1)',
-									pointRadius: false,
-									pointColor: 'rgba(210, 214, 222, 1)',
-									pointStrokeColor: '#c1c7d1',
-									pointHighlightFill: '#fff',
-									pointHighlightStroke: 'rgba(220,220,220,1)',
-									data: [AI_CHART_DATA.avgVal]
-								},
-								{
-									label: '나의 위치',
-									backgroundColor: 'rgba(60,141,188,0.9)',
-									borderColor: 'rgba(60,141,188,0.8)',
-									pointRadius: false,
-									pointColor: '#3b8bba',
-									pointStrokeColor: 'rgba(60,141,188,1)',
-									pointHighlightFill: '#fff',
-									pointHighlightStroke: 'rgba(60,141,188,1)',
-									data: [AI_CHART_DATA.userVal]
-								},
-								{
-									label: '최고',
-									backgroundColor: 'rgba(210, 214, 222, 1)',
-									borderColor: 'rgba(210, 214, 222, 1)',
-									pointRadius: false,
-									pointColor: 'rgba(210, 214, 222, 1)',
-									pointStrokeColor: '#c1c7d1',
-									pointHighlightFill: '#fff',
-									pointHighlightStroke: 'rgba(220,220,220,1)',
-									data: [AI_CHART_DATA.maxVal]
-								},
-							]
-						}
-
-						var aiChartOptions = {
-							maintainAspectRatio: false,
-							responsive: true,
-							legend: {
-								display: false
-							},
-							scales: {
-								xAxes: [{
-									gridLines: {
-										display: false,
-									}
-								}],
-								yAxes: [{
-									gridLines: {
-										display: false,
-									}
-								}]
-							}
-						}
-
-						//-------------
-						//- BAR CHART -
-						//-------------
-						var aiChartCanvas = $('#aiChart').get(0).getContext('2d')
-						var aiChartData = $.extend(true, {}, aiChartData)
-						var temp0 = aiChartData.datasets[0]
-						var temp1 = aiChartData.datasets[1]
-						aiChartData.datasets[0] = temp1
-						aiChartData.datasets[1] = temp0
-
-						var aiChartOptions = {
-							responsive: true,
-							maintainAspectRatio: false,
-							datasetFill: false
-						}
-
-						new Chart(aiChartCanvas, {
-							type: 'bar',
-							data: aiChartData,
-							options: aiChartOptions
-						})
 					},
 					error: function (xhr, status, error) {
 						console.log(error); // 에러 처리

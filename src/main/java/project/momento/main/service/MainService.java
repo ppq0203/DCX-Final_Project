@@ -29,6 +29,12 @@ public class MainService {
 		// TODO Auto-generated method stub
 		return mainMapper.selectAiChart(mainDto);
 	}
+
+
+	public MainDto selectExamChart(MainDto mainDto) {
+		// TODO Auto-generated method stub
+		return mainMapper.selectExamChart(mainDto);
+	}
 	
 
 	

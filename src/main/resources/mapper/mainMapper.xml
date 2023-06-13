@@ -55,4 +55,22 @@
 		        A.PK_USER_SEQ) SA;
 		]]>
 	</select>
+	<select id="selectExamChart" parameterType="project.momento.main.dto.MainDto" resultType="project.momento.main.dto.MainDto">
+		<![CDATA[
+		SELECT
+		    MAX(ss/dd) 					AS maxVal
+			 , AVG(ss/dd) 				AS avgVal
+			 , MIN(ss/dd) 				AS minVal
+			 , (SELECT COUNT(CASE WHEN SA.ANS_RESULT = 'Y' THEN 1 END) / COUNT(SA.ANS_RESULT)
+		     FROM LMS_EXAM_RESULT SA
+		     WHERE SA.PK_USER_SEQ = #{pkUserSeq}) AS userVal
+		FROM (
+		    SELECT
+		        COUNT(CASE WHEN A.ANS_RESULT = 'Y' THEN 1 END) AS ss,
+		        COUNT(A.ANS_RESULT) AS dd
+		    FROM LMS_EXAM_RESULT A
+		    GROUP BY A.PK_USER_SEQ
+		) PA
+		]]>
+	</select>
 </mapper>
