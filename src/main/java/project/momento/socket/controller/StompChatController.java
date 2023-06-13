@@ -154,6 +154,8 @@ public class StompChatController {
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
         String userTeamNumber = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
+        RoomDto roomDto = shambles.roomDtoMap.get(roomId);
+        roomDto.setIsRunning(1);
     	message.setTeamNo(userTeamNumber.replace("team", ""));
     	message.setUserNo(userUUID);
 		template.convertAndSend("/sub/chat/gamestart/" + roomId, message);

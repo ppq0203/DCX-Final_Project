@@ -67,6 +67,7 @@ public class RoomService {
 		else
 			roomDto.setTotal(roomDto.getRoomNumber());
 		roomDto.setParticipants(0);
+		roomDto.setIsRunning(0);
 		Integer[] intArray = new Integer[36];
 		for(int i=0; i < 36; i++)
 			intArray[i] = i+1;
