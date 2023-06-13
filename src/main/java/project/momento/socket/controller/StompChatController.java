@@ -86,19 +86,23 @@ public class StompChatController {
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         String team = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
         
-        if(room.getUserList().get(message.getUserTeamNumber()) == null)
-		{
-			HashMap dump = new HashMap();
-			dump.put("dump", "dump");
-			room.getUserList().put(message.getUserTeamNumber(), dump);
-			room.getUserList().get(message.getUserTeamNumber()).put(userUUID, room.getUserList().get(team).get(userUUID));
-			room.getUserList().get(message.getUserTeamNumber()).remove("dump");
-		}
-        else
+        if(!message.getUserTeamNumber().equals(team))
         {
-        	room.getUserList().get(message.getUserTeamNumber()).put(userUUID, room.getUserList().get(team).get(userUUID));
+	        if(room.getUserList().get(message.getUserTeamNumber()) == null)
+			{
+				HashMap dump = new HashMap();
+				dump.put("dump", "dump");
+				room.getUserList().put(message.getUserTeamNumber(), dump);
+				room.getUserList().get(message.getUserTeamNumber()).put(userUUID, room.getUserList().get(team).get(userUUID));
+				room.getUserList().get(message.getUserTeamNumber()).remove("dump");
+			}
+	        else
+	        {
+	        	room.getUserList().get(message.getUserTeamNumber()).put(userUUID, room.getUserList().get(team).get(userUUID));
+	        }
+        
+        	room.getUserList().get(team).remove(userUUID);
         }
-        room.getUserList().get(team).remove(userUUID);
         
         HashMap<String, HashMap> userList = room.getUserList();
         headerAccessor.getSessionAttributes().put("userTeamNumber", message.getUserTeamNumber());

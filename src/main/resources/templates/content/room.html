@@ -41,16 +41,28 @@
 				
 			</div>
 			<div class="waiting_room_team1" id="team1">
-
+				<div class='waiting_room_block' id='t1_block3'></div>
+				<div class='waiting_room_block' id='t1_block2'></div>
+				<div class='waiting_room_block' id='t1_block1'></div>
+				<div class='waiting_room_block' id='t1_block0'></div>
 			</div>
 			<div class="waiting_room_team2" id="team2">
-
+				<div class='waiting_room_block' id='t2_block3'></div>
+				<div class='waiting_room_block' id='t2_block2'></div>
+				<div class='waiting_room_block' id='t2_block1'></div>
+				<div class='waiting_room_block' id='t2_block0'></div>
 			</div>
 			<div class="waiting_room_team3" id="team3">
-
+				<div class='waiting_room_block' id='t3_block3'></div>
+				<div class='waiting_room_block' id='t3_block2'></div>
+				<div class='waiting_room_block' id='t3_block1'></div>
+				<div class='waiting_room_block' id='t3_block0'></div>
 			</div>
 			<div class="waiting_room_team4" id="team4">
-
+				<div class='waiting_room_block' id='t4_block3'></div>
+				<div class='waiting_room_block' id='t4_block2'></div>
+				<div class='waiting_room_block' id='t4_block1'></div>
+				<div class='waiting_room_block' id='t4_block0'></div>
 			</div>
 		</div>
 	</div>
@@ -199,7 +211,7 @@
 								<td class="hover_y" id="q29">29</td>
 								<td class="hover_y" id="q30">30</td>
 							</tr>
-							<tr>
+							<tr id="line6">
 								<th>6</th>
 								<td class="hover_y" id="q31">31</td>
 								<td class="hover_y" id="q32">32</td>
@@ -375,83 +387,104 @@
 					str += "<b class='fontb'>" + writer + " : " + chatContent + "</b>";
 					str += "</div></div>";
 					$("#msgArea").append(str);
-				});		
+				});
+				 
 				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					
-					$.each(content.waitList, function (index, value) {
-						if ($("#team1").children("#" + index + "").length > 0) {
-							console.log("jquery : 해당 객체 존재함");
-						} else {
-							str = "<div class='waiting_room_wait' display:none' id = '" + index + "'></div>";
-							$("#" + index + "").remove();
-							$("#waitList").append(str);
-						}
+					Object.keys(content.waitList).forEach(function (index, i) {
+						value = content.waitList[index];
+						
+						str = "<div class='waiting_room_wait' display:none' id = '" + index + "'></div>";
+						$("#" + index + "").remove();
+						$("#waitList").append(str);
 					});
 					
-					$.each(content.team1, function (index, value) {
-						if ($("#team1").children("#" + index + "").length > 0) {
-							console.log("jquery : 해당 객체 존재함");
-						} else {
-							str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
-							str += "<div class='col-sys'>";
-							str += "<b class='fontp'>" + value + "</b>";
-							str += "</div></div>";
-							$("#" + index + "").remove();
-							$("#team1").append(str);
-							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-							$("#game-" + index + "").remove();
-							$("#game1").prepend(gtr);
+					teamNumber = /*[[${room.teamNumber}]]*/0
+					for(i = 0; i  < teamNumber; i++){
+						$("#t1_block"+i+"").remove();
+						$("#t2_block"+i+"").remove();
+						
+						if(!(3 > /*[[${room.roomNumber}]]*/0)){
+							$("#t3_block"+i+"").remove();
 						}
+						if(!(4 > /*[[${room.roomNumber}]]*/0)){
+							$("#t4_block"+i+"").remove();
+						}
+					}
+					
+
+					Object.keys(content.team1).forEach(function(index, i) {
+						value = content.team1[index];
+						
+						str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
+						str += "<div class='col-sys'>";
+						str += "<b class='fontp'>" + value + "</b>";
+						str += "</div>";
+						$("#" + index + "").remove();
+						$("#team1").append(str);
+						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						$("#game-" + index + "").remove();
+						$("#game1").prepend(gtr);
 					});
 					
-					$.each(content.team2, function (index, value) {
-						if ($("#team2").children("#" + index + "").length > 0) {
-							console.log("jquery : 해당 객체 존재함");
-						} else {
-							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
-							str += "<div class='col-sys'>";
-							str += "<b class='fontp'>" + value + "</b>";
-							str += "</div></div>";
-							$("#" + index + "").remove();
-							$("#team2").append(str);
-							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-							$("#game-" + index + "").remove();
-							$("#game2").prepend(gtr);
-						}
+					Object.keys(content.team2).forEach(function (index, i) {
+						value = content.team2[index];
+
+						str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
+						str += "<div class='col-sys'>";
+						str += "<b class='fontp'>" + value + "</b>";
+						str += "</div></div>";
+						$("#" + index + "").remove();
+						$("#team2").append(str);
+						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						$("#game-" + index + "").remove();
+						$("#game2").prepend(gtr);
 					});
 					
-					$.each(content.team3, function (index, value) {
-						if ($("#team3").children("#" + index + "").length > 0) {
-							console.log("jquery : 해당 객체 존재함");
-						} else {
-							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
-							str += "<div class='col-sys'>";
-							str += "<b class='fontp'>" + value + "</b>";
-							str += "</div></div>";
-							$("#" + index + "").remove();
-							$("#team3").append(str);
-							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-							$("#game-" + index + "").remove();
-							$("#game3").prepend(gtr);
-						}
+					Object.keys(content.team3).forEach(function (index, i) {
+						value = content.team3[index];
+
+						str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
+						str += "<div class='col-sys'>";
+						str += "<b class='fontp'>" + value + "</b>";
+						str += "</div></div>";
+						$("#" + index + "").remove();
+						$("#team3").append(str);
+						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						$("#game-" + index + "").remove();
+						$("#game3").prepend(gtr);
 					});
 					
-					$.each(content.team4, function (index, value) {
-						if ($("#team4").children("#" + index + "").length > 0) {
-							console.log("jquery : 해당 객체 존재함");
-						} else {
-							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
-							str += "<div class='col-sys'>";
-							str += "<b class='fontp' style='text-align'>" + value + "</b>";
-							str += "</div></div>";
-							$("#" + index + "").remove();
-							$("#team4").append(str);
-							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-							$("#game-" + index + "").remove();
-							$("#game4").prepend(gtr);
-						}
+					Object.keys(content.team4).forEach(function (index, i) {
+						value = content.team4[index];
+						
+						str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
+						str += "<div class='col-sys'>";
+						str += "<b class='fontp' style='text-align'>" + value + "</b>";
+						str += "</div></div>";
+						$("#" + index + "").remove();
+						$("#team4").append(str);
+						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						$("#game-" + index + "").remove();
+						$("#game4").prepend(gtr);
 					});
+					
+					//if (3 > /*[[${room.roomNumber}]]*/0) {
+					//	str = "<div class='waiting_room_block'></div>";
+					//	$("#team3").append(str);
+					//	$("#team3").append(str);
+					//	$("#team3").append(str);
+					//	$("#team3").append(str);
+					//}
+					
+					//if (4 > /*[[${room.roomNumber}]]*/0) {
+					//	str = "<div class='waiting_room_block'></div>";
+					//	$("#team4").append(str);
+					//	$("#team4").append(str);
+					//	$("#team4").append(str);
+					//	$("#team4").append(str);
+					//}
 				});
 
 				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
@@ -512,7 +545,7 @@
 
 			$("#team1").on("click", function (e) {
 				// if ($("#team1Count").val() >= /*[[${room.teamNumber}]]*/0) {
-				if ($("#team1").children().length >= /*[[${room.teamNumber}]]*/0) {
+				if ($("#team1").children('.waiting_room_t1-user1').length >= /*[[${room.teamNumber}]]*/0) {
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
@@ -524,7 +557,7 @@
 
 			$("#team2").on("click", function (e) {
 				// if ($("#team2Count").val() >= /*[[${room.teamNumber}]]*/0) {
-				if ($("#team2").children().length >= /*[[${room.teamNumber}]]*/0) {
+				if ($("#team2").children('.waiting_room_t2-user1').length >= /*[[${room.teamNumber}]]*/0) {
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
@@ -540,7 +573,7 @@
 				}
 				else {
 					// if ($("#team3Count").val() >= /*[[${room.teamNumber}]]*/0) {
-					if ($("#team3").children().length >= /*[[${room.teamNumber}]]*/0) {
+					if ($("#team3").children('.waiting_room_t3-user1').length >= /*[[${room.teamNumber}]]*/0) {
 						alert("팀이 꽉 찼습니다.");
 					}
 					else
@@ -558,7 +591,7 @@
 				}
 				else {
 					// if ($("#team4Count").val() >= /*[[${room.teamNumber}]]*/0) {
-					if ($("#team4").children().length >= /*[[${room.teamNumber}]]*/0) {
+					if ($("#team4").children('.waiting_room_t4-user1').length >= /*[[${room.teamNumber}]]*/0) {
 						alert("팀이 꽉 찼습니다.");
 					}
 					else
