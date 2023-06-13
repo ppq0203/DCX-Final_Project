@@ -322,7 +322,7 @@
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
 		var roomNumber = /*[[${room.roomNumber}]]*/"0";
 		var stomp;
-		var username = "0";
+		var pkUserSeq = "0";
 
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -337,7 +337,7 @@
 					$('#gameRoom').css('display', 'block'); 
 					$('#waitRoom').css('display', 'none');
 					for (var i = 1; i<=4; ++i){
-						if ($("#team"+i).children("#" + username + "").length > 0){
+						if ($("#team"+i).children("#" + pkUserSeq + "").length > 0){
 							userTeamNo = i;
 						}
 					}
@@ -362,9 +362,9 @@
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					// 첫접속시 유저 고유번호 저장
-					console.log("username : " + content.pkUserSeq);
-					if (username == "0") {
-						username = content.pkUserSeq;
+					console.log("pkUserSeq : " + content.pkUserSeq);
+					if (pkUserSeq == "0") {
+						pkUserSeq = content.pkUserSeq;
 					}
 
 					var chatContent = content.chatContent;
@@ -464,7 +464,7 @@
 					var content = JSON.parse(result.body);
 					var qtype = $('#questionType').val();
 					// 정답을 맞춘 사람이 본인 일때 타입결과 저장
-					if (content.userNo == username) {
+					if (content.userNo == pkUserSeq) {
 						resultSave(qtype, 0);
 					}
 					// 정답을 맞춘 사람이 타인 일때 타입결과 저장
@@ -493,12 +493,12 @@
 				stomp.subscribe("/sub/chat/sendAnswer/" + roomId, function (result) {
 					var content = JSON.parse(result.body);
 
-					// if (content.pkUserSeq == username)
+					// if (content.pkUserSeq == pkUserSeq)
 					// 임시코드 uuid가아닌 유저고유번호 변경시 위의 if문 사용
-					if (content.userUUID == username) {
+					if (content.userUUID == pkUserSeq) {
 						if (content.answerOx == "O") {
 							alert("정답입니다");
-							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: username}));
+							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: pkUserSeq}));
 						}
 						else {
 							alert("오답입니다");
@@ -507,7 +507,7 @@
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
-				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: username}))
+				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq}))
 			});
 
 			$("#team1").on("click", function (e) {
@@ -577,7 +577,7 @@
 
 			$("#button-send").on("click", function (e) {
 				var msg = document.getElementById("msg");
-				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
+				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: pkUserSeq}));
 				msg.value = '';
 			});
 
@@ -589,7 +589,7 @@
 			$("#msg").keyup(function () {
 				if (event.keyCode == 13) {
 					var msg = document.getElementById("msg");
-					stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
+					stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: pkUserSeq}));
 					msg.value = '';
 				}
 			});
@@ -749,7 +749,7 @@
 		}
 
 		function correctTest() {
-			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: username}));
+			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: pkUserSeq}));
 		}
 
 		function resultFillColor(teamNo) {
@@ -805,7 +805,7 @@
 			var name = $("#nameQuestion").val();
 			var pkQuestionSeq = $("#questionNo").val();
 			// alert("click");
-			console.log(username);
+			console.log(pkUserSeq);
 			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq: pkQuestionSeq, answerUser: code, answerOx: name}));
 		}
 		function giveup()
