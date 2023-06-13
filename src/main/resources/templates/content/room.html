@@ -58,8 +58,8 @@
 	<!-- ----------------------- 대기방 끝 --------------------------- -->
 
 	<!-- ------------------------게임방------------------------------ -->
-	<div id="gameRoom" style="display:none;">
-		<div class="gameing_container">
+	<div id="gameRoom" style="display:none;" >
+		<div class="gameing_container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 			<div class="gameing_header" id="header"></div>
 			<!--side right -->
 			<div class="gameing_sidebar" id="sidebar">
@@ -127,13 +127,14 @@
 				</div>
 				<div class="gameing_dicearea">
 					<div class="gameing_lottie-container">
-						<div class="gameing_ricearea_col">
+						<div class="gameing_ricearea_col" id="game_dice_stop">
+							<!--loop autoplay-->
 							<lottie-player class="gameing_rice1"
 								src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent"
 								speed="1" loop autoplay></lottie-player>
-							<!--loop autoplay-->
 						</div>
-						<div class="gameing_ricearea_row">
+						<div class="gameing_ricearea_row" id="game_dice_stop2">
+							<!--loop autoplay-->
 							<lottie-player class="gameing_rice2"
 								src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent"
 								speed="1" loop autoplay></lottie-player>
@@ -273,7 +274,7 @@
 			</div>
 		</div>
 		<div id="test">
-			<button onclick="get_index_and_prob()">임시 테스트</button>
+			<!--<button onclick="get_index_and_prob()">임시 테스트</button>-->
 			<div id="test_value"></div>
 		</div>
 		<button onclick="resultCalc()">결과보기</button>
@@ -477,6 +478,7 @@
 					//	alert(content.teamNo + "전원 포기하셨습니다.");
 					//else
 					//	alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
+					dice_animation_start()
 					if(nowNo >= 36){
 						resultCalc();
 					}
@@ -485,7 +487,7 @@
 						setTimeout(function() {
 						    // Code to be executed after the delay
 							get_index_and_prob();
-						  }, 2000); // Delay of 2000 milliseconds (2 seconds)
+						  }, 5000); // Delay of 2000 milliseconds (2 seconds)
 					}
 				});
 
@@ -621,7 +623,14 @@
 				}
 			});
 		});
-
+		// 주사위 애니메이션 다시 시작
+		function dice_animation_start(){
+			$('.gameing_rice1').css('display', 'block')
+			$('.gameing_rice2').css('display', 'block')
+			
+			$('#first_stop_dice').remove();
+			$('#second_stop_dice').remove();
+		}
 	</script>
 
 	<script>
@@ -739,6 +748,19 @@
 			// 주사위 굴러가다가 멈추는 함수 이곳에 구현해야함.
 			// code
 			// ////////////////////////////////////
+			$('.gameing_rice1').css('display', 'none')
+			$('.gameing_rice2').css('display', 'none')
+
+			/*var diceImage = $('<img>').attr('src', 
+			
+			'"/momento/src/main/resources/static/img/game_dice"' + dice1 + '.png"'); */
+			
+			str1 = "<img class='stop_dice_style' id='first_stop_dice' src='/img/game_dice" + dice1 + ".png'>";
+			str2 = "<img class='stop_dice_style2' id='second_stop_dice' src='/img/game_dice" + dice2 + ".png'>";
+			
+			// 주사위 이미지를 dice div에 추가
+			$('#game_dice_stop').append(str1);
+			$('#game_dice_stop2').append(str2);
 
 			// 임시 테스트용 코드
 			str = '';
@@ -824,7 +846,6 @@
 			mode: "cursor",
 			actions: [
 				{
-					type: "click",
 					forceFlag: false
 				}
 			]
@@ -835,7 +856,6 @@
 			mode: "cursor",
 			actions: [
 				{
-					type: "click",
 					forceFlag: false
 				}
 			]
