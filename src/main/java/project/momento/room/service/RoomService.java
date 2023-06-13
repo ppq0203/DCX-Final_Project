@@ -85,48 +85,39 @@ public class RoomService {
 		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
 		// 현재는 임시로 생성해 두었지만 실제로 완성시 세션의 유저고유번호를 저장해야함
 		String userUUID = UUID.randomUUID().toString();
-		room.getUserList().put(userUUID, message.getPkUserSeq());
+		if(room.getUserList().get("waitList") == null)
+		{
+			HashMap dump = new HashMap();
+			dump.put("dump", "dump");
+			room.getUserList().put("waitList", dump);
+			room.getUserList().get("waitList").put(userUUID, message.getPkUserSeq());
+			room.getUserList().get("waitList").remove("dump");
+		}else {
+			room.getUserList().get("waitList").put(userUUID, message.getPkUserSeq());
+		}
+		
 		room.setParticipants(room.getParticipants() + 1);
 		return userUUID;
 	}
 	
-	public void delUser(String roomId, String userUUID) {
+	public void delUser(String roomId, String userUUID, String team) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(roomId);
-		room.getUserList().remove(userUUID);
-		room.getTeam1().remove(userUUID);
-		room.getTeam2().remove(userUUID);
-		room.getTeam3().remove(userUUID);
-		room.getTeam4().remove(userUUID);
+		room.getUserList().get(team).remove(userUUID);
 		room.setParticipants(room.getParticipants() - 1);
 	}
 
 	public HashMap<String, String> getUserList(ChatDto message) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
-		HashMap<String, String> userList = room.getUserList();
-		System.out.println(room.getUserList());
+		HashMap<String, String> userList = room.getUserList().get("waitList");
 		return userList;
 	}
 
-	public String getUserName(String roomId, String userUUID) {
+	public String getUserName(String roomId, String userUUID, String team) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(roomId);
-		String userName = null;
-		if(room.getUserList().get(userUUID) != null){
-			userName = room.getUserList().get(userUUID);
-		}
-		else if(room.getTeam1().get(userUUID) != null) {
-			userName = room.getTeam1().get(userUUID);
-		}
-		else if(room.getTeam2().get(userUUID) != null){
-			userName = room.getTeam2().get(userUUID);
-		}
-		else if(room.getTeam3().get(userUUID) != null){
-			userName = room.getTeam3().get(userUUID);
-		}else{
-			userName = room.getTeam4().get(userUUID);
-		}
+		String userName = (String) room.getUserList().get(team).get(userUUID);
 
         return userName;
 	}
