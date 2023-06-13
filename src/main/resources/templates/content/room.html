@@ -37,6 +37,9 @@
 			<button class="waiting_room_btnlogout" type="button">나가기</button>
 		</div>
 		<div class="waiting_room_content" id="content">
+			<div class="waiting_room_wait" id="waitList">
+				
+			</div>
 			<div class="waiting_room_team1" id="team1">
 
 			</div>
@@ -68,8 +71,7 @@
 						...
 					</p>
 				</div>
-				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제
-					열기</button>
+				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제 열기</button>
 				<div class="gameing_chat-veiw">
 					<p class="fontp">
 						<b class="fontb">>>게임을 시작합니다.</b><br>
@@ -278,13 +280,29 @@
 		<div class="text-center">
 			결과창
 			<div>
+				<span id="win">승리</span>
+				<span id="lose">패배</span>
+			</div>
+			<div>
+				ID: 푼문제/총문제
+			</div>
+			<div id="t1result">
+				팀1 : <span id="t1total">0</span>/36
+			</div>
+			<div id="t2result">
+				팀2 : <span id="t2total">0</span>/36
+			</div>
+			<div id="t3result">
+				팀3 : <span id="t3total">0</span>/36
+			</div>
+			<div id="t4result">
+				팀4 : <span id="t4total">0</span>/36
+			</div>
+			<div>
 				총 문제 :<span id="total_count">36</span>
 			</div>
 			<div>
 				푼 문제 :<span id="solve_count">30</span>
-			</div>
-			<div>
-				포기 :<span id="giveup_count">6</span>
 			</div>
 			<div id="type_result_area">
 
@@ -302,27 +320,27 @@
 		var shuffleNo =  /*[[${room.shuffleNo}]]*/0;
 		var roomName = /*[[${room.roomName}]]*/0;
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
+		var roomNumber = /*[[${room.roomNumber}]]*/"0";
 		var stomp;
 		var username = "0";
 
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
 		var stomp = Stomp.over(sockJs);
-
-		//console.log(" [+] 팀 개수 :: " + /*[[${room.roomNumber}]]*/0);
-
 		$(document).ready(function () {
 
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
 				stomp.subscribe("/sub/chat/gamestart/" + roomId, function (chat) {
-					content = chat.body;
-					$("#test").on("click", function () {
-						console.log(content.userTeamNumber);
-					});
-					$('#gameRoom').css('display', 'block');
+					var content = JSON.parse(chat.body);
+					$('#gameRoom').css('display', 'block'); 
 					$('#waitRoom').css('display', 'none');
+					for (var i = 1; i<=4; ++i){
+						if ($("#team"+i).children("#" + username + "").length > 0){
+							userTeamNo = i;
+						}
+					}
 					// 주사위결과를 보여주는 함수 실행
 					get_index_and_prob();
 				});
@@ -357,11 +375,21 @@
 					str += "<b class='fontb'>" + writer + " : " + chatContent + "</b>";
 					str += "</div></div>";
 					$("#msgArea").append(str);
-				});
-
-				stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
+				});		
+				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
-					$.each(content, function (index, value) {
+					
+					$.each(content.waitList, function (index, value) {
+						if ($("#team1").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='waiting_room_wait' display:none' id = '" + index + "'></div>";
+							$("#" + index + "").remove();
+							$("#waitList").append(str);
+						}
+					});
+					
+					$.each(content.team1, function (index, value) {
 						if ($("#team1").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
@@ -376,11 +404,8 @@
 							$("#game1").prepend(gtr);
 						}
 					});
-				});
-
-				stomp.subscribe("/sub/chat/team2List/" + roomId, function (chat) {
-					var content = JSON.parse(chat.body);
-					$.each(content, function (index, value) {
+					
+					$.each(content.team2, function (index, value) {
 						if ($("#team2").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
@@ -395,11 +420,8 @@
 							$("#game2").prepend(gtr);
 						}
 					});
-				});
-
-				stomp.subscribe("/sub/chat/team3List/" + roomId, function (chat) {
-					var content = JSON.parse(chat.body);
-					$.each(content, function (index, value) {
+					
+					$.each(content.team3, function (index, value) {
 						if ($("#team3").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
@@ -414,11 +436,8 @@
 							$("#game3").prepend(gtr);
 						}
 					});
-				});
-
-				stomp.subscribe("/sub/chat/team4List/" + roomId, function (chat) {
-					var content = JSON.parse(chat.body);
-					$.each(content, function (index, value) {
+					
+					$.each(content.team4, function (index, value) {
 						if ($("#team4").children("#" + index + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
@@ -437,7 +456,6 @@
 
 				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
 					var content = chat.body;
-					//console.log(content);
 					$("#" + content + "").remove();
 					$("#game-" + content + "").remove();
 				});
@@ -445,8 +463,6 @@
 				stomp.subscribe("/sub/chat/correct/" + roomId, function (result) {
 					var content = JSON.parse(result.body);
 					var qtype = $('#questionType').val();
-					//console.log(content);
-					resultFillColor(content.teamNo);
 					// 정답을 맞춘 사람이 본인 일때 타입결과 저장
 					if (content.userNo == username) {
 						resultSave(qtype, 0);
@@ -455,14 +471,23 @@
 					else {
 						resultSave(qtype, -1);
 					}
-					alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
 					$('.modal').modal('hide');
 					nowNo += 1;
-
-					setTimeout(function () {
-						// Code to be executed after the delay
-						get_index_and_prob();
-					}, 2000); // Delay of 2000 milliseconds (2 seconds)
+					
+					//if (content.teamNo == 0)
+					//	alert(content.teamNo + "전원 포기하셨습니다.");
+					//else
+					//	alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
+					if(nowNo >= 36){
+						resultCalc();
+					}
+					else{
+						resultFillColor(content.teamNo);
+						setTimeout(function() {
+						    // Code to be executed after the delay
+							get_index_and_prob();
+						  }, 2000); // Delay of 2000 milliseconds (2 seconds)
+					}
 				});
 
 				stomp.subscribe("/sub/chat/sendAnswer/" + roomId, function (result) {
@@ -491,7 +516,7 @@
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
-					stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team1").attr('id')}))
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
@@ -503,7 +528,7 @@
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
-					stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team2").attr('id')}))
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
@@ -518,8 +543,9 @@
 					if ($("#team3").children().length >= /*[[${room.teamNumber}]]*/0) {
 						alert("팀이 꽉 찼습니다.");
 					}
-					else {
-						stomp.send('/pub/chat/Team3Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					else
+					{
+						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team3").attr('id')}))
 					}
 				}
 				$("#content").css("pointer-events", "none")
@@ -535,8 +561,9 @@
 					if ($("#team4").children().length >= /*[[${room.teamNumber}]]*/0) {
 						alert("팀이 꽉 찼습니다.");
 					}
-					else {
-						stomp.send('/pub/chat/Team4Change', {}, JSON.stringify({pkRoomSeq: roomId}))
+					else
+					{
+						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team4").attr('id')}))
 					}
 				}
 
@@ -550,8 +577,6 @@
 
 			$("#button-send").on("click", function (e) {
 				var msg = document.getElementById("msg");
-
-				console.log(username + ":" + msg.value);
 				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
 				msg.value = '';
 			});
@@ -569,8 +594,28 @@
 				}
 			});
 
-			$("#gamestart").on("click", function () {
-				stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+			$("#gamestart").on("click", function() {
+				var allReady = 1;
+				for(var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++)
+				{
+					if($("#team" + i + "").children().length < 1)
+					{
+						allReady = 0;
+						alert("팀에 적어도 1명이상의 플레이어가 있어야 합니다.");
+						break;
+					}
+				}
+				if(allReady != 0)
+				{
+					if($("#waitList").children().length > 0)
+					{
+						alert("모든 참가자가 팀에 참여해야 합니다.!");
+					}
+					else{
+						stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+					}
+					
+				}
 			});
 		});
 
@@ -584,25 +629,6 @@
 				theme: "monokai"
 			});
 		})
-	</script>
-	<script th:inline="javascript">
-		//보드 판 테스트
-		var temp_elem;
-		/*<![CDATA[*/
-		function loadQuestion(elem, question) {
-			title = question.pkQuestionSeq + "번째 문제";
-			name = question.questionName;
-			contents = question.contents;
-			codeFormat = question.codeFormat;
-			$('.modal-title').text(title);
-			$('#questionNo').val(question.pkQuestionSeq);
-			$('#questionName').text(name);
-			$('#nameQuestion').val(question.className);
-			$('#questionContents').text(contents);
-			$('#Demo').html(codeFormat);
-			temp_elem = elem;
-		}
-    /*]]>*/
 	</script>
 	<!-- 진상 script -->
 	<script>
@@ -627,11 +653,6 @@
 		$("#total_modal").click(function () {
 			$(".total_modal").text("점수표");
 		});
-		$('#giveup').click(function () {
-			temp_elem.disabled = true;
-			$(temp_elem).css("background-color", "gray");
-			$(temp_elem).css("color", "darkgray");
-		})
 	</script>
 	<script>
 		var resultMap = new Map();
@@ -651,6 +672,26 @@
 		}
 		// 결과값을 연산해주는 함수
 		function resultCalc() {
+			var maxCount = 0;
+			var tempScore = 0;
+			for(var i = 1; i <= 4; ++i)
+			{
+				tempScore = $("#score"+i).text();
+				if(maxCount < tempScore)
+					maxCount = tempScore;
+			}
+			tempScore = $("#score"+userTeamNo).text();
+			if (maxCount <= tempScore)
+			{
+				$("#win").css("display", "inline");
+				$("#lose").css("display", "none");
+			}
+			else
+			{
+				$("#win").css("display", "none");
+				$("#lose").css("display", "inline");
+			}
+			
 			var total = 0;
 			var solve = 0;
 			var str;
@@ -666,10 +707,23 @@
 				total += value[1];
 				solve += value[0];
 			}
+			for (var i = 1; i <= 4; ++i)
+			{
+				if (roomNumber >= i)
+				{
+					var scoreTagId = "#score"+i;
+					var totalTagId = "#t"+i+"total";
+					$(totalTagId).text($(scoreTagId).text()); 
+				}
+				else
+				{
+					var resultTagId = "#t"+i+"result";
+					$(resultTagId).remove();
+				}
+			}
 
 			$("#total_count").text(total);
 			$("#solve_count").text(solve);
-			$("#giveup_count").text(total - solve);
 		}
 		var nowNo = 0;
 		var dice1 = 0;
@@ -695,12 +749,11 @@
 		}
 
 		function correctTest() {
-			$('.modal').modal('hide');
 			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: username}));
 		}
 
 		function resultFillColor(teamNo) {
-			tagId = "#q" + shuffleNo[nowNo];
+			tagId = "#q" + shuffleNo[nowNo-1];
 			if (teamNo == 0)	// all giveup
 			{
 				$(tagId).css("background-color", "gray");
@@ -743,7 +796,7 @@
 			$('#nameQuestion').val(question.className);
 			$('#questionType').val(type);
 			$('#questionContents').text(contents);
-			$('#Demo').html(codeFormat);
+			$('#Demo').val(codeFormat);
 		}
 
 		// 정답 등록시 수행되는 함수
@@ -754,6 +807,10 @@
 			// alert("click");
 			console.log(username);
 			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq: pkQuestionSeq, answerUser: code, answerOx: name}));
+		}
+		function giveup()
+		{
+			stomp.send('/pub/chat/giveup', {}, JSON.stringify({}));
 		}
 	</script>
 
