@@ -126,16 +126,20 @@
 				<div class="gameing_dicearea">
 					<div class="gameing_lottie-container">
 						<div class="gameing_ricearea_col">
+							<!--loop autoplay-->
 							<lottie-player class="gameing_rice1"
 								src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent"
 								speed="1" loop autoplay></lottie-player>
-							<!--loop autoplay-->
+							<div class="stop_dice" id="first_stop_dice"></div>
 						</div>
 						<div class="gameing_ricearea_row">
+							<!--loop autoplay-->
 							<lottie-player class="gameing_rice2"
 								src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent"
 								speed="1" loop autoplay></lottie-player>
+							<div class="stop_dice" id="second_stop_dice"></div>
 						</div>
+						<button class="dice_stop_btn" id="dice_stop" onclick="get_index_and_prob()">Stop</button>
 					</div>
 				</div>
 				<div class="gameing_quiz">
@@ -271,7 +275,7 @@
 			</div>
 		</div>
 		<div id="test">
-			<button onclick="get_index_and_prob()">임시 테스트</button>
+			<!--<button onclick="get_index_and_prob()">임시 테스트</button>-->
 			<div id="test_value"></div>
 		</div>
 		<button onclick="resultCalc()">결과보기</button>
@@ -324,7 +328,7 @@
 					$('#gameRoom').css('display', 'block');
 					$('#waitRoom').css('display', 'none');
 					// 주사위결과를 보여주는 함수 실행
-					get_index_and_prob();
+					//get_index_and_prob(); stop버튼 클릭시 주사위 멈춘 후 문제 출력으로 변경중
 				});
 
 				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
@@ -682,6 +686,19 @@
 			// 주사위 굴러가다가 멈추는 함수 이곳에 구현해야함.
 			// code
 			// ////////////////////////////////////
+			$('.gameing_rice1').css('display', 'none')
+			$('.gameing_rice2').css('display', 'none')
+
+			var diceImage = $('<img>', {
+				src: '@{img/game_dice' + dice1 + '.png}'
+			});
+			var diceImage2 = $('<img>', {
+				src: '@{img/game_dice' + dice2 + '.png}'
+			});
+
+			// 주사위 이미지를 diceContainer에 추가
+			$('#first_stop_dice').empty().append(diceImage);
+			$('#second_stop_dice').empty().append(diceImage);
 
 			// 임시 테스트용 코드
 			str = '';
