@@ -1,0 +1,248 @@
+<!-- Default Layout Import-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+	<link th:href="@{/css/gameWaiting.css}" rel="stylesheet">
+	<!-- SweetAlert2 -->
+	<style>
+		@font-face {
+			font-family: 'DungGeunMo';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: 'GmarketSansMedium';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		.bi {
+			position: fixed;
+			top: 50%;
+			left: 46%;
+			color: red;
+		}
+
+		span {
+			font-family: 'GmarketSansMedium';
+			color: black;
+			font-size: 16px;
+			display: block;
+		}
+
+		h3 {
+			color: black;
+			padding-bottom: 10px;
+		}
+
+		#container {
+			width: 976px;
+			height: 700px;
+		}
+
+		.btninfo {
+			width: 300px;
+			height: 70px;
+			padding: 5px;
+			text-align: center;
+			margin: 5px 5px 5px 10px;
+			box-shadow: 2px 2px 2px #282A46;
+			border-radius: 10px;
+			border-color: #c55a11;
+			background-color: #c55a11;
+			font-size: 30px;
+			font-family: 'DungGeunMo';
+			color: white;
+			position: fixed;
+			top: 400px;
+			left: 338px;
+			cursor: pointer
+		}
+
+		.btnstart {
+			width: 300px;
+			height: 70px;
+			padding: 5px;
+			text-align: center;
+			margin: 5px 5px 5px 10px;
+			box-shadow: 2px 2px 2px #282A46;
+			border-radius: 10px;
+			border-color: #843c0c;
+			background-color: #843c0c;
+			color: white;
+			font-size: 45px;
+			font-family: 'DungGeunMo';
+			color: 'Darkgary';
+			position: fixed;
+			top: 500px;
+			left: 338px;
+			cursor: pointer
+		}
+
+		.btninfo:hover {
+			color: red;
+		}
+
+		.btnstart:hover {
+			color: red;
+		}
+
+		.list {
+			color: black;
+			margin-top: 200px;
+			position: fixed;
+			font-size: 34px;
+		}
+
+		ul.list {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			margin-left: 190px;
+			margin-top: 195px;
+		}
+
+		ul.list::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		.tab-button {
+			display: block;
+			padding: 10px 0px 10px 20px;
+			border-radius: 20px;
+			float: left;
+			margin-right: -1px;
+			margin-bottom: -1px;
+			color: grey;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.tab-button-1 {
+			background-color: red;
+			margin-left: 20px;
+		}
+
+		.tab-button-2 {
+			background-color: gray;
+			margin-left: 20px;
+		}
+		
+	</style>
+	</head>
+
+	<body>
+		<div class="modal fade" id="exampleModalCenter" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<div class="modal-body" style="padding: 0px;">
+						<div class="md_container2">게임설명
+							<div class='md_content2 slider1'>
+								<h3>혼자하기</h3>
+								<span>1. 혼자하기를 선택합니다.</span>
+								<span>2. 난이도, 방크기 선택하면 바로 방으로 입장합니다.</span>
+								<span>3. 제시된 키워드 클릭하면 문제와 답 입력창이 보입니다.</span>
+								<span>4. 문제에 포기하기 버튼을 누를 경우 다시 풀 수 없습니다.</span>
+								<span>5. 나와있는 문제를 모두 풀었을 경우 결과지 확인할 수 있습니다.</span>
+							</div>
+							<div class='md_content2 slider2'>
+								<h3>같이하기</h3>
+								<span>1. 같이하기를 선택합니다.</span>
+								<span>2. 개인과 팀, 명수, 난이도를 선택하고 누르면 방이 생성됩니다.</span>
+								<span>2-2. 만들어진 방의 정보를 확인하고 START 버튼 클릭</span>
+								<span>3. 유저가 모두 입장하면 방장은 시작버튼을 눌러 게임이 <br> 시작됩니다.</span>
+								<span>4. 주사위는 좌표의 위치를 나타냅니다. 게임 시작후, 문제가 끝날 때 랜덤으로 나타납니다</span>
+								<span>5. 문제를 먼저 푼 팀/개인이 구역(번호)를 차지 합니다.</span>
+								<span>6. 가장 많은 구역(번호)를 차지하는 팀/개인이 승리합니다.</span>
+								<span>7. 게임이 끝나면 최종 결과지를 확인할 수 있습니다.</span>
+							</div>
+							<ul class="list" style="color: black;">
+								<li class="tab-button tab-button-1" data-id="0"></li>
+								<li class="tab-button tab-button-2" data-id="1"></li>
+							</ul>
+							<div id='md_footer2'>
+								<button class="madebtn12" type="reset" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+			<button class="btninfo" data-toggle="modal" data-target="#exampleModalCenter">게임설명</button>
+			<button class="btnstart" onclick="location.href='/chat/rooms'">START</button>
+		</div>
+
+		<script>
+			$('.btninfo').click(function () {
+				$(".md_content2").css("height", "210px");
+				$(".md_content2").css("top", "48%")
+				$(".md_content2").css("width", "460px");
+				$(".md_content2").css("background-color", "white");
+				$(".md_content2").css("border-radius", "0px");
+				$(".madebtn12").css("left", "195px");
+				$(".md_container2").css("font-size", "33px");
+				$(".md_container2").css("height", "370px");
+				$('.slider2').css('display', 'none')
+
+
+			})
+			$(document).ready(function () {
+				// 초기 설정: slider1 보이기, slider2 숨기기
+				$('.slider1').show();
+				$('.slider2').hide();
+
+				// tab-button 클릭 이벤트 처리
+				$('.tab-button').click(function () {
+					// 클릭한 버튼의 data-id 속성 값 가져오기
+					var id = $(this).data('id');
+
+					// 선택된 버튼 스타일 변경
+					$('.tab-button').removeClass('active');
+					$(this).addClass('active');
+
+					// 해당 슬라이드 보이기/숨기기 처리
+					if (id === 0) {
+						// slider1 보이기, slider2 숨기기
+						$('.slider1').show();
+						$('.slider2').hide();
+						$(".slider1").css("height", "210px");
+						$(".slider1").css("top", "48%")
+						$(".slider1").css("width", "460px");
+						$(".slider1").css("background-color", "white");
+						$(".slider1").css("border-radius", "0px");
+						$(".madebtn12").css("left", "195px");
+						$(".md_container2").css("font-size", "33px");
+						$(".md_container2").css("height", "370px");
+						$('ul.list').css("margin-top", '192px')
+						$('.tab-button-1').css('background-color','red')
+						$('.tab-button-2').css('background-color','gray')
+
+					} else if (id === 1) {
+						// slider2 보이기, slider1 숨기기
+						$('.slider2').show();
+						$('.slider1').hide();
+						$(".slider2").css("height", "335px");
+						$(".slider2").css("top", "48%")
+						$(".slider2").css("width", "460px");
+						$(".slider2").css("background-color", "white");
+						$(".slider2").css("border-radius", "0px");
+						$(".madebtn12").css("left", "195px");
+						$(".md_container2").css("font-size", "33px");
+						$(".md_container2").css("height", "490px");
+						$('ul.list').css("margin-top", '309px')
+						$('.tab-button-1').css('background-color','gray')
+						$('.tab-button-2').css('background-color','red')
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

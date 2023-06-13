@@ -23,6 +23,8 @@ public class MenuDto {
 	private String linkUrl;
 	/*Controller path*/
 	private String path;
+	/*새창여부*/
+	private String target;
 	/*사용여부*/
 	private String useYn;
 	/*삭제여부*/

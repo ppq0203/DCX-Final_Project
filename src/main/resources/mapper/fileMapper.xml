@@ -31,4 +31,17 @@
         SELECT LAST_INSERT_ID() AS returnId
     	</selectKey>
 	</insert>
+	
+	<select id="selectFile" parameterType="int" resultType="project.momento.file.dto.FileDto">
+		<![CDATA[
+			SELECT *
+			FROM FILE
+			WHERE PK_FILE_SEQ = #{pkFileSeq}
+		]]>
+	</select>
+	
+	<delete id="deleteFile" parameterType="project.momento.file.dto.FileDto">
+		DELETE FROM FILE
+		WHERE PK_FILE_SEQ = #{pkFileSeq}
+	</delete>
 </mapper>

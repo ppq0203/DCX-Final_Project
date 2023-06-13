@@ -2,21 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="project.momento.room.mapper.RoomMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+<!-- INSERT문 -->
+	<insert id="insertRoom" parameterType="project.momento.room.dto.RoomDto">
+		<![CDATA[
+			INSERT INTO ROOM
+			(
+				PK_ROOM_SEQ,
+				ROOM_NO,
+				ROOM_NAME,
+				ROOM_PWD,
+				ROOM_TYPE,
+				ROOM_PLAY,
+				ROOM_PLAYTIME,
+				ROOM_NUMBER,
+				TEAM_NUMBER,
+				ROOM_LEVEL
+				ROOM_ID,
+				ROOM_TIME,
+				UPDATE_DT
+			) 
+			VALUES
+			(
+				#{pkRoomSeq},
+				#{roomNo},
+				#{roomName},
+				#{roomPwd},
+				#{roomType},
+				#{roomPlay},
+				#{roomPlaytime},
+				#{roomNumber},
+				#{teamNumber},
+				#{roomLevel},
+				#{roomId},
+				#{roomTime},
+				#{updateDt}
+				
+			)
+		]]>
+	</insert>
+	
 <!-- Heidisql연결후 입력 저장-->
 	<!-- SELECT문 -->
-	<!--영복 코드<select id="selectRoom" resultType="project.momento.room.dto.RoomDto">-->
-	<!--<select id="Room" resultType="project.momento.room.dto.RoomDto">
+<!--	<select id="selectRoom" resultType="project.momento.room.dto.RoomDto">
 		<![CDATA[
 			SELECT
-				ROOM_NAME AS roomName,
-				ROOM_PWD AS roomPwd,
-				ROOM_TYPE AS roomType,
-				ROOM_PLAY AS roomPlay,
-				ROOM_PLAYTIME AS roomPlaytime,
-				ROOM_NUMBER AS roomNumber,
-				ROOM_ID AS roomId,
-				ROOM_TIME AS roomTime,
-				UPDATE_DT AS updateDt
+				PK_ROOM_SEQ		AS pkRoomSeq,
+				ROOM_NO			AS roomNo,
+				ROOM_NAME 		AS roomName,
+				ROOM_PWD 		AS roomPwd,
+				ROOM_TYPE 		AS roomType,
+				ROOM_PLAY 		AS roomPlay,
+				ROOM_PLAYTIME	AS roomPlaytime,
+				ROOM_NUMBER 	AS roomNumber,
+				TEAM_NUMBER		AS teamNumber,
+				ROOM_LEVEL		AS roomLevel,
+				ROOM_ID			AS roomId,
+				ROOM_TIME 		AS roomTime,
+				UPDATE_DT 		AS updateDt
 			FROM 
 				ROOM
 			WHERE
@@ -24,38 +66,8 @@
 		]]>
 	</select>-->
 	
-	<!-- INSERT문 -->
-	<!--<insert id="insertRoom" parameterType="project.momento.room.dto.RoomDto">-->
-	<!--<insert id="Room" parameterType="project.momento.room.dto.RoomDto">
-		<![CDATA[
-			INSERT INTO ROOM
-			(
-				PK_ROOM_SEQ,
-				ROOM_NAME,
-				ROOM_PWD,
-				ROOM_TYPE,
-				ROOM_PLAY,
-				ROOM_PLAYTIME,
-				ROOM_NUMBER,
-				ROOM_ID,
-				ROOM_TIME,
-				UPDATE_DT
-			) 
-			VALUES
-			(
-				ifnull(#{pkRoomSeq}, null),
-				#{roomName},
-				#{roomPwd},
-				#{roomType},
-				#{rommPlay},
-				#{rommPlaytime},
-				#{rommNumber},
-				#{roomId},
-				#{roomTime},
-				#{updateDt}
-			)
-		]]>
-	</insert>-->
+	
+	
 	<!-- DELETE문 -->
 	<!--영복 코드<delete id="deleteRoom" parameterType="project.momento.room.dto.RoomDto">-->
 	<!--<delete id="Room" parameterType="project.momento.room.dto.RoomDto">

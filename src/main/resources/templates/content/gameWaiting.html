@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+	<script src="https://kit.fontawesome.com/d1f64dfea6.js" crossorigin="anonymous"></script>
+	<link th:href="@{/css/gameroom.css}" rel="stylesheet">
+	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
+	<link th:href="@{/css/gameWaiting.css}" rel="stylesheet">
+
+	<body>
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form th:action="@{/singleGame}" method="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container">혼자하기
+								<button class="madebtn1" type="submit">확인</button>
+								<button class="madebtn2" type="reset" data-dismiss="modal">취소</button>
+								<div class='md_content'>
+									<div class='roomleft'>
+										<p class="left_p">난이도</p>
+									</div>
+									<div class='roomright'>
+										<p class="right_p">
+											<input type="radio" name="level" value="1">EASY
+											<input type="radio" name="level" value="2">MID
+											<input type="radio" name="level" value="3">HARD
+											<input type="radio" name="level" value="4">RONDOM
+										</p>
+									</div>
+									<div class='roomleft'>
+										<p class="left_p">크기</p>
+									</div>
+									<div class='roomright'>
+										<p class="right_p">
+											<input type="radio" name="size" value="9">3X3
+											<input type="radio" name="size" value="16">4X4
+											<input type="radio" name="size" value="25">5X5
+											<input type="radio" name="size" value="36">6X6
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="exampleModalCenter" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form th:action="@{/chat/room}" th:object="${RoomDto}" method="post">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container2">방만들기
+								<div class='md_content2'>
+
+									<div class='roomleft2'>
+										<p class="left_p2">방 제목</p>
+									</div>
+									<input type="text" name="roomName" placeholder="방 제목을 입력해주세요." class="roomright2" />
+
+									<!-- <div class='roomleft2'>
+										<p class="left_p">개인/팀</p>
+									</div> -->
+
+									<!-- <div class='roomright2'>
+										<p class="right_p">
+											<input type="radio" id="solo" name="roomType" value="single"
+												checked="checked"> vs개인
+											<input type="radio" id="team" name="roomType" value="multi"> vs팀
+										</p>
+									</div> -->
+									<div class="gamemode-team">
+										<div class='roomleft'>
+											<p class="left_p"> 팀 </p>
+										</div>
+										<div class='roomright'>
+											<p class="right_p">
+												<input type="radio" name="roomNumber" value="2" checked="checked"> 2팀
+												<input type="radio" name="roomNumber" value="3"> 3팀
+												<input type="radio" name="roomNumber" value="4"> 4팀
+												<!--input type="hidden" name="roomNumber" value="2" class="form-control"/-->
+											</p>
+										</div>
+										<div class='roomleft'>
+											<p class="left_p">팀당인원</p>
+										</div>
+										<div class='roomright'>
+											<p class="right_p">
+												<input type="radio" name="teamNumber" value="1" checked="checked"> 1명
+												<input type="radio" name="teamNumber" value="2"> 2명
+												<input type="radio" name="teamNumber" value="3"> 3명
+												<input type="radio" name="teamNumber" value="4"> 4명
+											</p>
+										</div>
+									</div>
+									<!--<div class="gamemode-solo">
+										<div class='roomleft2'>
+											<p class="left_p">인원</p>
+										</div>
+										<div class='roomright2'>
+											<p class="right_p2">
+												<input type="radio" name="roomNumber" value="2" checked="checked"> 2명
+												<input type="radio" name="roomNumber" value="3"> 3명
+												<input type="radio" name="roomNumber" value="4"> 4명
+											</p>
+										</div>
+									</div> -->
+									<div class='roomleft2'>
+										<p class="left_p2">난이도</p>
+									</div>
+									<div class='roomright2'>
+										<p class="right_p2">
+											<input type="radio" name="roomLevel" value="1" checked="checked"> EASY
+											<input type="radio" name="roomLevel" value="2"> MID
+											<input type="radio" name="roomLevel" value="3"> HARD
+											<input type="radio" name="roomLevel" value="4"> RONDOM
+										</p>
+									</div>
+								</div>
+								<div id='md_footer2'>
+									<button class="madebtn12" type="submit">확인</button>
+									<button class="madebtn22" type="reset" data-dismiss="modal">취소</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modal-pwd-room" role="dialog">
+			<div class="modal-dialog">
+				<!-- 모달 내용 -->
+				<div class="modal-content" style="background-color: #843c0c;">
+					<form href="#" action="POST" id="Form">
+						<div class="modal-body" style="padding: 0px;">
+							<div class="md_container3">비밀번호
+								<button class="okbtn3" type="submit">확인</button>
+								<button class="cancelbtn3" type="reset" data-dismiss="modal">취소</button>
+								<div class='md_content3'>
+									<div class='roomleft3'>비밀번호</div>
+									<div>
+										<from>
+											<input id='pwd' type='password' />
+										</from>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+			<div id="header"></div>
+
+			<!--side right -->
+			<div id="sidebar">
+				<div class="side_User">
+					<img th:src="@{/img/profil.jpg}" style="border-radius: 50px;" alt="exit" width="150px"
+						height="140px">
+					<div class="" style="font-weight:bold;">
+						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+					</div>
+				</div>
+
+				<button class="btnlogout" id="create-room" type="button" data-toggle="modal"
+					data-target="#exampleModalCenter">
+					<img th:src="@{/img/multi.png}" padding="10px;" alt="exit" width="55px"
+						height="55px">&nbsp;<span>같이하기</span>
+				</button>
+				<button class="btnlogout" type="button" data-toggle="modal" data-target="#myModal">
+					<img th:src="@{/img/solo.png}" padding="10px;" alt="exit" width="55px"
+						height="55px">&nbsp;<span>혼자하기</span>
+				</button>
+				<button onclick="location.href='/startgame.com'" class="btnlogout" type="button">
+					<img th:src="@{/img/out.png}" padding="5px;" alt="exit" width="55px" height="55px">&nbsp;<span>나 가
+						기</span>
+				</button>
+			</div>
+
+			<!--content game -->
+			<div id="content">
+				<div id="tabwrap">
+					<form th:action="@{/chat/rooms}" method="get">
+						<button class="menu1">전체 </button>
+					</form>
+					<form th:action="@{/chat/rooms}" method="get">
+						<input type="hidden" name="roomType" value="multi" class="form-control" />
+						<button class="menu2">대기</button>
+					</form>
+					<form th:action="@{/chat/rooms}" method="get">
+						<input type="hidden" name="roomType" value="single" class="form-control" />
+						<button class="menu3">진행</button>
+					</form>
+					<!--  현재 css 가져오는 파일에 class all을 display: none 처리되어있어-->
+					<div class="all" style="display: block">
+						<div class="fillter">
+							<button class="fbtn" type="button">빈방순▼</button>
+							<button class="fbtn" type="button">난이도순▼</button>
+							<button class="refresh" type="button">새로고침</button>
+						</div>
+						<div class="gameroom">
+							<div class="M_gameroom_left" th:each="room : ${list}">
+								<div class="left">
+									<form th:action="@{/chat/enterRoom}" method="post" id="enterRoom"
+										th:onsubmit="return roomCheck([[${room}]])">
+										<!-- 방이름을 전송해주기위해 input hidden 사용 -->
+										<input type="hidden" id="pkRoomSeq" name="pkRoomSeq"
+											th:value="${room.pkRoomSeq}" />
+										<input class="startbtn" type="submit" value="START">
+									</form>
+									<br>
+									<span id="room_name">[[${room.roomName}]]</span>
+									<br>
+									<span id="room_participants">[[${room.participants}]]</span>
+									<span id="room_total">[[${room.total}]]</span>
+									<span class="difficulty" th:if="${room.roomLevel == 1}">Easy</span>
+									<span class="difficulty" th:if="${room.roomLevel == 2}">Middle</span>
+									<span class="difficulty" th:if="${room.roomLevel == 3}">Hard</span>
+									<span class="difficulty" th:if="${room.roomLevel == 4}">Random</span>
+
+									<hr id="room_name_hr" style="border: dotted 1px #FFC04D;">
+									<br> <i class="fa-solid fa-users fa-xl" id="all_people"></i>
+									<i class="fa-regular fa-circle-user fa-xl" id="people"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script th:inline="javascript">
+		function roomCheck(room) {
+			var flag = false;
+			$.ajax({
+				type: "POST",
+				url: "userCheck",
+				async: false,
+				data: {
+					roomSeq: room.pkRoomSeq,
+					participants: "",
+					total: ""
+				}
+			}).done(function (data) {
+				participants = parseInt(data.participants);
+				total = parseInt(data.total);
+				if (participants >= total) {
+					alert("방이 가득찼습니다.");
+					flag = false;
+				}
+				else {
+					flag = true;
+				}
+			})
+			return flag;
+		}
+		/* 개인탭 없애기로 해서 주석처리 BY 유진상.
+		 $(document).ready(function () {
+				의미 없는 코드라 주석처리 BY 최승만.
+			var radio_check = $('input:radio[id="team"]').is(':checked');
+			if (radio_check == true) {
+				// gamemode-team 숨기기
+				$('.gamemode-team').hide();
+				// gamemode-solo 보이기
+				$('.gamemode-solo').show();
+				$(".md_container2").css("height", "350px");
+				$(".md_content2").css("height", "210px");
+			}
+			
+			$('#solo').click(function () {
+				// gamemode-team 숨기기
+				$('.gamemode-team').hide();
+				// gamemode-solo 보이기
+				$('.gamemode-solo').show();
+				$(".md_container2").css("height", "350px");
+				$(".md_content2").css("height", "210px");
+			});
+
+			// 팀 라디오 버튼 클릭 시
+			$('#team').click(function () {
+				// gamemode-solo 숨기기
+				$('.gamemode-solo').hide();
+				// gamemode-team 보이기
+				$('.gamemode-team').show();
+				$(".md_container2").css("height", "400px");
+				$(".md_content2").css("height", "262px");
+			});
+		});	*/
+
+		<!-- 게임 대기방 메뉴탭 -->
+		$(document).ready(function () {
+			// 페이지가 로드될 때 기억한 메뉴가 있다면 해당 메뉴에 on 클래스를 추가
+			var selectedMenu = sessionStorage.getItem('selectedMenu');
+			if (selectedMenu) {
+				$('.' + selectedMenu).addClass('on');
+			}
+
+			// 메뉴 클릭 이벤트 처리
+			$('.menu1, .menu2, .menu3').click(function () {
+				// 선택한 메뉴에 on 클래스 추가
+				$(this).addClass('on');
+
+				// 선택한 메뉴의 클래스 이름을 sessionStorage에 저장
+				var menuClassName = $(this).attr('class').split(' ')[0];
+				sessionStorage.setItem('selectedMenu', menuClassName);
+
+				// menu2를 클릭한 경우 다른 메뉴의 on 클래스 제거
+				if (menuClassName === 'menu2') {
+					$('.menu1, .menu3').removeClass('on');
+				}
+			});
+		});
+	</script>
+</th:block>
+
+</html>

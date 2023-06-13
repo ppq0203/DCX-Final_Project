@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.momento.main.mapper.MainMapper">
+	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+	<!-- Heidisql연결후 입력 저장-->
+	<select id="selectGameChart" parameterType="project.momento.main.dto.MainDto" resultType="project.momento.main.dto.MainDto">
+		<![CDATA[
+		SELECT
+		    PA.maxVal			AS maxVal
+		    , PA.minVal			AS minVal
+		    , PA.avgVal			AS avgVal
+		    , (SELECT
+		        COUNT(CASE WHEN A.ANSWER_OX = 'O' THEN 1 END)/COUNT(A.ANSWER_OX)
+		    FROM
+		        ANSWER A
+		    WHERE
+		        A.PK_USER_SEQ = #{pkUserSeq}
+		    GROUP BY
+		        A.PK_USER_SEQ) AS userVal
+		FROM
+		    (SELECT
+		        MAX(ss) AS maxVal,
+		        MIN(ss) AS minVal,
+		        AVG(ss) AS avgVal
+		    FROM
+		        (SELECT
+		            COUNT(CASE WHEN A.ANSWER_OX = 'O' THEN 1 END)/COUNT(A.ANSWER_OX) AS ss
+		        FROM
+		            ANSWER A
+		        GROUP BY
+		            A.PK_USER_SEQ) PA) PA;
+		 ]]>
+	</select>
+	<select id="selectAiChart" parameterType="project.momento.main.dto.MainDto" resultType="project.momento.main.dto.MainDto">
+		<![CDATA[
+		SELECT
+		    SA.userVal	 AS userVal
+		    , MAX(SA.ss) AS maxVal
+		    , MIN(SA.ss) AS minVal
+		    , AVG(SA.ss) AS avgVal
+		FROM
+		    (SELECT
+		        (SELECT
+		            SUM(A.ANSWER_NUM)/SUM(A.QUESTION_NUM) AS ss
+		        FROM
+		            AI_QUESTION_RESULT A
+		        WHERE
+		            A.PK_USER_SEQ = #{pkUserSeq}
+		        GROUP BY
+		            A.PK_USER_SEQ) AS userVal,
+		        SUM(A.ANSWER_NUM)/SUM(A.QUESTION_NUM) AS ss
+		    FROM
+		        AI_QUESTION_RESULT A
+		    GROUP BY
+		        A.PK_USER_SEQ) SA;
+		]]>
+	</select>
+	<select id="selectExamChart" parameterType="project.momento.main.dto.MainDto" resultType="project.momento.main.dto.MainDto">
+		<![CDATA[
+		SELECT
+		    MAX(ss/dd) 					AS maxVal
+			 , AVG(ss/dd) 				AS avgVal
+			 , MIN(ss/dd) 				AS minVal
+			 , (SELECT COUNT(CASE WHEN SA.ANS_RESULT = 'Y' THEN 1 END) / COUNT(SA.ANS_RESULT)
+		     FROM LMS_EXAM_RESULT SA
+		     WHERE SA.PK_USER_SEQ = #{pkUserSeq}) AS userVal
+		FROM (
+		    SELECT
+		        COUNT(CASE WHEN A.ANS_RESULT = 'Y' THEN 1 END) AS ss,
+		        COUNT(A.ANS_RESULT) AS dd
+		    FROM LMS_EXAM_RESULT A
+		    GROUP BY A.PK_USER_SEQ
+		) PA
+		]]>
+	</select>
+</mapper>

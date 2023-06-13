@@ -1,11 +1,13 @@
 package project.momento.notice.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,7 @@ import project.momento.notice.dto.NoticeDto;
 import project.momento.notice.service.NoticeService;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
+import project.momento.qna.dto.QnaDto;
 import project.momento.subject.dto.SubjectDto;
 
 @Controller
@@ -76,5 +79,31 @@ public class NoticeController {
 		return resultList;			
 	}
 	
+	@RequestMapping(value="/mng/notice/update", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String deleteNotice(NoticeDto noticeDto, HttpServletRequest request) {
+		System.out.println(noticeDto);
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
+		noticeService.updateNotice(noticeDto);
+		return "redirect:/mng/" + pkSubjectSeq + "/subject/main";
+	}
+	
+	@RequestMapping(value="/deleteNotice", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	public String deleteNotice(@RequestBody HashMap<String, Object> map, Model model, HttpServletRequest request) {
+		String pkNoticeSeq = (String) map.get("pkNoticeSeq");
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
+		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
+		noticeService.deleteNotice(pkNoticeSeq);
+		return "redirect:/mng/" + pkSubjectSeq + "/subject/main";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/openNotice", produces="application/json;charset=utf-8", method=RequestMethod.POST) /* value주소 이름*/
+	public NoticeDto openAskInfo(@RequestBody HashMap<String, Object> map, Model model, HttpServletRequest request) {
+		// 세션에서 내 정보를 가져온다
+		String pkNoticeSeq = (String) map.get("pkNoticeSeq");
+		NoticeDto noticeDto = noticeService.selectNotice(pkNoticeSeq);
+		return noticeDto;
+	}
 	
 }

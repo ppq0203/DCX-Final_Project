@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiEmptyLayout}">
+
+<th:block layout:fragment="content">
+	<script>
+		function addList() {
+			const addValue
+				= document.getElementById('addValue1').value;
+			const dt = document.createElement("dt");
+			dt.setAttribute('id', addValue);
+			const textNode = document.createTextNode(addValue);
+			dt.appendChild(textNode);
+			document
+				.getElementById('list')
+				.appendChild(dt);
+		}
+
+		function removeItem() {
+			const dl = document
+				.getElementById('list');
+			const items = dl.getElementsByTagName('dt');
+			if (items.length > 0) {
+				items[0].remove();
+			}
+		}
+	</script>
+	<style>
+		div.left {
+			width: 50%;
+			float: left;
+			box-sizing: border-box;
+			background: #fff;
+		}
+
+		div.right {
+			width: 50%;
+			float: right;
+			box-sizing: border-box;
+			background: #fff;
+		}
+
+		div.rightup {
+			width: 50%;
+			float: right;
+			background: #fff;
+		}
+
+		div.rightdown {
+			width: 50%;
+			float: left;
+			background: #fff;
+		}
+	</style>
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<!-- Featured Post -->
+			<article class="post featured">
+				<header class="major">
+					<h2>Keyword</h2>
+					<p><a href="#">article</a></p>
+				</header>
+			</article>
+
+			<!-- Post -->
+			<div class="left">
+				<header class="major">
+					<h2 th:text="${result.title}"></h2>
+					<span th:text="${result.registDt}" class="date"></span>
+				</header>
+				<section class="post">
+					<p th:text="${result.passage}">
+					</p>
+					<p>
+						<a th:href="${result.url}" th:text="'출처: '+${result.url}"></a>
+					</p>
+					<hr />
+				</section>
+			</div>
+			<div class="rightup">
+				<section class="post">
+					<h2>summary</h2>
+					<p th:utext="${result.summary}">
+					</p>
+				</section>
+			</div>
+			<div class="rightdown">
+				<section class="post">
+					<!-- Lists -->
+					<h2>My List</h2>
+					<span>
+						<dl id='list'></dl>
+						<input type='text' id='addValue1' placeholder="input keyword and add" />
+					</span>
+				</section>
+				<br>
+				<ul class="actions">
+					<li><input class="button primary" type='button' value='ADD' onclick='addList()' />
+					</li>
+					<li><input class="button" type='button' value='DELETE' onclick='removeItem()' /></li>
+					<li><input class="button primary" type='submit' value='SAVE' /></li>
+				</ul>
+				<hr />
+			</div>
+		</div>
+	</div>
+</th:block>
+
+</html>

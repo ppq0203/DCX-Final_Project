@@ -137,6 +137,19 @@
 		ORDER BY A.PK_EDUCATION_SEQ, C.SUB_START_DT
 		]]>
 	</select>
+	<select id="getEducationListAll" resultType="project.momento.subject.dto.SubjectDto">
+		<![CDATA[                 
+			SELECT   
+	         C.PK_EDUCATION_SEQ AS pkEducationSeq,
+	         B.EDUCATION_NAME AS subjectState,
+	         C.SUBJECT_NAME AS subjectName,
+	         C.PK_SUBJECT_SEQ AS pkSubjectSeq
+	      FROM EDUCATION B
+	      JOIN SUBJECT C
+	      ON B.PK_EDUCATION_SEQ = C.PK_EDUCATION_SEQ
+	      ORDER BY C.PK_EDUCATION_SEQ, C.SUB_START_DT
+		]]>
+	</select>
 	<select id="selectSubjectList" parameterType="project.momento.education.dto.EducationDto" resultType="project.momento.education.dto.EducationDto">
 		SELECT
 		    A.PK_SUBJECT_SEQ AS pkSubjectSeq,
@@ -181,7 +194,7 @@
 		    A.PK_USER_SEQ 				AS pkUserSeq,
 		    C.NAME						AS name,
 		    C.PHONE						AS phone,
-		    C.BIRTHDAY					AS birthday,
+		    DATE_FORMAT(C.BIRTHDAY, '%Y-%m-%d')					AS birthday,
 		    A.ATTEND_DIVN 				AS attendDivn,
 		    A.ATTEND_DT 				AS attendDt,
 		    A.EARLY_DIVN 				AS earlyDivn,
@@ -196,7 +209,7 @@
 		    A.OUT_DT 					AS outDt,
 		    A.IN_DT						AS inDt,
 		    A.REGIST_ID 				AS registId,
-		    A.REGIST_DT 				AS registDt,
+		    DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d') 				AS registDt,
 		    A.UPDATE_ID 				AS updateId,
 		    A.UPDATE_DT 				AS updateDt
 		FROM EDUCATION_STUD A

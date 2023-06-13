@@ -11,6 +11,8 @@ public interface SignMapper {
 	
 	void insertUser(SignDto signDto);
 	
+	void insertManager(SignDto signDto);
+	
 	List<SignDto> waitList(SignDto signDto);
 	
 	//아이디 중복체크

@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import javax.tools.JavaCompiler;
@@ -17,7 +18,7 @@ public class CompileAndRun {
 
 	public static int classRun(Object myClass, List<TestcaseDto> testcaseDtos, String funcName, int option)
 	{
-		int result = 0;
+		int result = -1;
 		Class<?> objClass = myClass.getClass();
     	// 해당 class의 내부에있는 method들 모두가져와서 반복수행
     	for (Method method : objClass.getDeclaredMethods())
@@ -25,6 +26,7 @@ public class CompileAndRun {
     		// 가져온 method가 실행을 원하는 method명과 일치하면 수행
     		if(method.getName().equals(funcName))
             {
+    			result = 0;
     			for (TestcaseDto testDto : testcaseDtos) {   //
     				try {
     					Object out = funcRunOut(myClass, method, funcName, testDto.getInput());
@@ -92,7 +94,11 @@ public class CompileAndRun {
 			result = method.invoke(obj, inputs);
 			if (result.getClass().getName() == "[I")
 			{
-				List<Integer> list =  Arrays.stream((int[])result).boxed().collect(Collectors.toList());
+				List<Integer> list = new ArrayList<Integer>();
+		        for (int value : (int[])result) {
+		        	list.add(value);
+		        }
+
 				result = list;
 			}
 			if (result.toString().length() > 50)

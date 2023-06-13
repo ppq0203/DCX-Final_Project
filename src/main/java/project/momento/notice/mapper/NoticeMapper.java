@@ -21,6 +21,12 @@ public interface NoticeMapper {
 
 	List<NoticeDto> getNoticeList(int pkEducationSeq);
 
+	NoticeDto selectNotice(String pkNoticeSeq);
+
+	void deleteNotice(String pkNoticeSeq);
+
+	void updateNotice(NoticeDto noticeDto);
+
 }	
 	
 	

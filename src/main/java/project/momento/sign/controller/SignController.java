@@ -13,17 +13,20 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
+import project.momento.file.service.FileService;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -31,7 +34,9 @@ import project.momento.sign.service.SignService;
 public class SignController {
 	
 	@Autowired
-	private SignService SignService;
+	private SignService signService;
+	@Autowired
+	private FileService fileService;
 	
 	/*
 	 * 회원가입 페이지 이동
@@ -53,7 +58,7 @@ public class SignController {
 			){// DTO=VO 같은말
 		
 		signDto.setUserId(id);
-		int cnt = SignService.checkButton(signDto); // 중복확인한 값을 int로 받음
+		int cnt = signService.checkButton(signDto); // 중복확인한 값을 int로 받음
 		model.addAttribute("cnt", cnt);
 		return cnt;
 	}
@@ -63,27 +68,23 @@ public class SignController {
 	 * param 상세정보
 	 * return main page
 	 */
-	@RequestMapping(value="/{userDivn}/sign/form", produces="application/text;charset=utf-8") /* value주소 이름*/
-	public String goSignUp(@PathVariable String userDivn, Model model, SignDto signDto, HttpServletRequest request) throws IOException{
-		
-		String img = request.getParameter("imgPath");
-		System.out.println(" [+] " + img);
-		String path = "";
-		if(img != "")
-		{
-			byte[] imageBytes = Base64.getDecoder().decode(img);
-			BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-			Date now = new Date();
-			path = signDto.getUserId() + now + request.getParameter("imgFile");
-			
-			//업로드 될 디렉토리 URL
-//			ImageIO.write(bufImg, "png", new File("/img/this-should-be-linux-path/" + path));
+	@PostMapping(value="/{userDivn}/sign/form", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public String goSignUp(@PathVariable String userDivn, SignDto signDto, Model model, HttpServletRequest request) throws IOException{	
+		try {
+			if (!(signDto.getImgFile().getOriginalFilename().trim().equals(""))) {
+				System.out.println("이미지 있음");
+				int imageFileSeq = fileService.uploadFile(signDto.getImgFile());
+				signDto.setPkFileSeq(imageFileSeq);
+			}
+			if (userDivn.equals("mng")) {
+				signService.insertManager(signDto);
+			} else {
+				signService.insertUser(signDto);
+			}
+			return "redirect:/"+userDivn+"/login/main";
+		} catch (Exception e) {
+			return "redirect:/"+userDivn+"/login/main";
 		}
-		
-		signDto.setUserDivn(userDivn);
-//		signDto.setImgPath(path);
-		SignService.insertUser(signDto);
-		return "redirect:/"+userDivn+"/login/main";
 	}
 	
 }

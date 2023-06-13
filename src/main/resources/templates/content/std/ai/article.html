@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiEmptyLayout}">
+
+<th:block layout:fragment="content">
+	
+	<!-- Wrapper -->
+	<div id="wrapper" class="fade-in">
+
+		<div id="main">
+
+			<!-- Featured Post -->
+			<article class="post featured">
+				<header class="major">
+					<h2>article</h2>
+					<p>기사를 읽고 퀴즈를 풀어보자 ~!</p>
+				</header>
+			</article>
+
+			<!-- Posts -->
+			<section class="posts">
+				<article th:each="question : ${resultList}">
+					<header>
+						<span class="sort" th:text="${question.type}"></span>
+						<span class="date" th:text="${question.registDt}"></span>
+						<h2 th:text="${question.title}"></h2>
+					</header>
+					<span class="blurEffect" style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" th:text="${question.passage}"></span>
+					</span>
+					<ul class="actions special">
+						<li><a th:href="@{/std/ai/explanation/{pkQuestionSeq}(pkQuestionSeq=${question.pkQuestionSeq})}" class="button">Quiz</a></li>
+
+					</ul>
+				</article>
+			</section>
+
+			<!-- Footer -->
+			<footer>
+
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item previous th-disabled"
+							th:classappend="${paging.prev == false} ? 'disabled'">
+							<a th:href="@{/std/ai/article(page=${paging.startPage - 1})}" tabindex="0"
+								class="page-link">Previous</a>
+						</li>
+						<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+							<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
+								<a th:href="@{/std/ai/article(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+									class="page-link" th:text="${pNo}"></a>
+							</li>
+						</div>
+						<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
+							<a th:href="@{/std/ai/article(page=${paging.endPage + 1})}" tabindex="0"
+								aria-controls="dataTable" class="page-link">Next</a>
+						</li>
+					</ul>
+				</nav>
+			</footer>
+		</div>
+	</div>
+	<!-- Main -->
+	</div>
+
+</th:block>
+
+</html>

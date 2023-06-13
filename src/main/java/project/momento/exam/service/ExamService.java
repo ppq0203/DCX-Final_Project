@@ -22,6 +22,56 @@ public class ExamService {
 		examMapper.insertExam(examDto);
 	}
 
+	public List<ExamDto> getExamList(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		return examMapper.getExamList(examDto);
+	}
+
+	public void insertExamDetail(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.insertExamDetail(examDto);
+	}
+
+	public List<ExamDto> selectExamDetailList(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		return examMapper.selectExamDetailList(examDto);
+	}
+
+	public void deleteExamDetail(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.deleteExamDetail(examDto);
+	}
+
+	public void deleteExam(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.deleteExam(examDto);
+	}
+
+	public void startExam(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.startExam(examDto);
+	}
+
+	public void insertResult(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.insertResult(examDto);
+	}
+
+	public List<ExamDto> getExamResultList(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		return examMapper.getExamResultList(examDto);
+	}
+
+	public List<ExamDto> selectExamResultDetailList(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		return examMapper.selectExamResultDetailList(examDto);
+	}
+
+	public void updateScore(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		examMapper.updateScore(examDto);
+	}
+
 	
 	
 }

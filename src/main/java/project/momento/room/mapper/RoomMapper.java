@@ -10,5 +10,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface RoomMapper {
-	List<RoomDto> findAllRooms();
+//	List<RoomDto> findAllRooms();
+//	List<RoomDto> createRoom(String roomName);
+//	List<RoomDto> findRoomByName(String roomName);
+	
+	
+	void insertRoom(RoomDto rmDto);
+//	List<RoomDto> selectRoom(int pkRoomSeq);
 }

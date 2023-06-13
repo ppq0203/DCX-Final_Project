@@ -1,0 +1,437 @@
+			@font-face {
+				 font-family: 'DungGeunMo';
+				 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+				 font-weight: normal;
+				 font-style: normal;
+			}
+			@font-face {
+				font-family: 'GmarketSansMedium';
+				src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+				font-weight: normal;
+				font-style: normal;
+			}
+
+			.container {
+				width: 976px;
+				height: 700px;
+				background-image : url('gameStart.png');
+				background-size : auto ;
+			}
+			.header {
+        		padding: 10px;
+				height : 70px;
+      		}
+	      	.content {
+	        	width: 665px;
+				height: 560px;
+	        	padding: 10px;
+	        	float: left;
+				margin-right : 5px;
+				margin-left : 10px;
+				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+				border-radius: 10px;
+	      	}
+	      	.sidebar {
+	        	width: 250px;
+				height: 570px;
+	        	padding: 5px;
+	        	float: right;
+				margin-left : 5px;
+				margin-right : 5px;
+				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
+				position: relative;
+				border-radius: 10px;
+	      	}
+			 .fontp{
+				 font-family : 'DungGeunMo';
+				 font-size : 12px;
+				 color : white;
+				 line-height : 150%;
+			 }
+			 .fontb{
+				 font-family : 'DungGeunMo';
+				 font-size : 13px;
+				 color : yellow;
+				 line-height : 150%;
+			 }
+			 
+			/*content*/
+			 .user{
+				border-radius: 5px; 				/*테두리 둥글게*/ 
+				width: 150px;
+				height : 540px;
+				float : left;
+				vertical-align : center;
+				border : 3px solid white;
+				margin : 2px;
+				font-family: 'DungGeunMo';
+			 }
+			.team1{
+				background : #FFC04D;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 10px 5px 6px 5px; 
+				padding : 5px;
+				float : left;	
+				font-family: 'DungGeunMo';
+			}
+			.t1-user1{
+				background : #FFC04D;
+				border : 2px solid white;
+				border-radius: 5px; 
+				width: 45px;
+				height : 35px;
+				margin : 3px; 
+				padding : 5px;
+				float : left;
+				font-family: 'DungGeunMo';
+			 }
+			.t1-nouser{
+				background : #BF9039;
+				border : 2px solid #BF9039;	
+				border-radius: 5px; 
+				width: 45px;
+				height : 35px;
+				margin : 3px; 
+				padding : 5px;
+				float : left;
+				font-family: 'DungGeunMo';
+			 }
+
+			.team2{
+				background : #FF652A;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 6px 5px 6px 5px; 
+				padding : 5px;
+				float : left;	
+				font-family: 'DungGeunMo';
+			}
+			.t2-user1{
+				background : #FF652A;
+				border : 2px solid white;
+				border-radius: 5px; 
+				width: 45px;
+				height : 35px;
+				margin : 3px; 
+				padding : 5px;
+				float : left;
+				font-family: 'DungGeunMo';
+			 }
+			.t2-nouser{
+				background : #BF4C1F;
+				border : 2px solid #BF4C1F;	
+				border-radius: 5px; 
+				width: 45px;
+				height : 35px;
+				margin : 3px; 
+				padding : 5px;
+				float : left;
+				font-family: 'DungGeunMo';
+			 }
+
+			.gameing_team3{
+				background : #4C6ED4;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 6px 5px 6px 5px; 
+				padding : 5px;
+				float : left;	
+				font-family: 'DungGeunMo';
+			}
+			.t3-user1{
+				background : #4C6ED4;
+				border : 2px solid white;
+				border-radius: 5px; 
+				width: 45px;
+				height : 35px;
+				margin : 3px; 
+				padding : 5px;
+				float : left;
+				font-family: 'DungGeunMo';
+			 }
+			.t3-nouser{
+				background : #1454C2;
+				border : 2px solid #1454C2;
+				border-radius: 5px; 
+				width: 45px;
+				height : 35px;
+				margin : 3px; 
+				padding : 5px;
+				float : left;
+				font-family: 'DungGeunMo';
+			 }
+			 
+			.gameing_team4{
+				background : #9BDB6B;
+				border-radius: 10px; 
+				width: 130px;
+				height : 110px;
+				margin : 6px 5px 6px 5px; 
+				padding : 5px;
+				float : left;	
+				font-family: 'DungGeunMo';
+			}
+			.t4-user1{
+				background : #9BDB6B;
+				border : 2px solid white;
+				border-radius: 5px; 
+				width: 45px;
+				height : 35px;
+				margin : 3px; 
+				padding : 5px;
+				float : left;
+				font-family: 'DungGeunMo'
+			 }
+			.t4-nouser{
+				background : #6F9C4C;
+				border : 2px solid #6F9C4C;
+				border-radius: 5px; 
+				width: 45px;
+				height : 35px;
+				margin : 3px; 
+				padding : 5px;
+				float : left;
+				font-family: 'DungGeunMo';
+			 }
+			.score {
+				position: relative;
+				border: 2px solid white;
+				border-radius: 10px;
+				width: 20px;
+				height: 20px;
+				margin: 63px 83px;
+				padding: 10px;
+				font-family: 'GmarketSansMedium' ;
+				text-align : center;
+				font-size : 10px;
+				color : white;
+
+			}
+
+			/*content hover*/
+			.hover_y:hover {
+				position: absolute;
+				transform: translate(10%, -10%);
+				background-color: rgb(255, 255, 255);
+				box-shadow: 1px 5px 5px 1px rgb(0, 0, 0);
+				width: 50px;
+				border: 1px;
+				font-size: 20px;
+				line-height: 50px;
+			}
+						 
+			 /*table*/
+			.table             { 
+				border-spacing: 1; 
+				border-collapse: collapse; 
+				background: white;
+				border : 2px solid white;
+				/* border-radius:6px; */
+				/* overflow:hidden; */
+				width:380px;
+				height : 360px;
+				margin:3px auto;
+				text-align : center;
+				font-size : 12px;
+				table-layout: fixed; /*동일 너비*/
+				font-family :'GmarketSansMedium';
+			
+			}
+			table td, th{
+				border : 2px solid #282A46;
+			}
+			thead tr th{
+				background: #0070c0;
+				font-size : 22px;
+				height : 50px;
+				color : white;
+			   
+			}
+			tbody tr th{
+				background: #92d050;
+				font-size : 22px;
+				color : white;
+			}
+
+
+			/*side*/
+			.gamequiz{
+				width: 220px;
+				height: 125px;
+	        	padding: 5px;
+	        	float: center;
+				margin : 5px;
+				background-color : white;
+				border : 3px solid white;
+			 }
+			.quizbtn{
+				width: 230px;
+				height: 30px;
+				margin : 5px;
+				border : 3px solid white;
+			 }
+			 
+			.chat-veiw{
+	        	width: 220px;
+				height: 180px;
+	        	padding: 5px;
+	        	float: center;
+				margin : 5px;
+				border : 3px solid white;
+			}
+			.chat-input{
+				width: 220px;
+				height: 23px;
+				padding: 5px;
+	        	float: center;
+				margin : 5px;
+				border : 3px solid white;
+			 }
+			.write{
+				 width : 170px;
+				 height : 20px;
+				 float : left;
+				 border : 1.5px solid white;
+			 }
+			.no_dot {
+				font-family : 'DungGeunMo';
+				font-size : 15px;
+				line-height : 150%;
+				list-style-type: none;
+			}
+			.pfont{
+				font-family : 'DungGeunMo';
+				font-size : 16px;
+				text-align : center;
+				line-height : 150%;
+
+			}
+
+			/*content dice*/
+			 .gameing_dicearea{
+				border-radius: 5px; 				/*테두리 둥글게*/ 
+				width: 490px;
+				height : 135px;
+				float : left;
+				vertical-align : center;
+				border : hidden;
+				margin : 2px 0px 2px 7px;
+				font-family: 'DungGeunMo';
+			 }
+			
+			.quiz{
+				border-radius: 5px; 				/*테두리 둥글게*/ 
+				width: 490px;
+				height : 387px;
+				float : left;
+				vertical-align : center;
+				border : hidden;
+				margin : 10px 0px 2px 7px;
+				font-family: 'DungGeunMo';
+			 }				
+			
+			/*button icon*/
+			.answer{
+				width: 80px;
+				height: 28px;
+				text-align: center;
+				float: left;
+				background-color :#4C6ED4;
+				font-size: 13px;
+				font-family: 'DungGeunMo';
+				color : white;
+				margin : auto 1px;
+				border-color :#1454C2;
+			}
+			.discard{
+				width: 80px;
+				height: 28px;
+				text-align: center;
+				float: right;
+				background-color : gray;
+				font-size: 13px;
+				font-family: 'DungGeunMo';
+				color : red;
+			}
+			 
+			.btnchat{
+				width: 40px;
+				height: 25px;
+				text-align: center;
+				float: right;
+				background-color : white;
+				font-size: 12px;
+				font-family: 'DungGeunMo';
+				color : #005255;
+			}
+			 
+			.btn{
+				width: 220px;
+				height: 50px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px 5px 5px 15px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : #FFC04D;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : #c55a11;
+			}			 
+			.btnlogout{
+				width: 220px;
+				height: 50px;
+				padding: 5px;
+				text-align: center;
+				margin: 5px 5px 5px 15px;
+				/*border-top-left-radius: 5px;*/
+				border-radius: 5px;
+				background-color : gray;
+				font-size: 20px;
+				font-family: 'DungGeunMo';
+				color : 'Darkgary';
+			}
+			.gameing_lottie-container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin : auto;			
+			}
+			.gameing_ricearea_col{
+				width: 125px;
+				height: 125px;
+				background : #92d050;
+				border: 5px solid #6F9C4C;
+				border-radius: 10px;
+				margin : 0px 20px 0px 0px;
+			}
+			.gameing_ricearea_row{
+				width: 125px;
+				height: 125px;
+				background : #0070c0;
+				border: 5px solid #1454C2;
+				border-radius: 10px;
+				margin : 0px 0px 0px 0px;
+			}
+
+			.rice1 {
+				width: 220px;
+				height: 220px;
+				align-items : center;
+				position: fixed;
+    			top: 70px;
+    			left: 250px;
+				color : #0070c0;
+			}
+			.rice2 {
+				width: 220px;
+				height: 220px;
+				align-items : center;
+				position: fixed;
+    			top: 70px;
+    			left: 405px;			
+			}

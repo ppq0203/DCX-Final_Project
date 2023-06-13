@@ -1,6 +1,7 @@
 package project.momento.main.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import project.momento.education.dto.EducationDto;
 import project.momento.education.service.EducationService;
 import project.momento.login.dto.LoginDto;
+import project.momento.main.dto.MainDto;
+import project.momento.main.service.MainService;
+import project.momento.question.dto.QuestionDto;
+import project.momento.question.service.QuestionService;
 import project.momento.sign.dto.SignDto;
 import project.momento.sign.service.SignService;
 
@@ -22,9 +27,13 @@ import project.momento.sign.service.SignService;
 public class MainController {
 
 	@Autowired
-	private SignService SignService;
+	private SignService signService;
 	@Autowired
 	private EducationService educationService;
+	@Autowired
+	private QuestionService questionService;
+	@Autowired
+	private MainService mainService;
 	
 	/*
 	 * 
@@ -60,6 +69,27 @@ public class MainController {
 		educationDto.setPkUserSeq(loginDto.getPkUserSeq());
 		List<EducationDto> resultList = educationService.selectSubjectList(educationDto);
 		return resultList;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/chart/list/{pkUserSeq}", produces = "application/json;charset=utf-8") /* value주소 이름 */
+	public Map<String, MainDto> ChartList(@PathVariable int pkUserSeq, Model model, HttpServletRequest request) {
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		MainDto mainDto = new MainDto();
+		mainDto.setPkUserSeq(pkUserSeq);
+		
+		Map<String, MainDto> result = new HashMap<>();
+
+		MainDto gameResult = mainService.selectGameChart(mainDto);
+		result.put("gameResult", gameResult);
+		
+		MainDto aiResult = mainService.selectAiChart(mainDto);
+		result.put("aiResult", aiResult);
+		
+		MainDto examResult = mainService.selectExamChart(mainDto);
+		result.put("examResult", examResult);
+
+		return result;
 	}
 	
 

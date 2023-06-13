@@ -27,6 +27,16 @@ public interface QnaMapper {
 
 	QnaDto selectAsk(String pkAskSeq);
 
+	List<QnaDto> getAnswerListForMng(SubjectDto subjectDto);
+
+	List<QnaDto> getAnswerListForUser(SubjectDto subjectDto);
+
+	void insertAskAns(QnaDto qnaDto);
+
+	void deleteAskAns(String pkAskAnsSeq);
+
+	void qnaCountUp(String pkAskSeq);
+
 }	
 	
 	
