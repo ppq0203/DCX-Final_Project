@@ -245,6 +245,32 @@
 								<div class="card-footer">
 								</div>
 							</div>
+							<div class="card card-outline card-info">
+								<div class="card-header">
+										<h3 class="card-title">
+										Input Example
+									</h3>
+								</div>
+	
+								<div class="card-body p-0">
+									<p id="questionInput"></p>
+								</div>
+								<div class="card-footer">
+								</div>
+							</div>
+							<div class="card card-outline card-info">
+								<div class="card-header">
+									<h3 class="card-title">
+										Output Example
+									</h3>
+								</div>
+	
+								<div class="card-body p-0">
+									<p id="questionOutput"></p>
+								</div>
+								<div class="card-footer">
+								</div>
+							</div>
 							<!-- 기존 코드 -->
 							<div class="card card-outline card-info">
 								<div class="card-header">
@@ -322,8 +348,9 @@
 		var roomId = /*[[${room.pkRoomSeq}]]*/0;
 		var roomNumber = /*[[${room.roomNumber}]]*/"0";
 		var stomp;
-		var pkUserSeq = "0";
-
+		var pkUserSeq = [[${session.loginDto.pkUserSeq}]];
+		var userName = [[${session.loginDto.name}]];
+		
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
 		var stomp = Stomp.over(sockJs);
@@ -337,7 +364,7 @@
 					$('#gameRoom').css('display', 'block'); 
 					$('#waitRoom').css('display', 'none');
 					for (var i = 1; i<=4; ++i){
-						if ($("#team"+i).children("#" + pkUserSeq + "").length > 0){
+						if ($("#team"+i).children("#" + userName + "").length > 0){
 							userTeamNo = i;
 						}
 					}
@@ -349,7 +376,7 @@
 				stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					var chatContent = content.chatContent;
-					var writer = content.pkUserSeq;
+					var writer = userName;
 					var str = '';
 
 					str = "<div class='col-6'>";
@@ -362,6 +389,7 @@
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					// 첫접속시 유저 고유번호 저장
+
 					console.log("pkUserSeq : " + content.pkUserSeq);
 					if (pkUserSeq == "0") {
 						pkUserSeq = content.pkUserSeq;
@@ -380,7 +408,7 @@
 					var content = JSON.parse(chat.body);
 					
 					$.each(content.waitList, function (index, value) {
-						if ($("#team1").children("#" + index + "").length > 0) {
+						if ($("#team1").children("#" + index=== + "").length > 0) {
 							console.log("jquery : 해당 객체 존재함");
 						} else {
 							str = "<div class='waiting_room_wait' display:none' id = '" + index + "'></div>";
@@ -507,7 +535,7 @@
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
-				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq}))
+				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName}))
 			});
 
 			$("#team1").on("click", function (e) {
@@ -790,12 +818,16 @@
 			contents = question.contents;
 			codeFormat = question.codeFormat;
 			type = question.type;
+			input = question.input;
+			output = question.output;
 			$('.modal-title').text(title);
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
 			$('#nameQuestion').val(question.className);
 			$('#questionType').val(type);
 			$('#questionContents').text(contents);
+			$('#questionInput').text(input);
+			$('#questionOutput').text(output);
 			$('#Demo').val(codeFormat);
 		}
 
@@ -806,7 +838,7 @@
 			var pkQuestionSeq = $("#questionNo").val();
 			// alert("click");
 			console.log(pkUserSeq);
-			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq: pkQuestionSeq, answerUser: code, answerOx: name}));
+			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq: pkQuestionSeq, answerUser: code, answerOx: name, pkUserSeq: pkUserSeq}));
 		}
 		function giveup()
 		{

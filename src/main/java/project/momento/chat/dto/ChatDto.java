@@ -17,6 +17,8 @@ public class ChatDto {
 	
 	private String userTeamNumber; //유저가 속한 팀 번호
 	
+	private String userName; // 작성자 이름
+	
 	//private String chatStamp; // 유저 채팅 시간 기록 (로비)
 	
 	private String chatContent; // 유저 채팅 로그 내용 기록 (로비) message

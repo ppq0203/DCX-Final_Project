@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import project.momento.answer.dto.AnswerDto;
 import project.momento.answer.service.AnswerService;
 import project.momento.chat.dto.ChatDto;
+import project.momento.login.dto.LoginDto;
 import project.momento.question.dto.QuestionDto;
 import project.momento.question.dto.TestcaseDto;
 import project.momento.question.function.AnswerToDB;
@@ -34,6 +35,8 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
@@ -206,14 +209,16 @@ public class StompChatController {
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
 		String code = answerDto.getAnswerUser();
 		String name = answerDto.getAnswerOx();
+		int pkUserSeq = answerDto.getPkUserSeq();
 		int num = answerDto.getPkQuestionSeq();
+		
 		
 		List<TestcaseDto> testcaseDtos = testcaseService.selectTestcaseList(num);
 		
 													// 방넘버, 유저넘저, 함수명, 인풋list, 함수실행코드
 		int result = StringCodeCompile.stringCodeCompile(roomId, userUUID, name, testcaseDtos, code);
 		// 문제번호, 유저번호, 코드, 결과, 문제타입
-		AnswerToDB.answerToDB(num, 1, code, result, questionService.selectQuestionSeq(num).getType(), answerService);
+		AnswerToDB.answerToDB(num, pkUserSeq, code, result, questionService.selectQuestionSeq(num).getType(), answerService);
 		if (result == 0)
 			answerDto.setAnswerOx("O");
 		else
