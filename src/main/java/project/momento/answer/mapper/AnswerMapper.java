@@ -15,6 +15,10 @@ public interface AnswerMapper {
 
 	List<AnswerDto> selectAnswer(int pkUserSeq);
 
+	AnswerDto selectAnswerType(AnswerDto asDto);
 
+	AnswerDto selectAnswerTime(AnswerDto asDto);
+
+	AnswerDto selectAnswerTY(AnswerDto asDto);
 
 }
