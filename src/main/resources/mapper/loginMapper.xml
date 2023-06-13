@@ -16,14 +16,14 @@
 				PASSWORD AS password,
 				NAME AS name,
 				PHONE AS phone,
+				EMAIL AS email,
 				BIRTHDAY AS birthday,
 				ADDRESS AS address,
 				DETAILED_ADDRESS AS detailedAddress,
-				EMAIL AS email,
 				USER_DIVN AS userDivn,
 				USE_YN AS useYn,
 				REGIST_DT AS registDt,
-				USER_IMG AS imgPath,
+				CLASS_STATE AS classState,
 				PK_FILE_SEQ AS pkFileSeq
 			FROM USER
 			WHERE USER_ID = #{userId} AND PASSWORD = #{password} AND USE_YN = 'Y'
@@ -39,13 +39,14 @@
 				PASSWORD AS password,
 				NAME AS name,
 				PHONE AS phone,
+				EMAIL AS email,
 				BIRTHDAY AS birthday,
 				ADDRESS AS address,
 				DETAILED_ADDRESS AS detailedAddress,
-				EMAIL AS email,
 				USER_DIVN AS userDivn,
 				USE_YN AS useYn,
 				REGIST_DT AS registDt,
+				CLASS_STATE AS classState,
 				PK_FILE_SEQ AS pkFileSeq
 			FROM MANAGER
 			WHERE USER_ID = #{userId} AND PASSWORD = #{password} AND USE_YN = 'Y'

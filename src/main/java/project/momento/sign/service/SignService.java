@@ -18,8 +18,12 @@ public class SignService {
 
 	public void insertUser(SignDto signDto) {
 		// TODO Auto-generated method stub
-		
 		SignMapper.insertUser(signDto);
+	}
+	
+	public void insertManager(SignDto signDto) {
+		// TODO Auto-generated method stub
+		SignMapper.insertManager(signDto);
 	}
 	
 	public List<SignDto> waitList(SignDto signDto){

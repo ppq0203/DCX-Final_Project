@@ -82,7 +82,7 @@
 						<tr th:each="class, classStat : ${classList}">
 							<th th:text="${classStat.count}">no</th>
 							<td>
-								<button type="button" class="btn btn-link" th:text="${class.className}">강의명</button>
+								<span th:text="${class.className}">강의명</span>
 							</td>
 							<td>
 								<span th:text="${session.subjectDto.subjectName}">과목명</span>

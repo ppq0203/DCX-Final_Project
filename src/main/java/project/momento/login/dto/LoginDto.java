@@ -2,6 +2,7 @@ package project.momento.login.dto;
 /* sign.html에 있는 가져오는 정보의 이름를 연결해주는 곳 */
 
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 import project.momento.page.Criteria;
@@ -43,9 +44,8 @@ public class LoginDto extends Paging {
 	/*관리자 고유번호*/
 	private int pkManagerSeq;
 	/*이미지 경*/
-	private String imgPath;
-	/*이미지 경*/
 	private int pkFileSeq;
-	
+
+	private String imgPath;
 
 }
