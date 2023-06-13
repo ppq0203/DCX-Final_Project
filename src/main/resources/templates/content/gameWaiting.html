@@ -162,7 +162,7 @@
 					<img th:src="@{/img/profil.jpg}" style="border-radius: 50px;" alt="exit" width="150px"
 						height="140px">
 					<div class="" style="font-weight:bold;">
-						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+						<span>ID : [[${session.loginDto.userId}]]</span><br><span th:utext="${session.loginDto.name}"></span>
 					</div>
 				</div>
 

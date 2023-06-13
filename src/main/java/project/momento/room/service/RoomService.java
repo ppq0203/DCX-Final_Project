@@ -90,10 +90,10 @@ public class RoomService {
 			HashMap dump = new HashMap();
 			dump.put("dump", "dump");
 			room.getUserList().put("waitList", dump);
-			room.getUserList().get("waitList").put(userUUID, message.getPkUserSeq());
+			room.getUserList().get("waitList").put(userUUID, message.getUserName());
 			room.getUserList().get("waitList").remove("dump");
 		}else {
-			room.getUserList().get("waitList").put(userUUID, message.getPkUserSeq());
+			room.getUserList().get("waitList").put(userUUID, message.getUserName());
 		}
 		
 		room.setParticipants(room.getParticipants() + 1);
