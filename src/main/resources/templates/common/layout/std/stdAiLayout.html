@@ -8,36 +8,27 @@
 	<title>Mo:mento</title>
 	<meta name="viewport"
 		content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-	<script th:src="@{/js/jquery/jquery-2.2.4.js}"></script>
-	<link th:href="@{css/bootstrap/bootstrap.css}" rel="stylesheet">
-	<link th:href="@{css/bootstrap/bootstrap-grid.min.css}" rel="stylesheet">
+	<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+	<link th:href="@{/css/bootstrap/bootstrap-grid.min.css}" rel="stylesheet">
 	<link th:href="@{/css/bootstrap/bootstrap-reboot.min.css}" rel="stylesheet">
-	<link th:href="@{/css/fontawesome/css/all.min.css}" rel="stylesheet">
+	<link th:href="@{/css/adminlte.min.css}" rel="stylesheet">
+	<link th:href="@{/plugins/fontawesome-free/css/all.min.css}" rel="stylesheet">
 
-	<link th:href="@{/plugins/codemirror/codemirror.css}" rel="stylesheet">
-	<link th:href="@{/plugins/codemirror/theme/monokai.css}" rel="stylesheet">
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
 
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-	<script th:src="@{/js/fontawesome/js/all.min.js}"></script>
 	<script th:src="@{/js/adminlte.min.js}"></script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
-
-	<script th:src="@{/plugins/codemirror/codemirror.js}"></script>
-	<script th:src="@{/plugins/codemirror/mode/css/css.js}"></script>
-	<script th:src="@{/plugins/codemirror/mode/htmlmixed/htmlmixed.js}"></script>
-
+	<script th:src="@{/plugins/jquery-ui/jquery-ui.min.js}"></script>
+	<script th:src="@{/plugins/moment/moment.min.js}"></script>
 </head>
 
-<body class="hold-transition">
+<body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<th:block th:replace="common/fragments/std/stdHeader :: headFragment"></th:block>
 		<th:block th:replace="common/fragments/std/stdLeft :: leftFragment"></th:block>
 		<div class="content-wrapper" style="background-color: #fff;">
-			<th:block th:replace="common/fragments/std/stdAibanner :: bannerFragment"></th:block>
+			<th:block th:replace="common/fragments/std/stdAiBanner :: aiBannerFragment"></th:block>
 			<th:block layout:fragment="content"></th:block>
 		</div>
 	</div>

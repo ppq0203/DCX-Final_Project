@@ -36,7 +36,8 @@
 							<td th:text="${notice.registDt}">registDt</td>
 							<td>
 								<button data-toggle="modal" data-target="#modal-open-notice" type="button"
-									th:value="${notice.pkNoticeSeq}" th:onclick="openNotice(this, [[${session.loginDto.userId}]])"
+									th:value="${notice.pkNoticeSeq}"
+									th:onclick="openNotice(this, [[${session.loginDto.userId}]])"
 									class="btn btn-success btn-sm">
 									<span>열기</span>
 								</button>
@@ -57,8 +58,8 @@
 					<h2 class="p-2">강의정보</h2>
 				</div>
 				<div class="card-tools col-6 text-right">
-					<button data-toggle="modal" data-target="#modal-open-class" type="button"
-						class="mt-3 mr-3 btn btn-primary btn-sm" onclick="openCreateClassModal()">
+					<button data-toggle="modal" data-target="#modal-create-class" type="button" class="mt-3 mr-3 btn btn-primary btn-sm" 
+					th:onclick="openCreateClassModal([[${session.subjectDto.subStartDt}]], [[${session.subjectDto.subEndDt}]])">
 						<span>등록</span>
 					</button>
 				</div>
@@ -68,62 +69,49 @@
 				<thead>
 					<tr>
 						<th style="width: 5%;">No.</th>
-						<th style="width: 50%;">강좌명</th>
+						<th style="width: 45%;">강의명</th>
 						<th style="width: 20%;">과목명</th>
 						<th style="width: 10%;">날짜</th>
 						<th style="width: 7.5%;">강의자료</th>
 						<th style="width: 7.5%;">과제답안</th>
+						<th style="width: 5%;"></th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>1</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>2</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>3</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">4</th>
-						<td><button type="button" class="btn btn-link">날짜 링크연결</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>4</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
+				<tbody class="tbody-class-info">
+					<th:block th:if="${classList != null}">
+						<tr th:each="class, classStat : ${classList}">
+							<th th:text="${classStat.count}">no</th>
+							<td>
+								<button type="button" class="btn btn-link" th:text="${class.className}">강의명</button>
+							</td>
+							<td>
+								<span th:text="${session.subjectDto.subjectName}">과목명</span>
+							</td>
+							<td>
+								<span th:text="${#strings.substring(class.classDt, 0, 10)}">날짜</span>
+							</td>
+							<td class="align-items-center">
+								<a th:if="${class.pkFileClassSeq == 0}"><i class="fas fa-download"></i></a>
+								<a th:unless="${class.pkFileClassSeq == 0}" th:href="@{/mng/download/{pkFileSeq}/file(pkFileSeq = ${class.pkFileClassSeq})}" download><i class="fas fa-download"></i></a>
+							</td>
+							<td>
+								<a th:if="${class.pkFileHomeworkSeq == 0}"><i class="fas fa-download"></i></a>
+								<a th:unless="${class.pkFileHomeworkSeq == 0}" th:href="@{/mng/download/{pkFileSeq}/file(pkFileSeq = ${class.pkFileHomeworkSeq})}" download><i class="fas fa-download"></i></a>
+							</td>
+							<td class="align-items-center">
+								<button data-toggle="modal" data-target="#modal-create-class" type="button"
+									th:value="${class.pkClassSeq}"
+									th:onclick="openUpdateClassModal([[${class.classDt}]], [[${class.classDt}]], [[${class.className}]])"
+									class="btn btn-success btn-sm">
+									<span>열기</span>
+								</button>
+							</td>
+						</tr>
+					</th:block>
 				</tbody>
 			</table>
 			<!-- /.card-body -->
-			<div class="card-footer">
+			<div th:unless="${classList != null}" class="card-footer">
 			</div>
 		</div>
 	</div>
@@ -216,85 +204,46 @@
 			</div>
 		</form>
 	</div>
-	<!-- Modal-open-class -->
-	<div class="modal fade" id="modal-open-class" style="display: none;" aria-hidden="true">
-		<form action="/mng/notice/create" method="post">
-			<div class="modal-dialog modal-dialog-cented modal-xl">
+	<!-- Modal-create-class -->
+	<div class="modal fade" id="modal-create-class" style="display: none;" aria-hidden="true">
+		<form action="/mng/classes/create" method="POST" enctype="multipart/form-data">
+			<div class="modal-dialog modal-dialog-cented modal-lg">
 				<div class="modal-content">
 					<div class="col-12 modal-header">
-						<h4 class="col-12 modal-title text-center">강의정보</h4>
-						<input type="hidden" name="pkEducationSeq" th:value="${session.subjectDto.pkEducationSeq}">
-						<input type="hidden" name="registId" th:value="${session.loginDto.userId}">
+						<div class="col-6">
+							<h3 class="col-12 modal-title">&LT;시험 등록&GT;</h3>
+						</div>
+						<div class="card-tools col-6 text-right">
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						</div>
 					</div>
 					<div class="modal-body">
 						<div class="container-fluid">
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="form-group">
-										<label>제목</label>
-										<input name="title" type="text" class="form-control">
-									</div>
-								</div>
-								<div class="col-sm-12">
-									<div class="form-group">
-										<label>내용</label>
-										<textarea name="contents" class="form-control summernote-in-subject"
-											rows="6"></textarea>
-									</div>
-								</div>
+
+							<div id="classDiv" class="row">
+								
 							</div>
+
 						</div>
 					</div>
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="submit" divn="create" class="btn btn-primary modelBtn">
 							<span>등록</span>
 						</button>
+						
+						<div id="create-delete-button">
+							
+						</div>
+					
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
 	<script th:inline="javascript">
-		var SUBJECT_ARRAY = [];
-		$(document).ready(function () {
-			// Summernote
-			$('.summernote-in-subject').summernote({
-				tabsize: 2,
-				height: 300
-			});
-			$('.modal').on('shown.bs.modal', function (e) {
-				// 모달이 열릴 때 실행되는 코드
-				// $(this).find('form')[0].reset(); // 입력 필드 초기화
-			});
-
-			$('.modal').on('hidden.bs.modal', function (e) {
-				// 모달이 닫힐 때 실행되는 코드
-				// $(this).find('form')[0].reset(); // 입력 필드 초기화
-				// $('#summernote').summernote('code', ''); // 에디터 초기화
-			});
-			//$.ajax({
-			//	type: "POST",
-			//	url: "/getSubjectList",
-			//	dataType: "json",
-			//	success: function (data) {
-			//		$.each(data, function (index, item) {
-			//			SUBJECT_ARRAY.push(
-			//				{
-			//					"id": item.pkSubjectSeq,
-			//					"text": item.subjectName
-			//				}
-			//			);
-			//		});
-			//		$('.select2').select2({
-			//			data: SUBJECT_ARRAY
-			//		})
-			//	},
-			//	error: function () {
-			//	}
-			//});
-		})
-
+		
+		// 공지사항 등록 버튼이 눌릴때 실행되는 코드
 		function openCreateModal() {
 			$('.modal').on('hidden.bs.modal', function (e) {
 				// 모달이 닫힐 때 실행되는 코드
@@ -302,15 +251,70 @@
 				$('.summernote-in-subject').summernote('code', ''); // 에디터 초기화
 			});
 		}
-
-		function openCreateClassModal() {
-			$('.modal').on('hidden.bs.modal', function (e) {
-				// 모달이 닫힐 때 실행되는 코드
-				$(this).find('form')[0].reset(); // 입력 필드 초기화
-				$('.summernote-in-subject').summernote('code', ''); // 에디터 초기화
-			});
+		
+		// 강의정보 등록 버튼이 눌릴때 실행되는 코드
+		function openCreateClassModal(start, end) {
+			var startDate = new Date(start.substring(0,11));
+			var endDate = new Date(end.substring(0,11));
+			
+			var btDay = ((endDate.getTime()-startDate.getTime()) / (1000*60*60*24)) + 1;
+			
+			if (btDay > 0) {
+				CLASS_ARRAY = [];
+				for (var i=0; i<btDay; i++) {
+					CLASS_ARRAY.push({});
+				}
+				arrayInit(startDate);
+				$("#create-delete-button").empty();
+				if (btDay == 1) {
+					$("#create-delete-button").append(
+						'<button type="button" divn="delete" class="btn btn-danger modelBtn" onclick="location.href=\'/mng/classes/' + dateFormat(startDate, true) + '/delete\'">' +
+							'<span>삭제</span>' +
+						'</button>'
+					);
+				}
+				$('.modal').on('hidden.bs.modal', function (e) {
+					// 모달이 닫힐 때 실행되는 코드
+					$(this).find('form')[0].reset(); // 입력 필드 초기화
+					$('.summernote-in-subject').summernote('code', ''); // 에디터 초기화
+				});
+			} else {
+				alert("강의 시작일보다 강의 종료일이 더 빠릅니다.");
+			}
 		}
-
+		
+		// 강의정보 수정 버튼이 눌릴때 실행되는 코드
+		function openUpdateClassModal(start, end, className) {
+			var startDate = new Date(start.substring(0,11));
+			var endDate = new Date(end.substring(0,11));
+			
+			var btDay = ((endDate.getTime()-startDate.getTime()) / (1000*60*60*24)) + 1;
+			
+			if (btDay > 0) {
+				CLASS_ARRAY = [];
+				for (var i=0; i<btDay; i++) {
+					CLASS_ARRAY.push({});
+				}
+				arrayInit(startDate, className);
+				$("#create-delete-button").empty();
+				if (btDay == 1) {
+					$("#create-delete-button").append(
+						'<button type="button" divn="delete" class="btn btn-danger modelBtn" onclick="location.href=\'/mng/classes/' + dateFormat(startDate, true) + '/delete\'">' +
+							'<span>삭제</span>' +
+						'</button>'
+					);
+				}
+				$('.modal').on('hidden.bs.modal', function (e) {
+					// 모달이 닫힐 때 실행되는 코드
+					$(this).find('form')[0].reset(); // 입력 필드 초기화
+					$('.summernote-in-subject').summernote('code', ''); // 에디터 초기화
+				});
+			} else {
+				alert("강의 시작일보다 강의 종료일이 더 빠릅니다.");
+			}
+		}
+		
+		// 공지사항 열기 버튼이 눌릴때 실행되는 코드
 		function openNotice(arg0, userId) {
 			var buttonValue = arg0.value;
 			var form = {
@@ -337,25 +341,345 @@
 				}
 			});
 		}
-
+		
+		// // 공지사항 삭제 버튼이 눌릴때 실행되는 코드
 		function deleteNotice(arg0) {
-            var buttonValue = arg0.value;
-            var form = {
-               pkNoticeSeq: buttonValue
-            };
-            $.ajax({
-               type: "POST",
-               url: "/deleteNotice",
-               data: JSON.stringify(form),
-               contentType: "application/json",
-               success: function (data) {
-               },
-               error: function (request, status, error) {
-                  alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-               }
-            });
-            location.reload();
-         }
+			var buttonValue = arg0.value;
+			var form = {
+				pkNoticeSeq: buttonValue
+			};
+			$.ajax({
+				type: "POST",
+				url: "/deleteNotice",
+				data: JSON.stringify(form),
+				contentType: "application/json",
+				success: function (data) {
+				},
+				error: function (request, status, error) {
+					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+				}
+			});
+			location.reload();
+		}
+		
+		// json 형태의 데이터를 받아 뿌려주고 json의 길이를 파악하여 몇 칸이 필요한지 알려주는 용도
+		var CLASS_ARRAY = [];
+		
+		
+		function imgInit(index, item) {
+			var str = "";
+			if (item.pkFileSeq != 0) {
+				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
+					+ '<img id="preview" key="src" index="' + index + '" class="card-img-top imgSrc"  alt="Thumbnail [100%x225]" src="' + item.filePath + '" style="height: 20rem; width: 100%; display: block;">'
+					+ '</div>'
+				return str;
+			} else {
+				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
+					+ '<p>' + item.contents + '</p>'
+					+ '</div>'
+				return str;
+			}
+		}
+
+		function validation(button) {
+			var validate = true;
+			$(".validate").each(function () {
+				var value = $(this).val();
+
+				// 선택되지 않은 값이나 입력값이 없는 경우 처리
+				if (value == "" || value == null || value == '') {
+					$(this).addClass("is-invalid");
+					validate = false;
+				}
+			});
+			if (!validate) {
+				return false;
+			} else {
+
+				for (var i = 0; i < CLASS_ARRAY.length; i++) {
+					var formData = new FormData();
+					var item = CLASS_ARRAY[i];
+					// 파일 추가
+					if (item.file) {
+						formData.append('files', item.file);
+					} else {
+						formData.append('files', new Blob([], {type: 'application/octet-stream'}), 'empty.txt');
+					}
+					// 기타 필드 추가
+					formData.append('titles', new Blob([JSON.stringify(item.title)], {type: "application/json"}));
+					formData.append('contents', new Blob([JSON.stringify(item.contents)], {type: "application/json"}));
+					// 추가적인 필드가 있다면 여기에 추가해주세요
+					$.ajax({
+						url: '/mng/exam/create', // 서버의 URL을 입력해주세요
+						type: 'POST', // POST 요청으로 전송합니다
+						data: formData, // FormData를 전송합니다
+						processData: false,
+						contentType: false,
+						success: function (response) {
+							// 요청이 성공적으로 처리되었을 때 실행되는 콜백 함수
+							console.log('전송 성공:', response);
+							// 전송 후 필요한 작업을 수행해주세요
+						},
+						error: function (xhr, status, error) {
+							// 요청이 실패했을 때 실행되는 콜백 함수
+							console.error('전송 실패:', status, error);
+							// 실패 시 처리할 작업을 수행해주세요
+						}
+					});
+				}
+			}
+		}
+		
+		// Date 형식 변경
+		function dateFormat(date, postController) {
+			let month = date.getMonth() + 1;
+			let day = date.getDate();
+			let hour = date.getHours();
+			let minute = date.getMinutes();
+			let second = date.getSeconds();
+			const weekDay = ['일', '월', '화', '수', '목', '금', '토'];
+			let dotw = weekDay[date.getDay()];
+			
+			month = month >= 10 ? month : '0' + month;
+			day = day >= 10 ? day : '0' + day;
+			hour = hour >= 10 ? hour : '0' + hour;
+			minute = minute >= 10 ? minute : '0' + minute;
+			second = second >= 10 ? second : '0' + second;
+			
+			if (postController) {
+				return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+			} else {
+				return date.getFullYear() + '-' + month + '-' + day + ' (' + dotw + ')';
+			}
+		}
+		
+		// 강의 정보 등록 버튼 클릭시 틀 만들어 주는 function
+		function arrayInit(startDate, className="") {
+			var Date = startDate;
+			Date.setDate(startDate.getDate()-1);
+			$("#classDiv").empty();
+			$.each(CLASS_ARRAY, function (index, item) {
+				Date.setDate(startDate.getDate()+1);
+				if (index != 0) {
+					$("#classDiv").append('<div class="col-12 pt-2"><hr></div>');
+				}
+				$("#classDiv").append(
+					'<div class="col-12">' +
+						'<div class="row">' +
+							'<div class="col-12">' +
+								'<div class="row align-items-center">' +
+									'<div class="col-4">' +
+										'<h4 class="p-4">' + dateFormat(Date, false) + '</h4>' +
+										'<input value="' + dateFormat(Date, true) + '" name="classDate" index="' + index + '" style="display:none;">' +
+									'</div>' +
+									'<div class="col-8">' +
+										'<input value="' + className + '" name="className" type="text" key="className" index="' + index + '" class="form-control className className' + index + ' validate" placeholder="강의명을 입력해야 저장이 가능합니다.">' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+							'<div class="col-12">' +
+								'<div class="row">' +
+									'<div class="col-6">' +
+										'<div class="row align-items-center">' +
+											'<div class="col-4">' +
+												'<h5 class="text-center">강의자료</h5>' +
+											'</div>' +
+											'<div class="col-8">' +
+												'<div class="mb-3">' +
+													'<label style="display:none;" class="form-label" for="classFile' + index + '"></label>' +
+													'<input value="' + (item.classFile === undefined ? '' : item.classFile) + '" name="classFilePath" key="classFilePath" type="file" index="' + index + '" class="class-file-input classFile pt-2" id="classFile' + index + '">' +
+												'</div>' +
+											'</div>' +
+										'</div>' +
+									'</div>' +
+									'<div class="col-6">' +
+										'<div class="row align-items-center">' +
+											'<div class="col-4">' +
+												'<h5 class="text-center">과제답안</h5>' +
+											'</div>' +
+											'<div class="col-8">' +
+												'<div class="mb-3">' +
+													'<label style="display:none;" class="form-label" for="homeworkFile' + index + '"></label>' +
+													'<input value="' + (item.file === undefined ? '' : item.file) + '" name="homeworkFilePath" key="homeworkFilePath" type="file" index="' + index + '" class="homework-file-input homeworkFile pt-2" id="homeworkFile' + index + '">' +
+												'</div>' +
+											'</div>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+					'</div>'
+				);
+			});
+			
+			$(".className").change(function () {
+				var index = $(this).attr('index');
+				var value = $(this).val();
+				var key = $(this).attr('key');
+				CLASS_ARRAY[index][key] = value;
+			});
+
+			$(".class-file-input").on("change", function (e) {
+				var fileName = $(this).val().split("\\").pop();
+				var filePath = $(this).val();
+				var index = $(this).attr('index');
+				var file = $(this)[0].files[0];
+				console.log('파일 : ' + file);
+				console.log('파일 경로 : ' + filePath);
+				console.log('파일명 : ' + fileName);
+				$(this).siblings(this).addClass("selected").html(fileName);
+				if (fileName != '') {
+					var reader = new FileReader();
+					reader.onload = function (event) {
+						$('#preview' + index).attr('src', event.target.result);
+						CLASS_ARRAY[index]['src'] = event.target.result;
+						CLASS_ARRAY[index]['classFilePath'] = filePath;
+						CLASS_ARRAY[index]['classFileName'] = fileName;
+						CLASS_ARRAY[index]['file'] = file;
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+
+			$(".homework-file-input").on("change", function (e) {
+				var fileName = $(this).val().split("\\").pop();
+				var filePath = $(this).val();
+				var index = $(this).attr('index');
+				var file = $(this)[0].files[0];
+				console.log('파일 : ' + file);
+				console.log('파일 경로 : ' + filePath);
+				console.log('파일명 : ' + fileName);
+				$(this).siblings(this).addClass("selected").html(fileName);
+				$("#homeworkFileName" + index).val(filePath);
+				if (fileName != '') {
+					var reader = new FileReader();
+					reader.onload = function (event) {
+						$('#preview' + index).attr('src', event.target.result);
+						CLASS_ARRAY[index]['src'] = event.target.result;
+						CLASS_ARRAY[index]['homeworkFilePath'] = filePath;
+						CLASS_ARRAY[index]['homeworkFileName'] = fileName;
+						CLASS_ARRAY[index]['file'] = file;
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+		}
+
+		function score(pkExamResultSeq, divn) {
+			$.ajax({
+				url: '/mng/exam/result/score',
+				type: 'POST',
+				data: {
+					pkExamResultSeq: pkExamResultSeq,
+					divn: divn
+				},
+				dataType: 'json',
+				success: function (data) {
+
+
+				},
+				error: function (xhr, status, error) {
+					console.log(error); // 에러 처리
+				}
+			});
+		}
+
+		$(document).ready(function () {
+
+			$('.summernote-in-subject').summernote({
+				tabsize: 2,
+				height: 300
+			});
+
+			$('.modal').on('show.bs.modal', function (e) {
+				// 모달이 열릴 때 실행되는 코드
+				//$(this).find('form')[0].reset(); // 입력 필드 초기화
+				// 테이블 초기화
+			});
+
+			$('.modal').on('hidden.bs.modal', function (e) {
+				// 모달이 닫힐 때 실행되는 코드
+				//$(this).find('form')[0].reset(); // 입력 필드 초기화
+				// 테이블 초기화
+				CLASS_ARRAY = [];
+			});
+
+			$('.startBtn').click(function () {
+				// AJAX 호출
+				var pkExamSeq = $(this).attr('pkExamSeq');
+				$.ajax({
+					url: '/mng/exam/start',
+					type: 'POST',
+					data: {
+						pkExamSeq: pkExamSeq
+					},
+					dataType: 'json',
+					success: function (data) {
+
+					},
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
+			});
+			
+			// 강의 자료 미리보기 버튼
+			$('.updateBtn').click(function () {
+				// AJAX 호출
+				var pkExamSeq = $(this).attr('pkExamSeq');
+				$.ajax({
+					url: '/getExamDetailList',
+					type: 'POST',
+					data: {
+						pkExamSeq: $(this).attr('pkExamSeq')
+					},
+					dataType: 'json',
+					success: function (data) {
+						var IMG_ARRAY = [];
+						IMG_ARRAY = data;
+						$("#pkExamSeq").val(pkExamSeq);
+						$("#sampleDiv").empty();
+						$.each(IMG_ARRAY, function (index, item) {
+							$("#sampleDiv").append(
+								'<div class="col-12 hr">' +
+								'<div class="row align-items-center">' +
+								'<div class="col-2">' +
+								'<h3 class="p-3 num text-center">' + (index + 1) + '</h3>' +
+								'</div>' +
+								'<div class="col-10">' +
+								'<div class="input-group">' +
+								'<span>'
+								+ item.title +
+								'</span>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'<div class="col-12">' +
+								'<div class="row">' +
+								'<div class="col-6">' +
+								imgInit(index, item) +
+								'</div>' +
+								'<div class="col-6">' +
+								'<textarea name="answer" index="' + index + '" key="contents"' +
+								'class="form-control form-control-lg validate"' +
+								'style="height: 20rem;" row="6" id="answer" placeholder="정답">' +
+								'</textarea>' +
+								'</div>' +
+								'</div>' +
+								'</div>'
+							);
+						});
+
+
+					},
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
+			});
+		});
 
 	</script>
 </th:block>

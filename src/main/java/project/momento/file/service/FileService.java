@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -15,12 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import project.momento.education.dto.EducationDto;
-import project.momento.education.mapper.EducationMapper;
 import project.momento.file.dto.FileDto;
 import project.momento.file.mapper.FileMapper;
-import project.momento.login.dto.LoginDto;
-import project.momento.page.Criteria;
 
 @Service
 public class FileService {
@@ -80,8 +75,36 @@ public class FileService {
         fileMapper.insertFile(fileDto);
         return fileDto.getReturnId();
 	}
-	private boolean isWindows() {
+	
+	public boolean isWindows() {
         String os = System.getProperty("os.name").toLowerCase();
         return os.contains("win");
     }
+	
+	public FileDto selectFile(int pkFileSeq) {
+		return fileMapper.selectFile(pkFileSeq);
+	}
+
+	public void deleteFile(FileDto fileDto) {
+		String fileName = fileDto.getFileNm();
+	    String filePath;
+
+	    // 파일 경로 생성
+	    if (isWindows()) {
+		    filePath = "C:" + File.separator + "file" + File.separator + fileName;
+		} else {
+		    filePath = File.separator + "file" + File.separator + fileName;
+		}
+		
+		File file = new File(filePath);
+		if (file.exists()) {
+			if (file.delete()) {
+				System.out.println(fileName + " 삭제 성공");
+			} else {
+				System.out.println(fileName + " 삭제 실패");
+			}
+		}
+		fileMapper.deleteFile(fileDto);
+	}
+	
 }
