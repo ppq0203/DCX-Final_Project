@@ -1,5 +1,9 @@
 package project.momento.login.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import project.momento.file.dto.FileDto;
+import project.momento.file.service.FileService;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
 
@@ -22,6 +28,8 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private FileService fileService;
 
 	/*
 	 * 로그인 화면 이동 return content/userDivn/login/login
@@ -41,14 +49,28 @@ public class LoginController {
 																															// 넣기
 
 		loginDto.setUserDivn(userDivn);
+		System.out.println(loginDto);
 		LoginDto loginCheck = new LoginDto(); // loginDto 를 체크에넣기
 		loginCheck = loginService.checkLogin(loginDto);
 		if (loginCheck == null) { // loginCheck안에있는 id, pwd에 값이 없으면
 			return "content/" + userDivn + "/login/login"; // 로그인화면
 		} else {
+			FileDto fileDto = fileService.selectFile(loginCheck.getPkFileSeq());
+			if (fileDto != null) {
+				Path imagePath = Paths.get(fileDto.getFilePath());
+				if (Files.exists(imagePath)) {
+					try {
+						byte[] imageBytes = Files.readAllBytes(imagePath);
+		                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+		                loginCheck.setImgPath(base64Image);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
 			request.getSession().setAttribute("loginDto", loginCheck); // 아이디 세션에 저장
-
-			return "redirect:/" + userDivn + "/main";
+			
+			return "redirect:/" + loginCheck.getUserDivn() + "/main";
 			// return "redirect:/"+loginCheck.getUserDivn()+"/main";
 		}
 	}
@@ -113,7 +135,7 @@ public class LoginController {
 		dto.setName(loginDto.getName());
 		// 변경된 객체를 세션에 다시 저장
 		request.getSession().setAttribute("loginDto", loginDto);
-		return "content/" + userDivn + "/main/main";
+		return "redirect:/" + userDivn + "/main";
 	}
 
 	@RequestMapping(value = "{userDivn}/login/delete", produces = "application/text;charset=utf-8")
