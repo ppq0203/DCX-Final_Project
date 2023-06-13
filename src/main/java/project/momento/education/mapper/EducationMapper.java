@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import project.momento.education.dto.EducationDto;
+import project.momento.login.dto.LoginDto;
 import project.momento.page.Criteria;
 
 @Mapper
@@ -37,5 +38,5 @@ public interface EducationMapper {
 	void deleteEducation(int pkEducationSeq);
 
 	List<Object> getEducationListAll();
-	
+
 }

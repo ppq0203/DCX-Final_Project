@@ -8,21 +8,67 @@
 		<div class="sidebar">
 			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 				<div class="image">
-					<img style="width: 34px; height: 34px;" th:if="${session.loginDto.imgPath == null}" th:src="@{/img/headimg-2.jpg}" class="img-circle elevation-2" alt="User Image">
-					<img style="width: 34px; height: 34px;" th:unless="${session.loginDto.imgPath == null}" th:src="'data:image/jpeg;base64,' + ${session.loginDto.imgPath}" class="img-circle elevation-2" alt="User Image">
+					<img style="width: 34px; height: 34px;" th:if="${session.loginDto.imgPath == null}"
+						th:src="@{/img/headimg-2.jpg}" class="img-circle elevation-2" alt="User Image">
+					<img style="width: 34px; height: 34px;" th:unless="${session.loginDto.imgPath == null}"
+						th:src="'data:image/jpeg;base64,' + ${session.loginDto.imgPath}" class="img-circle elevation-2"
+						alt="User Image">
 				</div>
 				<div class="info">
 					<a th:utext="${session.loginDto.userId}" class="d-block"></a>
 				</div>
 			</div>
-			<nav class="mt-2 append">
+			
+			<nav class="mt-2 append-menu-list">
+				
+				<!--<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					<li class="nav-item">
+						<a class="nav-link">
+							<i class="nav-icon fas fa-th"></i>
+							<p>교육</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a class="nav-link">
+									<i class="far fa-circle nav-icon"></i>
+									<p>교육명</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a class="nav-link">
+											<i class="far fa-dat-circle nav-icon"></i>
+											<p>과목명</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link">
+							<i class="nav-icon fas fa-th"></i>
+							<p>교육관리</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link">
+							<i class="nav-icon fas fa-th"></i>
+							<p>문제관리</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					</li>
+				</ul>-->
+				
 			</nav>
+			
 		</div>
 	</aside>
 	<!-- Sidebar Menu -->
 	<script>
 		$(document).ready(function () {
-			//$(".append").empty();
+			$(".append").empty();
 			getMenu();;
 		});
 		function recursive(data, x, logo) {
@@ -93,8 +139,8 @@
 						}
 					});
 					str += '</ul>';
-					$(".append").append(str);
-					
+					$(".append-menu-list").append(str);
+
 				},
 				error: function (request, status, error) {
 					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
