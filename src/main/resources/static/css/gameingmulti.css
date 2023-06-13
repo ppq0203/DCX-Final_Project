@@ -11,17 +11,17 @@
 				font-style: normal;
 			}
 
-			#container {
+			.container {
 				width: 976px;
 				height: 700px;
 				background-image : url('gameStart.png');
 				background-size : auto ;
 			}
-			#header {
+			.header {
         		padding: 10px;
 				height : 70px;
       		}
-	      	#content {
+	      	.content {
 	        	width: 665px;
 				height: 560px;
 	        	padding: 10px;
@@ -31,7 +31,7 @@
 				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
 				border-radius: 10px;
 	      	}
-	      	#sidebar {
+	      	.sidebar {
 	        	width: 250px;
 				height: 570px;
 	        	padding: 5px;
@@ -132,7 +132,7 @@
 				font-family: 'DungGeunMo';
 			 }
 
-			.team3{
+			.gameing_team3{
 				background : #4C6ED4;
 				border-radius: 10px; 
 				width: 130px;
@@ -165,7 +165,7 @@
 				font-family: 'DungGeunMo';
 			 }
 			 
-			.team4{
+			.gameing_team4{
 				background : #9BDB6B;
 				border-radius: 10px; 
 				width: 130px;
@@ -197,6 +197,33 @@
 				float : left;
 				font-family: 'DungGeunMo';
 			 }
+			.score {
+				position: relative;
+				border: 2px solid white;
+				border-radius: 10px;
+				width: 20px;
+				height: 20px;
+				margin: 63px 83px;
+				padding: 10px;
+				font-family: 'GmarketSansMedium' ;
+				text-align : center;
+				font-size : 10px;
+				color : white;
+
+			}
+
+			/*content hover*/
+			.hover_y:hover {
+				position: absolute;
+				transform: translate(10%, -10%);
+				background-color: rgb(255, 255, 255);
+				box-shadow: 1px 5px 5px 1px rgb(0, 0, 0);
+				width: 50px;
+				border: 1px;
+				font-size: 20px;
+				line-height: 50px;
+			}
+						 
 			 /*table*/
 			.table             { 
 				border-spacing: 1; 
@@ -206,7 +233,7 @@
 				/* border-radius:6px; */
 				/* overflow:hidden; */
 				width:380px;
-				height : 380px;
+				height : 360px;
 				margin:3px auto;
 				text-align : center;
 				font-size : 12px;
@@ -220,7 +247,7 @@
 			thead tr th{
 				background: #0070c0;
 				font-size : 22px;
-				height : 54.28px;
+				height : 50px;
 				color : white;
 			   
 			}
@@ -285,7 +312,7 @@
 			}
 
 			/*content dice*/
-			 .dicearea{
+			 .gameing_dicearea{
 				border-radius: 5px; 				/*테두리 둥글게*/ 
 				width: 490px;
 				height : 135px;
@@ -368,13 +395,13 @@
 				font-family: 'DungGeunMo';
 				color : 'Darkgary';
 			}
-			.lottie-container {
+			.gameing_lottie-container {
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				margin : auto;			
 			}
-			.ricearea_col{
+			.gameing_ricearea_col{
 				width: 125px;
 				height: 125px;
 				background : #92d050;
@@ -382,7 +409,7 @@
 				border-radius: 10px;
 				margin : 0px 20px 0px 0px;
 			}
-			.ricearea_row{
+			.gameing_ricearea_row{
 				width: 125px;
 				height: 125px;
 				background : #0070c0;

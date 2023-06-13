@@ -18,5 +18,10 @@ public class QuestionService {
 		// TODO Auto-generated method stub
 		return questionMapper.selectQuestion(qtDto);
 	}
+	
+	public QuestionDto selectQuestionSeq(int pkQuestionSeq) {
+		// TODO Auto-generated method stub
+		return questionMapper.selectQuestionSeq(pkQuestionSeq);
+	}
 
 }

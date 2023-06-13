@@ -1,174 +1,844 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/emptyLayout}">
+<th:block layout:fragment="content">
+	<link rel="stylesheet" type="text/css" href="/css/game.css">
+	<link th:href="@{/css/dice.css}" rel="stylesheet">
+	<link th:href="@{/css/waitroom.css}" rel="stylesheet">
+	<!-- <link th:href="@{/css/gameingteam.css}" rel="stylesheet">
+	<link th:href="@{/css/gameingmulti.css}" rel="stylesheet"> -->
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+	<!--<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">-->
+	<script th:src="@{/js/dice.js}"></script>
 
-<th:block>
-    <th:block th:fragment="content">
+	<!-- ------------------------ 대기방 ---------------------------- -->
+	<div id="waitRoom" class="waiting_room_container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
+		<div class="waiting_room_header" id="header"></div>
+		<!--side right -->
+		<div class="waiting_room_sidebar" id="sidebar">
+			<div class="waiting_room_gameinfo">
+				<ul class="waiting_room_no_dot">
+					<li>게임 유형 :</li>
+					<li>난이도 : </li>
+					<li>문제당 시간 : </li>
+					<li>문제 개수 : </li>
+				</ul>
+			</div>
+			<div>
+				<button class="teamchange" type="button">팀 바꾸기</button>
+			</div>
+			<div class="waiting_room_chat-view" id="msgArea"></div>
+			<div class="waiting_room_chat-input">
+				<from>
+					<input type="text" id="msg" size=16>
+					<button class="waiting_room_btnchat" type="button" id="button-send">전송</button>
+				</from>
+			</div>
+			<button class="waiting_room_btn" type="button" id="gamestart">시작</button>
+			<button class="waiting_room_btnlogout" type="button">나가기</button>
+		</div>
+		<div class="waiting_room_content" id="content">
+			<div class="waiting_room_wait" id="waitList">
+				
+			</div>
+			<div class="waiting_room_team1" id="team1">
 
-        <div class="container">
-            <div class="col-6">
-                <h1>[[${room.roomName}]]</h1>
-            </div>
-            <div>
-                <div id="msgArea" class="col"></div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" id="msg" class="form-control">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-                            <button class="btn btn-outline-secondary" type="button" id="system-test">방방봐.</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6"></div>
-        </div>
-		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team3">
-			<div style = "text-align: center;"><h1>team2</h1><button id="team3btn">team2로 변경</button></div>
+			</div>
+			<div class="waiting_room_team2" id="team2">
+
+			</div>
+			<div class="waiting_room_team3" id="team3">
+
+			</div>
+			<div class="waiting_room_team4" id="team4">
+
+			</div>
 		</div>
-		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team2">
-			<div style = "text-align: center;"><h1>team1</h1><button id="team2btn">team1로 변경</button></div>
+	</div>
+
+	<!-- ----------------------- 대기방 끝 --------------------------- -->
+
+	<!-- ------------------------게임방------------------------------ -->
+	<div id="gameRoom" style="display:none;">
+		<div class="gameing_container">
+			<div class="gameing_header" id="header"></div>
+			<!--side right -->
+			<div class="gameing_sidebar" id="sidebar">
+				<div class="gameing_gamequiz">
+					<p class="pfont">
+						Time : 15:00 min<br>
+						유형 :<br>
+						문제 <span>7</span>번<br>
+						...
+					</p>
+				</div>
+				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제 열기</button>
+				<div class="gameing_chat-veiw">
+					<p class="fontp">
+						<b class="fontb">>>게임을 시작합니다.</b><br>
+						>>7번 문제 입니다. <br>
+						>>시간안에 가장 빠르게 푸는 팀이 땅을 차지합니다.<br>
+						>>채팅을 통해 상의가 가능합니다.
+					</p>
+				</div>
+				<div class="gameing_chat-input">
+					<form>
+						<input type="text" class="gameing_msg" id="chat" size=19>
+						<button class="btnchat" type="submit">등록</button>
+					</form>
+				</div>
+				<button class="gameing_btnlogout" type="button">나가기</button>
+			</div>
+
+			<!--content game -->
+			<div class="gameing_content" id="content">
+				<div class="gameing_user">
+					<div class="gameing_team1" id="game1">
+						<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-nouser"></div>
+						<div class="gameing_score" style="background-color:#BF9039" id="hover"><span
+								class="gameing_scorenum" id="score1">0</span></div>
+					</div>
+					<div class="gameing_team2" id="game2">
+						<div class="gameing_t2-user1"></div>
+						<div class="gameing_t2-user1"></div>
+						<div class="gameing_t2-user1"></div>
+						<div class="gameing_t2-nouser"></div>
+						<div class="gameing_score" style="background-color:#BF4C1F"><span class="gameing_scorenum"
+								id="score2">0</span></div>
+					</div>
+					<div class="gameing_team3" id="game3">
+						<div class="gameing_t3-user1"></div>
+						<div class="gameing_t3-user1"></div>
+						<div class="gameing_t3-user1"></div>
+						<div class="gameing_t3-nouser"></div>
+						<div class="gameing_score" style="background-color:#1454C2"><span class="gameing_scorenum"
+								id="score3">0</span></div>
+					</div>
+					<div class="gameing_team4" id="game4">
+						<div class="gameing_t4-user1"></div>
+						<div class="gameing_t4-user1"></div>
+						<div class="gameing_t4-user1"></div>
+						<div class="gameing_t4-nouser"></div>
+						<div class="gameing_score" style="background-color:#6F9C4C"><span class="gameing_scorenum"
+								id="score4">0</span></div>
+					</div>
+				</div>
+				<div class="gameing_dicearea">
+					<div class="gameing_lottie-container">
+						<div class="gameing_ricearea_col">
+							<lottie-player class="gameing_rice1"
+								src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent"
+								speed="1" loop autoplay></lottie-player>
+							<!--loop autoplay-->
+						</div>
+						<div class="gameing_ricearea_row">
+							<lottie-player class="gameing_rice2"
+								src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" background="transparent"
+								speed="1" loop autoplay></lottie-player>
+						</div>
+					</div>
+				</div>
+				<div class="gameing_quiz">
+					<table class="gameing_table">
+						<thead class="gameing_tableborder">
+							<tr>
+								<th></th>
+								<th class="hover_y">1</th>
+								<th class="hover_y">2</th>
+								<th class="hover_y">3</th>
+								<th class="hover_y">4</th>
+								<th class="hover_y">5</th>
+								<th class="hover_y">6</th>
+							</tr>
+						</thead>
+						<tbody class="gameing_tableborder">
+							<tr>
+								<th>1</th>
+								<td class="hover_y" id="q1">1</td>
+								<td class="hover_y" id="q2">2</td>
+								<td class="hover_y" id="q3">3</td>
+								<td class="hover_y" id="q4">4</td>
+								<td class="hover_y" id="q5">5</td>
+								<td class="hover_y" id="q6">6</td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td class="hover_y" id="q7">7</td>
+								<td class="hover_y" id="q8">8</td>
+								<td class="hover_y" id="q9">9</td>
+								<td class="hover_y" id="q10">10</td>
+								<td class="hover_y" id="q1">11</td>
+								<td class="hover_y" id="q12">12</td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td class="hover_y" id="q13">13</td>
+								<td class="hover_y" id="q14">14</td>
+								<td class="hover_y" id="q15">15</td>
+								<td class="hover_y" id="q16">16</td>
+								<td class="hover_y" id="q17">17</td>
+								<td class="hover_y" id="q18">18</td>
+							</tr>
+							<tr>
+								<th>4</th>
+								<td class="hover_y" id="q19">19</td>
+								<td class="hover_y" id="q20">20</td>
+								<td class="hover_y" id="q21">21</td>
+								<td class="hover_y" id="q22">22</td>
+								<td class="hover_y" id="q23">23</td>
+								<td class="hover_y" id="q24">24</td>
+							</tr>
+							<tr>
+								<th>5</th>
+								<td class="hover_y" id="q25">25</td>
+								<td class="hover_y" id="q26">26</td>
+								<td class="hover_y" id="q27">27</td>
+								<td class="hover_y" id="q28">28</td>
+								<td class="hover_y" id="q29">29</td>
+								<td class="hover_y" id="q30">30</td>
+							</tr>
+							<tr>
+								<th>6</th>
+								<td class="hover_y" id="q31">31</td>
+								<td class="hover_y" id="q32">32</td>
+								<td class="hover_y" id="q33">33</td>
+								<td class="hover_y" id="q34">34</td>
+								<td class="hover_y" id="q35">35</td>
+								<td class="hover_y" id="q36">36</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
-		<div style="float: right; border:solid 3px; width:300px; height:600px;" id="team1">
-			<div style = "text-align: center;"><h1>대기자</h1><button id="team1btn">대기자로 변경</button></div>
+		<!-- 문제 풀이 창 -->
+		<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title"></h4>
+						<input type="hidden" id="questionNo">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="card card-outline card-info">
+							<div class="card-header">
+								<h3 id="questionName" class="card-title"></h3>
+								<input type="hidden" id="nameQuestion">
+
+							</div>
+							<div class="card card-outline card-info">
+								<div class="card-header">
+									<h3 class="card-title">
+										문제
+									</h3>
+								</div>
+
+								<div class="card-body p-0">
+									<input type="hidden" id="questionType">
+									<p id="questionContents"></p>
+								</div>
+								<div class="card-footer">
+								</div>
+							</div>
+							<!-- 기존 코드 -->
+							<div class="card card-outline card-info">
+								<div class="card-header">
+									<h3 class="card-title">
+										풀이 작성
+									</h3>
+								</div>
+
+								<div class="card-body p-0">
+									<textarea id="Demo" class="p-3" style="width:100%; height: 500px"></textarea>
+								</div>
+								<div class="card-footer">
+								</div>
+							</div>
+							<!-- 기존 코드 끝-->
+							<!-- 진상 코드-->
+							<div class="modal-footer justify-content-between">
+								<button id="giveup" type="button" class="btn btn-default" onclick="giveup()">포기</button>
+								<button type="button" onclick="correctTest()">임시 정답테스트</button>
+								<button onclick="question_submit()" type="button" class="btn btn-primary">등록</button>
+							</div>
+							<!-- 진상 코드 끝-->
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-        <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        
-    </th:block>
+		<div id="test">
+			<button onclick="get_index_and_prob()">임시 테스트</button>
+			<div id="test_value"></div>
+		</div>
+		<button onclick="resultCalc()">결과보기</button>
+		<div class="text-center">
+			결과창
+			<div>
+				<span id="win">승리</span>
+				<span id="lose">패배</span>
+			</div>
+			<div>
+				ID: 푼문제/총문제
+			</div>
+			<div id="t1result">
+				팀1 : <span id="t1total">0</span>/36
+			</div>
+			<div id="t2result">
+				팀2 : <span id="t2total">0</span>/36
+			</div>
+			<div id="t3result">
+				팀3 : <span id="t3total">0</span>/36
+			</div>
+			<div id="t4result">
+				팀4 : <span id="t4total">0</span>/36
+			</div>
+			<div>
+				총 문제 :<span id="total_count">36</span>
+			</div>
+			<div>
+				푼 문제 :<span id="solve_count">30</span>
+			</div>
+			<div id="type_result_area">
+
+			</div>
+		</div>
+	</div>
+
+	<!-- ----------------------- 게임방 끝 ---------------------------- -->
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+	<!-- stomp script -->
+	<script th:inline="javascript">
+		var questionList =  /*[[${questionList}]]*/0;
+		var shuffleNo =  /*[[${room.shuffleNo}]]*/0;
+		var roomName = /*[[${room.roomName}]]*/0;
+		var roomId = /*[[${room.pkRoomSeq}]]*/0;
+		var roomNumber = /*[[${room.roomNumber}]]*/"0";
+		var stomp;
+		var pkUserSeq = "0";
+
+		var sockJs = new SockJS("/stomp/chat");
+		//1. SockJS를 내부에 들고있는 stomp를 내어줌
+		var stomp = Stomp.over(sockJs);
+		$(document).ready(function () {
+
+			//2. connection이 맺어지면 실행
+			stomp.connect({}, function () {
+				console.log("STOMP Connection")
+				stomp.subscribe("/sub/chat/gamestart/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					$('#gameRoom').css('display', 'block'); 
+					$('#waitRoom').css('display', 'none');
+					for (var i = 1; i<=4; ++i){
+						if ($("#team"+i).children("#" + pkUserSeq + "").length > 0){
+							userTeamNo = i;
+						}
+					}
+					// 주사위결과를 보여주는 함수 실행
+					get_index_and_prob();
+				});
+
+				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
+				stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					var chatContent = content.chatContent;
+					var writer = content.pkUserSeq;
+					var str = '';
+
+					str = "<div class='col-6'>";
+					str += "<b class='fontp'>" + writer + " : " + chatContent + "</b>";
+					str += "</div>";
+					$("#msgArea").append(str);
+					$("#msgArea").scrollTop($("#msgArea")[0].scrollHeight);
+				});
+
+				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					// 첫접속시 유저 고유번호 저장
+					console.log("pkUserSeq : " + content.pkUserSeq);
+					if (pkUserSeq == "0") {
+						pkUserSeq = content.pkUserSeq;
+					}
+
+					var chatContent = content.chatContent;
+					var writer = ">>SYSTEM";
+					var str = '';
+
+					str = "<div class='col-sys'>";
+					str += "<b class='fontb'>" + writer + " : " + chatContent + "</b>";
+					str += "</div></div>";
+					$("#msgArea").append(str);
+				});		
+				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
+					var content = JSON.parse(chat.body);
+					
+					$.each(content.waitList, function (index, value) {
+						if ($("#team1").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='waiting_room_wait' display:none' id = '" + index + "'></div>";
+							$("#" + index + "").remove();
+							$("#waitList").append(str);
+						}
+					});
+					
+					$.each(content.team1, function (index, value) {
+						if ($("#team1").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>" + value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team1").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game1").prepend(gtr);
+						}
+					});
+					
+					$.each(content.team2, function (index, value) {
+						if ($("#team2").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>" + value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team2").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game2").prepend(gtr);
+						}
+					});
+					
+					$.each(content.team3, function (index, value) {
+						if ($("#team3").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>" + value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team3").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game3").prepend(gtr);
+						}
+					});
+					
+					$.each(content.team4, function (index, value) {
+						if ($("#team4").children("#" + index + "").length > 0) {
+							console.log("jquery : 해당 객체 존재함");
+						} else {
+							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp' style='text-align'>" + value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team4").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game4").prepend(gtr);
+						}
+					});
+				});
+
+				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
+					var content = chat.body;
+					$("#" + content + "").remove();
+					$("#game-" + content + "").remove();
+				});
+
+				stomp.subscribe("/sub/chat/correct/" + roomId, function (result) {
+					var content = JSON.parse(result.body);
+					var qtype = $('#questionType').val();
+					// 정답을 맞춘 사람이 본인 일때 타입결과 저장
+					if (content.userNo == pkUserSeq) {
+						resultSave(qtype, 0);
+					}
+					// 정답을 맞춘 사람이 타인 일때 타입결과 저장
+					else {
+						resultSave(qtype, -1);
+					}
+					$('.modal').modal('hide');
+					nowNo += 1;
+					
+					//if (content.teamNo == 0)
+					//	alert(content.teamNo + "전원 포기하셨습니다.");
+					//else
+					//	alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
+					if(nowNo >= 36){
+						resultCalc();
+					}
+					else{
+						resultFillColor(content.teamNo);
+						setTimeout(function() {
+						    // Code to be executed after the delay
+							get_index_and_prob();
+						  }, 2000); // Delay of 2000 milliseconds (2 seconds)
+					}
+				});
+
+				stomp.subscribe("/sub/chat/sendAnswer/" + roomId, function (result) {
+					var content = JSON.parse(result.body);
+
+					// if (content.pkUserSeq == pkUserSeq)
+					// 임시코드 uuid가아닌 유저고유번호 변경시 위의 if문 사용
+					if (content.userUUID == pkUserSeq) {
+						if (content.answerOx == "O") {
+							alert("정답입니다");
+							stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: pkUserSeq}));
+						}
+						else {
+							alert("오답입니다");
+						}
+					}
+				});
+
+				//3. send(path, header, message)로 메세지를 보낼 수 있음
+				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq}))
+			});
+
+			$("#team1").on("click", function (e) {
+				// if ($("#team1Count").val() >= /*[[${room.teamNumber}]]*/0) {
+				if ($("#team1").children().length >= /*[[${room.teamNumber}]]*/0) {
+					alert("팀이 꽉 찼습니다.");
+				}
+				else {
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team1").attr('id')}))
+				}
+				$("#content").css("pointer-events", "none")
+				$("#content").css("opacity", "100%")
+			})
+
+			$("#team2").on("click", function (e) {
+				// if ($("#team2Count").val() >= /*[[${room.teamNumber}]]*/0) {
+				if ($("#team2").children().length >= /*[[${room.teamNumber}]]*/0) {
+					alert("팀이 꽉 찼습니다.");
+				}
+				else {
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team2").attr('id')}))
+				}
+				$("#content").css("pointer-events", "none")
+				$("#content").css("opacity", "100%")
+			})
+
+			$("#team3").on("click", function (e) {
+				if (3 > /*[[${room.roomNumber}]]*/0) {
+					alert('[[${room.roomNumber}]]팀 방 입니다!');
+				}
+				else {
+					// if ($("#team3Count").val() >= /*[[${room.teamNumber}]]*/0) {
+					if ($("#team3").children().length >= /*[[${room.teamNumber}]]*/0) {
+						alert("팀이 꽉 찼습니다.");
+					}
+					else
+					{
+						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team3").attr('id')}))
+					}
+				}
+				$("#content").css("pointer-events", "none")
+				$("#content").css("opacity", "100%")
+			})
+
+			$("#team4").on("click", function (e) {
+				if (4 > /*[[${room.roomNumber}]]*/0) {
+					alert('[[${room.roomNumber}]]팀 방 입니다!');
+				}
+				else {
+					// if ($("#team4Count").val() >= /*[[${room.teamNumber}]]*/0) {
+					if ($("#team4").children().length >= /*[[${room.teamNumber}]]*/0) {
+						alert("팀이 꽉 찼습니다.");
+					}
+					else
+					{
+						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team4").attr('id')}))
+					}
+				}
+
+				$("#content").css("pointer-events", "none")
+				$("#content").css("opacity", "100%")
+			})
+
+			$("#system-test").on("click", function (e) {
+				stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId}))
+			})
+
+			$("#button-send").on("click", function (e) {
+				var msg = document.getElementById("msg");
+				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: pkUserSeq}));
+				msg.value = '';
+			});
+
+			$(".teamchange").on("click", function (e) {
+				$("#content").css("pointer-events", "all")
+				$("#content").css("opacity", "80%")
+			});
+
+			$("#msg").keyup(function () {
+				if (event.keyCode == 13) {
+					var msg = document.getElementById("msg");
+					stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: pkUserSeq}));
+					msg.value = '';
+				}
+			});
+
+			$("#gamestart").on("click", function() {
+				var allReady = 1;
+				for(var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++)
+				{
+					if($("#team" + i + "").children().length < 1)
+					{
+						allReady = 0;
+						alert("팀에 적어도 1명이상의 플레이어가 있어야 합니다.");
+						break;
+					}
+				}
+				if(allReady != 0)
+				{
+					if($("#waitList").children().length > 0)
+					{
+						alert("모든 참가자가 팀에 참여해야 합니다.!");
+					}
+					else{
+						stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+					}
+					
+				}
+			});
+		});
+
+	</script>
+
+	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+	</script>
+	<!-- 진상 script -->
+	<script>
+		$(function () {
+			// CodeMirror
+			CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+				mode: "htmlmixed",
+				theme: "monokai"
+			});
+		})
+		var count = size;
+
+		// 생성된 템플릿을 타임리프 템플릿 영역에 추가
+
+		var line_length = Math.sqrt(count);
+		var gameroom_left_classes = document.getElementsByClassName('question_col');
+		var all_rooms_length = 490;
+		var one_room_length = all_rooms_length / line_length;
+		for (var i = 0; i < gameroom_left_classes.length; i++) {
+			gameroom_left_classes[i].style.width = one_room_length + "px";
+		}
+		$("#total_modal").click(function () {
+			$(".total_modal").text("점수표");
+		});
+	</script>
+	<script>
+		var resultMap = new Map();
+		// 문제를 포기하거나 맞췄을때 타입과 결과를 저장하는 함수
+		function resultSave(key, result) {
+			if (resultMap.get(key) === undefined) {
+				resultMap.set(key, [0, 0]);
+				//console.log(resultMap.get(key));
+			}
+			if (result == -1) {
+				resultMap.get(key)[1] += 1;
+			}
+			if (result == 0) {
+				resultMap.get(key)[0] += 1;
+				resultMap.get(key)[1] += 1;
+			}
+		}
+		// 결과값을 연산해주는 함수
+		function resultCalc() {
+			var maxCount = 0;
+			var tempScore = 0;
+			for(var i = 1; i <= 4; ++i)
+			{
+				tempScore = $("#score"+i).text();
+				if(maxCount < tempScore)
+					maxCount = tempScore;
+			}
+			tempScore = $("#score"+userTeamNo).text();
+			if (maxCount <= tempScore)
+			{
+				$("#win").css("display", "inline");
+				$("#lose").css("display", "none");
+			}
+			else
+			{
+				$("#win").css("display", "none");
+				$("#lose").css("display", "inline");
+			}
+			
+			var total = 0;
+			var solve = 0;
+			var str;
+			$("#type_result_area").empty();
+
+			for (const [key, value] of resultMap.entries()) {
+				//console.log(`Key: ${key}, Value: ${value}`);
+				str = '';
+				str = "<div>";
+				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
+				str += "</div>";
+				$("#type_result_area").append(str);
+				total += value[1];
+				solve += value[0];
+			}
+			for (var i = 1; i <= 4; ++i)
+			{
+				if (roomNumber >= i)
+				{
+					var scoreTagId = "#score"+i;
+					var totalTagId = "#t"+i+"total";
+					$(totalTagId).text($(scoreTagId).text()); 
+				}
+				else
+				{
+					var resultTagId = "#t"+i+"result";
+					$(resultTagId).remove();
+				}
+			}
+
+			$("#total_count").text(total);
+			$("#solve_count").text(solve);
+		}
+		var nowNo = 0;
+		var dice1 = 0;
+		var dice2 = 0;
+		function get_index_and_prob() {
+			// 주사위 눈
+			dice1 = Math.floor((shuffleNo[nowNo] - 1) / 6 + 1);
+			dice2 = ((shuffleNo[nowNo]) % 6 == 0 ? 6 : (shuffleNo[nowNo]) % 6);
+
+			// 주사위 굴러가다가 멈추는 함수 이곳에 구현해야함.
+			// code
+			// ////////////////////////////////////
+
+			// 임시 테스트용 코드
+			str = '';
+			str = "questionNo : " + questionList[nowNo].pkQuestionSeq + "  suffleNo : " + shuffleNo[nowNo] + "  dice1: " + dice1 + "  dice2: " + dice2;
+			$("#test_value").text(str);
+			// //////////////////////////////
+
+			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
+			$('.modal').modal('show');
+			loadQuestion(questionList[nowNo]);
+		}
+
+		function correctTest() {
+			stomp.send('/pub/chat/correct', {}, JSON.stringify({roomId: roomId, userName: pkUserSeq}));
+		}
+
+		function resultFillColor(teamNo) {
+			tagId = "#q" + shuffleNo[nowNo-1];
+			if (teamNo == 0)	// all giveup
+			{
+				$(tagId).css("background-color", "gray");
+				// resultSave($("#questionType").val(), -1);			
+			}
+			else if (teamNo == 1) {
+				$(tagId).css("background-color", "yellow");
+				// resultSave($("#questionType").val(), -1);	
+			}
+			else if (teamNo == 2) {
+				$(tagId).css("background-color", "red");
+				// resultSave($("#questionType").val(), -1);	
+			}
+			else if (teamNo == 3) {
+				$(tagId).css("background-color", "blue");
+				// resultSave($("#questionType").val(), -1);	
+			}
+			else if (teamNo == 4) {
+				$(tagId).css("background-color", "green");
+				// resultSave($("#questionType").val(), -1);	
+			}
+			if (teamNo != 0) {
+				tagId = "#score" + teamNo;
+				var value = $(tagId).text();
+				$(tagId).text(1 + parseInt(value, 10));
+			}
+		}
+
+		// 문제정보를 모달창에 저장하는 함수
+		function loadQuestion(question) {
+			//console.log("test");
+			title = question.pkQuestionSeq + "번째 문제";
+			name = question.questionName;
+			contents = question.contents;
+			codeFormat = question.codeFormat;
+			type = question.type;
+			$('.modal-title').text(title);
+			$('#questionNo').val(question.pkQuestionSeq);
+			$('#questionName').text(name);
+			$('#nameQuestion').val(question.className);
+			$('#questionType').val(type);
+			$('#questionContents').text(contents);
+			$('#Demo').val(codeFormat);
+		}
+
+		// 정답 등록시 수행되는 함수
+		function question_submit() {
+			var code = $("#Demo").val();
+			var name = $("#nameQuestion").val();
+			var pkQuestionSeq = $("#questionNo").val();
+			// alert("click");
+			console.log(pkUserSeq);
+			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq: pkQuestionSeq, answerUser: code, answerOx: name}));
+		}
+		function giveup()
+		{
+			stomp.send('/pub/chat/giveup', {}, JSON.stringify({}));
+		}
+	</script>
+
+	<!--       클릭하면 주사위 굴러가는 애니메이션         -->
+	<script>
+		LottieInteractivity.create({
+			player: '#fourteenthLottie',
+			mode: "cursor",
+			actions: [
+				{
+					type: "click",
+					forceFlag: false
+				}
+			]
+		});
+
+		LottieInteractivity.create({
+			player: '#seventhLottie',
+			mode: "cursor",
+			actions: [
+				{
+					type: "click",
+					forceFlag: false
+				}
+			]
+		});
+
+	</script>
 </th:block>
-        <script th:inline="javascript">
-            $(document).ready(function(){
-				
-                var roomName = /*[[${room.roomName}]]*/0;
-                var roomId = /*[[${room.pkRoomSeq}]]*/0;
-                var username = "334"
 
-                console.log(roomName + ", " + roomId + ", " + username);
-
-                var sockJs = new SockJS("/stomp/chat");
-                //1. SockJS를 내부에 들고있는 stomp를 내어줌
-                var stomp = Stomp.over(sockJs);
-
-                //2. connection이 맺어지면 실행
-                stomp.connect({}, function (){
-                   console.log("STOMP Connection")
-
-                   //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-                   stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-					   var chatContent = content.chatContent;
-                       var writer = content.pkUserSeq;
-                       var str = '';
-
-                       
-                       str = "<div class='col-6'>";
-                       str += "<div class='alert alert-secondary'>";
-                       str += "<b>" + writer + " : " + chatContent + "</b>";
-                       str += "</div></div>";
-                       $("#msgArea").append(str);  
-                   });
-                   
-                   stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-					   var chatContent = content.chatContent;
-                       var writer = "SYSTEM";
-                       var str = '';
-
-                       str = "<div class='col-sys'>";
-                       str += "<div class='alert alert-secondary'>";
-                       str += "<b style='color:grey'>" + writer + " : " + chatContent + "</b>";
-                       str += "</div></div>";
-                       $("#msgArea").append(str);
-					});
-					
-					stomp.subscribe("/sub/chat/List/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-                       $.each(content, function(index, value){
-						   if($("#team1").children("#" + index + "").length > 0){
-	  						console.log("jquery : 해당 객체 존재함");
-						   }else{
-	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<div class='alert alert-secondary'>";
-                       		str += "<b>" + value + "</b>";
-                       		str += "</div></div>";
-                       		$("#" + index + "").remove();
-                       		$("#team1").append(str);
-						   }
-						   console.log(" [+] " + sessionStorage.key(0));
-					   });
-					});
-					
-					stomp.subscribe("/sub/chat/team1List/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-                       $.each(content, function(index, value){
-						   if($("#team2").children("#" + index + "").length > 0){
-	  						console.log("jquery : 해당 객체 존재함");
-						   }else{
-	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<div class='alert alert-secondary'>";
-                       		str += "<b>" + value + "</b>";
-                       		str += "</div></div>";
-                       		$("#" + index + "").remove();
-                       		$("#team2").append(str);
-						   }
-						   console.log(" [+] " + sessionStorage.key(0));
-					   });
-					});
-					
-					stomp.subscribe("/sub/chat/team2List/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-                       $.each(content, function(index, value){
-						   if($("#team3").children("#" + index + "").length > 0){
-	  						console.log("jquery : 해당 객체 존재함");
-						   }else{
-	    					str = "<div class='col-sys' id = '" + index + "'>";
-                       		str += "<div class='alert alert-secondary'>";
-                       		str += "<b>" + value + "</b>";
-                       		str += "</div></div>";
-                       		$("#" + index + "").remove();
-                       		$("#team3").append(str);
-						   }
-						   console.log(" [+] " + sessionStorage.key(0));
-					   });
-					});
-					
-					stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
-                       var content = chat.body;
-                       console.log(content);
-                       $("#" + content + "").remove();
-					});
-					
-                   //3. send(path, header, message)로 메세지를 보낼 수 있음
-                   stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: username}))
-                });
-                
-                $("#team1btn").on("click", function(e){
-					//$(document).getElementById()
-					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId}))
-				})
-				
-				$("#team2btn").on("click", function(e){
-					//$(document).getElementById()
-					stomp.send('/pub/chat/Team1Change', {}, JSON.stringify({pkRoomSeq: roomId}))
-				})
-				
-				$("#team3btn").on("click", function(e){
-					//$(document).getElementById()
-					stomp.send('/pub/chat/Team2Change', {}, JSON.stringify({pkRoomSeq: roomId}))
-				})
-                
-                $("#system-test").on("click", function(e){
-					stomp.send('/pub/chat/system', {}, JSON.stringify({pkRoomSeq: roomId}))
-				})
-
-                $("#button-send").on("click", function(e){
-                    var msg = document.getElementById("msg");
-
-                    console.log(username + ":" + msg.value);
-                    stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: username}));
-                    msg.value = '';
-                });
-            });
-        </script>
 </html>

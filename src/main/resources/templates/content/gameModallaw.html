@@ -11,258 +11,83 @@
 
 
 
-	<!DOCTYPE html>
-	<html lang="ko">
-
-	<head>
-		<meta charset="UTF-8">
-		<title>Gnjoy</title>
-		<link rel="stylesheet" type="text/css" href="1.css">
-		<style>
+<style>
 			@font-face {
-				font-family: 'DungGeunMo';
-				src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
-				font-weight: normal;
-				font-style: normal;
+			font-family: 'DungGeunMo';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
 			}
-
-			.md_container {
+			.mdaw_container {
 				position: relative;
-				width: 500px;
-				height: 550px;
-				background-color: #843c0c;
-				border-radius: 10px;
-				padding: 1px;
-				margin: 0px;
-				border: px solid #843c0c;
-				font-family: 'DungGeunMo';
-				font-size: 25px;
-				color: rgb(64, 0, 64);
-				text-align: center;
-
-			}
-
-			.md_content {
-				width: 400px;
+				width: 900px;
 				height: 400px;
-				padding: 5px;
-				margin: 0;
-				background-color: rgb(255, 255, 255);
-				border-radius: 5 px;
-				position: absolute;
-				top: 48%;
-				left: 50%;
-				transform: translateX(-50%) translateY(-50%);
+				background-color : #005255;
+				
+				
+				margin : 0px;
+				border : 2px solid #005255;
+				font-family : 'DungGeunMo';
+				font-size : 25px;
+				color: white;
+				
+				
 			}
-
-
-			.md_footer {
-				padding: 10px;
-				height: 70px;
-
+				.mdaw_content {
+					width: 413px;
+					height: 300px;
+					padding: 15px;
+					margin : 17px;
+					background-color : rgb(255, 255, 255);
+					border-radius: 10px;
+				    float: left;
+				    font-size : 20px;
+				}
+				
+				
+				
+			.mdaw_footer{
+        		padding: 5px;
+				height : 70px;				
 			}
-
+			
 			/*btn*/
-			.madebtn1 {
-				text-align: center;
-				width: 100px;
-				height: 50px;
-				font-family: 'DungGeunMo';
-				margin: 5px;
-				font-size: 20px;
+			.answerbtn{
+				width : 200px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				font-size : 20px;
 				border-radius: 10px;
 				text-align: center;
-				background: #FFC04D;
-				border: 1px solid #FFC04D;
-				float: left;
-				background-color: #ffe699;
-				position: absolute;
-				bottom: 7px;
-				left: 125px;
-			}
-
-
-			* {
-				box-sizing: border-box
-			}
-
-			body {
-				font-family: Verdana, sans-serif;
-				margin: 0
-			}
-
-			.mySlides {
-				display: none
-			}
-
-			img {
-				vertical-align: middle;
-			}
-
-			/* Slideshow container */
-			.slideshow-container {
-				max-width: 1000px;
-				position: relative;
+				background : #FFC04D;
+				border-color : #FFC04D;
+				background-color : #ffe699;
 				margin: auto;
-			}
-
-			/* Next & previous buttons */
-			.prev,
-			.next {
-				cursor: pointer;
-				position: absolute;
-				top: 50%;
-				width: auto;
-				padding: 16px;
-				margin-top: -22px;
-				color: white;
-				font-weight: bold;
-				font-size: 18px;
-				transition: 0.6s ease;
-				border-radius: 0 3px 3px 0;
-			}
-
-			/* Position the "next button" to the right */
-			.next {
-				right: 0;
-				border-radius: 3px 0 0 3px;
-			}
-
-			/* On hover, add a black background color with a little bit see-through */
-			.prev:hover,
-			.next:hover {
-				background-color: rgba(0, 0, 0, 0.8);
-			}
-
-			/* Caption text */
-			.text {
-				color: #f2f2f2;
-				font-size: 15px;
-				padding: 8px 12px;
-				position: absolute;
-				bottom: 8px;
-				width: 100%;
-				text-align: center;
-			}
-
-			/* Number text (1/3 etc) */
-			.numbertext {
-				color: #f2f2f2;
-				font-size: 12px;
-				padding: 8px 12px;
-				position: absolute;
-				top: 0;
-			}
-
-			/* The dots/bullets/indicators */
-			.dot {
-				cursor: pointer;
-				height: 15px;
-				width: 15px;
-				margin: 0 2px;
-				background-color: #bbb;
-				border-radius: 50%;
-				display: inline-block;
-				transition: background-color 0.6s ease;
-			}
-
-			.active,
-			.dot:hover {
-				background-color: #717171;
-			}
-
-			/* Fading animation */
-			.fade {
-				-webkit-animation-name: fade;
-				-webkit-animation-duration: 1.5s;
-				animation-name: fade;
-				animation-duration: 1.5s;
-			}
-
-			@-webkit-keyframes fade {
-				from {
-					opacity: .4
-				}
-
-				to {
-					opacity: 1
-				}
-			}
-
-			@keyframes fade {
-				from {
-					opacity: .4
-				}
-
-				to {
-					opacity: 1
-				}
-			}
-
-			/* On smaller screens, decrease text size */
-			@media only screen and (max-width: 300px) {
-
-				.prev,
-				.next,
-				.text {
-					font-size: 11px
-				}
-			}
+                display: block;
+				color: rgb(255, 0, 0);
+			 }
+				
 		</style>
 	</head>
-
 	<body>
-		<div class="md_container">
-			<div class='md_content'>
-				<p>게임 설명</p>
-				<div class="slideshow-container">
-
-					<div class="mySlides fade">
-						<div class="numbertext">1 / 3</div>
-						<img src="http://placehold.it/300x100" style="width:100%">
-						<div class="text">Caption Text</div>
-					</div>
-
-					<div class="mySlides fade">
-						<div class="numbertext">2 / 3</div>
-						<img src="http://placehold.it/300x100" style="width:100%">
-						<div class="text">Caption Two</div>
-					</div>
-
-					<div class="mySlides fade">
-						<div class="numbertext">3 / 3</div>
-						<img src="http://placehold.it/300x100" style="width:100%">
-						<div class="text">Caption Three</div>
-					</div>
-
-					<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-					<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-				</div>
-				<br>
-
-
-				<div style='height: 70px'>
-					<p><br>1. 어쩌구 저쩌구함 <br> 2.저쩌구 저쩌구</p>
-				</div>
-				<div style="text-align:center">
-					<span class="dot" onclick="currentSlide(1)"></span>
-					<span class="dot" onclick="currentSlide(2)"></span>
-					<span class="dot" onclick="currentSlide(3)"></span>
-				</div>
-
+		<div class="mdaw_container">
+			<div class='mdaw_content'>
+	           <!--<input type="text" id="Question" name="input" value="Question">-->
+	            <textarea cols="36" rows="9" placeholder="Question" readonly></textarea>
+	   </div>
+	   
+			<div class='mdaw_content'>
+	          <!-- <input type="text" id="input" name="input" placeholder="input">-->
+	          <textarea cols="36" rows="9" placeholder="답을 입력해주세요."></textarea>
+	   </div>
+			
+			<div id='mdaw_footer'>
+				<button class="answerbtn" type="submit">답변제출</button>
 			</div>
-			<div id='md_footer'>
-				<button class="madebtn1" type="submit">확인</button>
-
-			</div>
-		</div>
+			
+			
 		</div>
 	</body>
-
-	<script>
-
-	</script>
 
 
 </th:block>

@@ -22,7 +22,7 @@
 			}
 
 			#content {
-				width: 659px;
+				width: 694px;
 				height: 560px;
 				padding: 10px;
 				float: left;
@@ -34,11 +34,11 @@
 
 			#sidebar {
 				width: 250px;
-				height: 570px;
+				height: 560px;
 				padding: 5px;
 				float: right;
 				margin-left: 5px;
-				margin-right: 5px;
+				margin-right: 10px;
 				background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
 				position: relative;
 				border-radius: 10px;
@@ -68,11 +68,10 @@
 			.menu1,
 			.menu2,
 			.menu3 {
-				position: relative;
 				background: #007351;
 				border: none;
 				outline: 0;
-				width: 210px;
+				width: 222px;
 				height: 70px;
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
@@ -81,6 +80,9 @@
 				color: #00C484;
 				font-size: 18px;
 				font-family: 'DungGeunMo';
+				float: left;
+				margin : 0 2px 0 0px;
+				
 			}
 
 			.menu1.on,
@@ -92,14 +94,14 @@
 
 			.menu2.on,
 			.menu2:hover {
-				background: #007351;
+				background: #00C484;
 				color: white;
 				border: 1px solid #007351
 			}
 
 			.menu3.on,
 			.menu3:hover {
-				background: #007351;
+				background: #00C484;
 				color: white;
 				border: 1px solid #007351
 			}
@@ -109,9 +111,10 @@
 			.solo {
 				display: none;
 				margin-top: 0px;
-				padding: 10px;
+				padding: 8px;
 				border-bottom-left-radius: 5px;
 				border-bottom-right-radius: 5px;
+				width: 671px;
 				height: 465px;
 				border: 1px solid #007351;
 				border-bottom: 2px solid #007351;
@@ -178,7 +181,7 @@
 				height: 25px;
 				padding: 0px;
 				text-align: center;
-				margin: 5px 20px auto;
+				margin: 5px 8px auto;
 				float: right;
 				display: flex;
 				justify-content: center;
@@ -192,13 +195,13 @@
 			}
 
 			.gameroom {
-				width: 610px;
+				width: 800px;
 				float: center;
 				font-family: 'DungGeunMo';
 			}
 
 			.M_gameroom_left {
-				width: 285px;
+				width: 316px;
 				height: 100px;
 				margin: 5px;
 				background: white;
@@ -210,7 +213,7 @@
 			}
 
 			.M_gameroom_right {
-				width: 285px;
+				width: 316px;
 				height: 100px;
 				margin: 5px;
 				background: white;
@@ -495,7 +498,7 @@
 			.md_container {
 				position: relative;
 				width: 500px;
-				height: 240px;
+				height: 260px;
 				background-color: #843c0c;
 				border-radius: 20px;
 				padding: 10px;
@@ -572,43 +575,44 @@
 			}
 
 			/*btn*/
-			.madebtn1 {
-				width: 100px;
-				height: 50px;
-				font-family: 'DungGeunMo';
-				margin: 5px;
-				font-size: 20px;
+			.madebtn1{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
 				border-radius: 10px;
-				text-align: center;
-				background: #FFC04D;
-				border: 1px solid #FFC04D;
-				float: left;
-				background-color: #ffe699;
-				position: absolute;
-				bottom: 2px;
-				left: 125px;
-			}
-
-			.madebtn2 {
-				width: 100px;
-				height: 50px;
-				font-family: 'DungGeunMo';
-				margin: 5px;
-				font-size: 20px;
+				text-align : center ;
+				background : #FFC04D;
+				border-color : #FFC04D;
+				float : left;
+				background-color : #ffe699;
+				position: absolute; 
+				bottom:10px; 
+				left:125px;
+				box-shadow: 2px 2px 2px #BF9039;
+			 }
+			.madebtn2{
+				width : 100px;
+				height : 50px;
+				font-family : 'DungGeunMo';
+				margin : 5px;
+				font-size : 20px;
 				border-radius: 10px;
-				text-align: center;
-				background: gray;
-				border: 1px solid gray;
-				float: left;
-				background-color: gray;
-				position: absolute;
-				bottom: 2px;
-				right: 125px;
-			}
+				text-align : center ;
+				background : gray;
+				border-color : gray;
+				float : left;
+				background-color : gray;
+				position: absolute; 
+				bottom:10px; 
+				right:125px;
+				box-shadow: 2px 2px 2px black;
+			 }
 			.md_container2 {
 				position: relative;
 				width: 500px;
-				height: 500px;
+				height: 360px;
 				background-color : #843c0c;
 				border-radius: 20px;
 				padding: 10px;
@@ -655,6 +659,19 @@
 					font-family : 'DungGeunMo';
 					margin : 5px;
 					border : 2px solid #843c0c;
+					font-size : 15px;
+					color : gray;
+				}
+				input[type=password]{
+					width: 290px;
+					height: 40px;
+					line-height: 30px;
+					float: left;
+					margin : 5px 10px auto;
+					background-color : #ffe699;
+					border: 2px solid #843c0c;
+					padding : 5px 0px 5px 0px;
+					font-size:25px;
 					
 				}
 				.left_p2{
@@ -692,12 +709,13 @@
 				border-radius: 10px;
 				text-align : center ;
 				background : #FFC04D;
-				border : 1px solid #FFC04D;
+				border-color : #FFC04D;
 				float : left;
 				background-color : #ffe699;
 				position: absolute; 
 				bottom:10px; 
 				left:125px;
+				box-shadow: 2px 2px 2px #BF9039;
 			 }
 			.madebtn22{
 				width : 100px;
@@ -708,12 +726,13 @@
 				border-radius: 10px;
 				text-align : center ;
 				background : gray;
-				border : 1px solid gray;
+				border-color : gray;
 				float : left;
 				background-color : gray;
 				position: absolute; 
 				bottom:10px; 
 				right:125px;
+				box-shadow: 2px 2px 2px black;
 			 }
 			 .md_container3 {
 				position: relative;
@@ -805,9 +824,9 @@
 				padding : 5px 0px 5px 0px;
 				font-size:25px;
 			}
-			.gamemode-team{
+			/* .gamemode-team{
 				display: none;
 			}
 			.gamemode-solo{
 				display: none;
-			}
+			} */

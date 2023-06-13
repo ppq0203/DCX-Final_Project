@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/mng/mngDeshboardLayout}">
+<!-- Main content -->
+<style>
+
+
+</style>
+<th:block layout:fragment="content">
+
+	<div class="col-12 p-5">
+		<div class="row">
+			<div class="col-6">
+				<h2 class="p-2" _msttexthash="22274317" _msthash="13">문제 유형</h2>
+			</div>
+			<div class="card-tools col-6 text-right">
+
+			</div>
+		</div>
+		<!-- /.card-header -->
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="width: 30%;" _msttexthash="15309164" _msthash="15">유형</th>
+					<th style="width: 30%;" _msttexthash="9631388" _msthash="16">문제 번호</th>
+					<th style="width: 30%;" _msttexthash="15100995" _msthash="17">난이도</th>
+					<th style="width: 30%;" _msttexthash="21740095" _msthash="18">모드</th>
+				</tr>
+
+				<tr>
+					
+					<td _msttexthash="4459" _msthash="19"><i class="fa-solid fa-arrow-up-z-a"></i>Array</td>
+					<td>
+						<a data-toggle="modal" data-target="#modal-notice" type="button" value="28"
+							style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							<span _msttexthash="9249084" _msthash="23">No.12</span>
+						</a>
+					</td>
+
+					<td _msttexthash="15761278" _msthash="21">easy</td>
+					<td _msttexthash="74477" _msthash="22">single</td>
+
+				</tr>
+				<tr>
+					<td _msttexthash="4550" _msthash="24"><i class="fa-solid fa-diagram-predecessor"></i> Hash Table</td>
+					<td>
+						<a data-toggle="modal" data-target="#modal-notice" type="button" value="12"
+							style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							<span _msttexthash="9249084" _msthash="28">No.21</span>
+						</a>
+					</td>
+
+					<td _msttexthash="15761278" _msthash="26">middle</td>
+					<td _msttexthash="73853" _msthash="27">team</td>
+
+				</tr>
+				<tr>
+					<td _msttexthash="4641" _msthash="29"><i class="fa-solid fa-quote-left"></i>String</td>
+					<td>
+						<a data-toggle="modal" data-target="#modal-notice" type="button" value="12"
+							style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							<span _msttexthash="9249084" _msthash="28">No.200</span>
+						</a>
+					</td>
+
+					<td _msttexthash="15761278" _msthash="31">Hard</td>
+					<td _msttexthash="73853" _msthash="32">team</td>
+
+				</tr>
+				<tr>
+					<td _msttexthash="4732" _msthash="34"><i class="fa-solid fa-calculator"></i>Math</td>
+					<td>
+						<a data-toggle="modal" data-target="#modal-notice" type="button" value="14"
+							style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							<span _msttexthash="9249084" _msthash="38">No.30</span>
+						</a>
+					</td>
+
+					<td _msttexthash="15761278" _msthash="36">easy</td>
+					<td _msttexthash="73853" _msthash="37">single</td>
+
+				</tr>
+				<tr>
+					<td _msttexthash="4823" _msthash="39"><i class="fa-solid fa-arrow-pointer"></i>Two Pointers</td>
+					<td>
+						<a data-toggle="modal" data-target="#modal-notice" type="button" value="16"
+							style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							<span _msttexthash="9249084" _msthash="43">No.42</span>
+						</a>
+					</td>
+
+					<td _msttexthash="15761278" _msthash="41">middle</td>
+					<td _msttexthash="73853" _msthash="42">single</td>
+
+				</tr>
+				<tr>
+					<td _msttexthash="4823" _msthash="39"><i class="fa-solid fa-divide"></i>Divide and Conquer</td>
+					<td>
+						<a data-toggle="modal" data-target="#modal-notice" type="button" value="16"
+							style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							<span _msttexthash="9249084" _msthash="43">No.42</span>
+						</a>
+					</td>
+
+					<td _msttexthash="15761278" _msthash="41">middle</td>
+					<td _msttexthash="73853" _msthash="42">single</td>
+
+				</tr>
+
+				<tr>
+					<td _msttexthash="4823" _msthash="39"><i class="fa-solid fa-sitemap"></i>Depth-First Search</td>
+					<td>
+						<a data-toggle="modal" data-target="#modal-notice" type="button" value="16"
+							style="color:#87ceeb; font-weight: bold; text-decoration:underline">
+							<span _msttexthash="9249084" _msthash="43">No.42</span>
+						</a>
+					</td>
+
+					<td _msttexthash="15761278" _msthash="41">middle</td>
+					<td _msttexthash="73853" _msthash="42">single</td>
+
+				</tr>
+
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<!-- /.card-body -->
+
+	</div>
+
+	<!-- /.modal -->
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<form action="/mng/notice/create" method="post">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label>내용</label>
+						<textarea id="summernote" name="contents" class="form-control" rows="6"
+							style="display: none;"></textarea>
+						<div class="note-editor note-frame card">
+							<div class="note-dropzone">
+								<div class="note-dropzone-message"></div>
+							</div>
+						</div>
+					</div>
+					<textarea class="note-codable" aria-multiline="true"></textarea>
+					<div class="note-editable card-block" contenteditable="true" role="textbox" aria-multiline="true"
+						spellcheck="true" autocorrect="true" style="height: 300px;">
+						<p><br></p>
+					</div>
+				</div>
+				<output class="note-status-output" role="status" aria-live="polite"></output>
+				<div class="note-statusbar" role="status">
+					<div class="note-resizebar" aria-label="Resize">
+						<div class="note-icon-bar"></div>
+						<div class="note-icon-bar"></div>
+						<div class="note-icon-bar"></div>
+					</div>
+				</div>
+				<div class="modal note-modal link-dialog" aria-hidden="false" tabindex="-1" role="dialog"
+					aria-label="Insert Link">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">Insert Link</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+									aria-hidden="true">×</button>
+							</div>
+
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary"><span>등록</span></button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal fade show" id="modal-notice" style="display: none; padding-right: 17px;" aria-modal="true"
+		role="dialog">
+		<form action="/mng/notice/update" method="post">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="modal-body">
+							<div class="container-fluid">
+								<div class="form-group">
+									<label>내용</label>
+									<div>
+										<div class="note-editable card-block" contenteditable="true" role="textbox"
+											aria-multiline="true" spellcheck="true" autocorrect="true">
+											<p>예선심사 과제의 5페이지 이내 작성은 아이디어를 표현하기에 부족하다는 의견이 많이 있었습니다.</p>
+											<p>내부 논의 결과 예선심사 과제가 아디디어 개발 기획서 작성을 10p이내 작성으로 변경되었습니다.</p>
+											<p><br></p>
+											<p>참가신청서에있는 아이디어 개발기획서 양식을 사용하시어 10P 이내로 작성하시 제출 바랍니다.</p>
+											<p>심사에는 아이디어 개발기획서 만을 가지고 진행 하므로 별도 발표 PPT 제출하시어도 심사에는 사용되지 않습니다.
+											</p>
+										</div>
+									</div>
+									<output class="note-status-output" role="status" aria-live="polite"></output>
+
+									<div class="modal note-modal link-dialog" aria-hidden="false" tabindex="-1"
+										role="dialog" aria-label="Insert Link">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close" aria-hidden="true">×
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!--container-fluid-->
+						</div><!--"modal-body-->
+					</div><!--col-sm-12 modal-header-->
+				</div><!--modal-content-->
+			</div><!--xl-->
+		</form>
+	</div>
+	<script src="https://kit.fontawesome.com/d1f64dfea6.js" crossorigin="anonymous"></script>
+</th:block>
+
+<script>
+
+	var SUBJECT_ARRAY = [];
+	$(document).ready(function () {
+		// Summernote
+
+		$('.modal').on('shown.bs.modal', function (e) {
+			// 모달이 열릴 때 실행되는 코드
+			// $(this).find('form')[0].reset(); // 입력 필드 초기화
+		});
+
+		$('.modal').on('hidden.bs.modal', function (e) {
+			// 모달이 닫힐 때 실행되는 코드
+			// $(this).find('form')[0].reset(); // 입력 필드 초기화
+			// $('#summernote').summernote('code', ''); // 에디터 초기화
+		});
+		//$.ajax({
+		//	type: "POST",
+		//	url: "/getSubjectList",
+		//	dataType: "json",
+		//	success: function (data) {
+		//		$.each(data, function (index, item) {
+		//			SUBJECT_ARRAY.push(
+		//				{
+		//					"id": item.pkSubjectSeq,
+		//					"text": item.subjectName
+		//				}
+		//			);
+		//		});
+		//		$('.select2').select2({
+		//			data: SUBJECT_ARRAY
+		//		})
+		//	},
+		//	error: function () {
+		//	}
+		//});
+	})
+
+
+
+
+
+</script>
+
+</th:block>
+
+</html>
