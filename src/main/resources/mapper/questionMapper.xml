@@ -8,6 +8,7 @@
 			    B.LEVEL AS Level,
 			    B.SCORE AS Score,
 			    B.TYPE AS Type,
+			    B.CONTENTS AS CONTENTS,
 			    B.CODE_FORMAT AS CodeFormat,
 			    B.SOLUTION AS Solution,
 			    B.CHANCE AS Chance,
@@ -30,5 +31,80 @@
             </foreach>
 		
 			ORDER BY RAND() LIMIT #{probNum}
+	</select>
+
+	<select id="selectQuestionSeq" parameterType="int" resultType="project.momento.question.dto.QuestionDto">
+		SELECT
+		PK_QUESTION_SEQ AS PkQuestionSeq,
+		QUESTION_NAME AS QuestionName,
+		LEVEL AS Level,
+		SCORE AS Score,
+		TYPE AS Type,
+		CODE_FORMAT AS CodeFormat,
+		SOLUTION AS Solution,
+		CHANCE AS Chance,
+		CLASS_NAME AS ClassName,
+		INPUT AS Input,
+		OUTPUT AS Output,
+		USE_YN AS UseYn,
+		DEL_YN AS DelYn,
+		REGIST_ID AS RegistId,
+		REGIST_DT AS RegistDt,
+		UPDATE_ID AS UpdateId,
+		UPDATE_DT AS UpdateDt
+		FROM
+		QUESTION
+		WHERE
+		PK_QUESTION_SEQ = #{pkQuestionSeq}
+	</select>
+	
+	<select id="selectQuestionResultList" parameterType="project.momento.answer.dto.AnswerDto" resultType="project.momento.answer.dto.AnswerDto">
+		SELECT
+			A.PK_QUESTION_SEQ				AS pkQuestionSeq
+			, A.TYPE						AS type
+			, A.QUESTION_NAME				AS questionName
+			, A.SOLUTION					AS solution
+			, A.LEVEL						AS level
+			, A.CONTENTS					AS contents
+			, A.SOLUTION					AS solution
+			, A.REGIST_ID					AS registId
+			, A.REGIST_DT					AS registDt
+			, A.UPDATE_ID					AS updateId
+			, A.UPDATE_DT					AS updateDt
+			, B.PK_ANSWER_SEQ				AS pkAnswerSeq
+			, B.PK_QUESTION_SEQ				AS pkQuestionSeq
+			, B.PK_USER_SEQ					AS pkUserSeq
+			, B.ANSWER_USER					AS answerUser
+			, B.ANSWER_OX					AS answerOx
+			, B.SOLVE_TIME					AS solveTime
+		FROM QUESTION A
+		INNER JOIN ANSWER B
+		ON A.PK_QUESTION_SEQ = B.PK_QUESTION_SEQ
+		WHERE B.PK_USER_SEQ = #{pkUserSeq} ORDER BY B.PK_QUESTION_SEQ DESC
+	</select>
+	
+	<select id="selectQuestionList" parameterType="hashmap" resultType="project.momento.question.dto.QuestionDto">
+		SELECT
+			A.PK_QUESTION_SEQ				AS pkQuestionSeq
+			, A.TYPE						AS type
+			, A.QUESTION_NAME				AS questionName
+			, A.SOLUTION					AS solution
+			, A.LEVEL						AS level
+			, A.CONTENTS					AS contents
+			, A.SOLUTION					AS solution
+			, A.REGIST_ID					AS registId
+			, A.REGIST_DT					AS registDt
+			, A.UPDATE_ID					AS updateId
+			, A.UPDATE_DT					AS updateDt
+		FROM QUESTION A
+		WHERE 1=1
+		ORDER BY A.PK_QUESTION_SEQ ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="selectQuestionListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM QUESTION A
 	</select>
 </mapper>

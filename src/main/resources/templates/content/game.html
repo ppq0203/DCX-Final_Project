@@ -15,59 +15,66 @@
 			font-weight: normal;
 			font-style: normal;
 		}
+
 		@font-face {
 			font-family: 'GmarketSansMedium';
 			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
 			font-weight: normal;
 			font-style: normal;
 		}
-				
+
 		#container {
 			width: 976px;
 			height: 700px;
-			background-size : auto ;
+			background-size: auto;
 			display: flex;
 
 		}
+
 		#header {
-        	padding: 10px;
-			height : 70px;
-      	}		
-	    #content {
-	        width: 665px;
+			padding: 10px;
+			height: 70px;
+		}
+
+		#content {
+			width: 665px;
 			height: 560px;
-	        padding: 10px;
-	        float: left;
-			margin : 70px auto;
+			padding: 10px;
+			float: left;
+			margin: 70px auto;
 			background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
 			border-radius: 10px;
 			display: flex;
-			
-			
-	     }
-	     #sidebar {
-	        width: 250px;
+
+
+		}
+
+		#sidebar {
+			width: 250px;
 			height: 560px;
-	        padding: 5px;
-	        float: right;
-			margin : 70px auto;
+			padding: 5px;
+			float: right;
+			margin: 70px auto;
 			background: repeating-linear-gradient(-90deg, #005255, #282A46 2px);
 			position: relative;
 			border-radius: 10px;
-	      	}
-		.fontp{
-			font-family : 'DungGeunMo';
-			font-size : 12px;
-			color : white;
-			line-height : 150%;
 		}
-		.fontb{
-			font-family : 'DungGeunMo';
-			font-size : 13px;
-			color : yellow;
-			line-height : 150%;
+
+		.fontp {
+			font-family: 'DungGeunMo';
+			font-size: 12px;
+			color: white;
+			line-height: 150%;
 		}
-		.btnlogout{
+
+		.fontb {
+			font-family: 'DungGeunMo';
+			font-size: 13px;
+			color: yellow;
+			line-height: 150%;
+		}
+
+		.btnlogout {
 			width: 220px;
 			height: 50px;
 			padding: 5px;
@@ -75,19 +82,19 @@
 			margin: 0px 5px 5px 10px;
 			/*border-top-left-radius: 5px;*/
 			border-radius: 5px;
-			background-color : gray;
+			background-color: gray;
 			font-size: 20px;
 			font-family: 'DungGeunMo';
-			color : 'Darkgary';
-			}
-					      			
+			color: 'Darkgary';
+		}
+
 		.chess-board {
 			width: 500px;
-    		height: 500px;
-			border : hidden;
-			margin : auto;
+			height: 500px;
+			border: hidden;
+			margin: auto;
 			font-family: 'GmarketSansMedium'
-			
+
 		}
 
 		.chess-board th {
@@ -114,28 +121,30 @@
 		.giveup {
 			background: red;
 		}
-		.side_User{
-        	width: 220px;
+
+		.side_User {
+			width: 220px;
 			height: 200px;
-        	padding: 10px;
-        	float: center;
+			padding: 10px;
+			float: center;
 			text-align: center;
-            justify-content: center;
-			margin : 10px auto; 
+			justify-content: center;
+			margin: 10px auto;
 			/*border-top-left-radius: 5px;*/
-   			border-radius: 5px;
-			background-color : #c55a11;
-			font-family : 'DungGeunMo';
-			line-height : 150%;
+			border-radius: 5px;
+			background-color: #c55a11;
+			font-family: 'DungGeunMo';
+			line-height: 150%;
 		}
-		.chat-veiw{
-	       	width: 220px;
+
+		.chat-veiw {
+			width: 220px;
 			height: 250px;
-	       	padding: 5px;
-	       	float: center;
-			margin : 15px auto;
-			border : 3px solid white;
-		}			
+			padding: 5px;
+			float: center;
+			margin: 15px auto;
+			border: 3px solid white;
+		}
 	</style>
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -148,22 +157,16 @@
 				<div class="modal-body">
 					<div class="text-center">
 						<div>
-							<span>총 문제 : 36</span>
+							총 문제 :<span id="total_count">36</span>
 						</div>
 						<div>
-							<span>푼 문제 : 30</span>
+							푼 문제 :<span id="solve_count">30</span>
 						</div>
 						<div>
-							<span>포기 : 6</span>
+							포기 :<span id="giveup_count">6</span>
 						</div>
-						<div>
-							<span>수학 : 4/5</span>
-						</div>
-						<div>
-							<span>구현 : 3/3</span>
-						</div>
-						<div>
-							<span>자료구조 : 3/6</span>
+						<div id="type_result_area">
+
 						</div>
 					</div>
 				</div>
@@ -176,35 +179,38 @@
 		<div id="content">
 			<div class="chess-board">
 				<div class="question_col" th:each="n, m : ${questionList}">
-				<!--<p th:text="${n.pkQuestionSeq}"></p>-->
-						<button type="button" class="btn btn-default btn-outline-secondary Question_status"
-						th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal"
-						data-target="#modal-xl" style="width: 100%; height: 100%; border: none;">
+					<!--<p th:text="${n.pkQuestionSeq}"></p>-->
+					<button type="button" class="btn btn-default btn-outline-secondary Question_status"
+						th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal" data-target="#modal-xl"
+						style="width: 100%; height: 100%; border: none;">
 						키워드
-						</button>
+					</button>
 				</div>
-			</div>	
+			</div>
 		</div>
 		<div id="sidebar">
 			<div class="side_User">
-					<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px"height="150px">
-					<div class="" style="font-weight:bold;">
-						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
-					</div>
+				<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px" height="150px">
+				<div class="" style="font-weight:bold;">
+					<span th:utext="${session.loginDto.name}"></span><br><span
+						th:utext="${session.loginDto.userId}"></span>
+				</div>
 			</div>
 			<div class="chat-veiw">
 				<p class="fontp">
 					<b class="fontb">>>키워드를 클릭해주세요.</b><br>
-								>>키워드 '반복문'을 선택하셨습니다. <br>
-								>>문제 입력창에 정답을 입력해 주세요<br>
-								>>틀렸습니다. <br>
-								>>정답입니다. <br>
+					>>키워드 '반복문'을 선택하셨습니다. <br>
+					>>문제 입력창에 정답을 입력해 주세요<br>
+					>>틀렸습니다. <br>
+					>>정답입니다. <br>
 					<b class="fontb">>>키워드를 클릭해주세요.</b>
 				</p>
 			</div>
 			<button class="btnlogout" type="button">나가기</button>
 		</div>
 	</div>
+	<button id="total_modal" style="visibility: hidden;" onclick="resultCalc()" data-toggle="modal"
+		data-target="#myModal">결과보기</button>
 
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
@@ -226,11 +232,12 @@
 						<div class="card card-outline card-info">
 							<div class="card-header">
 								<h3 class="card-title">
-									풀이 작성
+									문제
 								</h3>
 							</div>
 
 							<div class="card-body p-0">
+								<input type="hidden" id="questionType">
 								<p id="questionContents"></p>
 							</div>
 							<div class="card-footer">
@@ -285,6 +292,7 @@
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
+			type = question.type;
 			console.log(title);
 			console.log(name);
 			console.log(contents);
@@ -293,13 +301,13 @@
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
 			$('#nameQuestion').val(question.className);
+			$('#questionType').val(type);
 			$('#questionContents').text(contents);
 			$('#Demo').html(codeFormat);
 			temp_elem = elem;
 		}
     /*]]>*/
 	</script>
-	<!-- 진상 script -->
 	<script>
 		$(function () {
 			// CodeMirror
@@ -309,44 +317,98 @@
 			});
 		})
 		var count = size;
-
+		var resultMap = new Map();
 		// 생성된 템플릿을 타임리프 템플릿 영역에 추가
 
 		var line_length = Math.sqrt(count);
 		var gameroom_left_classes = document.getElementsByClassName('question_col');
 		var all_rooms_length = 490;
 		var one_room_length = all_rooms_length / line_length;
+
+		// 문제를 포기하거나 맞췄을때 타입과 결과를 저장하는 함수
+		function resultSave(key, result) {
+			if (resultMap.get(key) === undefined) {
+				resultMap.set(key, [0, 0]);
+				console.log(resultMap.get(key));
+			}
+			if (result == -1) {
+				resultMap.get(key)[1] += 1;
+			}
+			if (result == 0) {
+				resultMap.get(key)[0] += 1;
+				resultMap.get(key)[1] += 1;
+			}
+		}
+
+		// 결과값을 연산해주는 함수
+		function resultCalc() {
+			var total = 0;
+			var solve = 0;
+			var str;
+			$("#type_result_area").empty();
+
+			for (const [key, value] of resultMap.entries()) {
+				console.log(`Key: ${key}, Value: ${value}`);
+				str = '';
+				str = "<div>";
+				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
+				str += "</div>";
+				$("#type_result_area").append(str);
+				total += value[1];
+				solve += value[0];
+			}
+
+			$("#total_count").text(total);
+			$("#solve_count").text(solve);
+			$("#giveup_count").text(total - solve);
+		}
+
 		for (var i = 0; i < gameroom_left_classes.length; i++) {
 			gameroom_left_classes[i].style.width = one_room_length + "px";
 		}
 		$("#total_modal").click(function () {
 			$(".total_modal").text("점수표");
 		});
+
+		var giveup_count = 0;
+		var Question_submit_count = 0;
+
 		$('#giveup').click(function () {
 			temp_elem.disabled = true;
 			$(temp_elem).css("background-color", "gray");
 			$(temp_elem).css("color", "darkgray");
+			resultSave($("#questionType").val(), -1);
+			giveup_count++;
+			total_score();
 		})
-		$('#Question_submit').click(function () {
-			var obj = {
-				format : $("#Demo").val(),
-				name : $("#nameQuestion").val(),
-				number : $("#questionNo").val()
+		function total_score() {
+			if (giveup_count + Question_submit_count == count) {
+				$('#total_modal').trigger('click');
 			}
+		}
+		$('#Question_submit').click(function () {
 			$.ajax({
 				type: "POST",
 				url: "sendAnswer",
-				data: obj,
-				success: function (data) {
-					console.log("test");
-				},
-				error: function () {
+				data: {
+					format: $("#Demo").val(),
+					name: $("#nameQuestion").val(),
+					number: $("#questionNo").val(),
+					answer: ""
+				}
+			}).done(function (data) {
+				console.log(data.answer);
+				if (data.answer != "-1") {
+					temp_elem.disabled = true;
+					$(temp_elem).css("background-color", "#00b0f0");
+					$(temp_elem).css("color", "blue");
+					resultSave($("#questionType").val(), 0);
 				}
 			});
-			temp_elem.disabled = true;
-			$(temp_elem).css("background-color", "#00b0f0");
-			$(temp_elem).css("color", "blue");
+			Question_submit_count++;
+			total_score();
 		})
+
 	</script>
 </th:block>
 

@@ -23,6 +23,10 @@ public interface NoticeMapper {
 
 	NoticeDto selectNotice(String pkNoticeSeq);
 
+	void deleteNotice(String pkNoticeSeq);
+
+	void updateNotice(NoticeDto noticeDto);
+
 }	
 	
 	

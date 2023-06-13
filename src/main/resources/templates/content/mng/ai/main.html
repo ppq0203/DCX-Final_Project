@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/mng/mngDeshboardLayout}">
+
+<!-- Wrapper -->
+<th:block layout:fragment="content">
+	<div class="row">
+		<div class="col-12 p-5">
+			<div class="row">
+				<div class="col-6">
+					<h2>AI문제 목록</h2>
+				</div>
+				<div class="card-tools col-6 text-right">
+					<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/mng/ai/question/form/0' ">
+						<span>등록</span>
+					</button>
+				</div>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">문제</th>
+						<th scope="col">유형</th>
+						<th scope="col">주제</th>
+						<th scope="col">수정</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 여기에 동적으로 생성되는 내용을 반복하여 추가할 수 있습니다 -->
+					<tr th:each="item, index : ${resultList}">
+						<td th:text="${index.index + 1}"></td>
+						<td th:utext="${item.questionName}"></td>
+						<td th:text="${item.type}"></td>
+						<td th:text="${item.title}"></td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl"
+								th:attr="pkQuestionSeq=${item.pkQuestionSeq}" type="button"
+								class="btn btn-info updateBtn" data-action="modify" onclick="changeButtonAction(this)">
+								<span>수정</span>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item previous th-disabled" th:classappend="${paging.prev == false} ? 'disabled'">
+						<a th:href="@{/mng/ai/main(page=${paging.startPage - 1})}" tabindex="0"
+							class="page-link">Previous</a>
+					</li>
+					<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+						<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
+							<a th:href="@{/mng/ai/main(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+								class="page-link" th:text="${pNo}"></a>
+						</li>
+					</div>
+					<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
+						<a th:href="@{/mng/ai/main(page=${paging.endPage + 1})}" tabindex="0"
+							aria-controls="dataTable" class="page-link">Next</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	<!-- 삭제 -->
+	function deleteRow(ths) {
+		var ths = $(ths);
+
+		ths.parents("tr").remove();
+	}
+</script>
+</th:block>
+</html>

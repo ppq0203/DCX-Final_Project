@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiLayout}">
+
+<th:block layout:fragment="content">
+	<div class="card-header p-0 border-bottom-0">
+		<ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+			<li class="nav-item" th:each="item, status : ${resultList}">
+				<a class="nav-link" th:text="${item.type}"
+					th:if="${status.index == resultList.![type].indexOf(item.type)}"
+					onclick="hideTypeDiv(this.innerText); setActive(this)"></a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="row">
+		<div class="col-xl-4 col-lg-4 col-sm-12 p-5 typeDiv" th:attr="data-type=${item.type}"
+			th:each="item, index : ${resultList}">
+			<div class="card card-info">
+				<div class="card-header ui-sortable-handle" style="cursor: move;">
+					<h3 class="card-title" th:text="${item.type}"></h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="remove">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<form class="form-horizontal">
+					<div class="card-body">
+						<p th:utext="${item.questionName}">
+						</p>
+					</div>
+					<div class="card-footer">
+						<button type="submit" class="btn btn-info float-right">Quiz</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl-two" style="display: none;" aria-hidden="true">
+		<form action="/std/exam/result" method="POST" onsubmit="return validation()">
+			<input id="pkExamSeq" name="pkExamSeq" type="hidden">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">시험</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div id="sampleDiv" class="row">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="submit" divn="delete" class="btn btn-primary modelBtn">
+							<span>제출</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal fade" id="modal-xl-three" style="display: none;" aria-hidden="true">
+		<form action="/mng/exam/result/score" method="POST">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">시험 결과</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div id="resultDiv" class="row">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+		function hideTypeDiv(type, atag) {
+
+			$('.typeDiv').each(function () {
+				if ($(this).data('type') === type) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			});
+		}
+		function setActive(element) {
+			$('.nav-link').removeClass('active'); // 모든 nav-link에서 active 클래스 제거
+			$(element).addClass('active'); // 클릭한 요소에 active 클래스 추가
+		}
+		$(document).ready(function () {
+
+		});
+
+	</script>
+</th:block>
+
+</html>

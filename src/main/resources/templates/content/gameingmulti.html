@@ -1,147 +1,166 @@
 <!DOCTYPE html>
 <html lang="ko">
-	<head>
-  	<meta charset="UTF-8">
-  	<title>gameingteam</title>
-	<link th:href="@{/css/dice.css}" rel="stylesheet"> 
-	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
-	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>	
 
-	</head>
-	<body>
-	<div id="container">
-      		<div id="header"></div>
-			
-			<!--side right -->
-			    <div id="sidebar">
-					<div class="gamequiz">
-						<p class="pfont">
-							Time : 15:00 min<br>
-							유형 :<br> 
-							문제 <span>7</span>번<br>
-							...
-						</p>
-					</div>
-					<div class="quizbtn">
-						<button class="answer" type="button">답변등록</button>
-						<button class="discard" type="button">포기하기</button>
-					</div>
-					<div class="chat-veiw">
-						<p class="fontp">
-							<b class="fontb">>>게임을 시작합니다.</b><br>
-							>>7번 문제 입니다. <br>
-							>>시간안에 가장 빠르게 푸는 팀이 땅을 차지합니다.<br>
-							>>채팅을 통해 상의가 가능합니다.
-						</p>
-					</div>
-					<div class="chat-input">
-						<from>
-							<input type="text" id="chat" size=19>
-							<button class="btnchat" type="submit">등록</button>
-						</from>
-						
-							
-					</div>
-					<button class="btn" type="button">시작</button>	
-					<button class="btnlogout" type="button">나가기</button>		
+<head>
+	<meta charset="UTF-8">
+	<title>gameingteam</title>
+	<link th:href="@{/css/dice.css}" rel="stylesheet">
+	<link th:href="@{/css/gameingteam.css}" rel="stylesheet">
+	<link th:href="@{/css/gameingmulti.css}" rel="stylesheet">
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+</head>
+
+<body>
+	<div class="gameing_container" id="container">
+		<div class="gameing_header" id="header"></div>
+
+		<!--side right -->
+		<div class="gameing_sidebar" id="sidebar">
+			<div class="gamequiz">
+				<p class="pfont">
+					Time : 15:00 min<br>
+					유형 :<br>
+					문제 <span>7</span>번<br>
+					...
+				</p>
+			</div>
+			<div class="quizbtn">
+				<button class="answer" type="button">답변등록</button>
+				<button class="discard" type="button">포기하기</button>
+			</div>
+			<div class="chat-veiw">
+				<p class="fontp">
+					<b class="fontb">>>게임을 시작합니다.</b><br>
+					>>7번 문제 입니다. <br>
+					>>시간안에 가장 빠르게 푸는 팀이 땅을 차지합니다.<br>
+					>>채팅을 통해 상의가 가능합니다.
+				</p>
+			</div>
+			<div class="chat-input">
+				<from>
+					<input type="text" id="chat" size=19>
+					<button class="btnchat" type="submit">등록</button>
+				</from>
+
+
+			</div>
+			<button class="btn" type="button">시작</button>
+			<button class="btnlogout" type="button">나가기</button>
+		</div>
+
+		<!--content game -->
+		<div class="gameing_content" id="content">
+			<div class="gameing_user">
+				<div class="gameing_team1">
+					<div class="score" style="background-color:#BF9039" id="hover"><span>0</span></div>
 				</div>
-			
-			<!--content game -->
-      		<div id="content">
-				<div class="user">
-					<div class="team1">	
-					</div>
-					<div class="team2">
-					</div>
-					<div class="team3">
-					</div>
-					<div class="team4">
-					</div>
+				<div class="gameing_team2">
+					<div class="score" style="background-color:#BF4C1F"><span>0</span></div>
 				</div>
-				<div class="dicearea">
-					<div class="lottie-container">
-						<div class="ricearea_col">
-							<lottie-player class="rice1" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" 
-										background="transparent" speed="1" loop autoplay></lottie-player><!--loop autoplay-->
-						</div>
-						<div class="ricearea_row">
-							<lottie-player class="rice2" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json" 
-									background="transparent" speed="1" loop autoplay></lottie-player>  
-						</div>
-					</div>
+				<div class="gameing_team3">
+					<div class="score" style="background-color:#1454C2"><span>0</span></div>
 				</div>
-				<div class="quiz">
-					<table class="table">
-						<thead class="tableborder">
-							<tr>
-								<th></th>
-								<th>1</th>
-								<th>2</th>
-								<th>3</th>
-								<th>4</th>
-								<th>5</th>
-								<th>6</th>
-							</tr>
-						</thead>
-						<tbody lass="tableborder">
-							<tr>
-								<th>1</th>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-							</tr>
-							<tr>
-								<th>2</th>
-								<td>7</td>
-								<td>8</td>
-								<td>9</td>
-								<td>10</td>
-								<td>11</td>
-								<td>12</td>
-							</tr>
-							<tr>
-								<th>3</th>
-								<td>13</td>
-								<td>14</td>
-								<td>15</td>
-								<td>16</td>
-								<td>17</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<th>4</th>
-								<td>19</td>
-								<td>20</td>
-								<td>21</td>
-								<td>22</td>
-								<td>23</td>
-								<td>24</td>
-							</tr>
-							<tr>
-								<th>5</th>
-								<td>25</td>
-								<td>26</td>
-								<td>27</td>
-								<td>28</td>
-								<td>29</td>
-								<td>30</td>
-							</tr>
-							<tr>
-								<th>6</th>
-								<td>31</td>
-								<td>32</td>
-								<td>33</td>
-								<td>34</td>
-								<td>35</td>
-								<td>36</td>
-							</tr>							
-						</tbody>
-					</table>
+				<div class="gameing_team4">
+					<div class="score" style="background-color:#6F9C4C"><span>0</span></div>
 				</div>
 			</div>
+			<div class="gameing_dicearea">
+				<div class="gameing_lottie-container">
+					<div class="gameing_ricearea_col">
+						<lottie-player class="rice1" id="seventhLottie" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
+							background="transparent" speed="1" loop autoplay></lottie-player>
+						<!--loop autoplay-->
+					</div>
+					<div class="gameing_ricearea_row">
+						<lottie-player class="rice2" id="seventhLottie" src="https://assets4.lottiefiles.com/packages/lf20_VnhOCi.json"
+							background="transparent" speed="1" loop autoplay></lottie-player>
+					</div>
+				</div>
+			</div>
+			<div class="quiz">
+				<table class="table">
+					<thead class="tableborder">
+						<tr>
+							<th></th>
+							<th class="hover_y">1</th>
+							<th class="hover_y">2</th>
+							<th class="hover_y">3</th>
+							<th class="hover_y">4</th>
+							<th class="hover_y">5</th>
+							<th class="hover_y">6</th>
+						</tr>
+					</thead>
+					<tbody class="tableborder">
+						<tr>
+							<th>1</th>
+							<td class="hover_y">1</td>
+							<td class="hover_y">2</td>
+							<td class="hover_y">3</td>
+							<td class="hover_y">4</td>
+							<td class="hover_y">5</td>
+							<td class="hover_y">6</td>
+						</tr>
+						<tr>
+							<th>2</th>
+							<td class="hover_y">7</td>
+							<td class="hover_y">8</td>
+							<td class="hover_y">9</td>
+							<td class="hover_y">10</td>
+							<td class="hover_y">11</td>
+							<td class="hover_y">12</td>
+						</tr>
+						<tr>
+							<th>3</th>
+							<td class="hover_y">13</td>
+							<td class="hover_y">14</td>
+							<td class="hover_y">15</td>
+							<td class="hover_y">16</td>
+							<td class="hover_y">17</td>
+							<td class="hover_y">18</td>
+						</tr>
+						<tr>
+							<th>4</th>
+							<td class="hover_y">19</td>
+							<td class="hover_y">20</td>
+							<td class="hover_y">21</td>
+							<td class="hover_y">22</td>
+							<td class="hover_y">23</td>
+							<td class="hover_y">24</td>
+						</tr>
+						<tr>
+							<th>5</th>
+							<td class="hover_y">25</td>
+							<td class="hover_y">26</td>
+							<td class="hover_y">27</td>
+							<td class="hover_y">28</td>
+							<td class="hover_y">29</td>
+							<td class="hover_y">30</td>
+						</tr>
+						<tr>
+							<th>6</th>
+							<td class="hover_y">31</td>
+							<td class="hover_y">32</td>
+							<td class="hover_y">33</td>
+							<td class="hover_y">34</td>
+							<td class="hover_y">35</td>
+							<td class="hover_y">36</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</body>
+	</div>
+</body>
+<script>
+	LottieInteractivity.create({
+		player: '#fourteenthLottie',
+		mode: "cursor",
+		actions: [
+			{
+				type: "pauseHold",
+			}
+		]
+	});
+</script>
 </html>

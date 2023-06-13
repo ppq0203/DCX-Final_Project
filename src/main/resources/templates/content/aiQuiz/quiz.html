@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiLayout}">
+<link rel="stylesheet" href="../assets/css/androidstudio_quiz.css">
+<link rel="stylesheet" href="../assets/css/quiz.css">
+
+<head>
+	<style>
+		/* quiz */
+		.quiz__view .true {
+			color: #00f;
+			position: relative;
+			opacity: 0;
+		}
+
+		.quiz__view .false {
+			color: #f00;
+			position: relative;
+			opacity: 0;
+		}
+
+		.quiz__view.like .true {
+			opacity: 1;
+			animation: wobble 0.6s;
+		}
+
+		.quiz__view.dislike .false {
+			opacity: 1;
+			animation: wobble 0.6s;
+		}
+	</style>
+</head>
+<div layout:fragment="content">
+	<div class="row">
+		<div class="col-12 p-5">
+			<div class="row">
+				<div class="col-6">
+					<h2>quiz</h2>
+				</div>
+			</div>
+			<div id="main">
+				<!-- Post -->
+				<section class="post">
+					<header class="major">
+						<h2>소비자 선택 폭 넓혔다···삼성전자, 윈도 OS 탑재 키오스크<br /></h2>
+						<span class="date">June 06, 2023</span>
+					</header>
+
+					<div class="quiz">
+						<span class="quiz__type"></span>
+						<h3 class="quiz__question">
+							<span class="number"></span>
+							<div class="ask"></div>
+						</h3>
+						<div class="quiz__view">
+							<div class="true">정답</div>
+							<div class="false">오답</div>
+						</div>
+						<div class="quiz__answer">
+							<p>삼성전자는 랜도 쉰(OS)을 탑재한 스마트 주문 솔루션 '<input type="text" class="input" placeholder="정답을 적어주세요."><strong class="result"></strong>'를 국내에 기한을 6일로 연장합니다.</p>
+							
+							
+							<br /><button class="confirm">정답 확인</button>
+						</div>
+					</div>
+					<div class="quiz">
+						<span class="quiz__type"></span>
+						<h3 class="quiz__question">
+							<span class="number"></span>
+							<div class="ask"></div>
+						</h3>
+						<div class="quiz__view">
+							<div class="true">정답</div>
+							<div class="false">오답입니다</div>
+						</div>
+						<div class="quiz__answer">
+							<p>삼성전자는 2021년 타이젠 OS를 탑재한 제품을 내는데 이어 이번 <input type="text" class="input" placeholder="정답을 적어주세요."><strong class="result"></strong>를 탑재한 제품으로 소비자 선택의 폭을 넓혔습니다.</p>
+							<br /><button class="confirm">정답 확인</button>
+						</div>
+					</div>
+					<div class="quiz">
+						<span class="quiz__type"></span>
+						<h3 class="quiz__question">
+							<span class="number"></span>
+							<div class="ask"></div>
+						</h3>
+						<div class="quiz__view">
+							<div class="true">정답</div>
+							<div class="false">오답입니다</div>
+						</div>
+						<div class="quiz__answer">
+							<p>삼성 키오스크는 상품을 선택하고 주문과 결제까지 할 수 있는 <input type="text" class="input" placeholder="정답을 적어주세요."><strong class="result"></strong>제품으로 식당·카페·편의점·마트 등에서 활용되고 있다.</p>
+							<br /><button class="confirm">정답 확인</button>
+						</div>
+					</div>
+
+
+
+
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="../assets/js/highlight.min.js"></script>
+<script src="../assets/js/quizcommon.js"></script>
+<script>
+	hljs.highlightAll();
+</script>
+<script>
+	// 선택자
+	const quizType = document.querySelectorAll(".quiz__type");                     // 퀴즈 종류
+	const quizNumber = document.querySelectorAll(".quiz__question .number");       // 퀴즈 번호
+	const quizAsk = document.querySelectorAll(".quiz__question .ask");             // 퀴즈 질문
+	const quizconfirm = document.querySelectorAll(".quiz__answer .confirm");       // 정답 확인 버튼
+	const quizResult = document.querySelectorAll(".quiz__answer .result");         // 정답 결과
+	const quizInput = document.querySelectorAll(".quiz__answer .input");           // 사용자 정답
+	const quizView = document.querySelectorAll(".quiz__view");                 // 댕댕이
+
+	// 문제정보
+	const quizInfo = [
+		{
+			answerType: "", // 퀴즈 종류
+			answerNum: "1", // 퀴즈 번호
+			answerAsk: "", // 퀴즈 질문
+			answerResult: "삼성 키오스크" // 퀴즈 정답
+		},
+		{
+			answerType: "",
+			answerNum: "2",
+			answerAsk: "_?",
+			answerResult: ""
+		},
+		{
+			answerType: "",
+			answerNum: "3",
+			answerAsk: "_?",
+			answerResult: ""
+		}
+	]
+
+
+	// forEach문
+	quizInfo.forEach((e, i) => {
+		quizType[i].textContent = quizInfo[i].answerType;
+		quizNumber[i].textContent = quizInfo[i].answerNum + ". ";
+		quizAsk[i].textContent = quizInfo[i].answerAsk;
+		quizResult[i].textContent = quizInfo[i].answerResult;
+	})
+
+	// 정답숨기기
+	quizInfo.forEach((e, i) => {
+		quizResult[i].style.display = "none";
+	});
+
+	// 정답 확인   
+	quizconfirm.forEach((btn, num) => {
+		btn.addEventListener("click", () => {
+
+			// 사용자 정답
+			const userWord = quizInput[num].value;
+			// console.log(userWord);
+			// 사용자 정답 비교
+			if (userWord == quizInfo[num].answerResult) {
+				// 정답
+				// alert("정답");
+				quizView[num].classList.add("like");
+				quizconfirm[num].style.display = "none";
+			} else {
+				// 오답
+				// alert("오답")
+				quizView[num].classList.add("dislike");
+				quizconfirm[num].style.display = "none";
+				quizResult[num].style.display = "block";
+				quizInput[num].style.display = "none";
+			}
+		})
+	});
+</script>
+
+</html>

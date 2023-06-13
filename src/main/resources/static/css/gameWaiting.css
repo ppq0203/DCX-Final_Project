@@ -22,7 +22,7 @@
 			}
 
 			#content {
-				width: 670px;
+				width: 694px;
 				height: 560px;
 				padding: 10px;
 				float: left;
@@ -71,7 +71,7 @@
 				background: #007351;
 				border: none;
 				outline: 0;
-				width: 210px;
+				width: 222px;
 				height: 70px;
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
@@ -81,7 +81,7 @@
 				font-size: 18px;
 				font-family: 'DungGeunMo';
 				float: left;
-				margin : 0 2px 0 2px;
+				margin : 0 2px 0 0px;
 				
 			}
 
@@ -94,14 +94,14 @@
 
 			.menu2.on,
 			.menu2:hover {
-				background: #007351;
+				background: #00C484;
 				color: white;
 				border: 1px solid #007351
 			}
 
 			.menu3.on,
 			.menu3:hover {
-				background: #007351;
+				background: #00C484;
 				color: white;
 				border: 1px solid #007351
 			}
@@ -111,9 +111,10 @@
 			.solo {
 				display: none;
 				margin-top: 0px;
-				padding: 10px;
+				padding: 8px;
 				border-bottom-left-radius: 5px;
 				border-bottom-right-radius: 5px;
+				width: 671px;
 				height: 465px;
 				border: 1px solid #007351;
 				border-bottom: 2px solid #007351;
@@ -180,7 +181,7 @@
 				height: 25px;
 				padding: 0px;
 				text-align: center;
-				margin: 5px 20px auto;
+				margin: 5px 8px auto;
 				float: right;
 				display: flex;
 				justify-content: center;
@@ -194,13 +195,13 @@
 			}
 
 			.gameroom {
-				width: 610px;
+				width: 800px;
 				float: center;
 				font-family: 'DungGeunMo';
 			}
 
 			.M_gameroom_left {
-				width: 285px;
+				width: 316px;
 				height: 100px;
 				margin: 5px;
 				background: white;
@@ -212,7 +213,7 @@
 			}
 
 			.M_gameroom_right {
-				width: 285px;
+				width: 316px;
 				height: 100px;
 				margin: 5px;
 				background: white;
@@ -823,9 +824,9 @@
 				padding : 5px 0px 5px 0px;
 				font-size:25px;
 			}
-			.gamemode-team{
+			/* .gamemode-team{
 				display: none;
 			}
 			.gamemode-solo{
 				display: none;
-			}
+			} */

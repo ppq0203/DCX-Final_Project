@@ -12,10 +12,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class StringCodeCompile {
-	public static int stringCodeCompile(int roomNo, int UserNo, String functionName, List<TestcaseDto> testcaseDtos, String code)
+	public static int stringCodeCompile(String roomNo, String UserNo, String functionName, List<TestcaseDto> testcaseDtos, String code)
 	{
 		int result = 0;
-		String directoryPath = roomNo + "/" + UserNo;
+		String directoryPath = "game/" + roomNo + "/" + UserNo;
 		File theDir = new File(directoryPath);
 		if (!theDir.exists()) theDir.mkdirs();
 		String filePath = directoryPath + "/Solution.java";
