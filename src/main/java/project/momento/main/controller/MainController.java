@@ -35,11 +35,22 @@ public class MainController {
 	@Autowired
 	private MainService mainService;
 	
+	
+	
+	@RequestMapping(value = "/", produces = "application/text;charset=utf-8")
+	public String Main(Model model, HttpServletRequest request) {
+		
+		return "content/main/userMain";
+	}
+	
+	
+	
+	
 	/*
 	 * 
 	 */
 	@RequestMapping(value = "/{userDivn}/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String Main(@PathVariable String userDivn, Model model, HttpServletRequest request) {
+	public String lmsMain(@PathVariable String userDivn, Model model, HttpServletRequest request) {
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		
 		if (!(loginDto == null)) {
