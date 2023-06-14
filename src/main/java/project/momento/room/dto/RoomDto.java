@@ -24,6 +24,8 @@ public class RoomDto {
 	private List<QuestionDto> questionList;
 	private List<Integer> shuffleNo;
 	
+	private int owner;
+	
 	private String pkRoomSeq; /*방에 부여되는 고유번호 roomId (지금 임시적으로 세션만으로 구현하는 형태로 String형으로 하였음. DB사용할때는 int로 처리할것. */ 
 	
 	private String roomNo; /* 방 번호  */

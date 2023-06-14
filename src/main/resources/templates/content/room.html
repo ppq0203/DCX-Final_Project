@@ -394,6 +394,7 @@
 				 
 				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
+					owner = /*[[${room.owner}]]*/0;
 					
 					Object.keys(content.waitList).forEach(function (index, i) {
 						value = content.waitList[index];
@@ -416,55 +417,77 @@
 						}
 					}
 					
-
-					Object.keys(content.team1).forEach(function(index, i) {
-						value = content.team1[index];
-						
-						str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
-						str += "<div class='col-sys'>";
-						str += "<b class='fontp'>" + value + "</b>";
-						str += "</div>";
-						$("#" + index + "").remove();
-						$("#team1").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-						$("#game-" + index + "").remove();
-						$("#game1").prepend(gtr);
-					});
+					if(content.team1 != undefined){
+						Object.keys(content.team1).forEach(function(index, i) {
+							value = content.team1[index];
+							
+							str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>";
+							if(index == owner){
+								str +="&#x1F31A"
+							}
+							str += value + "</b>";
+							str += "</div>";
+							$("#" + index + "").remove();
+							$("#team1").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game1").prepend(gtr);
+						});
+					}
 					
-					Object.keys(content.team2).forEach(function (index, i) {
-						value = content.team2[index];
-
-						str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
-						str += "<div class='col-sys'>";
-						str += "<b class='fontp'>" + value + "</b>";
-						str += "</div></div>";
-						$("#" + index + "").remove();
-						$("#team2").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-						$("#game-" + index + "").remove();
-						$("#game2").prepend(gtr);
-					});
+					if(content.team2 != undefined){
+						Object.keys(content.team2).forEach(function (index, i) {
+							value = content.team2[index];
+	
+							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>";
+							if(index == owner){
+								str +="&#x1F31A";
+							}
+							str += value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team2").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game2").prepend(gtr);
+						});
+					}
 					
-					Object.keys(content.team3).forEach(function (index, i) {
-						value = content.team3[index];
-
-						str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
-						str += "<div class='col-sys'>";
-						str += "<b class='fontp'>" + value + "</b>";
-						str += "</div></div>";
-						$("#" + index + "").remove();
-						$("#team3").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-						$("#game-" + index + "").remove();
-						$("#game3").prepend(gtr);
-					});
+					if(content.team3 != undefined){
+						Object.keys(content.team3).forEach(function (index, i) {
+							value = content.team3[index];
+	
+							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>";
+							if(index == owner){
+								str +="&#x1F31A";
+							}
+							str += value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team3").append(str);
+							gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							$("#game-" + index + "").remove();
+							$("#game3").prepend(gtr);
+						});
+					}
 					
+					if(content.team4 != undefined){
 					Object.keys(content.team4).forEach(function (index, i) {
 						value = content.team4[index];
 						
 						str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
 						str += "<div class='col-sys'>";
-						str += "<b class='fontp' style='text-align'>" + value + "</b>";
+						str += "<b class='fontp'>";
+							if(index == owner){
+								str +="&#x1F31A";
+							}
+							str += value + "</b>";
 						str += "</div></div>";
 						$("#" + index + "").remove();
 						$("#team4").append(str);
@@ -472,26 +495,17 @@
 						$("#game-" + index + "").remove();
 						$("#game4").prepend(gtr);
 					});
+					}
 					
-					//if (3 > /*[[${room.roomNumber}]]*/0) {
-					//	str = "<div class='waiting_room_block'></div>";
-					//	$("#team3").append(str);
-					//	$("#team3").append(str);
-					//	$("#team3").append(str);
-					//	$("#team3").append(str);
-					//}
-					
-					//if (4 > /*[[${room.roomNumber}]]*/0) {
-					//	str = "<div class='waiting_room_block'></div>";
-					//	$("#team4").append(str);
-					//	$("#team4").append(str);
-					//	$("#team4").append(str);
-					//	$("#team4").append(str);
-					//}
 				});
 
 				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
 					var content = chat.body;
+					if(content == owner)
+					{
+						alert("방장이 드랍했습니다.");
+						window.location.href = '/chat/rooms';
+					}
 					$("#" + content + "").remove();
 					$("#game-" + content + "").remove();
 				});
@@ -544,7 +558,7 @@
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
-				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName}))
+				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName}));
 			});
 
 			$("#team1").on("click", function (e) {
@@ -553,8 +567,7 @@
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
-					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team1").attr('id')}))
-					userTeamNo = 1;
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team1").attr('id')}));
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
@@ -566,8 +579,7 @@
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
-					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team2").attr('id')}))
-					userTeamNo = 2;
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team2").attr('id')}));
 				}
 				$("#content").css("pointer-events", "none")
 				$("#content").css("opacity", "100%")
@@ -584,8 +596,7 @@
 					}
 					else
 					{
-						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team3").attr('id')}))
-						userTeamNo = 3;
+						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team3").attr('id')}));
 					}
 				}
 				$("#content").css("pointer-events", "none")
@@ -603,8 +614,7 @@
 					}
 					else
 					{
-						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team4").attr('id')}))
-						userTeamNo = 4;
+						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team4").attr('id')}));
 					}
 				}
 

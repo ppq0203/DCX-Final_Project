@@ -1,6 +1,7 @@
 package project.momento.room.service;
 
 import project.momento.chat.dto.ChatDto;
+import project.momento.login.dto.LoginDto;
 import project.momento.room.dto.RoomDto;
 import project.momento.room.mapper.RoomMapper;
 
@@ -45,7 +46,7 @@ public class RoomService {
 		return roomDtoMap.get(pkRoomSeq);
 	} // ID로 방 찾기 (검색기능)
 	
-	public RoomDto createRoomDto(RoomDto roomDto) {
+	public RoomDto createRoomDto(RoomDto roomDto, LoginDto loginDto) {
 		roomDto.setPkRoomSeq(UUID.randomUUID().toString());
 		if(roomDto.getTeamNumber() != 0)
 			roomDto.setTotal(roomDto.getRoomNumber()*roomDto.getTeamNumber());
@@ -62,35 +63,44 @@ public class RoomService {
 		roomDto.setShuffleNo(intList);
 //		RoomDto room = RoomDto.create(roomDto);
 		roomDtoMap.put(roomDto.getPkRoomSeq(), roomDto);
+		roomDto.setOwner(loginDto.getPkUserSeq());
 		
 		return roomDto;
 	} // 방 생성
 
-	public String addUser(ChatDto message) {
+	public void addUser(ChatDto message) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
 		// 현재는 임시로 생성해 두었지만 실제로 완성시 세션의 유저고유번호를 저장해야함
-		String userUUID = UUID.randomUUID().toString();
 		if(room.getUserList().get("waitList") == null)
 		{
 			HashMap dump = new HashMap();
 			dump.put("dump", "dump");
 			room.getUserList().put("waitList", dump);
-			room.getUserList().get("waitList").put(userUUID, message.getUserName());
+			room.getUserList().get("waitList").put(message.getPkUserSeq(), message.getUserName());
 			room.getUserList().get("waitList").remove("dump");
 		}else {
-			room.getUserList().get("waitList").put(userUUID, message.getUserName());
+			room.getUserList().get("waitList").put(message.getPkUserSeq(), message.getUserName());
 		}
 		
 		room.setParticipants(room.getParticipants() + 1);
-		return userUUID;
 	}
 	
-	public void delUser(String roomId, String userUUID, String team) {
+	public void delUser(String roomId, int pkUserSeq, String team) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(roomId);
-		room.getUserList().get(team).remove(userUUID);
+		room.getUserList().get(team).remove(pkUserSeq);
 		room.setParticipants(room.getParticipants() - 1);
+		if(room.getOwner() == pkUserSeq) {
+			roomDtoMap.remove(roomId);
+		}else if((room.getUserList().get("waitList") == null || room.getUserList().get("waitList").isEmpty()) 
+        		&& (room.getUserList().get("team1") == null || room.getUserList().get("team1").isEmpty()) 
+        		&& (room.getUserList().get("team2") == null || room.getUserList().get("team2").isEmpty())
+        		&& (room.getUserList().get("team3") == null || room.getUserList().get("team3").isEmpty()) 
+        		&& (room.getUserList().get("team4") == null || room.getUserList().get("team4").isEmpty()))
+        {
+        	roomDtoMap.remove(roomId);
+        }
 	}
 
 	public HashMap<String, String> getUserList(ChatDto message) {
@@ -100,10 +110,10 @@ public class RoomService {
 		return userList;
 	}
 
-	public String getUserName(String roomId, String userUUID, String team) {
+	public String getUserName(String roomId, int pkUserSeq, String team) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(roomId);
-		String userName = (String) room.getUserList().get(team).get(userUUID);
+		String userName = (String) room.getUserList().get(team).get(pkUserSeq);
 
         return userName;
 	}
