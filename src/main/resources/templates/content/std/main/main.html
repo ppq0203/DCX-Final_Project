@@ -13,32 +13,16 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-4">
-							<div class="chart">
-								<canvas id="barChart"
-									style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 406px;"
-									width="812" height="500" class="chartjs-render-monitor barChart"></canvas>
+						<div class="col-12">
+							<div class="card">
+								<div class="chart">
+									<canvas id="aiChart"
+										style="min-height: 250px; height: 500px; max-height: 500px; max-width: 100%; display: block; width: 406px;"
+										width="812" height="500" class="chartjs-render-monitor gameChart"></canvas>
+								</div>
 							</div>
 						</div>
-						<div class="col-4">
-							<div class="chart">
-								<canvas id="barChart"
-									style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 406px;"
-									width="812" height="500" class="chartjs-render-monitor barChart"></canvas>
-							</div>
-						</div>
-						<div class="col-4">
-							<div class="chart">
-								<canvas id="barChart"
-									style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 406px;"
-									width="812" height="500" class="chartjs-render-monitor barChart"></canvas>
-							</div>
-						</div>
-
 					</div>
-
-
-
 				</div>
 				<div class="modal-footer justify-content-between">
 					<div class="col-12">
@@ -67,7 +51,7 @@
 	<div class="content">
 		<div class="row">
 			<!--캘린더-->
-			<div class="col-6">
+			<div class="col-8">
 				<div class="card card-primary card-outline">
 					<div class="card-body">
 						<div id="calendar"></div>
@@ -75,7 +59,7 @@
 
 				</div>
 			</div>
-			<div class="col-6">
+			<div class="col-4">
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<div class="row">
@@ -84,87 +68,44 @@
 							</div>
 							<div class="card-tools col-6 text-right">
 								<button data-toggle="modal" data-target="#modal-xl" type="button"
-									class="btn btn-primary btn-sm" data-action="create"
-									onclick="changeButtonAction(this)">
-									<span>등록</span>
+									class="btn btn-primary btn-sm chartModalBtn"
+									th:data-pkUserSeq="${session.loginDto.pkUserSeq}">
+									<span>보기</span>
 								</button>
+
 							</div>
 						</div>
 					</div>
 					<div class="card-body ">
-						<table class="table text-center">
-							<thead>
-								<tr>
-									<th scope="col">No.</th>
-									<th scope="col">이름</th>
-									<th scope="col">역량</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><span>1</span></td>
-									<td><span>이름</span></td>
-									<td>
-										<button type="button" class="btn btn-default" data-toggle="modal"
-											data-target="#modal-xl">
-											보기
-										</button>
+						<div class="info-box" style="height: 15rem;">
+							<span class="info-box-icon bg-info elevation-1" style="height: 100px; width: 100px;"><i
+									class="fas fa-cog"></i></span>
+							<div class="info-box-content" >
+								<span class="info-box-number" th:utext="${session.loginDto.name}"></span>
+								<span class="info-box-number">AI</span>
+								<span class="info-box-text" th:text="${'정답문제: '+ aiResult.oValue + ' 틀린문제: '+ aiResult.xValue}">
+								</span>
+								<span class="info-box-number">Game</span>
+								<span class="info-box-text" th:text="${'정답문제: '+ gameResult.oValue + ' 틀린문제: '+ gameResult.xValue}">
+								</span>
+								<span class="info-box-number">test</span>
+								<span class="info-box-text" th:text="${'정답문제: '+ examResult.oValue + ' 틀린문제: '+ examResult.xValue}">
+								</span>
+							</div>
 
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						</div>
 					</div>
 				</div>
 			</div>
 			<!--차트-->
 		</div>
 		<!--1번 row-->
-		<!--출결관리-->
-		<div class="row">
-			<div class="col-12">
-				<div class="card card-primary card-outline">
-					<div class="card-header">
-						<div class="row">
-							<div class="col-6">
-								<h4>학생정보</h4>
-							</div>
-						</div>
-					</div>
-					<div class="card-body table-responsive">
-						<table class="table table-hover text-nowrap text-center">
-							<thead>
-								<tr>
-									<th>No.</th>
-									<th>교육명</th>
-									<th>이름</th>
-									<th>생년월일</th>
-									<th>전화번호</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="item, index : ${list}">
-									<td th:text="${index.index + 1}"></td>
-									<td th:text="${item.educationName}"></td>
-									<td th:text="${item.name}"></td>
-									<td th:text="${item.birthday}"></td>
-									<td th:text="${item.phone}"></td>
-								</tr>
-
-							</tbody>
-						</table>
-					</div>
-					<!--미구현-->
-				</div>
-			</div>
-
-		</div>
 	</div>
 	<script>
-
-
-
 		var CALENDAR_ARRAY = [];
+		var GAME_CHART_DATA = '';
+		var AI_CHART_DATA = '';
+		var EXAM_CHART_DATA = '';
 		// 랜덤 색상 생성 함수
 		function getRandomColor() {
 			var letters = '0123456789ABCDEF';
@@ -218,6 +159,7 @@
 				success: function (data) {
 					// 이벤트 리스트를 배열로 변환
 					var CALENDAR_ARRAY = data.map(function (event) {
+						
 						return {
 							id: event.pkSubjectSeq,
 							title: event.subjectName,
@@ -237,91 +179,110 @@
 				}
 			});
 
-			/* ChartJS
-			 * -------
-			 * Here we will create a few charts using ChartJS
-			 */
 
-			var areaChartData = {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-				datasets: [
-					{
-						label: 'Digital Goods',
-						backgroundColor: 'rgba(60,141,188,0.9)',
-						borderColor: 'rgba(60,141,188,0.8)',
-						pointRadius: false,
-						pointColor: '#3b8bba',
-						pointStrokeColor: 'rgba(60,141,188,1)',
-						pointHighlightFill: '#fff',
-						pointHighlightStroke: 'rgba(60,141,188,1)',
-						data: [28, 48, 40, 19, 86, 27, 90]
+
+			$('.chartModalBtn').click(function () {
+				var pkUserSeq = $(this).attr('data-pkuserseq');
+				var url = '/chart/list/' + pkUserSeq;
+				// AJAX 호출
+				$.ajax({
+					url: url,
+					type: 'POST',
+					dataType: 'json',
+					success: function (data) {
+						GAME_CHART_DATA = '';
+						AI_CHART_DATA = '';
+						EXAM_CHART_DATA = '';
+						GAME_CHART_DATA = data.gameResult;
+						AI_CHART_DATA = data.aiResult;
+						EXAM_CHART_DATA = data.examResult;
+						var marksData = {
+							labels: ["AI", "GAME", "TEST"],
+							datasets: []
+						};
+						var RGB_1 = Math.floor(Math.random() * (255 + 1))
+						var RGB_2 = Math.floor(Math.random() * (255 + 1))
+						var RGB_3 = Math.floor(Math.random() * (255 + 1))
+						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+
+						marksData.datasets.push({
+							label: ["최대"],
+							backgroundColor: strRGBA,
+							borderColor: strRGBA,
+							pointBackgroundColor: strRGBA,
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [AI_CHART_DATA.maxVal, GAME_CHART_DATA.maxVal, EXAM_CHART_DATA.maxVal]
+						});
+
+						var RGB_1 = Math.floor(Math.random() * (255 + 1))
+						var RGB_2 = Math.floor(Math.random() * (255 + 1))
+						var RGB_3 = Math.floor(Math.random() * (255 + 1))
+						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+
+						marksData.datasets.push({
+							label: ["최소"],
+							backgroundColor: strRGBA,
+							borderColor: strRGBA,
+							pointBackgroundColor: strRGBA,
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [AI_CHART_DATA.minVal, GAME_CHART_DATA.minVal, EXAM_CHART_DATA.minVal]
+						});
+						var RGB_1 = Math.floor(Math.random() * (255 + 1))
+						var RGB_2 = Math.floor(Math.random() * (255 + 1))
+						var RGB_3 = Math.floor(Math.random() * (255 + 1))
+						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+						marksData.datasets.push({
+							label: ["나"],
+							backgroundColor: strRGBA,
+							borderColor: strRGBA,
+							pointBackgroundColor: strRGBA,
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [AI_CHART_DATA.userVal, GAME_CHART_DATA.userVal, EXAM_CHART_DATA.userVal]
+						});
+						var RGB_1 = Math.floor(Math.random() * (255 + 1))
+						var RGB_2 = Math.floor(Math.random() * (255 + 1))
+						var RGB_3 = Math.floor(Math.random() * (255 + 1))
+						var strRGBA = 'rgba(' + RGB_1 + ',' + RGB_2 + ',' + RGB_3 + ',0.3)'
+						marksData.datasets.push({
+							label: ["평균"],
+							backgroundColor: strRGBA,
+							borderColor: strRGBA,
+							pointBackgroundColor: strRGBA,
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [AI_CHART_DATA.avgVal, GAME_CHART_DATA.avgVal, EXAM_CHART_DATA.avgVal]
+						});
+
+
+						var marksCanvas = document.getElementById("aiChart");
+
+						var chartOptions = {
+							responsive: true
+
+						};
+
+						var radarChart = new Chart(marksCanvas, {
+							type: 'radar',
+							data: marksData,
+							options: chartOptions
+						});
+
 					},
-					{
-						label: 'Electronics',
-						backgroundColor: 'rgba(210, 214, 222, 1)',
-						borderColor: 'rgba(210, 214, 222, 1)',
-						pointRadius: false,
-						pointColor: 'rgba(210, 214, 222, 1)',
-						pointStrokeColor: '#c1c7d1',
-						pointHighlightFill: '#fff',
-						pointHighlightStroke: 'rgba(220,220,220,1)',
-						data: [65, 59, 80, 81, 56, 55, 40]
-					},
-					{
-						label: 'Electronics',
-						backgroundColor: 'rgba(210, 214, 222, 1)',
-						borderColor: 'rgba(210, 214, 222, 1)',
-						pointRadius: false,
-						pointColor: 'rgba(210, 214, 222, 1)',
-						pointStrokeColor: '#c1c7d1',
-						pointHighlightFill: '#fff',
-						pointHighlightStroke: 'rgba(220,220,220,1)',
-						data: [65, 59, 80, 81, 56, 55, 40]
-					},
-				]
-			}
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
+			});
 
-			var areaChartOptions = {
-				maintainAspectRatio: false,
-				responsive: true,
-				legend: {
-					display: false
-				},
-				scales: {
-					xAxes: [{
-						gridLines: {
-							display: false,
-						}
-					}],
-					yAxes: [{
-						gridLines: {
-							display: false,
-						}
-					}]
-				}
-			}
 
-			//-------------
-			//- BAR CHART -
-			//-------------
-			var barChartCanvas = $('.barChart').get(0).getContext('2d')
-			var barChartData = $.extend(true, {}, areaChartData)
-			var temp0 = areaChartData.datasets[0]
-			var temp1 = areaChartData.datasets[1]
-			barChartData.datasets[0] = temp1
-			barChartData.datasets[1] = temp0
 
-			var barChartOptions = {
-				responsive: true,
-				maintainAspectRatio: false,
-				datasetFill: false
-			}
-
-			new Chart(barChartCanvas, {
-				type: 'bar',
-				data: barChartData,
-				options: barChartOptions
-			})
 
 		});
 	</script>

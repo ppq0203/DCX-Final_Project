@@ -19,7 +19,7 @@
 				EMAIL,
 				USER_DIVN,
 				REGIST_DT,
-				USER_IMG
+				PK_FILE_SEQ
 			)
 			VALUES
 			(	
@@ -34,7 +34,44 @@
 				#{email},
 				#{userDivn},
 				SYSDATE(),
-				ifnull(#{imgPath}, null)
+				ifnull(#{pkFileSeq}, 0)
+			)
+			ON DUPLICATE KEY UPDATE
+			USE_YN = IF(USE_YN != 'D' ,'Y', 'D')
+		]]>
+	</insert>
+	
+	<insert id="insertManager" parameterType="project.momento.sign.dto.SignDto">
+		<![CDATA[
+			INSERT INTO MANAGER
+			(	
+				PK_USER_SEQ,
+				USER_ID,
+				PASSWORD,
+				NAME,
+				PHONE,
+				BIRTHDAY,
+				ADDRESS,
+				DETAILED_ADDRESS,
+				EMAIL,
+				USER_DIVN,
+				REGIST_DT,
+				PK_FILE_SEQ
+			)
+			VALUES
+			(	
+				ifnull(#{pkUserSeq}, null),
+				#{userId},
+				#{password},
+				#{name},
+				#{phone},
+				#{birthday},
+				#{address},
+				#{detailedAddress},
+				#{email},
+				#{userDivn},
+				SYSDATE(),
+				ifnull(#{pkFileSeq}, 0)
 			)
 			ON DUPLICATE KEY UPDATE
 			USE_YN = IF(USE_YN != 'D' ,'Y', 'D')

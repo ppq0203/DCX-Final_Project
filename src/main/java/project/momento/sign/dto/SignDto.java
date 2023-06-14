@@ -5,6 +5,7 @@ package project.momento.sign.dto;
 /* sign.html에 있는 가져오는 정보의 이름를 연결해주는 곳 */
 
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -42,6 +43,8 @@ public class SignDto {
 	private String registDt;
 	/*수강 상태(N: 퇴소, Y: 수강중, E: 수료)*/
 	private String classState;
-	/*이미지 경로*/
-	private String imgPath;
+	
+	private int pkFileSeq;
+	
+	private MultipartFile imgFile;
 }
