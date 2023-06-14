@@ -21,16 +21,16 @@
 		        , qq				AS oValue
 		FROM
 		    (SELECT
-		        MAX(ss) AS maxVal,
-		        MIN(ss) AS minVal,
-		        AVG(ss) AS avgVal,
-		        bb
+		        MAX(ss) AS maxVal
+		        , MIN(ss) AS minVal
+		        , AVG(ss) AS avgVal
+		        , bb
 		        , qq
 		    FROM
 		        (SELECT
 		            COUNT(CASE WHEN A.ANSWER_OX = 'O' THEN 1 END)/COUNT(A.ANSWER_OX) AS ss
-		            , COUNT(CASE WHEN A.ANSWER_OX = 'O' THEN 1 END) AS qq
-		            , COUNT(A.ANSWER_OX) AS bb
+		            , (SELECT COUNT(CASE WHEN FA.ANSWER_OX = 'O' THEN 1 END) FROM ANSWER FA WHERE FA.PK_USER_SEQ = #{pkUserSeq}) AS qq
+		            , (SELECT COUNT(FB.ANSWER_OX) FROM ANSWER FB WHERE FB.PK_USER_SEQ = #{pkUserSeq}) AS bb
 		        FROM
 		            ANSWER A
 		        GROUP BY
@@ -55,10 +55,11 @@
 		        WHERE
 		            A.PK_USER_SEQ = #{pkUserSeq}
 		        GROUP BY
-		            A.PK_USER_SEQ) AS userVal,
-		        SUM(A.ANSWER_NUM)/SUM(A.QUESTION_NUM) AS ss
-		        , SUM(A.ANSWER_NUM)		AS qq
-		        , SUM(A.QUESTION_NUM)		AS bb
+		            A.PK_USER_SEQ) AS userVal
+					, SUM(A.ANSWER_NUM)/SUM(A.QUESTION_NUM) AS ss
+					, (SELECT SUM(FA.ANSWER_NUM) FROM AI_QUESTION_RESULT FA WHERE FA.PK_USER_SEQ = #{pkUserSeq}) AS qq
+					, (SELECT SUM(FA.QUESTION_NUM) FROM AI_QUESTION_RESULT FA WHERE FA.PK_USER_SEQ = #{pkUserSeq}) AS bb
+
 		    FROM
 		        AI_QUESTION_RESULT A
 		    GROUP BY
@@ -74,13 +75,15 @@
 			 , (SELECT COUNT(CASE WHEN SA.ANS_RESULT = 'Y' THEN 1 END) / COUNT(SA.ANS_RESULT)
 		     FROM LMS_EXAM_RESULT SA
 		     WHERE SA.PK_USER_SEQ = #{pkUserSeq}) AS userVal
-		     , ss				AS oValue
+		     , aa				AS oValue
 		     , qq				AS xValue
 		FROM (
 		    SELECT
-		        COUNT(CASE WHEN A.ANS_RESULT = 'Y' THEN 1 END) AS ss,
-		        COUNT(CASE WHEN A.ANS_RESULT = 'N' THEN 1 END) AS qq,
-		        COUNT(A.ANS_RESULT) AS dd
+		        COUNT(CASE WHEN A.ANS_RESULT = 'Y' THEN 1 END) AS ss
+		        , (SELECT COUNT(CASE WHEN FA.ANS_RESULT = 'Y' THEN 1 END) FROM LMS_EXAM_RESULT FA WHERE FA.PK_USER_SEQ = #{pkUserSeq}) AS aa
+		        , (SELECT COUNT(CASE WHEN FA.ANS_RESULT = 'N' THEN 1 END) FROM LMS_EXAM_RESULT FA WHERE FA.PK_USER_SEQ = #{pkUserSeq}) AS qq
+
+		        , COUNT(A.ANS_RESULT) AS dd
 		    FROM LMS_EXAM_RESULT A
 		    GROUP BY A.PK_USER_SEQ
 		) PA
