@@ -75,7 +75,7 @@ public class QnaController {
 		}
 	}
 	
-	@RequestMapping(value="/std/qna/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
+	@RequestMapping(value="/{userDivn}/qna/create", produces="application/text;charset=utf-8") /* value주소 불러오기 이름*/
 	public String insertQna(@PathVariable String userDivn, Model model, QnaDto qnaDto) {
 		qnaService.insertQna(qnaDto);
 		return "redirect:/std/qna/main";

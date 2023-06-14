@@ -112,6 +112,5 @@ public class EducationService {
 		// TODO Auto-generated method stub
 		return educationMapper.getEducationListAll();
 	}
-
 	
 }

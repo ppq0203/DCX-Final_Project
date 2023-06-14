@@ -18,16 +18,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import project.momento.education.dto.EducationDto;
+import project.momento.education.service.EducationService;
 import project.momento.file.dto.FileDto;
 import project.momento.file.service.FileService;
 import project.momento.login.dto.LoginDto;
 import project.momento.login.service.LoginService;
+import project.momento.subject.dto.SubjectDto;
 
 @Controller
 public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private EducationService educationService;
 	@Autowired
 	private FileService fileService;
 
@@ -55,7 +60,13 @@ public class LoginController {
 		} else {
 			FileDto fileDto = fileService.selectFile(loginCheck.getPkFileSeq());
 			if (fileDto != null) {
-				Path imagePath = Paths.get(fileDto.getFilePath());
+				String Path;
+				if (fileService.isWindows()) {
+					Path = "C:\\file\\" + fileDto.getFileNm();
+				} else {
+					Path = "/file/" + fileDto.getFileNm();
+				}
+				Path imagePath = Paths.get(Path);
 				if (Files.exists(imagePath)) {
 					try {
 						byte[] imageBytes = Files.readAllBytes(imagePath);
@@ -72,7 +83,7 @@ public class LoginController {
 			// return "redirect:/"+loginCheck.getUserDivn()+"/main";
 		}
 	}
-
+	
 	@RequestMapping(value = "/{userDivn}/login/out", produces = "application/text;charset=utf-8")
 	public String logout(@PathVariable String userDivn, HttpSession session, HttpServletRequest request)
 			throws Exception {
