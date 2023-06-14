@@ -183,7 +183,7 @@ public class StompChatController {
         RoomDto roomDto = shambles.roomDtoMap.get(roomId);
         // 포기한사람을 저장
         Set<String> giveupList = roomDto.getGiveupList();
-        giveupList.add(userUUID);
+        giveupList.add(Integer.toString(message.getUserNo()));
         System.out.println(giveupList.size());
     	// 전부 포기 했을때
     	if(giveupList.size() >= roomDto.getParticipants())
