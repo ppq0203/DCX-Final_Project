@@ -114,18 +114,10 @@
 								id="score2">0</span></div>
 					</div>
 					<div class="gameing_team3" id="game3">
-						<div class="gameing_t3-user1"></div>
-						<div class="gameing_t3-user1"></div>
-						<div class="gameing_t3-user1"></div>
-						<div class="gameing_t3-nouser"></div>
 						<div class="gameing_score" style="background-color:#1454C2"><span class="gameing_scorenum"
 								id="score3">0</span></div>
 					</div>
 					<div class="gameing_team4" id="game4">
-						<div class="gameing_t4-user1"></div>
-						<div class="gameing_t4-user1"></div>
-						<div class="gameing_t4-user1"></div>
-						<div class="gameing_t4-nouser"></div>
 						<div class="gameing_score" style="background-color:#6F9C4C"><span class="gameing_scorenum"
 								id="score4">0</span></div>
 					</div>
@@ -567,11 +559,12 @@
 					//else
 					//	alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
 					dice_animation_start()
+					resultFillColor(content.teamNo);
 					if (nowNo >= 36) {
+						
 						resultCalc();
 					}
 					else {
-						resultFillColor(content.teamNo);
 						setTimeout(function () {
 							// Code to be executed after the delay
 							get_index_and_prob();
@@ -784,6 +777,7 @@
 			var tempScore = 0;
 			for (var i = 1; i <= 4; ++i) {
 				tempScore = $("#score" + i).text();
+				tempScore = parseInt(tempScore);
 				if (maxCount < tempScore)
 					maxCount = tempScore;
 			}
