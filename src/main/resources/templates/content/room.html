@@ -353,7 +353,7 @@
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
 		var stomp = Stomp.over(sockJs);
 		$(document).ready(function () {
-
+			
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
@@ -388,7 +388,7 @@
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					// 첫접속시 유저 고유번호 저장
-
+					
 					console.log("pkUserSeq : " + content.pkUserSeq);
 					if (pkUserSeq == "0") {
 						pkUserSeq = content.pkUserSeq;
@@ -431,21 +431,23 @@
 					
 					if(content.team1 != undefined){
 						Object.keys(content.team1).forEach(function(index, i) {
-							value = content.team1[index];
-							
+							text = content.team1[index];
+							var value = text.split("%^&^%");
+
 							str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
 							if(index == owner){
 								str +="&#x1F31A"
 							}
-							str += value + "</b>";
-							str += "</div>";
+							str += value[0] + "</b>";
+							str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
+							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team1").append(str);
 							gtr = "<div class='gameing_t1-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
-							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value[0] + "<br></b>";
 							gtr += "</div></div>";
 							$("#game-" + index + "").remove();
 							$("#game1").prepend(gtr);
@@ -454,7 +456,8 @@
 
 					if(content.team2 != undefined){
 						Object.keys(content.team2).forEach(function (index, i) {
-							value = content.team2[index];
+							text = content.team2[index];
+							var value = text.split("%^&^%");
 	
 							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
@@ -462,14 +465,15 @@
 							if(index == owner){
 								str +="&#x1F31A";
 							}
-							str += value + "</b>";
+							str += value[0] + "</b>";
+							str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team2").append(str);
 							
 							gtr = "<div class='gameing_t2-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
-							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value[0] + "<br></b>";
 							gtr += "</div></div>";
 							$("#game-" + index + "").remove();
 							$("#game2").prepend(gtr);
@@ -478,7 +482,8 @@
 					
 					if(content.team3 != undefined){
 						Object.keys(content.team3).forEach(function (index, i) {
-							value = content.team3[index];
+							text = content.team3[index];
+							var value = text.split("%^&^%");
 	
 							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
@@ -486,13 +491,14 @@
 							if(index == owner){
 								str +="&#x1F31A";
 							}
-							str += value + "</b>";
+							str += value[0] + "</b>";
+							str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team3").append(str);
 							gtr = "<div class='gameing_t3-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
-							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value[0] + "<br></b>";
 							gtr += "</div></div>";
 							$("#game-" + index + "").remove();
 							$("#game3").prepend(gtr);
@@ -501,7 +507,8 @@
 					
 					if(content.team4 != undefined){
 						Object.keys(content.team4).forEach(function (index, i) {
-							value = content.team4[index];
+							text = content.team4[index];
+							var value = text.split("%^&^%");
 	
 							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
@@ -509,13 +516,14 @@
 								if(index == owner){
 									str +="&#x1F31A";
 								}
-								str += value + "</b>";
+								str += value[0] + "</b>";
+								str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team4").append(str);
 							gtr = "<div class='gameing_t4-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
-							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value[0] + "<br></b>";
 							gtr += "</div></div>";
 							$("#game-" + index + "").remove();
 							$("#game4").prepend(gtr);
@@ -582,7 +590,7 @@
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
-				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName}));
+				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName, rank: /*[[${session.Rank}]]*/0}));
 			});
 
 			$("#team1").on("click", function (e) {

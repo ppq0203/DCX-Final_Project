@@ -66,6 +66,7 @@ public class MainController {
 			MainDto gameResult = mainService.selectGameChart(mainDto);
 	        calculateScoreRank(gameResult); // gameResult의 등급 계산
 	        model.addAttribute("gameResult", gameResult);
+	        request.getSession().setAttribute("Rank", gameResult.getColor());
 	        
 	        MainDto aiResult = mainService.selectAiChart(mainDto);
 	        calculateScoreRank(aiResult); // aiResult의 등급 계산

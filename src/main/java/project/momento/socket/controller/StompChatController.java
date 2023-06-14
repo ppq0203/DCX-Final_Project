@@ -87,7 +87,7 @@ public class StompChatController {
 		int pkUserSeq = (int) headerAccessor.getSessionAttributes().get("pkUserSeq");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         String team = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
-        
+
         if(!message.getUserTeamNumber().equals(team))
         {
 	        if(room.getUserList().get(message.getUserTeamNumber()) == null)
