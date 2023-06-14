@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import project.momento.answer.dto.AnswerDto;
 import project.momento.answer.service.AnswerService;
 import project.momento.chat.dto.ChatDto;
-import project.momento.login.dto.LoginDto;
 import project.momento.question.dto.QuestionDto;
 import project.momento.question.dto.TestcaseDto;
 import project.momento.question.function.AnswerToDB;
@@ -60,16 +59,16 @@ public class StompChatController {
 	public void enter(ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
 		RoomDto room = shambles.roomDtoMap.get(message.getPkRoomSeq());
 		
-		message.setChatContent(message.getPkUserSeq() + "님이 채팅방에 참여하였습니다.");
+		message.setChatContent(message.getUserName() + "님이 채팅방에 참여하였습니다.");
 		
-		String userUUID = shambles.addUser(message);
+		shambles.addUser(message);
 		HashMap<String, HashMap> userList = room.getUserList();
 		
-		headerAccessor.getSessionAttributes().put("userUUID",userUUID);
+		headerAccessor.getSessionAttributes().put("pkUserSeq",message.getPkUserSeq());
         headerAccessor.getSessionAttributes().put("roomId",message.getPkRoomSeq());
         headerAccessor.getSessionAttributes().put("userTeamNumber", "waitList");
         
-        message.setPkUserSeq(userUUID);
+        
 		template.convertAndSend("/sub/chat/system/" + message.getPkRoomSeq(), message);
 		template.convertAndSend("/sub/chat/userList/" + message.getPkRoomSeq(), userList);
 	}
@@ -77,7 +76,7 @@ public class StompChatController {
 	@MessageMapping(value="/chat/system")
 	public void systemNoti(@Payload ChatDto message) {
 		message.setChatContent("방방봐 테스트");
-		message.setPkUserSeq("SYSTEM");
+		message.setUserName("SYSTEM");
 		template.convertAndSend("/sub/chat/system/" + message.getPkRoomSeq(), message);
 	}
 	
@@ -85,7 +84,7 @@ public class StompChatController {
 	public void changeTeam(@Payload ChatDto message, SimpMessageHeaderAccessor headerAccessor) {
 		RoomDto room = shambles.roomDtoMap.get(message.getPkRoomSeq());
 
-		String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+		int pkUserSeq = (int) headerAccessor.getSessionAttributes().get("pkUserSeq");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         String team = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
         
@@ -96,15 +95,15 @@ public class StompChatController {
 				HashMap dump = new HashMap();
 				dump.put("dump", "dump");
 				room.getUserList().put(message.getUserTeamNumber(), dump);
-				room.getUserList().get(message.getUserTeamNumber()).put(userUUID, room.getUserList().get(team).get(userUUID));
+				room.getUserList().get(message.getUserTeamNumber()).put(pkUserSeq, room.getUserList().get(team).get(pkUserSeq));
 				room.getUserList().get(message.getUserTeamNumber()).remove("dump");
 			}
 	        else
 	        {
-	        	room.getUserList().get(message.getUserTeamNumber()).put(userUUID, room.getUserList().get(team).get(userUUID));
+	        	room.getUserList().get(message.getUserTeamNumber()).put(pkUserSeq, room.getUserList().get(team).get(pkUserSeq));
 	        }
         
-        	room.getUserList().get(team).remove(userUUID);
+        	room.getUserList().get(team).remove(pkUserSeq);
         }
         
         HashMap<String, HashMap> userList = room.getUserList();
@@ -126,7 +125,7 @@ public class StompChatController {
         System.out.println(" [+] " + headerAccessor);
 
         // stomp 세션에 있던 uuid 와 roomId 를 확인하여 채팅방 유저 리스트와 room에서 해당 유저를 삭제
-        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        int pkUserSeq = (int) headerAccessor.getSessionAttributes().get("pkUserSeq");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         String team = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
         
@@ -134,37 +133,27 @@ public class StompChatController {
 //        shambles.decreaseUser(roomId);
 
         //채팅방 유저 리스트에서 UUID 유저 닉네임 조회 및 리스트에서 유저 삭제
-        String userName = shambles.getUserName(roomId, userUUID, team);
+        String userName = shambles.getUserName(roomId, pkUserSeq, team);
 
         if(userName != null){
         	ChatDto test = new ChatDto();
         	test.setChatContent(userName + "님이 채팅방에 퇴장하셨습니다.");
             template.convertAndSend("/sub/chat/system/" + roomId, test);
-            template.convertAndSend("/sub/chat/rm/" + roomId, userUUID);
+            template.convertAndSend("/sub/chat/rm/" + roomId, pkUserSeq);
         }
         
-        shambles.delUser(roomId,userUUID, team);
-        
-        RoomDto room = shambles.roomDtoMap.get(roomId);
-        if((room.getUserList().get("waitList") == null || room.getUserList().get("waitList").isEmpty()) 
-        		&& (room.getUserList().get("team1") == null || room.getUserList().get("team1").isEmpty()) 
-        		&& (room.getUserList().get("team2") == null || room.getUserList().get("team2").isEmpty())
-        		&& (room.getUserList().get("team3") == null || room.getUserList().get("team3").isEmpty()) 
-        		&& (room.getUserList().get("team4") == null || room.getUserList().get("team4").isEmpty()))
-        {
-        	shambles.roomDtoMap.remove(roomId);
-        }
+        shambles.delUser(roomId,pkUserSeq, team);
     }
 	
     @MessageMapping(value= "/chat/gamestart")
 	public void gameStart(MultigameResultDto message, SimpMessageHeaderAccessor headerAccessor) {
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        int pkUserSeq = (int) headerAccessor.getSessionAttributes().get("pkUserSeq");
         String userTeamNumber = (String) headerAccessor.getSessionAttributes().get("userTeamNumber");
         RoomDto roomDto = shambles.roomDtoMap.get(roomId);
         roomDto.setIsRunning(1);
     	message.setTeamNo(userTeamNumber.replace("team", ""));
-    	message.setUserNo(userUUID);
+    	message.setUserNo(pkUserSeq);
 		template.convertAndSend("/sub/chat/gamestart/" + roomId, message);
 	}
     
@@ -194,13 +183,13 @@ public class StompChatController {
         RoomDto roomDto = shambles.roomDtoMap.get(roomId);
         // 포기한사람을 저장
         Set<String> giveupList = roomDto.getGiveupList();
-        giveupList.add(userUUID);
+        giveupList.add(Integer.toString(message.getUserNo()));
         System.out.println(giveupList.size());
     	// 전부 포기 했을때
     	if(giveupList.size() >= roomDto.getParticipants())
         {
     		message.setTeamNo("0");
-        	message.setUserNo("0");
+        	message.setUserNo(0);
         	String json = null;
     		template.convertAndSend("/sub/chat/correct/" + roomId, message);
     		giveupList.clear();

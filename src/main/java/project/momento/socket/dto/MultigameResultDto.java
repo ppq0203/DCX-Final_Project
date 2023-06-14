@@ -8,7 +8,7 @@ import lombok.Setter;
 public class MultigameResultDto {
 	private String roomId;
     private String teamNo;
-    private String userNo;
+    private int userNo;
     private String userName;
     private String type;
 }

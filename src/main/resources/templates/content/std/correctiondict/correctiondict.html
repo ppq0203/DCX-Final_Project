@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiLayout}">
+
+<th:block layout:fragment="content">
+	<div class="row">
+		<div class="col-12 p-5">
+			<div class="row">
+				<div class="col-6">
+					<h2>용어사전</h2>
+				</div>
+				<div class="card-tools col-6 text-right">
+					<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary"
+						data-action="create">
+						<span>등록</span>
+					</button>
+				</div>
+			</div>
+			<!-- /.card-header -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">용어명</th>
+						<th scope="col">뜻</th>
+						<th scope="col">수정</th>
+						<th scope="col">삭제</th>
+					</tr>
+				</thead>
+
+				<body>
+					<tr>
+						<td>1</td>
+						<td>HashMap</td>
+						<td>Map 인터페이스를 구현한 대표적인 Map 컬렉션입니다.</td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-two"
+								type="button" class="btn btn-primary updateBtn"
+								data-action="modify">
+								<span>수정</span>
+							</button>
+						</td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-two"
+								type="button" class="btn btn-primary updateBtn"
+								data-action="modify">
+								<span>삭제</span>
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>WebSocket</td>
+						<td>WebSocket은 클라이언트와 서버(브라우저와 서버)를 연결하고 실시간으로 통신이 가능하도록 하는 첨단 기술입니다.</td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-two"
+								type="button" class="btn btn-primary updateBtn"
+								data-action="modify">
+								<span>수정</span>
+							</button>
+						</td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-two"
+								type="button" class="btn btn-primary updateBtn"
+								data-action="modify">
+								<span>삭제</span>
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Thymeleaf</td>
+						<td>View Template 중 하나로 컨트롤러가 전달하는 데이터를 이용하여 동적으로 화면을 구성할 수 있게 해줍니다.</td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-two"
+								type="button" class="btn btn-primary updateBtn"
+								data-action="modify">
+								<span>수정</span>
+							</button>
+						</td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-two"
+								type="button" class="btn btn-primary updateBtn"
+								data-action="modify">
+								<span>삭제</span>
+							</button>
+						</td>
+					</tr>					
+				</body>
+			</table>
+
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<form action="/std/exam/result" method="POST" onsubmit="return validation()">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">단어장</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+
+									<div class="form-group">
+										<label>용어</label>
+										<input type="text" class="form-control" placeholder="Enter ...">
+									</div>
+								</div>
+								<div class="col-12">
+
+									<div class="form-group">
+										<label>뜻</label>
+										<textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="submit" divn="delete" class="btn btn-primary modelBtn">
+							<span>등록</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal fade" id="modal-xl-three" style="display: none;" aria-hidden="true">
+		<form action="/mng/exam/result/score" method="POST">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">시험 결과</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div id="resultDiv" class="row">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+
+		$(document).ready(function () {
+
+		});
+		
+		// 삭제
+		function deleteRow(ths){
+			var ths = $(ths);
+
+			ths.parents("tr").remove();
+		}
+
+	</script>
+	</th:block>
+
+</html>

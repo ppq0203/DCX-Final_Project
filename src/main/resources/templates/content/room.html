@@ -9,7 +9,6 @@
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 	<!--<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">-->
 	<script th:src="@{/js/dice.js}"></script>
-
 	<!-- ------------------------ 대기방 ---------------------------- -->
 	<div id="waitRoom" class="waiting_room_container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 		<div class="waiting_room_header" id="header"></div>
@@ -17,10 +16,10 @@
 		<div class="waiting_room_sidebar" id="sidebar">
 			<div class="waiting_room_gameinfo">
 				<ul class="waiting_room_no_dot">
-					<li>게임 유형 :</li>
-					<li>난이도 : </li>
-					<li>문제당 시간 : </li>
-					<li>문제 개수 : </li>
+					<li>게임 유형 : 팀전</li>
+					<li>난이도 : <span id = "level"></span></li>
+					<!-- <li>문제당 시간 : </li> -->
+					<li>문제 개수 : 36</li>
 				</ul>
 			</div>
 			<div>
@@ -34,11 +33,11 @@
 				</from>
 			</div>
 			<button class="waiting_room_btn" type="button" id="gamestart">시작</button>
-			<button class="waiting_room_btnlogout" type="button">나가기</button>
+			<button class="waiting_room_btnlogout" type="button" onclick="location.href='/chat/rooms'">나가기</button>
 		</div>
 		<div class="waiting_room_content" id="content">
 			<div class="waiting_room_wait" id="waitList">
-				
+
 			</div>
 			<div class="waiting_room_team1" id="team1">
 				<div class='waiting_room_block' id='t1_block3'></div>
@@ -70,12 +69,12 @@
 	<!-- ----------------------- 대기방 끝 --------------------------- -->
 
 	<!-- ------------------------게임방------------------------------ -->
-	<div id="gameRoom" style="display:none;" >
+	<div id="gameRoom" style="display:none;">
 		<div class="gameing_container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 			<div class="gameing_header" id="header"></div>
 			<!--side right -->
 			<div class="gameing_sidebar" id="sidebar">
-				<div class="gameing_gamequiz">
+				<div class="gameing_gamequiz" id="quiz_info">
 					<p class="pfont">
 						Time : 15:00 min<br>
 						유형 :<br>
@@ -83,56 +82,42 @@
 						...
 					</p>
 				</div>
-				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제 열기</button>
-				<div class="gameing_chat-veiw">
-					<p class="fontp">
+				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제
+					열기</button>
+				<div class="gameing_chat-veiw" id="game_msgArea">
+					<!--<p class="fontp">
 						<b class="fontb">>>게임을 시작합니다.</b><br>
 						>>7번 문제 입니다. <br>
 						>>시간안에 가장 빠르게 푸는 팀이 땅을 차지합니다.<br>
 						>>채팅을 통해 상의가 가능합니다.
-					</p>
+					</p>-->
 				</div>
 				<div class="gameing_chat-input">
-					<form>
-						<input type="text" class="gameing_msg" id="chat" size=19>
-						<button class="btnchat" type="submit">등록</button>
-					</form>
+					<input type="text" class="gameing_msg" id="chat" size=19>
+					<button class="btnchat" type="button" id="game_chat">등록</button>
 				</div>
-				<button class="gameing_btnlogout" type="button">나가기</button>
 			</div>
 
 			<!--content game -->
 			<div class="gameing_content" id="content">
 				<div class="gameing_user">
 					<div class="gameing_team1" id="game1">
-						<div class="gameing_t1-user1"></div>
-						<div class="gameing_t1-user1"></div>
-						<div class="gameing_t1-user1"></div>
-						<div class="gameing_t1-nouser"></div>
 						<div class="gameing_score" style="background-color:#BF9039" id="hover"><span
 								class="gameing_scorenum" id="score1">0</span></div>
 					</div>
 					<div class="gameing_team2" id="game2">
+						<!--<div class="gameing_t2-user1"></div>
 						<div class="gameing_t2-user1"></div>
 						<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-nouser"></div>
+						<div class="gameing_t2-nouser"></div>-->
 						<div class="gameing_score" style="background-color:#BF4C1F"><span class="gameing_scorenum"
 								id="score2">0</span></div>
 					</div>
 					<div class="gameing_team3" id="game3">
-						<div class="gameing_t3-user1"></div>
-						<div class="gameing_t3-user1"></div>
-						<div class="gameing_t3-user1"></div>
-						<div class="gameing_t3-nouser"></div>
 						<div class="gameing_score" style="background-color:#1454C2"><span class="gameing_scorenum"
 								id="score3">0</span></div>
 					</div>
 					<div class="gameing_team4" id="game4">
-						<div class="gameing_t4-user1"></div>
-						<div class="gameing_t4-user1"></div>
-						<div class="gameing_t4-user1"></div>
-						<div class="gameing_t4-nouser"></div>
 						<div class="gameing_score" style="background-color:#6F9C4C"><span class="gameing_scorenum"
 								id="score4">0</span></div>
 					</div>
@@ -239,7 +224,8 @@
 					</div>
 					<div class="modal-body">
 						<div class="card card-outline card-info">
-							<div class="card-header">
+							<div class="card-header" style="display: none;">
+								<!-- 지우면 수정해야되서 그냥 숨김  -->
 								<h3 id="questionName" class="card-title"></h3>
 								<input type="hidden" id="nameQuestion">
 
@@ -250,38 +236,31 @@
 										문제
 									</h3>
 								</div>
-
-								<div class="card-body p-0">
+								<div class="card-body col mb-0 p-0">
 									<input type="hidden" id="questionType">
-									<p id="questionContents"></p>
-								</div>
-								<div class="card-footer">
-								</div>
-							</div>
-							<div class="card card-outline card-info">
-								<div class="card-header">
-										<h3 class="card-title">
-										Input Example
-									</h3>
-								</div>
-	
-								<div class="card-body p-0">
-									<p id="questionInput"></p>
-								</div>
-								<div class="card-footer">
-								</div>
-							</div>
-							<div class="card card-outline card-info">
-								<div class="card-header">
-									<h3 class="card-title">
-										Output Example
-									</h3>
-								</div>
-	
-								<div class="card-body p-0">
-									<p id="questionOutput"></p>
-								</div>
-								<div class="card-footer">
+									<p class="mb-4" id="questionContents"></p>
+									<div class="card-group">
+										<div class="card col-md-6 mb-0">
+											<div class="card-header">
+												<h3 class="card-title">
+													Input Example
+												</h3>
+											</div>
+											<div class="card-body p-0">
+												<p id="questionInput"></p>
+											</div>
+										</div>
+										<div class="card col-md-6 mb-0">
+											<div class="card-header">
+												<h3 class="card-title">
+													Output Example
+												</h3>
+											</div>
+											<div class="card-body p-0">
+												<p id="questionOutput"></p>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<!-- 기존 코드 -->
@@ -364,6 +343,17 @@
 		var pkUserSeq = /*[[${session.loginDto.pkUserSeq}]]*/0;
 		var userName = /*[[${session.loginDto.name}]]*/0;
 		var userTeamNo;
+		var roomLevel = /*[[${room.roomLevel}]]*/0;
+		var owner = /*[[${room.owner}]]*/0;
+		if (roomLevel == 1){
+			roomLevel = "Easy";
+		}else if (roomLevel == 2){
+			roomLevel = "MID";
+		}else if (roomLevel == 3){
+			roomLevel = "HARD";
+		}else if (roomLevel == 4){
+			roomLevel = "RANDOM";
+		}
 		
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -375,12 +365,12 @@
 				console.log("STOMP Connection")
 				stomp.subscribe("/sub/chat/gamestart/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
-					$('#gameRoom').css('display', 'block'); 
+					$('#gameRoom').css('display', 'block');
 					$('#waitRoom').css('display', 'none');
 					console.log(userTeamNo);
 					// 주사위결과를 보여주는 함수 실행
-					setTimeout(function() {
-					    // Code to be executed after the delay
+					setTimeout(function () {
+						// Code to be executed after the delay
 						get_index_and_prob();
 					}, 5000);
 				});
@@ -397,6 +387,8 @@
 					str += "</div>";
 					$("#msgArea").append(str);
 					$("#msgArea").scrollTop($("#msgArea")[0].scrollHeight);
+					$("#game_msgArea").append(str);
+					$("#game_msgArea").scrollTop($("#game_msgArea")[0].scrollHeight);
 				});
 
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
@@ -417,107 +409,133 @@
 					str += "</div></div>";
 					$("#msgArea").append(str);
 				});
-				 
+
+
 				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					
 					Object.keys(content.waitList).forEach(function (index, i) {
 						value = content.waitList[index];
-						
+
 						str = "<div class='waiting_room_wait' display:none' id = '" + index + "'></div>";
 						$("#" + index + "").remove();
 						$("#waitList").append(str);
 					});
-					
+
 					teamNumber = /*[[${room.teamNumber}]]*/0
-					for(i = 0; i  < teamNumber; i++){
-						$("#t1_block"+i+"").remove();
-						$("#t2_block"+i+"").remove();
-						
-						if(!(3 > /*[[${room.roomNumber}]]*/0)){
-							$("#t3_block"+i+"").remove();
+					for (i = 0; i < teamNumber; i++) {
+						$("#t1_block" + i + "").remove();
+						$("#t2_block" + i + "").remove();
+
+						if (!(3 > /*[[${room.roomNumber}]]*/0)) {
+							$("#t3_block" + i + "").remove();
 						}
-						if(!(4 > /*[[${room.roomNumber}]]*/0)){
-							$("#t4_block"+i+"").remove();
+						if (!(4 > /*[[${room.roomNumber}]]*/0)) {
+							$("#t4_block" + i + "").remove();
 						}
 					}
 					
+					if(content.team1 != undefined){
+						Object.keys(content.team1).forEach(function(index, i) {
+							value = content.team1[index];
+							
+							str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>";
+							if(index == owner){
+								str +="&#x1F31A"
+							}
+							str += value + "</b>";
+							str += "</div>";
+							$("#" + index + "").remove();
+							$("#team1").append(str);
+							gtr = "<div class='gameing_t1-user1' id=game-" + index + ">";
+							gtr += "<div class='col-sys'>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "</div></div>";
+							$("#game-" + index + "").remove();
+							$("#game1").prepend(gtr);
+						});
+					}
 
-					Object.keys(content.team1).forEach(function(index, i) {
-						value = content.team1[index];
-						
-						str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
-						str += "<div class='col-sys'>";
-						str += "<b class='fontp'>" + value + "</b>";
-						str += "</div>";
-						$("#" + index + "").remove();
-						$("#team1").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-						$("#game-" + index + "").remove();
-						$("#game1").prepend(gtr);
-					});
+					if(content.team2 != undefined){
+						Object.keys(content.team2).forEach(function (index, i) {
+							value = content.team2[index];
+	
+							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>";
+							if(index == owner){
+								str +="&#x1F31A";
+							}
+							str += value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team2").append(str);
+							
+							gtr = "<div class='gameing_t2-user1' id=game-" + index + ">";
+							gtr += "<div class='col-sys'>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "</div></div>";
+							$("#game-" + index + "").remove();
+							$("#game2").prepend(gtr);
+						});
+					}
 					
-					Object.keys(content.team2).forEach(function (index, i) {
-						value = content.team2[index];
-
-						str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
-						str += "<div class='col-sys'>";
-						str += "<b class='fontp'>" + value + "</b>";
-						str += "</div></div>";
-						$("#" + index + "").remove();
-						$("#team2").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-						$("#game-" + index + "").remove();
-						$("#game2").prepend(gtr);
-					});
+					if(content.team3 != undefined){
+						Object.keys(content.team3).forEach(function (index, i) {
+							value = content.team3[index];
+	
+							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>";
+							if(index == owner){
+								str +="&#x1F31A";
+							}
+							str += value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team3").append(str);
+							gtr = "<div class='gameing_t3-user1' id=game-" + index + ">";
+							gtr += "<div class='col-sys'>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "</div></div>";
+							$("#game-" + index + "").remove();
+							$("#game3").prepend(gtr);
+						});
+					}
 					
-					Object.keys(content.team3).forEach(function (index, i) {
-						value = content.team3[index];
-
-						str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
-						str += "<div class='col-sys'>";
-						str += "<b class='fontp'>" + value + "</b>";
-						str += "</div></div>";
-						$("#" + index + "").remove();
-						$("#team3").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-						$("#game-" + index + "").remove();
-						$("#game3").prepend(gtr);
-					});
-					
-					Object.keys(content.team4).forEach(function (index, i) {
-						value = content.team4[index];
-						
-						str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
-						str += "<div class='col-sys'>";
-						str += "<b class='fontp' style='text-align'>" + value + "</b>";
-						str += "</div></div>";
-						$("#" + index + "").remove();
-						$("#team4").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
-						$("#game-" + index + "").remove();
-						$("#game4").prepend(gtr);
-					});
-					
-					//if (3 > /*[[${room.roomNumber}]]*/0) {
-					//	str = "<div class='waiting_room_block'></div>";
-					//	$("#team3").append(str);
-					//	$("#team3").append(str);
-					//	$("#team3").append(str);
-					//	$("#team3").append(str);
-					//}
-					
-					//if (4 > /*[[${room.roomNumber}]]*/0) {
-					//	str = "<div class='waiting_room_block'></div>";
-					//	$("#team4").append(str);
-					//	$("#team4").append(str);
-					//	$("#team4").append(str);
-					//	$("#team4").append(str);
-					//}
+					if(content.team4 != undefined){
+						Object.keys(content.team4).forEach(function (index, i) {
+							value = content.team4[index];
+	
+							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
+							str += "<div class='col-sys'>";
+							str += "<b class='fontp'>";
+								if(index == owner){
+									str +="&#x1F31A";
+								}
+								str += value + "</b>";
+							str += "</div></div>";
+							$("#" + index + "").remove();
+							$("#team4").append(str);
+							gtr = "<div class='gameing_t4-user1' id=game-" + index + ">";
+							gtr += "<div class='col-sys'>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "</div></div>";
+							$("#game-" + index + "").remove();
+							$("#game4").prepend(gtr);
+						});
+					}
 				});
 
 				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
 					var content = chat.body;
+					if(content == owner)
+					{
+						alert("방장이 드랍했습니다.");
+						window.location.href = '/chat/rooms';
+					}
 					$("#" + content + "").remove();
 					$("#game-" + content + "").remove();
 				});
@@ -535,21 +553,22 @@
 					}
 					$('.modal').modal('hide');
 					nowNo += 1;
-					
+
 					//if (content.teamNo == 0)
 					//	alert(content.teamNo + "전원 포기하셨습니다.");
 					//else
 					//	alert(content.teamNo + "팀에서 정답을 맞췄습니다.");
 					dice_animation_start()
-					if(nowNo >= 36){
+					resultFillColor(content.teamNo);
+					if (nowNo >= 36) {
+						
 						resultCalc();
 					}
-					else{
-						resultFillColor(content.teamNo);
-						setTimeout(function() {
-						    // Code to be executed after the delay
+					else {
+						setTimeout(function () {
+							// Code to be executed after the delay
 							get_index_and_prob();
-						  }, 5000); // Delay of 2000 milliseconds (2 seconds)
+						}, 5000); // Delay of 2000 milliseconds (2 seconds)
 					}
 				});
 
@@ -570,7 +589,7 @@
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
-				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName}))
+				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName}));
 			});
 
 			$("#team1").on("click", function (e) {
@@ -579,7 +598,7 @@
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
-					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team1").attr('id')}))
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team1").attr('id')}));
 					userTeamNo = 1;
 				}
 				$("#content").css("pointer-events", "none")
@@ -592,7 +611,7 @@
 					alert("팀이 꽉 찼습니다.");
 				}
 				else {
-					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team2").attr('id')}))
+					stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team2").attr('id')}));
 					userTeamNo = 2;
 				}
 				$("#content").css("pointer-events", "none")
@@ -608,8 +627,7 @@
 					if ($("#team3").children('.waiting_room_t3-user1').length >= /*[[${room.teamNumber}]]*/0) {
 						alert("팀이 꽉 찼습니다.");
 					}
-					else
-					{
+					else {
 						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team3").attr('id')}))
 						userTeamNo = 3;
 					}
@@ -627,8 +645,7 @@
 					if ($("#team4").children('.waiting_room_t4-user1').length >= /*[[${room.teamNumber}]]*/0) {
 						alert("팀이 꽉 찼습니다.");
 					}
-					else
-					{
+					else {
 						stomp.send('/pub/chat/TeamChange', {}, JSON.stringify({pkRoomSeq: roomId, userTeamNumber: $("#team4").attr('id')}))
 						userTeamNo = 4;
 					}
@@ -648,6 +665,12 @@
 				msg.value = '';
 			});
 
+			$("#game_chat").on("click", function (e) {
+				var chat = document.getElementById("chat");
+				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: chat.value, pkUserSeq: pkUserSeq}));
+				chat.value = '';
+			});
+
 			$(".teamchange").on("click", function (e) {
 				$("#content").css("pointer-events", "all")
 				$("#content").css("opacity", "80%")
@@ -660,36 +683,47 @@
 					msg.value = '';
 				}
 			});
-
-			$("#gamestart").on("click", function() {
-				var allReady = 1;
-				for(var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++)
-				{
-					if($("#team" + i + "").children(".waiting_room_t"+i+"-user1").length < 1)
-					{
-						allReady = 0;
-						alert("팀에 적어도 1명이상의 플레이어가 있어야 합니다.");
-						break;
-					}
-				}
-				if(allReady != 0)
-				{
-					if($("#waitList").children().length > 0)
-					{
-						alert("모든 참가자가 팀에 참여해야 합니다.!");
-					}
-					else{
-						stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
-					}
-					
+			$("#chat").keyup(function () {
+				if (event.keyCode == 13) {
+					var chat = document.getElementById("chat");
+					stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: chat.value, pkUserSeq: pkUserSeq}));
+					chat.value = '';
 				}
 			});
+
+			$("#gamestart").on("click", function () {
+				var allReady = 1;
+				console.log("5555" + owner);
+				console.log("6666" + pkUserSeq);
+				if(owner == pkUserSeq){
+					for (var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++) {
+						if ($("#team" + i + "").children(".waiting_room_t" + i + "-user1").length < 1) {
+							allReady = 0;
+							alert("팀에 적어도 1명이상의 플레이어가 있어야 합니다.");
+							break;
+						}
+					}
+					if (allReady != 0) {
+						if ($("#waitList").children().length > 0) {
+							alert("모든 참가자가 팀에 참여해야 합니다.!");
+						}
+						else {
+							stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+						}
+	
+					}
+				}
+				else{
+					alert("방장이 아닙니다!");
+				}
+			});
+			$("#level").text(roomLevel);
 		});
 		// 주사위 애니메이션 다시 시작
-		function dice_animation_start(){
+		function dice_animation_start() {
 			$('.gameing_rice1').css('display', 'block')
 			$('.gameing_rice2').css('display', 'block')
-			
+
 			$('#first_stop_dice').remove();
 			$('#second_stop_dice').remove();
 		}
@@ -748,24 +782,22 @@
 		function resultCalc() {
 			var maxCount = 0;
 			var tempScore = 0;
-			for(var i = 1; i <= 4; ++i)
-			{
-				tempScore = $("#score"+i).text();
-				if(maxCount < tempScore)
+			for (var i = 1; i <= 4; ++i) {
+				tempScore = $("#score" + i).text();
+				tempScore = parseInt(tempScore);
+				if (maxCount < tempScore)
 					maxCount = tempScore;
 			}
-			tempScore = $("#score"+userTeamNo).text();
-			if (maxCount <= tempScore)
-			{
+			tempScore = $("#score" + userTeamNo).text();
+			if (maxCount <= tempScore) {
 				$("#win").css("display", "inline");
 				$("#lose").css("display", "none");
 			}
-			else
-			{
+			else {
 				$("#win").css("display", "none");
 				$("#lose").css("display", "inline");
 			}
-			
+
 			var total = 0;
 			var solve = 0;
 			var str;
@@ -781,17 +813,14 @@
 				total += value[1];
 				solve += value[0];
 			}
-			for (var i = 1; i <= 4; ++i)
-			{
-				if (roomNumber >= i)
-				{
-					var scoreTagId = "#score"+i;
-					var totalTagId = "#t"+i+"total";
-					$(totalTagId).text($(scoreTagId).text()); 
+			for (var i = 1; i <= 4; ++i) {
+				if (roomNumber >= i) {
+					var scoreTagId = "#score" + i;
+					var totalTagId = "#t" + i + "total";
+					$(totalTagId).text($(scoreTagId).text());
 				}
-				else
-				{
-					var resultTagId = "#t"+i+"result";
+				else {
+					var resultTagId = "#t" + i + "result";
 					$(resultTagId).remove();
 				}
 			}
@@ -816,16 +845,16 @@
 			/*var diceImage = $('<img>').attr('src', 
 			
 			'"/momento/src/main/resources/static/img/game_dice"' + dice1 + '.png"'); */
-			
+
 			str1 = "<img class='stop_dice_style' id='first_stop_dice' src='/img/game_dice" + dice1 + ".png'>";
 			str2 = "<img class='stop_dice_style2' id='second_stop_dice' src='/img/game_dice" + dice2 + ".png'>";
-			
+
 			// 주사위 이미지를 dice div에 추가
 			$('#game_dice_stop').append(str1);
 			$('#game_dice_stop2').append(str2);
-			
+
 			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
-			setTimeout(function() {
+			setTimeout(function () {
 				$('.modal').modal('show');
 				loadQuestion(questionList[nowNo]);
 			}, 1000);
@@ -836,7 +865,7 @@
 		}
 
 		function resultFillColor(teamNo) {
-			tagId = "#q" + shuffleNo[nowNo-1];
+			tagId = "#q" + shuffleNo[nowNo - 1];
 			if (teamNo == 0)	// all giveup
 			{
 				$(tagId).css("background-color", "gray");
@@ -868,7 +897,7 @@
 		// 문제정보를 모달창에 저장하는 함수
 		function loadQuestion(question) {
 			//console.log("test");
-			title = question.pkQuestionSeq + "번째 문제";
+			title = question.pkQuestionSeq + "." + name;
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
@@ -895,9 +924,8 @@
 			console.log(pkUserSeq);
 			stomp.send('/pub/chat/sendAnswer', {}, JSON.stringify({pkQuestionSeq: pkQuestionSeq, answerUser: code, answerOx: name, pkUserSeq: pkUserSeq}));
 		}
-		function giveup()
-		{
-			stomp.send('/pub/chat/giveup', {}, JSON.stringify({}));
+		function giveup() {
+			stomp.send('/pub/chat/giveup', {}, JSON.stringify({userNo: pkUserSeq}));
 		}
 	</script>
 
