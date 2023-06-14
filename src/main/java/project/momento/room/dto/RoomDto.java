@@ -17,7 +17,7 @@ import project.momento.question.dto.QuestionDto;
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
 /*방*/
 public class RoomDto {
-	
+
 	private Set<String> giveupList = new HashSet<String>();
 	private HashMap<String,HashMap> userList = new HashMap<>(); /*참여중인 유저의 리스트를 뽑기 위한 리스트*/
 
@@ -55,6 +55,8 @@ public class RoomDto {
 	private int total; /*방 총 인원수*/
 
 	private String updateDt; /*방 수정 시간*/
+	
+	private int isRunning; /*현재 게임중인지 체크*/
 	
 //	private Set<WebSocketSession> sessions = new HashSet<>();
 //	

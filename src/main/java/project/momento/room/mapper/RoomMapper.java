@@ -10,11 +10,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface RoomMapper {
-//	List<RoomDto> findAllRooms();
-//	List<RoomDto> createRoom(String roomName);
-//	List<RoomDto> findRoomByName(String roomName);
 	
+	List<RoomDto> findAllRooms();
+	List<RoomDto> createRoom(String roomName);
+	List<RoomDto> findRoomByName(String roomName);
 	
-	void insertRoom(RoomDto rmDto);
-//	List<RoomDto> selectRoom(int pkRoomSeq);
+    void insertRoom(RoomDto roomDto);
+    List<RoomDto> getAllRooms();
+    List<RoomDto> getRoomByPkRoomSeq(int pkRoomSeq);
+    void deleteRoomByPkRoomSeq(int pkRoomSeq);
 }
