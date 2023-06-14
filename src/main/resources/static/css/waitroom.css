@@ -814,6 +814,7 @@
 	margin: 7px;
 	border: 3px solid white;
 	overflow: scroll;
+	overflow-x: hidden;
 }
 
 .gameing_quizread {
@@ -1186,4 +1187,7 @@ tbody tr th {
 }
 .quiz_infos{
 	font-family: 'GmarketSansMedium';
+}
+.host_image{
+	width: 15px;
 }
