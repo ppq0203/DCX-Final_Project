@@ -344,6 +344,7 @@
 		var userName = /*[[${session.loginDto.name}]]*/0;
 		var userTeamNo;
 		var roomLevel = /*[[${room.roomLevel}]]*/0;
+		var owner = /*[[${room.owner}]]*/0;
 		if (roomLevel == 1){
 			roomLevel = "Easy";
 		}else if (roomLevel == 2){
@@ -412,7 +413,6 @@
 
 				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
-					owner = /*[[${room.owner}]]*/0;
 					
 					Object.keys(content.waitList).forEach(function (index, i) {
 						value = content.waitList[index];
@@ -693,21 +693,28 @@
 
 			$("#gamestart").on("click", function () {
 				var allReady = 1;
-				for (var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++) {
-					if ($("#team" + i + "").children(".waiting_room_t" + i + "-user1").length < 1) {
-						allReady = 0;
-						alert("팀에 적어도 1명이상의 플레이어가 있어야 합니다.");
-						break;
+				console.log("5555" + owner);
+				console.log("6666" + pkUserSeq);
+				if(owner == pkUserSeq){
+					for (var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++) {
+						if ($("#team" + i + "").children(".waiting_room_t" + i + "-user1").length < 1) {
+							allReady = 0;
+							alert("팀에 적어도 1명이상의 플레이어가 있어야 합니다.");
+							break;
+						}
+					}
+					if (allReady != 0) {
+						if ($("#waitList").children().length > 0) {
+							alert("모든 참가자가 팀에 참여해야 합니다.!");
+						}
+						else {
+							stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
+						}
+	
 					}
 				}
-				if (allReady != 0) {
-					if ($("#waitList").children().length > 0) {
-						alert("모든 참가자가 팀에 참여해야 합니다.!");
-					}
-					else {
-						stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
-					}
-
+				else{
+					alert("방장이 아닙니다!");
 				}
 			});
 			$("#level").text(roomLevel);
