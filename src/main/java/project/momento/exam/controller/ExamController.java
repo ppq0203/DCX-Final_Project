@@ -174,7 +174,6 @@ public class ExamController {
 		examDto.setPkUserSeq(pkUserSeq);
 		examDto.setExamDivn("N");
 		List<ExamDto> resultList = examService.selectExamResultDetailList(examDto);
-		System.out.println(resultList);
 		model.addAttribute("resultList", resultList);
 		return resultList;
 	}
@@ -189,7 +188,6 @@ public class ExamController {
 		examDto.setPkUserSeq(pkUserSeq);
 		examDto.setExamDivn("Y");
 		List<ExamDto> resultList = examService.selectExamResultDoneDetailList(examDto);
-		System.out.println(resultList);
 		model.addAttribute("resultList", resultList);
 		return resultList;
 	}

@@ -9,8 +9,6 @@
         EDUCATION_NAME,
         SUB_START_DT,
         SUB_END_DT,
-        EDUCATION_TEST,
-        EDUCATION_TEST_DT,
         REGIST_ID,
         REGIST_DT
     ) VALUES (
@@ -18,8 +16,6 @@
         #{educationName},
         #{subStartDt},
         #{subEndDt},
-        #{educationTest},
-        #{educationTestDt},
         #{registId},
         SYSDATE()
     )

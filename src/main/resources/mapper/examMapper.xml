@@ -176,11 +176,13 @@
   			, SYSDATE()
   			)
 	</insert>
+	
 	<update id="startExam" parameterType="project.momento.exam.dto.ExamDto">
 		UPDATE LMS_EXAM
 		SET EXAM_DIVN = 'Y'
 		WHERE PK_EXAM_SEQ = #{pkExamSeq}
 	</update>
+	
 	<update id="updateScore" parameterType="project.momento.exam.dto.ExamDto">
 		UPDATE LMS_EXAM_RESULT
 		SET 
@@ -188,10 +190,12 @@
 		, ANS_RESULT = #{ansResult}
 		WHERE PK_EXAM_RESULT_SEQ = #{pkExamResultSeq}
 	</update>
+	
 	<delete id="deleteExamDetail" parameterType="project.momento.exam.dto.ExamDto">
 		DELETE FROM LMS_EXAM_DETAIL
   		WHERE PK_EXAM_SEQ = #{pkExamSeq}
 	</delete>
+	
 	<delete id="deleteExam" parameterType="project.momento.exam.dto.ExamDto">
 		DELETE FROM LMS_EXAM
   		WHERE PK_EXAM_SEQ = #{pkExamSeq}

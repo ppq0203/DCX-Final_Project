@@ -71,8 +71,8 @@
 				<tbody>
 
 					<tr th:each="item, index : ${exameResultList}">
-						<td th:text="${index.index + 1}"></td>
-						<td th:text="${item.subjectName}"></td>
+						<td th:text="${(index.index) + 1}"></td>
+						<td th:text="${session.subjectDto.subjectName}"></td>
 						<td th:text="${item.registDt}"></td>
 						<td th:text="${item.name}"></td>
 						<td>
@@ -207,8 +207,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="submit" divn="delete" class="btn btn-primary modelBtn">
-							<span>채점</span>
+						<button type="submit" divn="delete" class="btn btn-success modelBtn">
+							<span>수정</span>
 						</button>
 					</div>
 				</div>
@@ -525,7 +525,8 @@
 								'<div class="6">' +
 								'<div class="form-group pr-1">' +
 								'<div class="custom-control custom-radio">' +
-								'<input class="custom-control-input checkAns" pkExamResultSeq="' + item.pkExamResultSeq + '" value="Y" type="checkbox" id="true' + index + '" name="ansResult" checked>' +
+								'<input class="custom-control-input checkAns" pkExamResultSeq="' + item.pkExamResultSeq + '" value="' + item.ansResult + '" type="checkbox" id="true' + index + '" index="' + index + '" checked>' +
+								'<input style="display: none;" type="text" value="' + item.ansResult + '" id="ansResult' + index + '" name="ansResult">' +
 								'<label for="true' + index + '" class="custom-control-label">정답</label>' +
 								'</div>' +
 								'</div>' +
@@ -539,7 +540,7 @@
 								imgInit(index, item) +
 								'</div>' +
 								'<div class="col-6">' +
-								'<textarea value="' + item.answer + '" name="	answer" index="' + index + '" key="contents"' +
+								'<textarea value="' + item.answer + '" name="answer" index="' + index + '" key="contents"' +
 								'class="form-control form-control-lg validate"' +
 								'style="height: 20rem;" row="6" id="answer" placeholder="정답">' +
 								'' + item.answer + '' +
@@ -552,14 +553,14 @@
 						});
 						$(".checkAns").click(function () {
 							// 클릭한 checkAns 클래스를 가진 요소의 라디오 버튼을 선택
-							var radio = $(this);
+							var index = $(this).attr("index");
 							// 라디오 버튼이 체크되어 있는지 확인
-							if (radio.is(":checked")) {
+							if ($(this).is(":checked")) {
 								// 체크되어 있다면 value 값을 "Y"로 설정
-								score(radio.attr('pkExamResultSeq'), "Y");
+								$("#ansResult" + index).attr("value", "Y");
 							} else {
 								// 체크되어 있지 않다면 value 값을 "N"으로 설정
-								score(radio.attr('pkExamResultSeq'), "N");
+								$("#ansResult" + index).attr("value", "N");
 							}
 						});
 					},
@@ -603,7 +604,8 @@
 								'<div class="6">' +
 								'<div class="form-group pr-1">' +
 								'<div class="custom-control custom-radio">' +
-								'<input class="custom-control-input checkAns" pkExamResultSeq="' + item.pkExamResultSeq + '" value="Y" type="checkbox" id="true' + index + '" name="ansResult" checked>' +
+								'<input class="custom-control-input checkAns" pkExamResultSeq="' + item.pkExamResultSeq + '" value="' + item.ansResult + '" type="checkbox" id="true' + index + '" index="' + index + '" checked>' +
+								'<input style="display: none;" type="text" value="' + item.ansResult + '" id="ansResult' + index + '" name="ansResult">' +
 								'<label for="true' + index + '" class="custom-control-label">정답</label>' +
 								'</div>' +
 								'</div>' +
@@ -627,17 +629,20 @@
 								'</div>' +
 								'</div>'
 							);
+							if (item.ansResult == "N") {
+								$("input:checkbox[id='true" + index + "']").prop("checked", false);
+							}
 						});
 						$(".checkAns").click(function () {
 							// 클릭한 checkAns 클래스를 가진 요소의 라디오 버튼을 선택
-							var radio = $(this);
+							var index = $(this).attr("index");
 							// 라디오 버튼이 체크되어 있는지 확인
-							if (radio.is(":checked")) {
+							if ($(this).is(":checked")) {
 								// 체크되어 있다면 value 값을 "Y"로 설정
-								score(radio.attr('pkExamResultSeq'), "Y");
+								$("#ansResult" + index).attr("value", "Y");
 							} else {
 								// 체크되어 있지 않다면 value 값을 "N"으로 설정
-								score(radio.attr('pkExamResultSeq'), "N");
+								$("#ansResult" + index).attr("value", "N");
 							}
 						});
 					},
