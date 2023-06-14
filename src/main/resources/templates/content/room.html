@@ -34,7 +34,7 @@
 				</from>
 			</div>
 			<button class="waiting_room_btn" type="button" id="gamestart">시작</button>
-			<button class="waiting_room_btnlogout" type="button">나가기</button>
+			<button class="waiting_room_btnlogout" type="button" onclick="location.href='/chat/rooms'">나가기</button>
 		</div>
 		<div class="waiting_room_content" id="content">
 			<div class="waiting_room_wait" id="waitList">
@@ -84,21 +84,18 @@
 					</p>
 				</div>
 				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제 열기</button>
-				<div class="gameing_chat-veiw">
-					<p class="fontp">
+				<div class="gameing_chat-veiw" id="game_msgArea">
+					<!--<p class="fontp">
 						<b class="fontb">>>게임을 시작합니다.</b><br>
 						>>7번 문제 입니다. <br>
 						>>시간안에 가장 빠르게 푸는 팀이 땅을 차지합니다.<br>
 						>>채팅을 통해 상의가 가능합니다.
-					</p>
+					</p>-->
 				</div>
 				<div class="gameing_chat-input">
-					<form>
-						<input type="text" class="gameing_msg" id="chat" size=19>
-						<button class="btnchat" type="submit">등록</button>
-					</form>
+					<input type="text" class="gameing_msg" id="chat" size=19>
+					<button class="btnchat" type="button" id="game_chat">등록</button>
 				</div>
-				<button class="gameing_btnlogout" type="button">나가기</button>
 			</div>
 
 			<!--content game -->
@@ -393,6 +390,8 @@
 					str += "</div>";
 					$("#msgArea").append(str);
 					$("#msgArea").scrollTop($("#msgArea")[0].scrollHeight);
+					$("#game_msgArea").append(str);
+					$("#game_msgArea").scrollTop($("#game_msgArea")[0].scrollHeight);
 				});
 
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
@@ -413,6 +412,7 @@
 					str += "</div></div>";
 					$("#msgArea").append(str);
 				});
+				
 				 
 				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
@@ -656,6 +656,12 @@
 				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: pkUserSeq}));
 				msg.value = '';
 			});
+			
+			$("#game_chat").on("click", function (e) {
+				var chat = document.getElementById("chat");
+				stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: chat.value, pkUserSeq: pkUserSeq}));
+				chat.value = '';
+			});
 
 			$(".teamchange").on("click", function (e) {
 				$("#content").css("pointer-events", "all")
@@ -667,6 +673,13 @@
 					var msg = document.getElementById("msg");
 					stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: msg.value, pkUserSeq: pkUserSeq}));
 					msg.value = '';
+				}
+			});
+			$("#chat").keyup(function () {
+				if (event.keyCode == 13) {
+					var chat = document.getElementById("chat");
+					stomp.send('/pub/chat/message', {}, JSON.stringify({pkRoomSeq: roomId, chatContent: chat.value, pkUserSeq: pkUserSeq}));
+					chat.value = '';
 				}
 			});
 
