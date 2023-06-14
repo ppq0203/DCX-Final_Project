@@ -93,6 +93,7 @@
 					});
 					str += '</ul>';
 					$("#append").append(str);
+					$('a[href="/startgame.com"]').attr('onclick', 'window.open(this.href, \'\', \'width=976, height=700\'); return false;');
 
 				},
 				error: function (error) {
@@ -103,10 +104,11 @@
 
 	</script>
 	<script>
+		
 		// 코드를 로드한 후 바로 실행
 		getMenu();
 		$(document).ready(function () {
-			 $('a[href="/startgame.com"]').attr('onclick', 'window.open(this.href, \'\', \'width=976, height=700\'); return false;');
+			 
 		});
 	</script>
 </th:block>
