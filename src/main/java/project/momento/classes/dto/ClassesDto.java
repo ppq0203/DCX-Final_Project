@@ -28,9 +28,7 @@ public class ClassesDto extends FileDto {
 	
 	private String className;          
 	
-	private String classStartDt;          
-	
-	private String classEndDt;          
+	private String classDt;          
 	
 	private String registId;          
 	

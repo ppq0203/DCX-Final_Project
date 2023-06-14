@@ -9,4 +9,8 @@ public interface FileMapper {
 
 	int insertFile(FileDto fileDto);
 
+	FileDto selectFile(int pkFileSeq);
+
+	void deleteFile(FileDto fileDto);
+
 }

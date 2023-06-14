@@ -406,6 +406,7 @@
 	float: center;
 	margin: 5px 10px;
 	border: 3px solid white;
+	overflow: scroll;
 }
 
 .waiting_room_chat-input {
@@ -462,6 +463,25 @@
 	font-size: 20px;
 	font-family: 'DungGeunMo';
 	color: 'Darkgary';
+}
+
+.waiting_room_block {
+	background: grey;
+	border-radius: 10px;
+	width: 130px;
+	height: 110px;
+	margin: 5px;
+	padding: 5px;
+	float: left;
+}
+
+.empty {
+	border-radius: 10px;
+	width: 130px;
+	height: 110px;
+	margin: 5px;
+	padding: 5px;
+	float: left;
 }
 
 .waiting_room_team1 {
@@ -1133,4 +1153,18 @@ tbody tr th {
 	border: 1px;
 	font-size: 20px;
 	line-height: 50px;
+}
+
+.stop_dice_style {
+	width: 80px;
+    position: absolute;
+    top: 108px;
+    left: 308px;
+}
+
+.stop_dice_style2 {
+	width: 80px;
+    position: absolute;
+    top: 108px;
+    left: 465px;
 }

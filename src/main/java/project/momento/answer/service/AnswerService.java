@@ -27,5 +27,19 @@ public class AnswerService {
 		return AnswerMapper.selectAnswer(pkUserSeq);
 	}
 
-	
+	public AnswerDto selectAnswerType(AnswerDto asDto) {
+		// TODO Auto-generated method stub
+		return AnswerMapper.selectAnswerType(asDto);
+	}
+
+	public AnswerDto selectAnswerTime(AnswerDto asDto) {
+		// TODO Auto-generated method stub
+		return AnswerMapper.selectAnswerTime(asDto);
+	}
+
+	public AnswerDto selectAnswerTY(AnswerDto asDto) {
+		// TODO Auto-generated method stub
+		return AnswerMapper.selectAnswerTY(asDto);
+	}
+
 }

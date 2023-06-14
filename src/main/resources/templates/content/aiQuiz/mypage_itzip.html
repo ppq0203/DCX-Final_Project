@@ -73,7 +73,7 @@
 </div>
 
 <script type="text/javascript">
-	<!-- 단어 뜻 열고 닫기 -->
+	// 단어 뜻 열고 닫기 
 	var bDisplay = true;
 	function doDisplay() {
 		var con = document.getElementById("hide");
@@ -83,20 +83,11 @@
 			con.style.display = 'none';
 		}
 	}
+	// 삭제
+	function deleteRow(ths) {
+		var ths = $(ths);
 
-		function deleteRow(ths) {
-			var ths = $(ths);
-
-			ths.parents("tr").remove();
-		}
-	function cancel() {
-		var result = confirm("삭제하시겠습니까?");
-		if (result == true) {
-			window.history.back();
-		}
-		else {
-			alert("취소를 눌렀습니다.");
-		}
+		ths.parents("tr").remove();
 	}
 </script>
 <script language="javascript">
