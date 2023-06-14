@@ -504,6 +504,7 @@
 
 .waiting_room_t1-user1 {
 	background: #FFC04D;
+	/*background-image: url(/img/player1.png);*/
 	border-radius: 10px;
 	width: 130px;
 	height: 110px;
@@ -514,6 +515,7 @@
 
 .waiting_room_t1-user2 {
 	background: #FFC04D;
+	/*background-image: url(/img/player2.png);*/
 	border-radius: 10px;
 	width: 130px;
 	height: 110px;
@@ -524,17 +526,20 @@
 
 .waiting_room_t1-user3 {
 	background: #FFC04D;
+	/*background-image: url(/img/player3.png);*/
 	border-radius: 10px;
 	width: 130px;
 	height: 110px;
 	margin: 5px;
 	padding: 5px;
 	float: left;
+
 }
 
 .waiting_room_t1-user4 {
 	background: #FFC04D;
 	border-radius: 10px;
+	background-image: url(/img/player4.png);
 	width: 130px;
 	height: 110px;
 	margin: 5px;
@@ -796,11 +801,12 @@
 
 .gameing_chat-veiw {
 	width: 236px;
-	height: 260px;
+	height: 320px;
 	padding: 5px;
 	float: center;
 	margin: 7px;
 	border: 3px solid white;
+	overflow: scroll;
 }
 
 .gameing_quizread {
@@ -889,8 +895,8 @@
 }
 
 .gameing_scorenum {
-	position: relative;
-	top: -65px;
+	position: absolute;
+	top: 7px;
 	left: 12px;
 	font-family: 'GmarketSansMedium';
 	font-size: 16px;
@@ -1157,14 +1163,14 @@ tbody tr th {
 
 .stop_dice_style {
 	width: 80px;
-    position: absolute;
-    top: 108px;
-    left: 308px;
+	position: absolute;
+	top: 108px;
+	left: 308px;
 }
 
 .stop_dice_style2 {
 	width: 80px;
-    position: absolute;
-    top: 108px;
-    left: 465px;
+	position: absolute;
+	top: 108px;
+	left: 465px;
 }

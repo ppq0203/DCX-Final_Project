@@ -42,19 +42,19 @@ public class RoomController {
 
 	// 채팅방 목록 조회
 	@GetMapping(value = "/rooms")
-	public ModelAndView rooms(String roomType) {
+	public ModelAndView rooms(String roomStatus) {
 		
 		log.info(" # All Chat Rooms");
 		ModelAndView mv = new ModelAndView("content/gameWaiting");
-		mv.addObject("list", roomService.findAllRooms(roomType));
+		mv.addObject("list", roomService.findAllRooms(roomStatus));
 		
 		return mv;
 	}
 	
 	// 채팅방 개설
 	@PostMapping(value = "/room")
-	public String create(@ModelAttribute("RoomDto") RoomDto roomDto, RedirectAttributes re) {
-		System.out.println(roomDto);
+	public String create(@ModelAttribute("RoomDto") RoomDto roomDto, RedirectAttributes re, HttpServletRequest request) {
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		log.info("# Create Chat Room , name: " + roomDto.getRoomName());
 		
 		String level = Integer.toString(roomDto.getRoomLevel());
@@ -90,7 +90,7 @@ public class RoomController {
 			questionCount = roomDto.getQuestionList().size();
 		}
 		//System.out.println(roomDto.getQuestionList());
-		roomService.createRoomDto(roomDto);
+		roomService.createRoomDto(roomDto, loginDto);
 //		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
 		
 		re.addFlashAttribute("roomDto", roomDto);
