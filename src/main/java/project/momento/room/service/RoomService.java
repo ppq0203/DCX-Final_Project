@@ -19,16 +19,16 @@ public class RoomService {
 		roomDtoMap = new LinkedHashMap<>();
 	} // init()를 통한 Map 초기화
 	
-	public List<RoomDto> findAllRooms(String roomType) {
+	public List<RoomDto> findAllRooms(String roomStatus) {
 		List<RoomDto> rooms = new ArrayList<>(roomDtoMap.values());
 		List<RoomDto> result = new ArrayList<>();
 		for(RoomDto room : rooms)
 		{
-			if (roomType == null)
+			if (roomStatus == null || roomStatus.equals(""))
 			{
 				result.add(room);
 			}
-			else if (roomType.equals(room.getRoomType()))
+			else if (Integer.parseInt(roomStatus) == (room.getIsRunning()))
 			{
 				result.add(room);				
 			}
