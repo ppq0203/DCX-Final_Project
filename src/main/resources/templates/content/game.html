@@ -183,14 +183,14 @@
 					<button type="button" class="btn btn-default btn-outline-secondary Question_status"
 						th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal" data-target="#modal-xl"
 						style="width: 100%; height: 100%; border: none;">
-						키워드
+						<span th:text="${n.type}"></span>
 					</button>
 				</div>
 			</div>
 		</div>
 		<div id="sidebar">
 			<div class="side_User">
-				<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px" height="150px">
+				<img th:src="@{/img/profil.jpg}" style="border-radius: 50px; margin-top: -5px;" alt="exit" width="150px" height="150px">
 				<div class="" style="font-weight:bold;">
 					<span th:utext="${session.loginDto.name}"></span><br><span
 						th:utext="${session.loginDto.userId}"></span>
@@ -206,7 +206,7 @@
 					<b class="fontb">>>키워드를 클릭해주세요.</b>
 				</p>
 			</div>
-			<button class="btnlogout" type="button">나가기</button>
+			<button class="btnlogout" type="button" onclick="location.href='/chat/rooms'">나가기</button>
 		</div>
 	</div>
 	<button id="total_modal" style="visibility: hidden;" onclick="resultCalc()" data-toggle="modal"
