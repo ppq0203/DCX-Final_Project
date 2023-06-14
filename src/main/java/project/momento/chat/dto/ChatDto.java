@@ -11,7 +11,7 @@ public class ChatDto {
 	
 	private int pkChatSeq; // 채팅 내용 식별 번호
 	
-	private String pkUserSeq; // 유저 개인에게 부여되는 고유번호 writer / 임시적으로 String형으로 변경
+	private int pkUserSeq; // 유저 개인에게 부여되는 고유번호 writer / 임시적으로 String형으로 변경
 	
 	private String pkRoomSeq; // 방에 부여되는 고유번호 roomId / 임시적으로 String형으로 변경
 	

@@ -188,18 +188,21 @@
 						<button class="menu1">전체 </button>
 					</form>
 					<form th:action="@{/chat/rooms}" method="get">
-						<input type="hidden" name="roomType" value="multi" class="form-control" />
+						<input type="hidden" name="roomStatus" value="0" class="form-control" />
 						<button class="menu2">대기</button>
 					</form>
 					<form th:action="@{/chat/rooms}" method="get">
-						<input type="hidden" name="roomType" value="single" class="form-control" />
+						<input type="hidden" name="roomStatus" value="1" class="form-control" />
 						<button class="menu3">진행</button>
 					</form>
 					<!--  현재 css 가져오는 파일에 class all을 display: none 처리되어있어-->
 					<div class="all" style="display: block">
 						<div class="fillter">
 							<button class="fbtn" type="button">난이도순▼</button>
-							<button class="refresh" type="button">새로고침</button>
+							<form th:action="@{/chat/rooms}" method="get">
+								<input type="hidden" name="roomStatus" id="status_value" />
+								<button class="refresh">새로고침</button>
+							</form>
 						</div>
 						<div class="gameroom">
 							<div class="M_gameroom_left" th:each="room : ${list}">
@@ -319,6 +322,11 @@
 					$('.menu1, .menu3').removeClass('on');
 				}
 			});
+			
+			var urlParams = new URLSearchParams(window.location.search);
+			var paramValue = urlParams.get('roomStatus');
+			  // Set the parameter value in the hidden input field
+			$('#status_value').val(paramValue);
 		});
 	</script>
 </th:block>
