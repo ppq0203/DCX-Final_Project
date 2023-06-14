@@ -504,6 +504,7 @@
 
 .waiting_room_t1-user1 {
 	background: #FFC04D;
+	/*background-image: url(/img/player1.png);*/
 	border-radius: 10px;
 	width: 130px;
 	height: 110px;
@@ -514,6 +515,7 @@
 
 .waiting_room_t1-user2 {
 	background: #FFC04D;
+	/*background-image: url(/img/player2.png);*/
 	border-radius: 10px;
 	width: 130px;
 	height: 110px;
@@ -524,17 +526,20 @@
 
 .waiting_room_t1-user3 {
 	background: #FFC04D;
+	/*background-image: url(/img/player3.png);*/
 	border-radius: 10px;
 	width: 130px;
 	height: 110px;
 	margin: 5px;
 	padding: 5px;
 	float: left;
+	
 }
 
 .waiting_room_t1-user4 {
 	background: #FFC04D;
 	border-radius: 10px;
+	background-image: url(/img/player4.png);
 	width: 130px;
 	height: 110px;
 	margin: 5px;

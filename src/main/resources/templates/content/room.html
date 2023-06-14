@@ -105,18 +105,14 @@
 			<div class="gameing_content" id="content">
 				<div class="gameing_user">
 					<div class="gameing_team1" id="game1">
-						<div class="gameing_t1-user1"></div>
-						<div class="gameing_t1-user1"></div>
-						<div class="gameing_t1-user1"></div>
-						<div class="gameing_t1-nouser"></div>
 						<div class="gameing_score" style="background-color:#BF9039" id="hover"><span
 								class="gameing_scorenum" id="score1">0</span></div>
 					</div>
 					<div class="gameing_team2" id="game2">
+						<!--<div class="gameing_t2-user1"></div>
 						<div class="gameing_t2-user1"></div>
 						<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-nouser"></div>
+						<div class="gameing_t2-nouser"></div>-->
 						<div class="gameing_score" style="background-color:#BF4C1F"><span class="gameing_scorenum"
 								id="score2">0</span></div>
 					</div>
@@ -449,13 +445,22 @@
 						str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
 						str += "<div class='col-sys'>";
 						str += "<b class='fontp'>" + value + "</b>";
-						str += "</div>";
+						str += "</div></div>";
+						console.log(index)
 						$("#" + index + "").remove();
 						$("#team1").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						gtr = "<div class='gameing_t1-user1' id=game-"+ index + ">";
+						gtr += "<div class='col-sys'>";
+						gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						gtr += "</div></div>";
 						$("#game-" + index + "").remove();
 						$("#game1").prepend(gtr);
 					});
+					
+						/*<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-user1"></div>
+						<div class="gameing_t1-nouser"></div>*/
 					
 					Object.keys(content.team2).forEach(function (index, i) {
 						value = content.team2[index];
@@ -466,7 +471,10 @@
 						str += "</div></div>";
 						$("#" + index + "").remove();
 						$("#team2").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						gtr = "<div class='gameing_t2-user1' id=game-"+ index + ">";
+						gtr += "<div class='col-sys'>";
+						gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						gtr += "</div></div>";
 						$("#game-" + index + "").remove();
 						$("#game2").prepend(gtr);
 					});
@@ -480,7 +488,10 @@
 						str += "</div></div>";
 						$("#" + index + "").remove();
 						$("#team3").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						gtr = "<div class='gameing_t3-user1' id=game-"+ index + ">";
+						gtr += "<div class='col-sys'>";
+						gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						gtr += "</div></div>";
 						$("#game-" + index + "").remove();
 						$("#game3").prepend(gtr);
 					});
@@ -494,7 +505,10 @@
 						str += "</div></div>";
 						$("#" + index + "").remove();
 						$("#team4").append(str);
-						gtr = "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						gtr = "<div class='gameing_t4-user1' id=game-"+ index + ">";
+						gtr += "<div class='col-sys'>";
+						gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+						gtr += "</div></div>";
 						$("#game-" + index + "").remove();
 						$("#game4").prepend(gtr);
 					});
