@@ -35,11 +35,22 @@ public class MainController {
 	@Autowired
 	private MainService mainService;
 	
+	
+	
+	@RequestMapping(value = "/", produces = "application/text;charset=utf-8")
+	public String Main(Model model, HttpServletRequest request) {
+		
+		return "content/main/userMain";
+	}
+	
+	
+	
+	
 	/*
 	 * 
 	 */
 	@RequestMapping(value = "/{userDivn}/main", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String Main(@PathVariable String userDivn, Model model, HttpServletRequest request) {
+	public String lmsMain(@PathVariable String userDivn, Model model, HttpServletRequest request) {
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		
 		if (!(loginDto == null)) {
@@ -53,13 +64,16 @@ public class MainController {
 			mainDto.setPkUserSeq(loginDto.getPkUserSeq());
 			
 			MainDto gameResult = mainService.selectGameChart(mainDto);
-			model.addAttribute("gameResult", gameResult);
-			
-			MainDto aiResult = mainService.selectAiChart(mainDto);
-			model.addAttribute("aiResult", aiResult);
-			
-			MainDto examResult = mainService.selectExamChart(mainDto);
-			model.addAttribute("examResult", examResult);
+	        calculateScoreRank(gameResult); // gameResult의 등급 계산
+	        model.addAttribute("gameResult", gameResult);
+	        
+	        MainDto aiResult = mainService.selectAiChart(mainDto);
+	        calculateScoreRank(aiResult); // aiResult의 등급 계산
+	        model.addAttribute("aiResult", aiResult);
+	        
+	        MainDto examResult = mainService.selectExamChart(mainDto);
+	        calculateScoreRank(examResult); // examResult의 등급 계산
+	        model.addAttribute("examResult", examResult);
 			
 			model.addAttribute("list", resultList);
 			return "content/" + userDivn + "/main/main";
@@ -67,7 +81,28 @@ public class MainController {
 			return "redirect:/" + userDivn + "/login/main";
 		}
 	}
-	
+	private void calculateScoreRank(MainDto dto) {
+	    double maxVal = dto.getMaxVal();
+	    double minVal = dto.getMinVal();
+	    double userVal = dto.getUserVal();
+	    double avgVal = dto.getAvgVal();
+	    
+	    double ratio = (userVal - minVal) / (maxVal - minVal);
+	    
+	    if (ratio >= 0.9) {
+	        dto.setColor("#dc143c");
+	    } else if (ratio >= 0.8) {
+	        dto.setColor("#4b0082");
+	    } else if (ratio >= 0.7) {
+	        dto.setColor("#8a2be1");
+	    } else if (ratio >= 0.6) {
+	        dto.setColor("#7fffd4");
+	    } else if (ratio >= 0.5) {
+	        dto.setColor("#ffd700");
+	    } else {
+	        dto.setColor("#d2b48c");
+	    }
+	}
 	/*
 	 * 
 	 */

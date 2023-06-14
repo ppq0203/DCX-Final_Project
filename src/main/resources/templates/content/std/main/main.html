@@ -76,24 +76,85 @@
 							</div>
 						</div>
 					</div>
-					<div class="card-body ">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-12">
+												<h4 style="text-align: center;">AI</h4>
+											</div>
+											<div class="col-12">
+												<button type="button" class="btn btn-block btn-outline-dark btn-lg">
+													<h1 th:style="|color:${aiResult.color};|"><i class="fas fa-brain"></i>
+													</h1>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-12">
+												<h4 style="text-align: center;">Game</h4>
+											</div>
+											<div class="col-12">
+												<button type="button" class="btn btn-block btn-outline-dark btn-lg">
+													<h1 th:style="|color:${gameResult.color};|"><i class="fas fa-dice" ></i>
+													</h1>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-12">
+												<h4 style="text-align: center;">Test</h4>
+											</div>
+											<div class="col-12">
+												<button type="button" class="btn btn-block btn-outline-dark btn-lg">
+													<h1 th:style="|color:${examResult.color};|"><i class="fas fa-clipboard-check"></i>
+													</h1>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="info-box" style="height: 15rem;">
-							<span class="info-box-icon bg-info elevation-1" style="height: 100px; width: 100px;"><i
-									class="fas fa-cog"></i></span>
-							<div class="info-box-content" >
-								<span class="info-box-number" th:utext="${session.loginDto.name}"></span>
-								<span class="info-box-number">AI</span>
-								<span class="info-box-text" th:text="${'정답문제: '+ aiResult.oValue + ' 틀린문제: '+ aiResult.xValue}">
-								</span>
-								<span class="info-box-number">Game</span>
-								<span class="info-box-text" th:text="${'정답문제: '+ gameResult.oValue + ' 틀린문제: '+ gameResult.xValue}">
-								</span>
-								<span class="info-box-number">test</span>
-								<span class="info-box-text" th:text="${'정답문제: '+ examResult.oValue + ' 틀린문제: '+ examResult.xValue}">
-								</span>
+							<div class="info-box-content">
+								<div class="row">
+									<div class="col-12">
+										<span class="info-box-number" th:utext="${session.loginDto.name}"></span>
+										<span class="info-box-number">AI</span>
+										<span class="info-box-text"
+											th:text="${'정답문제: '+ aiResult.oValue + ' 틀린문제: '+ aiResult.xValue}">
+										</span>
+										<span class="info-box-number">Game</span>
+										<span class="info-box-text"
+											th:text="${'정답문제: '+ gameResult.oValue + ' 틀린문제: '+ gameResult.xValue}">
+										</span>
+										<span class="info-box-number">test</span>
+										<span class="info-box-text"
+											th:text="${'정답문제: '+ examResult.oValue + ' 틀린문제: '+ examResult.xValue}">
+										</span>
+									</div>
+								</div>
+
+
 							</div>
 
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -159,7 +220,7 @@
 				success: function (data) {
 					// 이벤트 리스트를 배열로 변환
 					var CALENDAR_ARRAY = data.map(function (event) {
-						
+
 						return {
 							id: event.pkSubjectSeq,
 							title: event.subjectName,

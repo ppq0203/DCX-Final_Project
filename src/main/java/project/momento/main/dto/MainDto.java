@@ -22,4 +22,6 @@ public class MainDto extends LoginDto {
 	private int xValue;
 	/*맞은 갯숫*/
 	private int oValue;
+	
+	private String color;
 }
