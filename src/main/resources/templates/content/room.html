@@ -15,12 +15,14 @@
 		<!--side right -->
 		<div class="waiting_room_sidebar" id="sidebar">
 			<div class="waiting_room_gameinfo">
-				<ul class="waiting_room_no_dot">
-					<li>게임 유형 : 팀전</li>
-					<li>난이도 : <span id = "level"></span></li>
-					<!-- <li>문제당 시간 : </li> -->
-					<li>문제 개수 : 36</li>
-				</ul>
+				<div class="waiting_room_gameinfo_style">
+				<span id="room_name">방제목 : [[${room.roomName}]]</span><br>
+				<span id="room_total">총 인원 : [[${room.total}]]</span><br>
+				<span class="difficulty" th:if="${room.roomLevel == 1}">난이도 : Easy</span>
+				<span class="difficulty" th:if="${room.roomLevel == 2}">난이도 : Middle</span>
+				<span class="difficulty" th:if="${room.roomLevel == 3}">난이도 : Hard</span>
+				<span class="difficulty" th:if="${room.roomLevel == 4}">난이도 : Random</span>
+				</div>
 			</div>
 			<div>
 				<button class="teamchange" type="button">팀 바꾸기</button>
@@ -74,12 +76,8 @@
 			<div class="gameing_header" id="header"></div>
 			<!--side right -->
 			<div class="gameing_sidebar" id="sidebar">
-				<div class="gameing_gamequiz" id="quiz_info">
-					<p class="pfont">
-						Time : 15:00 min<br>
-						유형 :<br>
-						문제 <span>7</span>번<br>
-						...
+				<div class="gameing_gamequiz">
+					<p class="pfont quiz_info_pfont" id="quiz_info">
 					</p>
 				</div>
 				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제
@@ -103,23 +101,19 @@
 				<div class="gameing_user">
 					<div class="gameing_team1" id="game1">
 						<div class="gameing_score" style="background-color:#BF9039" id="hover"><span
-								class="gameing_scorenum" id="score1">0</span></div>
+								class="gameing_scorenum" id="score1">00</span></div>
 					</div>
 					<div class="gameing_team2" id="game2">
-						<!--<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-nouser"></div>-->
 						<div class="gameing_score" style="background-color:#BF4C1F"><span class="gameing_scorenum"
-								id="score2">0</span></div>
+								id="score2">00</span></div>
 					</div>
 					<div class="gameing_team3" id="game3">
 						<div class="gameing_score" style="background-color:#1454C2"><span class="gameing_scorenum"
-								id="score3">0</span></div>
+								id="score3">00</span></div>
 					</div>
 					<div class="gameing_team4" id="game4">
 						<div class="gameing_score" style="background-color:#6F9C4C"><span class="gameing_scorenum"
-								id="score4">0</span></div>
+								id="score4">00</span></div>
 					</div>
 				</div>
 				<div class="gameing_dicearea">
@@ -143,12 +137,12 @@
 						<thead class="gameing_tableborder">
 							<tr>
 								<th></th>
-								<th class="hover_y">1</th>
-								<th class="hover_y">2</th>
-								<th class="hover_y">3</th>
-								<th class="hover_y">4</th>
-								<th class="hover_y">5</th>
-								<th class="hover_y">6</th>
+								<th>1</th>
+								<th>2</th>
+								<th>3</th>
+								<th>4</th>
+								<th>5</th>
+								<th>6</th>
 							</tr>
 						</thead>
 						<tbody class="gameing_tableborder">
@@ -561,7 +555,6 @@
 					dice_animation_start()
 					resultFillColor(content.teamNo);
 					if (nowNo >= 36) {
-						
 						resultCalc();
 					}
 					else {
@@ -726,6 +719,7 @@
 
 			$('#first_stop_dice').remove();
 			$('#second_stop_dice').remove();
+			$('#quiz_info').empty();
 		}
 	</script>
 
@@ -827,6 +821,9 @@
 
 			$("#total_count").text(total);
 			$("#solve_count").text(solve);
+			
+			// 이곳에 모델창 보이게하기
+			////////
 		}
 		var nowNo = 0;
 		var dice1 = 0;
@@ -839,19 +836,21 @@
 			// 주사위 굴러가다가 멈추는 함수 이곳에 구현해야함.
 			// code
 			// ////////////////////////////////////
-			$('.gameing_rice1').css('display', 'none')
-			$('.gameing_rice2').css('display', 'none')
-
+			$('.gameing_rice1').css('display', 'none');
+			$('.gameing_rice2').css('display', 'none');
 			/*var diceImage = $('<img>').attr('src', 
 			
 			'"/momento/src/main/resources/static/img/game_dice"' + dice1 + '.png"'); */
 
 			str1 = "<img class='stop_dice_style' id='first_stop_dice' src='/img/game_dice" + dice1 + ".png'>";
 			str2 = "<img class='stop_dice_style2' id='second_stop_dice' src='/img/game_dice" + dice2 + ".png'>";
-
+			str3 = "<span class='quiz_infos' id='quiz_info_type'></span><br>"
+			str3 += "<span class='quiz_infos'>문제 : " + shuffleNo[nowNo] + "</span><br>"
+			str3 += "<span class='quiz_infos' id='level'>" + + "</span>"
 			// 주사위 이미지를 dice div에 추가
 			$('#game_dice_stop').append(str1);
 			$('#game_dice_stop2').append(str2);
+			$('#quiz_info').append(str3);
 
 			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
 			setTimeout(function () {
@@ -872,25 +871,29 @@
 				// resultSave($("#questionType").val(), -1);			
 			}
 			else if (teamNo == 1) {
-				$(tagId).css("background-color", "yellow");
+				$(tagId).css("background-color", "#FFC04D");
 				// resultSave($("#questionType").val(), -1);	
 			}
 			else if (teamNo == 2) {
-				$(tagId).css("background-color", "red");
+				$(tagId).css("background-color", "#FF652A");
 				// resultSave($("#questionType").val(), -1);	
 			}
 			else if (teamNo == 3) {
-				$(tagId).css("background-color", "blue");
+				$(tagId).css("background-color", "#4C6ED4");
 				// resultSave($("#questionType").val(), -1);	
 			}
 			else if (teamNo == 4) {
-				$(tagId).css("background-color", "green");
+				$(tagId).css("background-color", "#9BDB6B");
 				// resultSave($("#questionType").val(), -1);	
 			}
 			if (teamNo != 0) {
 				tagId = "#score" + teamNo;
 				var value = $(tagId).text();
-				$(tagId).text(1 + parseInt(value, 10));
+				value = 1 + parseInt(value, 10);
+				if (value<10)
+					value = "0"+value;
+				$(tagId).text(value);
+				
 			}
 		}
 
@@ -901,6 +904,7 @@
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
+			level = question.level;
 			type = question.type;
 			input = question.input;
 			output = question.output;
@@ -913,6 +917,19 @@
 			$('#questionInput').text(input);
 			$('#questionOutput').text(output);
 			$('#Demo').val(codeFormat);
+			$('#level').text(level);
+			$('#quiz_info_type').text('유형 : ' + type);
+
+			if (level == 1) {
+				$('#level').text('난이도 : Easy')
+			} else if (level == 2) {
+				$('#level').text('난이도 : Mid')
+			} else if (level == 3) {
+				$('#level').text('난이도 : Hard')
+			} else if (level == 4) {
+				$('#level').text('난이도 : Rondom')
+			}
+
 		}
 
 		// 정답 등록시 수행되는 함수
@@ -926,10 +943,11 @@
 		}
 		function giveup() {
 			stomp.send('/pub/chat/giveup', {}, JSON.stringify({userNo: pkUserSeq}));
+			$('#quiz_info').empty();
 		}
 	</script>
 
-	<!--       클릭하면 주사위 굴러가는 애니메이션         -->
+	<!--       주사위 굴러가는 애니메이션         -->
 	<script>
 		LottieInteractivity.create({
 			player: '#fourteenthLottie',
