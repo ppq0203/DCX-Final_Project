@@ -54,4 +54,10 @@ public class CorrectionController {
 		System.out.println(resultList);
 		return "content/" + userDivn + "/correctionnote/correctionnote";
 	}
+	
+	@RequestMapping(value = "/{userDivn}/correction/dict", produces = "application/text;charset=utf-8")
+	public String aiDict(@PathVariable String userDivn, HttpServletRequest request, Model model) {
+
+		return "content/" + userDivn + "/correctiondict/correctiondict";
+	}
 }
