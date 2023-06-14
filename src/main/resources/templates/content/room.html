@@ -258,6 +258,32 @@
 								<div class="card-footer">
 								</div>
 							</div>
+							<div class="card card-outline card-info">
+								<div class="card-header">
+										<h3 class="card-title">
+										Input Example
+									</h3>
+								</div>
+	
+								<div class="card-body p-0">
+									<p id="questionInput"></p>
+								</div>
+								<div class="card-footer">
+								</div>
+							</div>
+							<div class="card card-outline card-info">
+								<div class="card-header">
+									<h3 class="card-title">
+										Output Example
+									</h3>
+								</div>
+	
+								<div class="card-body p-0">
+									<p id="questionOutput"></p>
+								</div>
+								<div class="card-footer">
+								</div>
+							</div>
 							<!-- 기존 코드 -->
 							<div class="card card-outline card-info">
 								<div class="card-header">
@@ -847,12 +873,16 @@
 			contents = question.contents;
 			codeFormat = question.codeFormat;
 			type = question.type;
+			input = question.input;
+			output = question.output;
 			$('.modal-title').text(title);
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
 			$('#nameQuestion').val(question.className);
 			$('#questionType').val(type);
 			$('#questionContents').text(contents);
+			$('#questionInput').text(input);
+			$('#questionOutput').text(output);
 			$('#Demo').val(codeFormat);
 		}
 

@@ -60,62 +60,40 @@
 				<thead>
 					<tr>
 						<th style="width: 5%;">No.</th>
-						<th style="width: 50%;">강좌명</th>
-						<th style="width: 20%;">과목명</th>
+						<th style="width: 47.5%;">강의명</th>
+						<th style="width: 22.5%;">과목명</th>
 						<th style="width: 10%;">날짜</th>
 						<th style="width: 7.5%;">강의자료</th>
 						<th style="width: 7.5%;">과제답안</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>1</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>2</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td><button type="button" class="btn btn-link">2023-05-30</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>3</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">4</th>
-						<td><button type="button" class="btn btn-link">날짜 링크연결</button>
-						</td>
-						<td><span>Client</span></td>
-						<td><span>4</span></td>
-						<td><i class="fas fa-download"></i>
-						</td>
-						<td><i class="fas fa-download"></i>
-						</td>
-					</tr>
+				<tbody class="tbody-class-info">
+					<th:block th:if="${classList != null}">
+						<tr th:each="class, classStat : ${classList}">
+							<th th:text="${classStat.count}">no</th>
+							<td>
+								<span th:text="${class.className}">강의명</span>
+							</td>
+							<td>
+								<span th:text="${session.subjectDto.subjectName}">과목명</span>
+							</td>
+							<td>
+								<span th:text="${#strings.substring(class.classDt, 0, 10)}">날짜</span>
+							</td>
+							<td class="align-items-center">
+								<a th:if="${class.pkFileClassSeq == 0}"><i class="fas fa-download"></i></a>
+								<a th:unless="${class.pkFileClassSeq == 0}" th:href="@{/mng/download/{pkFileSeq}/file(pkFileSeq = ${class.pkFileClassSeq})}" download><i class="fas fa-download"></i></a>
+							</td>
+							<td>
+								<a th:if="${class.pkFileHomeworkSeq == 0}"><i class="fas fa-download"></i></a>
+								<a th:unless="${class.pkFileHomeworkSeq == 0}" th:href="@{/mng/download/{pkFileSeq}/file(pkFileSeq = ${class.pkFileHomeworkSeq})}" download><i class="fas fa-download"></i></a>
+							</td>
+						</tr>
+					</th:block>
 				</tbody>
 			</table>
 			<!-- /.card-body -->
-			<div class="card-footer">
+			<div th:unless="${classList != null}" class="card-footer">
 			</div>
 		</div>
 	</div>
