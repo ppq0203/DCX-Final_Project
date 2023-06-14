@@ -149,36 +149,9 @@ public class RoomController {
 		
 		roomInfo.put("participants", Integer.toString(room.getParticipants()));
 		roomInfo.put("total", Integer.toString(room.getTotal()));
+		roomInfo.put("isRunning", Integer.toString(room.getIsRunning()));
 
 		return roomInfo;
-	}
-
-	@RequestMapping(value = "/ybytest", produces = "application/text;charset=utf-8") /* value주소 이름 */
-	public String ybytest() {
-		// 데이터 저장
-		RoomDto rmDto = new RoomDto();
-		rmDto.setPkRoomSeq("0");
-		rmDto.setRoomNo("0");
-		rmDto.setRoomName("0");
-		rmDto.setRoomPwd(0);
-		rmDto.setRoomType("0");
-		rmDto.setRoomPlay(0);
-		rmDto.setRoomPlaytime("0");
-		rmDto.setRoomNumber(0);
-		rmDto.setTeamNumber(0);
-		rmDto.setRoomLevel(0);
-		rmDto.setRoomId("0");
-		rmDto.setRoomTime("0");
-		rmDto.setUpdateDt("0");
-		roomService.insertRoom(rmDto);
-		System.out.println();
-//		/////////////
-//		// 데이터 불러오기
-//		List<RoomDto> room = service.selectRoom(0);
-//		System.out.println(room);
-//		/////////////
-//		// 데이터 삭제
-		return "index";
 	}
 	
 }

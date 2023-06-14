@@ -58,5 +58,11 @@ public class QuestionDto extends LoginDto {
 	private String passage;
 	/*AI 문제 URL*/   
 	private String url;
+	/*AI 문제 답변*/   
+	private String answer;
+	/*AI 문제 갯수*/   
+	private int questionNum;
+	
+	private int answerNum;
 	
 }

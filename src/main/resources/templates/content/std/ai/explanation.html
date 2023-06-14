@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiEmptyLayout}">
+
+<th:block layout:fragment="content">
+	<style>
+		/* quiz */
+		.quiz__view .true {
+			color: #00f;
+			position: relative;
+			opacity: 0;
+		}
+
+		.quiz__view .false {
+			color: #f00;
+			position: relative;
+			opacity: 0;
+		}
+
+		.quiz__view.like .true {
+			opacity: 1;
+			animation: wobble 0.6s;
+		}
+
+		.quiz__view.dislike .false {
+			opacity: 1;
+			animation: wobble 0.6s;
+		}
+
+		.form-control {
+			display: inline;
+		}
+	</style>
+	<div id="main">
+		<article class="post featured">
+			<header class="major">
+				<h2>quiz</h2>
+				<p><a href="#">article</a></p>
+			</header>
+		</article>
+		<form action="/std/ai/question/answer" method="POST">
+			<div class="row">
+				<div class="col-12 p-5">
+					<div id="main">
+						<!-- Post -->
+						<section class="post">
+							<header class="major">
+								<h2 th:text="${result.title}"></h2>
+								<span th:text="${result.registDt}" class="date"></span>
+								<input id="solution" th:value="${result.solution}" name="solution" type="hidden">
+								<input th:value="${result.pkQuestionSeq}" name="pkQuestionSeq" type="hidden">
+							</header>
+
+							<div class="quiz p-5">
+								<div id="questionName" th:utext="${result.questionName}">
+								</div>
+							</div>
+							<footer>
+								<ul class="actions special">
+									<li><input id="checkAnswer" type="button" class="confirm" value="CHECK ANSWER"></li>
+									<li><input class="button" type="submit" value="SAVE KEYWORD"></li>
+								</ul>
+							</footer>
+						</section>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+
+		$(document).ready(function () {
+			// Summernote
+			// 텍스트를 담고 있는 변수를 가정합니다.
+			var text = $("#questionName").text();
+			var inputTag = '<span style="white-space: nowrap;"><input type="text" name="answer" class="validate form-control input answer"style = "width: 200pt; height: 50pt" placeholder = "정답" ></span> ';
+			// ( )를 <input> 태그로 대체합니다.
+			var replacedContent = text.replace(/\(\d\)/g, function (match) {
+				if (match) {
+					return inputTag;
+				} else {
+					return '<div class="col"></div>';
+				}
+			});
+			var questionNameDiv = document.getElementById('questionName');
+			questionNameDiv.innerHTML = replacedContent;
+
+			var checkAnswerBtn = document.getElementById('checkAnswer');
+			var solutionInput = document.getElementById('solution');
+			var answerInputs = document.getElementsByClassName('answer');
+
+			checkAnswerBtn.addEventListener('click', function () {
+				var solutionValue = solutionInput.value.trim();
+				var solutionArray = solutionValue.split(',');
+
+				for (var i = 0; i < answerInputs.length; i++) {
+					var answerValue = answerInputs[i].value.trim();
+					var isCorrect = solutionArray.includes(answerValue);
+
+					if (isCorrect) {
+						answerInputs[i].classList.remove('is-invalid');
+						answerInputs[i].classList.add('is-valid');
+					} else {
+						answerInputs[i].classList.remove('is-valid');
+						answerInputs[i].classList.add('is-invalid');
+					}
+
+					console.log('Answer ' + (i + 1) + ' is correct: ' + isCorrect);
+				}
+			});
+
+		})
+
+	</script>
+</th:block>
+
+</html>

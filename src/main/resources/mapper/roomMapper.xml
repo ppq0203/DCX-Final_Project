@@ -3,6 +3,7 @@
 
 <mapper namespace="project.momento.room.mapper.RoomMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
 <!-- INSERT문 -->
+<!--
 	<insert id="insertRoom" parameterType="project.momento.room.dto.RoomDto">
 		<![CDATA[
 			INSERT INTO ROOM
@@ -40,56 +41,50 @@
 			)
 		]]>
 	</insert>
+-->
+	<!-- namespace는 Mapper 인터페이스의 경로로 설정 -->
 	
-<!-- Heidisql연결후 입력 저장-->
-	<!-- SELECT문 -->
-<!--	<select id="selectRoom" resultType="project.momento.room.dto.RoomDto">
-		<![CDATA[
-			SELECT
-				PK_ROOM_SEQ		AS pkRoomSeq,
-				ROOM_NO			AS roomNo,
-				ROOM_NAME 		AS roomName,
-				ROOM_PWD 		AS roomPwd,
-				ROOM_TYPE 		AS roomType,
-				ROOM_PLAY 		AS roomPlay,
-				ROOM_PLAYTIME	AS roomPlaytime,
-				ROOM_NUMBER 	AS roomNumber,
-				TEAM_NUMBER		AS teamNumber,
-				ROOM_LEVEL		AS roomLevel,
-				ROOM_ID			AS roomId,
-				ROOM_TIME 		AS roomTime,
-				UPDATE_DT 		AS updateDt
-			FROM 
-				ROOM
-			WHERE
-				PK_ROOM_SEQ = #{pkRoomSeq}
-		]]>
-	</select>-->
-	
-	
-	
-	<!-- DELETE문 -->
-	<!--영복 코드<delete id="deleteRoom" parameterType="project.momento.room.dto.RoomDto">-->
-	<!--<delete id="Room" parameterType="project.momento.room.dto.RoomDto">
-		<![CDATA[
-			DELETE FROM ROOM
-			WHERE
-				PK_ROOM_SEQ = #{pkRoomSeq}
-		]]>
-	</delete>-->
-	<!-- UPDATE문 --> 
-	<!--영복 코드<update id="updateRoom" parameterType="project.momento.room.dto.RoomDto">-->
-	<!--<update id="Room" parameterType="project.momento.room.dto.RoomDto">
-		<![CDATA[
-			UPDATE SET
-				ROOM
-			WHERE
-				ROOM_NAME = #{rommName},
-				ROOM_TYPE = #{roomType},
-				ROOM_PLAY = #{roomPlay},
-				ROOM_PLAYTIME = #{roomPlaytime},
-				UPDATE_DT = #{updateDt}
-		]]>
-	</update>-->
-	
+    <insert id="insertRoom" parameterType="project.momento.room.dto.RoomDto">
+        INSERT INTO ROOM(
+       			ROOM_NO
+        		, ROOM_NAME
+				, ROOM_PWD
+				, ROOM_TYPE
+				, ROOM_PLAY
+				, ROOM_PLAYTIME
+				, ROOM_NUMBER
+				, ROOM_ID
+				, ROOM_TIME
+				, UPDATE_DT
+				, TEAM_NUMBER
+				, ROOM_LEVEL
+        )
+        VALUES (
+        #{roomNo}
+        , #{roomName}
+        , #{roomPwd}
+        , #{roomType}
+        , #{roomPlay}
+        , #{roomPlaytime}
+        , #{roomNumber}
+        , #{roomId}
+        , #{roomTime}
+        , #{roomUpdate}
+        , #{teamNumber}
+        , #{roomLevel}
+        )
+    </insert>
+
+    <select id="getAllRooms" resultType="project.momento.room.dto.RoomDto">
+        SELECT * FROM ROOM
+    </select>
+
+    <select id="getRoomByPkRoomSeq" parameterType="int" resultType="project.momento.room.dto.RoomDto">
+        SELECT * FROM ROOM WHERE PK_ROOM_SEQ = #{pkRoomSeq}
+    </select>
+
+    <delete id="deleteRoomByPkRoomSeq" parameterType="int">
+        DELETE FROM ROOM WHERE PK_ROOM_SEQ = #{pkRoomSeq}
+    </delete>
+
 </mapper>

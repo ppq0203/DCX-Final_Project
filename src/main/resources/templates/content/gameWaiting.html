@@ -162,7 +162,7 @@
 					<img th:src="@{/img/profil.jpg}" style="border-radius: 50px;" alt="exit" width="150px"
 						height="140px">
 					<div class="" style="font-weight:bold;">
-						<span>ID : 보노보노</span><br><span> DCX기반 가산점</span>
+						<span>ID : [[${session.loginDto.userId}]]</span><br><span th:utext="${session.loginDto.name}"></span>
 					</div>
 				</div>
 
@@ -241,17 +241,24 @@
 				async: false,
 				data: {
 					roomSeq: room.pkRoomSeq,
+					isRunning: "",
 					participants: "",
 					total: ""
 				}
 			}).done(function (data) {
 				participants = parseInt(data.participants);
 				total = parseInt(data.total);
+				isRunning = parseInt(data.isRunning);
 				if (participants >= total) {
 					alert("방이 가득찼습니다.");
 					flag = false;
 				}
-				else {
+				else if(isRunning > 0){
+					alert("게임중인 방입니다.");	
+					flag = false;
+				} 
+				else
+				{
 					flag = true;
 				}
 			})

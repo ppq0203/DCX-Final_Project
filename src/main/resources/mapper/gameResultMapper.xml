@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.momento.room.mapper.RoomMapper">	<!-- xml파일을 사용할 mapper가 있는 경로 -->
+<!-- Heidisql연결후 입력 저장-->
+	<!-- SELECT문 -->
+	<!--영복 코드<select id="selectRoom" resultType="project.momento.room.dto.RoomDto">-->
+	<!--<select id="Room" resultType="project.momento.room.dto.RoomDto">
+		<![CDATA[
+			SELECT
+				ROOM_NAME AS roomName,
+				ROOM_PWD AS roomPwd,
+				ROOM_TYPE AS roomType,
+				ROOM_PLAY AS roomPlay,
+				ROOM_PLAYTIME AS roomPlaytime,
+				ROOM_NUMBER AS roomNumber,
+				ROOM_ID AS roomId,
+				ROOM_TIME AS roomTime,
+				UPDATE_DT AS updateDt
+			FROM 
+				ROOM
+			WHERE
+				PK_ROOM_SEQ = #{pkRoomSeq}
+		]]>
+	</select>-->
+	
+	<!-- INSERT문 -->
+	<!--<insert id="insertRoom" parameterType="project.momento.room.dto.RoomDto">-->
+	<!--<insert id="Room" parameterType="project.momento.room.dto.RoomDto">
+		<![CDATA[
+			INSERT INTO ROOM
+			(
+				PK_ROOM_SEQ,
+				ROOM_NAME,
+				ROOM_PWD,
+				ROOM_TYPE,
+				ROOM_PLAY,
+				ROOM_PLAYTIME,
+				ROOM_NUMBER,
+				ROOM_ID,
+				ROOM_TIME,
+				UPDATE_DT
+			) 
+			VALUES
+			(
+				ifnull(#{pkRoomSeq}, null),
+				#{roomName},
+				#{roomPwd},
+				#{roomType},
+				#{roomPlay},
+				#{roomPlaytime},
+				#{roomNumber},
+				#{roomId},
+				#{roomTime},
+				#{updateDt}
+			)
+		]]>
+	</insert>-->
+	<!-- DELETE문 -->
+	<!--영복 코드<delete id="deleteRoom" parameterType="project.momento.room.dto.RoomDto">-->
+	<!--<delete id="Room" parameterType="project.momento.room.dto.RoomDto">
+		<![CDATA[
+			DELETE FROM ROOM
+			WHERE
+				PK_ROOM_SEQ = #{pkRoomSeq}
+		]]>
+	</delete>-->
+	<!-- UPDATE문 --> 
+	<!--영복 코드<update id="updateRoom" parameterType="project.momento.room.dto.RoomDto">-->
+	<!--<update id="Room" parameterType="project.momento.room.dto.RoomDto">
+		<![CDATA[
+			UPDATE SET
+				ROOM
+			WHERE
+				ROOM_NAME = #{roomName},
+				ROOM_TYPE = #{roomType},
+				ROOM_PLAY = #{roomPlay},
+				ROOM_PLAYTIME = #{roomPlaytime},
+				UPDATE_DT = #{updateDt}
+		]]>
+	</update>-->
+	<!-- namespace는 Mapper 인터페이스의 경로로 설정 -->
+	<!-- 
+    <insert id="insertRoom" parameterType="project.momento.gameresult.dto.GameResultDto">
+        INSERT INTO GAME_RESULT(
+       			PK_GAME_RESULT_SEQ
+        		, MY_TEAM_NUM
+				, SOLVE_TEAM_NUM
+				, MY_RESULT
+				, QUESTION_TYPE
+
+        )
+        VALUES (
+        #{PkQuestionSeq}
+        , #{myTeamNum}
+        , #{solveTeamNum}
+        , #{myResult}
+        , #{questionType}
+        )
+    </insert>
+
+    <select id="findDistinctSolveTimeByUserSeq" resultType="project.momento.gameresult.dto.GameResultDto">
+        SELECT DISTINCT SOLVE_TIME FROM game_results WHERE PK_USER_SEQ = #{userSeq}
+    </select>
+
+    <select id="findResultsByUserSeqAndSolveTime" parameterType="int" resultType="project.momento.gameresult.dto.GameResultDto">
+        SELECT * FROM game_results WHERE PK_USER_SEQ = #{userSeq} AND SOLVE_TIME = #{solveTime}
+    </select>
+
+	 -->
+</mapper>

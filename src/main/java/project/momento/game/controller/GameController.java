@@ -86,7 +86,7 @@ public class GameController {
 		String name = (String) param.get("name");
 		int num = Integer.parseInt((String) param.get("number"));
 		int pkUserSeq = loginDto.getPkUserSeq();
-		
+
 		System.out.println(" [+] " + code + " [+] " + name + " [+] " + num);
 		
 		List<TestcaseDto> testcaseDtos = testcaseService.selectTestcaseList(num);

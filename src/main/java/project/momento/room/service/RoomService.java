@@ -4,7 +4,6 @@ import project.momento.chat.dto.ChatDto;
 import project.momento.room.dto.RoomDto;
 import project.momento.room.mapper.RoomMapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct; // 임시로 채용한 어
@@ -12,20 +11,6 @@ import java.util.*;
 
 @Service
 public class RoomService {
-	
-	/*
-	 * 해당 함수가 원래 처리할려고 했던 함수. 근데 완성된건 아님. 그냥 잠깐 구현해놓다가 만거여서
-	 * 제대로 작동 안됨.
-	 * @Autowired private RoomMapper mapper;
-	 * 
-	 * public List<RoomDto> findAllRooms() { return mapper.findAllRooms(); }
-	 * 
-	 * public List<RoomDto> findRoomByName(String roomName) { return
-	 * mapper.findRoomByName(roomName); }
-	 * 
-	 * public List<RoomDto> createRoomDTO(String roomName) { return
-	 * mapper.createRoom(roomName); }
-	 */
 	
 	public Map<String, RoomDto> roomDtoMap; // 임시적으로 구현한 채팅방 저장을 위한 Map
 	
@@ -67,6 +52,7 @@ public class RoomService {
 		else
 			roomDto.setTotal(roomDto.getRoomNumber());
 		roomDto.setParticipants(0);
+		roomDto.setIsRunning(0);
 		Integer[] intArray = new Integer[36];
 		for(int i=0; i < 36; i++)
 			intArray[i] = i+1;
@@ -90,10 +76,10 @@ public class RoomService {
 			HashMap dump = new HashMap();
 			dump.put("dump", "dump");
 			room.getUserList().put("waitList", dump);
-			room.getUserList().get("waitList").put(userUUID, message.getPkUserSeq());
+			room.getUserList().get("waitList").put(userUUID, message.getUserName());
 			room.getUserList().get("waitList").remove("dump");
 		}else {
-			room.getUserList().get("waitList").put(userUUID, message.getPkUserSeq());
+			room.getUserList().get("waitList").put(userUUID, message.getUserName());
 		}
 		
 		room.setParticipants(room.getParticipants() + 1);
@@ -121,18 +107,41 @@ public class RoomService {
 
         return userName;
 	}
-
-	@Autowired
-	private RoomMapper RoomMapper;
-	
-	public void insertRoom(RoomDto rmDto) {
-		// TODO Auto-generated method stub
-		RoomMapper.insertRoom(rmDto);
-	}
-
-//	public List<RoomDto> selectRoom(int pkRoomSeq) {
+// DB 연동시 사용 
+//	@Autowired
+//	private RoomMapper roomMapper;
+//	
+//	public void insertRoom(RoomDto rmDto) {
 //		// TODO Auto-generated method stub
-//		return RoomMapper.selectRoom(pkRoomSeq);
+//		roomMapper.insertRoom(rmDto);
 //	}
+//
+//    /**
+//     * 모든 방 리스트를 가져옵니다.
+//     *
+//     * @return 방 리스트를 담고 있는 RoomDto 객체의 리스트
+//     */
+//    public List<RoomDto> getAllRooms() {
+//        return roomMapper.getAllRooms();
+//    }
+//
+//    /**
+//     * 주어진 pkRoomSeq에 해당하는 방을 조회합니다.
+//     *
+//     * @param pkRoomSeq 조회할 방의 고유번호
+//     * @return 조회된 방 정보를 담고 있는 RoomDto 객체의 리스트
+//     */
+//    public List<RoomDto> getRoomByPkRoomSeq(int pkRoomSeq) {
+//        return roomMapper.getRoomByPkRoomSeq(pkRoomSeq);
+//    }
+//
+//    /**
+//     * 주어진 pkRoomSeq에 해당하는 방을 삭제합니다.
+//     *
+//     * @param pkRoomSeq 삭제할 방의 고유번호
+//     */
+//    public void deleteRoomByPkRoomSeq(int pkRoomSeq) {
+//    	roomMapper.deleteRoomByPkRoomSeq(pkRoomSeq);
+//    }
 }
 

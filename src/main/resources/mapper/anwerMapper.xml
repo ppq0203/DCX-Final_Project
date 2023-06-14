@@ -14,8 +14,8 @@
 				ANSWER_USER,
 				ANSWER_Ox,
 				REGIST_DT,
-				TYPE,
-				SOLVE_TIME
+				SOLVE_TIME,
+				TYPE
 			) 
 			VALUES
 			(
@@ -24,11 +24,13 @@
 				#{answerUser},
 				#{answerOx},
 				#{registDt},
-				#{type},
-				#{solveTime}
+				DATE_FORMAT(SYSDATE(), '%Y-%m-%d %T'),
+				#{type}
 			)
 			
 		]]>
+		
+		<!-- SYSDATE()=시스템의 날짜 NOW()=현재 날짜-->
 	</insert>
 	
 	<!-- SELECT문 -->             <!-- 정보내려주기 -->                               <!-- 정보 받아오기 -->
@@ -42,8 +44,8 @@
 				ANSWER_USER			AS answerUser,
 				ANSWER_OX 			AS answerOx,
 				REGIST_DT 			AS registDt,
-				TYPE				AS type,
-				SOLVE_TIME			AS solveTime
+				SOLVE_TIME			AS solveTime,
+				TYPE				AS type
 			FROM 
 				ANSWER
 			WHERE
@@ -51,20 +53,75 @@
 		]]>
 	</select>
 	
-
+	<!-- SELECT PK_USER,TYPE 리턴 -->
+	<select id="selectAnswerType" resultType="project.momento.answer.dto.AnswerDto" parameterType="project.momento.answer.dto.AnswerDto">
+		<![CDATA[
+			SELECT
+				PK_USER_SEQ 		AS pkUserSeq,
+				TYPE				AS type
+			FROM 
+				ANSWER
+			WHERE
+				PK_USER_SEQ = #{pkUserSeq}
+				AND TYPE = #{type}
+		]]>
+	</select>
+	
+	<!-- SELECT PK_USER, SOLVE_TIME 리턴 -->
+ <select id="selectAnswerTime" resultType="project.momento.answer.dto.AnswerDto" parameterType="project.momento.answer.dto.AnswerDto">
+		<![CDATA[
+			SELECT
+				PK_USER_SEQ			AS pkUserSeq,
+				SOLVE_TIME			AS solveTime
+			FROM 
+				ANSWER
+			WHERE
+				PK_USER_SEQ = #{pkUserSeq}
+				AND SOLVE_TIME = #{solveTime}
+		]]>
+	</select>
+	
+<!--	<select id="selectAnswerTime" resultType="project.momento.answer.dto.AnswerDto" parameterType="project.momento.answer.dto.AnswerDto">
+		<![CDATA[
+			SELECT
+				PK_USER_SEQ										AS pkUserSeq,
+				DATE_FORMAT(SOLVE_TIME, '%Y-%m-%d %T')이거 사용하면 NULL뜸..			AS solveTime
+			FROM 
+				ANSWER
+			WHERE
+				PK_USER_SEQ 								= #{pkUserSeq}
+				AND DATE_FORMAT(SOLVE_TIME,'%Y-%m-%d %T') 	= #{solveTime}
+		]]>
+	</select>-->
+	<!-- SELECT PK_USER, SOLVE_TIME, TYPE 리턴 -->
+	<select id="selectAnswerTY" resultType="project.momento.answer.dto.AnswerDto" parameterType="project.momento.answer.dto.AnswerDto">
+		<![CDATA[
+			SELECT
+				PK_USER_SEQ		AS pkUserSeq,
+				TYPE			AS type,
+				SOLVE_TIME		AS solveTime
+			FROM 
+				ANSWER
+			WHERE
+				PK_USER_SEQ 			= #{pkUserSeq}
+				AND TYPE				= #{type}
+				AND SOLVE_TIME			= #{solveTime}
+				
+		]]>
+	</select>
 	
 	<!-- DELETE문 -->
-	<delete id="deleteAnswer" parameterType="project.momento.answer.dto.AnswerDto">
+<!--	<delete id="deleteAnswer" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			DELETE FROM 
 				ANSWER
 			WHERE
 				PK_ANSWER_SEQ = #{pkAnswerSeq}
 		]]>
-	</delete>
+	</delete>-->
 	
 	<!-- UPDATE문 --> 
-	<update id="updateAnswer" parameterType="project.momento.answer.dto.AnswerDto">
+<!--	<update id="updateAnswer" parameterType="project.momento.answer.dto.AnswerDto">
 		<![CDATA[
 			UPDATE
 				ANSWER
@@ -73,6 +130,6 @@
 			WHERE
 				PK_ANSWER_SEQ = #{pkAnswerSeq}
 		]]>
-	</update>
+	</update>-->
 	
 </mapper>

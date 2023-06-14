@@ -22,10 +22,10 @@ public class AnswerDto extends QuestionDto {
 	private String answerOx;
 	/*답안 제출 일자*/
 	private String registDt;
-	/*문제 타입*/
-	private String type;
-	
+	/*걸리는 시간*/
 	private String solveTime;
+	/*문제 유형*/
+	private String type;
 	// 임시변수 유저고유번호 int로 받을수있게되면 삭제
 	private String userUUID;
 }
