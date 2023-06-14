@@ -42,11 +42,11 @@ public class RoomController {
 
 	// 채팅방 목록 조회
 	@GetMapping(value = "/rooms")
-	public ModelAndView rooms(String roomType) {
+	public ModelAndView rooms(String roomStatus) {
 		
 		log.info(" # All Chat Rooms");
 		ModelAndView mv = new ModelAndView("content/gameWaiting");
-		mv.addObject("list", roomService.findAllRooms(roomType));
+		mv.addObject("list", roomService.findAllRooms(roomStatus));
 		
 		return mv;
 	}
