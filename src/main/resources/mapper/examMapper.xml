@@ -41,17 +41,20 @@
 	</insert>
 	<select id="getExamList" parameterType="project.momento.exam.dto.ExamDto" resultType="project.momento.exam.dto.ExamDto">
 			 SELECT 
-			 	PK_EXAM_SEQ 	AS pkExamSeq,
-		         PK_SUBJECT_SEQ AS pkSubjectSeq,
-		         EXAM_DIVN		AS examDivn,
-		         REGIST_ID 		AS registId,
-		         REGIST_DT 		AS registDt,
-		         UPDATE_ID 		AS updateId,
-		         UPDATE_DT 		AS updateDt
-			  FROM LMS_EXAM
-			  WHERE PK_SUBJECT_SEQ = #{pkSubjectSeq}
+			 	A.PK_EXAM_SEQ 	AS pkExamSeq,
+		        A.PK_SUBJECT_SEQ AS pkSubjectSeq,
+		        A.EXAM_DIVN		AS examDivn,
+		        A.REGIST_ID 		AS registId,
+		        A.REGIST_DT 		AS registDt,
+		        A.UPDATE_ID 		AS updateId,
+		        A.UPDATE_DT 		AS updateDt,
+		        B.SUBJECT_NAME		AS subjectName
+			  FROM LMS_EXAM A
+			  JOIN SUBJECT B
+			  ON A.PK_SUBJECT_SEQ = B.PK_SUBJECT_SEQ
+			  WHERE A.PK_SUBJECT_SEQ = #{pkSubjectSeq}
 			 <if test="userDivn == 'std'">
-			    AND PK_EXAM_SEQ NOT IN (SELECT WA.PK_EXAM_SEQ
+			    AND A.PK_EXAM_SEQ NOT IN (SELECT WA.PK_EXAM_SEQ
 			    						FROM LMS_EXAM_RESULT WA
 			    						WHERE WA.PK_USER_SEQ = #{pkUserSeq})
 			</if>
@@ -86,7 +89,7 @@
 			A.PK_EXAM_SEQ 																			AS pkExamSeq
 			, A.PK_EXAM_DETAIL_SEQ																	AS pkExamDetailSeq
 			, A.PK_SUBJECT_SEQ 																		AS pkSubjectSeq
-			, (SELECT SB.SUBJECT_NAME FROM SUBJECT SB WHERE SB.PK_SUBJECT_SEQ = A.PK_SUBJECT_SEQ)	AS subjectName
+			, C.SUBJECT_NAME																		AS subjectName
 			, A.PK_EXAM_RESULT_SEQ																	AS pkExamResultSeq
 			, A.PK_USER_SEQ																			AS pkUserSeq 
 			, (SELECT SA.NAME FROM USER SA WHERE A.PK_USER_SEQ = SA.PK_USER_SEQ)					AS name
@@ -97,36 +100,53 @@
 		FROM LMS_EXAM_RESULT A
 		INNER JOIN LMS_EXAM B
 		ON A.PK_EXAM_SEQ= B.PK_EXAM_SEQ
+		JOIN SUBJECT C
+		ON B.PK_SUBJECT_SEQ = C.PK_SUBJECT_SEQ
 		WHERE 1=1
+		AND B.PK_SUBJECT_SEQ = #{pkSubjectSeq}
 		<if test="userDivn == 'std'">
-			    AND A.PK_USER_SEQ = #{pkUserSeq}
-			</if>
+		    AND A.PK_USER_SEQ = #{pkUserSeq}
+		</if>
 		GROUP BY A.PK_USER_SEQ
 	</select>
 	
 	<select id="selectExamResultDetailList" parameterType="project.momento.exam.dto.ExamDto" resultType="project.momento.exam.dto.ExamDto">
 		SELECT 
-			A.PK_EXAM_SEQ 																			AS pkExamSeq
-			, A.PK_EXAM_DETAIL_SEQ																	AS pkExamDetailSeq
-			, A.PK_SUBJECT_SEQ 																		AS pkSubjectSeq
-			, (SELECT SB.SUBJECT_NAME FROM SUBJECT SB WHERE SB.PK_SUBJECT_SEQ = A.PK_SUBJECT_SEQ)	AS subjectName
-			, A.PK_EXAM_RESULT_SEQ																	AS pkExamResultSeq
-			, A.PK_USER_SEQ																			AS pkUserSeq 
-			, (SELECT SA.NAME FROM USER SA WHERE A.PK_USER_SEQ = SA.PK_USER_SEQ)					AS name
-			, A.ANSWER																				AS answer
-			, (SELECT SC.TITLE FROM LMS_EXAM_DETAIL SC WHERE SC.PK_EXAM_DETAIL_SEQ = A.PK_EXAM_DETAIL_SEQ) AS title
-			, (SELECT SC.CONTENTS FROM LMS_EXAM_DETAIL SC WHERE SC.PK_EXAM_DETAIL_SEQ = A.PK_EXAM_DETAIL_SEQ) AS contents
-			, A.RESULT_DIVN																			AS resultDivn
-			, A.ANS_RESULT																			AS ansResult
-			, A.REGIST_ID 																			AS registId
-			, A.REGIST_DT 																			AS registDt
-			, A.UPDATE_ID 																			AS updateId
-			, A.UPDATE_DT 																			AS updateDt
-		FROM LMS_EXAM_RESULT A
-		INNER JOIN LMS_EXAM B
+			B.PK_EXAM_SEQ 																			AS pkExamSeq
+			, B.PK_EXAM_DETAIL_SEQ																	AS pkExamDetailSeq
+			, B.PK_SUBJECT_SEQ 																		AS pkSubjectSeq
+			, (SELECT SB.SUBJECT_NAME FROM SUBJECT SB WHERE SB.PK_SUBJECT_SEQ = B.PK_SUBJECT_SEQ)	AS subjectName
+			, B.PK_EXAM_RESULT_SEQ																	AS pkExamResultSeq
+			, B.PK_USER_SEQ																			AS pkUserSeq 
+			, (SELECT SA.NAME FROM USER SA WHERE B.PK_USER_SEQ = SA.PK_USER_SEQ)					AS name
+			, B.ANSWER																				AS answer
+			, (SELECT SC.TITLE FROM LMS_EXAM_DETAIL SC WHERE SC.PK_EXAM_DETAIL_SEQ = B.PK_EXAM_DETAIL_SEQ) AS title
+			, (SELECT SC.CONTENTS FROM LMS_EXAM_DETAIL SC WHERE SC.PK_EXAM_DETAIL_SEQ = B.PK_EXAM_DETAIL_SEQ) AS contents
+			, B.RESULT_DIVN																			AS resultDivn
+			, B.ANS_RESULT																			AS ansResult
+			, B.REGIST_ID 																			AS registId
+			, B.REGIST_DT 																			AS registDt
+			, B.UPDATE_ID 																			AS updateId
+			, B.UPDATE_DT 																			AS updateDt
+		   , D.PK_FILE_SEQ																		AS pkFileSeq
+		   , D.FILE_NM																				AS fileNm
+		   , D.FILE_SIZE																			AS fileSize
+		   , D.FILE_PATH																			AS filePath
+		   , D.FILE_ORIGINAL_PATH																AS fileOriginalPath
+		   , D.FILE_DOWN_CNT																		AS fileDownCnt
+		   , D.FILE_THUM_WID_SIZE																AS fileThumWidSize
+		   , D.FILE_THUM_HEI_SIZE																AS fileThumHeiSize
+		   , D.FILE_EXTENSION																	AS fileExtension
+		FROM LMS_EXAM A
+		LEFT JOIN LMS_EXAM_RESULT B
 		ON A.PK_EXAM_SEQ= B.PK_EXAM_SEQ
-		WHERE A.PK_USER_SEQ = #{pkUserSeq}
-		AND A.RESULT_DIVN = #{examDivn}
+		LEFT JOIN LMS_EXAM_DETAIL C
+		ON B.PK_EXAM_DETAIL_SEQ = C.PK_EXAM_DETAIL_SEQ
+		LEFT JOIN FILE D
+		ON C.PK_FILE_SEQ = D.PK_FILE_SEQ
+		WHERE B.PK_SUBJECT_SEQ = #{pkSubjectSeq}
+		AND B.RESULT_DIVN = #{resultDivn}
+		AND B.PK_USER_SEQ = #{pkUserSeq}
 	</select>
 	
 	<select id="selectExamResultDoneDetailList" parameterType="project.momento.exam.dto.ExamDto" resultType="project.momento.exam.dto.ExamDto">
@@ -148,10 +168,11 @@
 			, A.UPDATE_ID 																			AS updateId
 			, A.UPDATE_DT 																			AS updateDt
 		FROM LMS_EXAM_RESULT A
-		INNER JOIN LMS_EXAM B
+		JOIN LMS_EXAM B
 		ON A.PK_EXAM_SEQ= B.PK_EXAM_SEQ
-		WHERE A.PK_USER_SEQ = #{pkUserSeq}
-		AND A.RESULT_DIVN = #{examDivn}
+		WHERE B.PK_SUBJECT_SEQ = #{pkSubjectSeq}
+		AND A.RESULT_DIVN = #{resultDivn}
+		AND A.PK_USER_SEQ = #{pkUserSeq}
 	</select>
 	
 	<insert id="insertResult" parameterType="project.momento.exam.dto.ExamDto">

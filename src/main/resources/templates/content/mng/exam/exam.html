@@ -31,7 +31,7 @@
 
 					<tr th:each="item, index : ${exameList}">
 						<td th:text="${index.index + 1}"></td>
-						<td th:text="${session.subjectDto.subjectName}"></td>
+						<td th:text="${item.subjectName}"></td>
 						<td th:text="${item.registDt}"></td>
 						<td>
 							<button data-toggle="modal" data-target="#modal-xl-two"
@@ -72,7 +72,7 @@
 
 					<tr th:each="item, index : ${exameResultList}">
 						<td th:text="${(index.index) + 1}"></td>
-						<td th:text="${session.subjectDto.subjectName}"></td>
+						<td th:text="${item.subjectName}"></td>
 						<td th:text="${item.registDt}"></td>
 						<td th:text="${item.name}"></td>
 						<td>
@@ -234,9 +234,9 @@
 
 		function imgInit(index, item) {
 			var str = "";
-			if (item.pkFileSeq != 0) {
+			if (item.imgPath != null) {
 				str += '<div class="callout" style="height: 20rem; width: 100%; display: block;">'
-					+ '<img id="preview" key="src" index="' + index + '" class="card-img-top imgSrc"  alt="Thumbnail [100%x225]" src="' + item.filePath + '" style="height: 20rem; width: 100%; display: block;">'
+					+ '<img style="width: 100%; height: 100%;" src="data:image/jpeg;base64,' + item.imgPath + '">'
 					+ '</div>'
 				return str;
 			} else {
@@ -493,7 +493,7 @@
 
 			$('.resultBtn').click(function () {
 				// AJAX 호출
-				var pkUserSeq = $(this).attr('pkUserSeq');
+				var buttonValue = $(this).attr('pkUserSeq');
 				$.ajax({
 					url: '/getExamResultDetailList',
 					type: 'POST',
@@ -504,6 +504,7 @@
 					success: function (data) {
 						var IMG_ARRAY = [];
 						IMG_ARRAY = data;
+						console.log(IMG_ARRAY)
 						//$("#pkExamSeq").val(pkExamSeq);
 						$("#resultDiv").empty();
 						$.each(IMG_ARRAY, function (index, item) {
@@ -526,7 +527,7 @@
 								'<div class="form-group pr-1">' +
 								'<div class="custom-control custom-radio">' +
 								'<input class="custom-control-input checkAns" pkExamResultSeq="' + item.pkExamResultSeq + '" value="' + item.ansResult + '" type="checkbox" id="true' + index + '" index="' + index + '" checked>' +
-								'<input style="display: none;" type="text" value="' + item.ansResult + '" id="ansResult' + index + '" name="ansResult">' +
+								'<input style="display: none;" type="text" value="Y" id="ansResult' + index + '" name="ansResult">' +
 								'<label for="true' + index + '" class="custom-control-label">정답</label>' +
 								'</div>' +
 								'</div>' +

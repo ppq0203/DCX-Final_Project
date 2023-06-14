@@ -1,6 +1,10 @@
 package project.momento.exam.controller;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -160,6 +164,26 @@ public class ExamController {
 		ExamDto examDto = new ExamDto();
 		examDto.setPkExamSeq(pkExamSeq);
 		List<ExamDto> resultList = examService.selectExamDetailList(examDto);
+		for (int i=0; i < resultList.size(); i++) {
+			if (resultList.get(i).getFilePath() != null) {
+				String Path;
+				if (fileService.isWindows()) {
+					Path = "C:\\file\\" + resultList.get(i).getFileNm();
+				} else {
+					Path = "/file/" + resultList.get(i).getFileNm();
+				}
+				Path imagePath = Paths.get(Path);
+				if (Files.exists(imagePath)) {
+					try {
+						byte[] imageBytes = Files.readAllBytes(imagePath);
+		                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+		                resultList.get(i).setImgPath(base64Image);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 		model.addAttribute("resultList", resultList);
 		return resultList;
 	}
@@ -170,12 +194,35 @@ public class ExamController {
 			HttpServletRequest request) {
 		// 세션에서 내 정보를 가져온다
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		ExamDto examDto = new ExamDto();
 		examDto.setPkUserSeq(pkUserSeq);
-		examDto.setExamDivn("N");
+		examDto.setUserDivn(loginDto.getUserDivn());
+		examDto.setPkSubjectSeq(subjectDto.getPkSubjectSeq());
+		examDto.setResultDivn("N");
 		List<ExamDto> resultList = examService.selectExamResultDetailList(examDto);
+		for (int i=0; i < resultList.size(); i++) {
+			if (resultList.get(i).getFilePath() != null) {
+				String Path;
+				if (fileService.isWindows()) {
+					Path = "C:\\file\\" + resultList.get(i).getFileNm();
+				} else {
+					Path = "/file/" + resultList.get(i).getFileNm();
+				}
+				Path imagePath = Paths.get(Path);
+				if (Files.exists(imagePath)) {
+					try {
+						byte[] imageBytes = Files.readAllBytes(imagePath);
+		                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+		                resultList.get(i).setImgPath(base64Image);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 		model.addAttribute("resultList", resultList);
-		return resultList;
+		return resultList;	
 	}
 	
 	@ResponseBody
@@ -184,10 +231,33 @@ public class ExamController {
 			HttpServletRequest request) {
 		// 세션에서 내 정보를 가져온다
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		ExamDto examDto = new ExamDto();
 		examDto.setPkUserSeq(pkUserSeq);
-		examDto.setExamDivn("Y");
-		List<ExamDto> resultList = examService.selectExamResultDoneDetailList(examDto);
+		examDto.setUserDivn(loginDto.getUserDivn());
+		examDto.setPkSubjectSeq(subjectDto.getPkSubjectSeq());
+		examDto.setResultDivn("Y");
+		List<ExamDto> resultList = examService.selectExamResultDetailList(examDto);
+		for (int i=0; i < resultList.size(); i++) {
+			if (resultList.get(i).getFilePath() != null) {
+				String Path;
+				if (fileService.isWindows()) {
+					Path = "C:\\file\\" + resultList.get(i).getFileNm();
+				} else {
+					Path = "/file/" + resultList.get(i).getFileNm();
+				}
+				Path imagePath = Paths.get(Path);
+				if (Files.exists(imagePath)) {
+					try {
+						byte[] imageBytes = Files.readAllBytes(imagePath);
+		                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+		                resultList.get(i).setImgPath(base64Image);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 		model.addAttribute("resultList", resultList);
 		return resultList;
 	}
@@ -200,6 +270,12 @@ public class ExamController {
 			, Criteria cri
 			, Model model
 			, HttpServletRequest request) {
+		for (Integer item : pkExamResultSeq) {
+			System.out.println("pkExamResultSeq: " + item);
+		}
+		for (String item : ansResult) {
+			System.out.println("ansResult" + item);
+		}
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
 		ExamDto examDto = new ExamDto();
