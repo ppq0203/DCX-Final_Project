@@ -146,7 +146,7 @@
 			border: 3px solid white;
 		}
 	</style>
-	
+
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 			<!-- 모달 내용 -->
@@ -155,75 +155,21 @@
 					<h4 class="col ml-3 pl-2 modal-title text-center total_modal">점수표</h4>
 					<button type="button" class="close pl-0 ml-0" data-dismiss="modal">&times;</button>
 				</div>
-			
-			
-			
-			<!-- /.card-header -->
-			<table class="table" style="text-align:center">
-				<thead>
-					<tr>
-						<th style="width: 5%;"></th>
-						<th style="width: 25%;">유형</th>
-						<th style="width: 20%;">총 문제 수</th>
-						<th style="width: 20%;">푼 문제 수</th>
-						<th style="width: 35%;">포기한 문제수</th>
-					</tr>
-					
+				<table class="table" style="text-align:center">
+					<thead id="quiz_td_result">
 						<tr>
-							<td></td>
-							<td>Array</td>
-							
-							<td>2</td>
-							<td>3</td>
-							<td>3</td>
-							
+							<th style="width: 5%;"></th>
+							<th style="width: 25%;">유형</th>
+							<th style="width: 20%;">총 문제 수</th>
+							<th style="width: 20%;">푼 문제 수</th>
+							<th style="width: 35%;">포기한 문제수</th>
 						</tr>
-						<tr>
-							<td></td>
-							<td>Hash Table</td>
-							<td>4</td>
-							<td>3</td>
-							<td>3</td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td>Two Pointers</td>
-							<td>3</td>
-							<td>2</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> Divide and Conquer</td>
-							<td>1</td>
-							<td>0</td>
-							<td>4</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>Depth-First Search</td>
-							<td>5</td>
-							<td>1</td>
-							<td>5</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>Depth-First Search</td>
-							<td>3</td>
-							<td>0</td>
-							<td>10</td>
-						</tr>
-					
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			<!-- /.card-body -->
-			
-		</div>
+						
+					</thead>
+				</table>
 			</div>
 		</div>
+	</div>
 	</div>
 	<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 		<div id="header"></div>
@@ -242,7 +188,8 @@
 		</div>
 		<div id="sidebar">
 			<div class="side_User">
-				<img th:src="@{/img/profil.jpg}" style="border-radius: 50px; margin-top: -5px;" alt="exit" width="150px" height="150px">
+				<img th:src="@{/img/profil.jpg}" style="border-radius: 50px; margin-top: -5px;" alt="exit" width="150px"
+					height="150px">
 				<div class="" style="font-weight:bold;">
 					<span th:utext="${session.loginDto.name}"></span><br><span
 						th:utext="${session.loginDto.userId}"></span>
@@ -261,8 +208,7 @@
 			<button class="btnlogout" type="button" onclick="location.href='/chat/rooms'">나가기</button>
 		</div>
 	</div>
-	<button id="total_modal" onclick="resultCalc()" data-toggle="modal"
-		data-target="#myModal">결과보기</button>
+	<button id="total_modal" onclick="resultCalc()" style="visibility: hidden;" data-toggle="modal" data-target="#myModal">결과보기</button>
 
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
@@ -432,18 +378,26 @@
 
 			for (const [key, value] of resultMap.entries()) {
 				console.log(`Key: ${key}, Value: ${value}`);
-				str = '';
-				str = "<div>";
-				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
-				str += "</div>";
-				$("#type_result_area").append(str);
+				str = "<tr>"
+				str += "<td></td>";
+				str += "<td>" + key + "</td>";
+				str += "<td>" + value[1] + "</td>";
+				str += "<td>" + value[0] + "</td>";
+				str += "<td>" + (value[1]-value[0]) + "</td></tr>";
+				$("#quiz_td_result").append(str);
 				total += value[1];
 				solve += value[0];
 			}
 
+						/*<td></td>
+							<td>Array</td>
+							<td>2</td>
+							<td>3</td>
+							<td>3</td>*/
+
 			$("#total_count").text(total);
 			$("#solve_count").text(solve);
-			$("#giveup_count").text(total - solve);
+			//$("#giveup_count").text(total - solve);
 		}
 
 		for (var i = 0; i < gameroom_left_classes.length; i++) {

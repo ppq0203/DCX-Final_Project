@@ -71,6 +71,29 @@
 	<!-- ----------------------- 대기방 끝 --------------------------- -->
 
 	<!-- ------------------------게임방------------------------------ -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- 모달 내용 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="col ml-3 pl-2 modal-title text-center total_modal"><img src="/img/win.png" id="win"></img>
+				<img src="/img/lose.png" id="lose"></img></h4>
+					<button type="button" class="close pl-0 ml-0" data-dismiss="modal">&times;</button>
+				</div>
+				<table class="table" style="text-align:center">
+					<thead id="quiz_td_result">
+						<tr>
+							<th id="ss" style="width: 5%;"></th>
+							<th id="sd" style="width: 25%;">유형</th>
+							<th id="se" style="width: 20%;">총 문제 수</th>
+							<th id="sf" style="width: 20%;">푼 문제 수</th>
+							<th id="sg" style="width: 35%;">포기한 문제수</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
 	<div id="gameRoom" style="display:none;">
 		<div class="gameing_container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 			<div class="gameing_header" id="header"></div>
@@ -133,72 +156,72 @@
 					</div>
 				</div>
 				<div class="gameing_quiz">
-					<table class="gameing_table">
+					<table class="gameing_table quiz_board_th">
 						<thead class="gameing_tableborder">
-							<tr>
-								<th></th>
-								<th>1</th>
-								<th>2</th>
-								<th>3</th>
-								<th>4</th>
-								<th>5</th>
-								<th>6</th>
+							<tr class="quiz_board_th">
+								<th class="quiz_board_th"></th>
+								<th class="quiz_board_th">1</th>
+								<th class="quiz_board_th">2</th>
+								<th class="quiz_board_th">3</th>
+								<th class="quiz_board_th">4</th>
+								<th class="quiz_board_th">5</th>
+								<th class="quiz_board_th">6</th>
 							</tr>
 						</thead>
 						<tbody class="gameing_tableborder">
 							<tr>
-								<th>1</th>
-								<td class="hover_y" id="q1">1</td>
-								<td class="hover_y" id="q2">2</td>
-								<td class="hover_y" id="q3">3</td>
-								<td class="hover_y" id="q4">4</td>
-								<td class="hover_y" id="q5">5</td>
-								<td class="hover_y" id="q6">6</td>
+								<th class="quiz_board_green_th">1</th>
+								<td class="hover_y quiz_board_th"  id="q1">1</td>
+								<td class="hover_y quiz_board_th" id="q2">2</td>
+								<td class="hover_y quiz_board_th" id="q3">3</td>
+								<td class="hover_y quiz_board_th" id="q4">4</td>
+								<td class="hover_y quiz_board_th" id="q5">5</td>
+								<td class="hover_y quiz_board_th" id="q6">6</td>
 							</tr>
 							<tr>
-								<th>2</th>
-								<td class="hover_y" id="q7">7</td>
-								<td class="hover_y" id="q8">8</td>
-								<td class="hover_y" id="q9">9</td>
-								<td class="hover_y" id="q10">10</td>
-								<td class="hover_y" id="q11">11</td>
-								<td class="hover_y" id="q12">12</td>
+								<th class="quiz_board_green_th">2</th>
+								<td class="hover_y quiz_board_th" id="q7">7</td>
+								<td class="hover_y quiz_board_th" id="q8">8</td>
+								<td class="hover_y quiz_board_th" id="q9">9</td>
+								<td class="hover_y quiz_board_th" id="q10">10</td>
+								<td class="hover_y quiz_board_th" id="q11">11</td>
+								<td class="hover_y quiz_board_th" id="q12">12</td>
 							</tr>
 							<tr>
-								<th>3</th>
-								<td class="hover_y" id="q13">13</td>
-								<td class="hover_y" id="q14">14</td>
-								<td class="hover_y" id="q15">15</td>
-								<td class="hover_y" id="q16">16</td>
-								<td class="hover_y" id="q17">17</td>
-								<td class="hover_y" id="q18">18</td>
+								<th class="quiz_board_green_th">3</th>
+								<td class="hover_y quiz_board_th" id="q13">13</td>
+								<td class="hover_y quiz_board_th" id="q14">14</td>
+								<td class="hover_y quiz_board_th" id="q15">15</td>
+								<td class="hover_y quiz_board_th" id="q16">16</td>
+								<td class="hover_y quiz_board_th" id="q17">17</td>
+								<td class="hover_y quiz_board_th" id="q18">18</td>
 							</tr>
 							<tr>
-								<th>4</th>
-								<td class="hover_y" id="q19">19</td>
-								<td class="hover_y" id="q20">20</td>
-								<td class="hover_y" id="q21">21</td>
-								<td class="hover_y" id="q22">22</td>
-								<td class="hover_y" id="q23">23</td>
-								<td class="hover_y" id="q24">24</td>
+								<th class="quiz_board_green_th">4</th>
+								<td class="hover_y quiz_board_th" id="q19">19</td>
+								<td class="hover_y quiz_board_th" id="q20">20</td>
+								<td class="hover_y quiz_board_th" id="q21">21</td>
+								<td class="hover_y quiz_board_th" id="q22">22</td>
+								<td class="hover_y quiz_board_th" id="q23">23</td>
+								<td class="hover_y quiz_board_th" id="q24">24</td>
 							</tr>
 							<tr>
-								<th>5</th>
-								<td class="hover_y" id="q25">25</td>
-								<td class="hover_y" id="q26">26</td>
-								<td class="hover_y" id="q27">27</td>
-								<td class="hover_y" id="q28">28</td>
-								<td class="hover_y" id="q29">29</td>
-								<td class="hover_y" id="q30">30</td>
+								<th class="quiz_board_green_th">5</th>
+								<td class="hover_y quiz_board_th" id="q25">25</td>
+								<td class="hover_y quiz_board_th" id="q26">26</td>
+								<td class="hover_y quiz_board_th" id="q27">27</td>
+								<td class="hover_y quiz_board_th" id="q28">28</td>
+								<td class="hover_y quiz_board_th" id="q29">29</td>
+								<td class="hover_y quiz_board_th" id="q30">30</td>
 							</tr>
 							<tr id="line6">
-								<th>6</th>
-								<td class="hover_y" id="q31">31</td>
-								<td class="hover_y" id="q32">32</td>
-								<td class="hover_y" id="q33">33</td>
-								<td class="hover_y" id="q34">34</td>
-								<td class="hover_y" id="q35">35</td>
-								<td class="hover_y" id="q36">36</td>
+								<th class="quiz_board_green_th">6</th>
+								<td class="hover_y quiz_board_th" id="q31">31</td>
+								<td class="hover_y quiz_board_th" id="q32">32</td>
+								<td class="hover_y quiz_board_th" id="q33">33</td>
+								<td class="hover_y quiz_board_th" id="q34">34</td>
+								<td class="hover_y quiz_board_th" id="q35">35</td>
+								<td class="hover_y quiz_board_th" id="q36">36</td>
 							</tr>
 						</tbody>
 					</table>
@@ -206,11 +229,11 @@
 			</div>
 		</div>
 		<!-- 문제 풀이 창 -->
-		<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<div class="modal fade quiz_modal_input" id="modal-xl" style="display: none;" aria-hidden="true">
 			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title"></h4>
+						<h4 class="modal-title modal-title-quiz"></h4>
 						<input type="hidden" id="questionNo">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
@@ -288,7 +311,7 @@
 			<!--<button onclick="get_index_and_prob()">임시 테스트</button>-->
 			<div id="test_value"></div>
 		</div>
-		<button onclick="resultCalc()">결과보기</button>
+		<button  onclick="resultCalc()" data-toggle="modal" data-target="#myModal" >결과보기</button>
 		<div class="text-center">
 			결과창
 			<div>
@@ -545,7 +568,7 @@
 					else {
 						resultSave(qtype, -1);
 					}
-					$('.modal').modal('hide');
+					$('.quiz_modal_input').modal('hide');
 					nowNo += 1;
 
 					//if (content.teamNo == 0)
@@ -854,7 +877,7 @@
 
 			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
 			setTimeout(function () {
-				$('.modal').modal('show');
+				$('.quiz_modal_input').modal('show');
 				loadQuestion(questionList[nowNo]);
 			}, 1000);
 		}
@@ -908,7 +931,7 @@
 			type = question.type;
 			input = question.input;
 			output = question.output;
-			$('.modal-title').text(title);
+			$('.modal-title-quiz').text(title);
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
 			$('#nameQuestion').val(question.className);
