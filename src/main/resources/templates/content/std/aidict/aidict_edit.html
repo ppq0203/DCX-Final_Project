@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout/std/stdAiLayout}">
+
+<th:block layout:fragment="content">
+	<div class="row">
+		<div class="col-12 p-5">
+			<div class="row">
+				<div class="col-6">
+					<h2>용어사전</h2>
+				</div>
+				<div class="card-tools col-6 text-right">
+					<button data-toggle="modal" data-target="#modal-xl" type="button" class="btn btn-primary"
+						data-action="create">
+						<span>등록</span>
+					</button>
+				</div>
+			</div>
+			<!-- /.card-header -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">용어명</th>
+						<th scope="col">뜻</th>
+						<th scope="col">수정</th>
+						<th scope="col">삭제</th>
+					</tr>
+				</thead>
+
+				<tbody th:if="${exameList != null && exameList.size() > 0}">
+					<tr th:each="item, index : ${exameList}" th:if="${item.examDivn == 'Y'}">
+						<td th:text="${index.index + 1}"></td>
+						<td th:text="${item.registDt}"></td>
+						<td th:text="${item.registDt}"></td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-two"
+								th:attr="pkExamSeq=${item.pkExamSeq}" type="button" class="btn btn-primary updateBtn"
+								data-action="modify">
+								<i class="bi bi-pencil-fill"></i>
+							</button>
+						</td>
+						<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- /.card-body -->
+			<div class="card-footer">
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<form action="/std/exam/result" method="POST" onsubmit="return validation()">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">단어장</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+
+									<div class="form-group">
+										<label>용어</label>
+										<input type="text" class="form-control" placeholder="Enter ...">
+									</div>
+								</div>
+								<div class="col-12">
+
+									<div class="form-group">
+										<label>뜻</label>
+										<textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="submit" divn="delete" class="btn btn-primary modelBtn">
+							<span>등록</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal fade" id="modal-xl-three" style="display: none;" aria-hidden="true">
+		<form action="/mng/exam/result/score" method="POST">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">시험 결과</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div id="resultDiv" class="row">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+
+		$(document).ready(function () {
+
+		});
+		
+		// 삭제
+		function deleteRow(ths){
+			var ths = $(ths);
+
+			ths.parents("tr").remove();
+		}
+
+	</script>
+	</th:block>
+
+</html>
