@@ -16,15 +16,14 @@
 					</button>
 				</div>
 			</div>
-			<!-- /.card-header -->
 			<table class="table" id="addrow">
 				<thead>
 					<tr>
-						<th scope="col">No.</th>
-						<th scope="col">과목명</th>
-						<th scope="col">날짜</th>
-						<th scope="col">미리보기</th>
-						<th scope="col">시작</th>
+						<th style="width: 5%;" scope="col">No.</th>
+						<th style="width: 65%;" scope="col">과목명</th>
+						<th style="width: 15%;" scope="col">날짜</th>
+						<th style="width: 7.5%;" scope="col">미리보기</th>
+						<th style="width: 7.5%;" scope="col">시작</th>
 					</tr>
 				</thead>
 
@@ -32,7 +31,7 @@
 
 					<tr th:each="item, index : ${exameList}">
 						<td th:text="${index.index + 1}"></td>
-						<td th:text="${item.registDt}"></td>
+						<td th:text="${session.subjectDto.subjectName}"></td>
 						<td th:text="${item.registDt}"></td>
 						<td>
 							<button data-toggle="modal" data-target="#modal-xl-two"
@@ -50,10 +49,6 @@
 					</tr>
 				</tbody>
 			</table>
-
-			<!-- /.card-body -->
-			<div class="card-footer">
-			</div>
 		</div>
 		<div class="col-12 p-5">
 			<div class="row">
@@ -61,15 +56,15 @@
 					<h2>평가</h2>
 				</div>
 			</div>
-			<!-- /.card-header -->
 			<table class="table" id="addrow">
 				<thead>
 					<tr>
-						<th scope="col">No.</th>
-						<th scope="col">과목명</th>
-						<th scope="col">날짜</th>
-						<th scope="col">이름</th>
-						<th scope="col">채점</th>
+						<th style="width: 5%;" scope="col">No.</th>
+						<th style="width: 50%;" scope="col">과목명</th>
+						<th style="width: 20%;" scope="col">날짜</th>
+						<th style="width: 10%;" scope="col">학생</th>
+						<th style="width: 7.5%;" scope="col">미채점</thstyle="width: 5%;">
+						<th style="width: 7.5%;" scope="col">수정</th>
 					</tr>
 				</thead>
 
@@ -84,20 +79,24 @@
 							<button data-toggle="modal" data-target="#modal-xl-three"
 								th:attr="pkUserSeq=${item.pkUserSeq}" type="button" class="btn btn-info resultBtn"
 								data-action="modify">
-								<span>보기</span>
+								<span>채점</span>
 							</button>
 						</td>
+						<td>
+							<button data-toggle="modal" data-target="#modal-xl-four"
+								th:attr="pkUserSeq=${item.pkUserSeq}" type="button" class="btn btn-success resultDoneBtn"
+								data-action="modify">
+								<span>수정</span>
+							</button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
-
-			<!-- /.card-body -->
-			<div class="card-footer">
-			</div>
 		</div>
 	</div>
 
-	<!-- Modal -->
+	<!-- Modal-create-exam -->
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
 		<form action="/mng/exam/create" method="POST" enctype="multipart/form-data">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
@@ -137,6 +136,7 @@
 			</div>
 		</form>
 	</div>
+	<!-- Modal-delete-exam -->
 	<div class="modal fade" id="modal-xl-two" style="display: none;" aria-hidden="true">
 		<form action="/mng/exam/delete" method="POST">
 			<input id="pkExamSeq" name="pkExamSeq" type="hidden">
@@ -163,6 +163,7 @@
 			</div>
 		</form>
 	</div>
+	<!-- Modal-result-exam -->
 	<div class="modal fade" id="modal-xl-three" style="display: none;" aria-hidden="true">
 		<form action="/mng/exam/result/score" method="POST">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
@@ -175,6 +176,32 @@
 					<div class="modal-body">
 						<div class="container-fluid">
 							<div id="resultDiv" class="row">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="submit" divn="delete" class="btn btn-primary modelBtn">
+							<span>채점</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- Modal-result-done-exam -->
+	<div class="modal fade" id="modal-xl-four" style="display: none;" aria-hidden="true">
+		<form action="/mng/exam/result/score" method="POST">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">시험 채점</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div id="resultDoneDiv" class="row">
 							</div>
 						</div>
 					</div>
@@ -512,12 +539,90 @@
 								imgInit(index, item) +
 								'</div>' +
 								'<div class="col-6">' +
+								'<textarea value="' + item.answer + '" name="	answer" index="' + index + '" key="contents"' +
+								'class="form-control form-control-lg validate"' +
+								'style="height: 20rem;" row="6" id="answer" placeholder="정답">' +
+								'' + item.answer + '' +
+								'</textarea>' +
+								'<input type="hidden" name="pkExamResultSeq" value="' + item.pkExamResultSeq + '">' +
+								'</div>' +
+								'</div>' +
+								'</div>'
+							);
+						});
+						$(".checkAns").click(function () {
+							// 클릭한 checkAns 클래스를 가진 요소의 라디오 버튼을 선택
+							var radio = $(this);
+							// 라디오 버튼이 체크되어 있는지 확인
+							if (radio.is(":checked")) {
+								// 체크되어 있다면 value 값을 "Y"로 설정
+								score(radio.attr('pkExamResultSeq'), "Y");
+							} else {
+								// 체크되어 있지 않다면 value 값을 "N"으로 설정
+								score(radio.attr('pkExamResultSeq'), "N");
+							}
+						});
+					},
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
+			});
+
+			$('.resultDoneBtn').click(function () {
+				// AJAX 호출
+				var pkUserSeq = $(this).attr('pkUserSeq');
+				$.ajax({
+					url: '/getExamResultDoneDetailList',
+					type: 'POST',
+					data: {
+						pkUserSeq: $(this).attr('pkUserSeq')
+					},
+					dataType: 'json',
+					success: function (data) {
+						var IMG_ARRAY = [];
+						IMG_ARRAY = data;
+						//$("#pkExamSeq").val(pkExamSeq);
+						$("#resultDoneDiv").empty();
+						$.each(IMG_ARRAY, function (index, item) {
+							$("#resultDoneDiv").append(
+								'<div class="col-12 hr">' +
+								'<div class="row align-items-center">' +
+								'<div class="col-2">' +
+								'<h3 class="p-3 num text-center">' + (index + 1) + '</h3>' +
+								'</div>' +
+								'<div class="col-5">' +
+								'<div class="input-group">' +
+								'<span>'
+								+ item.title +
+								'</span>' +
+								'</div>' +
+								'</div>' +
+								'<div class="col-5">' +
+								'<div class="row">' +
+								'<div class="6">' +
+								'<div class="form-group pr-1">' +
+								'<div class="custom-control custom-radio">' +
+								'<input class="custom-control-input checkAns" pkExamResultSeq="' + item.pkExamResultSeq + '" value="Y" type="checkbox" id="true' + index + '" name="ansResult" checked>' +
+								'<label for="true' + index + '" class="custom-control-label">정답</label>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'<div class="col-12">' +
+								'<div class="row">' +
+								'<div class="col-6">' +
+								imgInit(index, item) +
+								'</div>' +
+								'<div class="col-6">' +
 								'<textarea value="' + item.answer + '" name="answer" index="' + index + '" key="contents"' +
 								'class="form-control form-control-lg validate"' +
 								'style="height: 20rem;" row="6" id="answer" placeholder="정답">' +
 								'' + item.answer + '' +
 								'</textarea>' +
-								'<input type="hidden" name="pkUserSeq" value="' + item.pkUserSeq + '">' +
+								'<input type="hidden" name="pkExamResultSeq" value="' + item.pkExamResultSeq + '">' +
 								'</div>' +
 								'</div>' +
 								'</div>'

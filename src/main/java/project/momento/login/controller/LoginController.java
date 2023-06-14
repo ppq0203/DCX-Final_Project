@@ -60,7 +60,13 @@ public class LoginController {
 		} else {
 			FileDto fileDto = fileService.selectFile(loginCheck.getPkFileSeq());
 			if (fileDto != null) {
-				Path imagePath = Paths.get(fileDto.getFilePath());
+				String Path;
+				if (fileService.isWindows()) {
+					Path = "C:\\file\\" + fileDto.getFileNm();
+				} else {
+					Path = "/file/" + fileDto.getFileNm();
+				}
+				Path imagePath = Paths.get(Path);
 				if (Files.exists(imagePath)) {
 					try {
 						byte[] imageBytes = Files.readAllBytes(imagePath);

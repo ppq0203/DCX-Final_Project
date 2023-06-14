@@ -53,7 +53,6 @@ public class ExamController {
 			Model model) {
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
-		request.getSession().setAttribute("subjectDto", subjectDto);
 		ExamDto examDto = new ExamDto();
 		examDto.setUserDivn(userDivn);
 		examDto.setPkSubjectSeq(pkSubjectSeq);
@@ -173,16 +172,32 @@ public class ExamController {
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		ExamDto examDto = new ExamDto();
 		examDto.setPkUserSeq(pkUserSeq);
+		examDto.setExamDivn("N");
 		List<ExamDto> resultList = examService.selectExamResultDetailList(examDto);
+		System.out.println(resultList);
 		model.addAttribute("resultList", resultList);
 		return resultList;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getExamResultDoneDetailList", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+	public List<ExamDto> GetExamResultDoneDetailList(@RequestParam int pkUserSeq, Criteria cri, Model model,
+			HttpServletRequest request) {
+		// 세션에서 내 정보를 가져온다
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		ExamDto examDto = new ExamDto();
+		examDto.setPkUserSeq(pkUserSeq);
+		examDto.setExamDivn("Y");
+		List<ExamDto> resultList = examService.selectExamResultDoneDetailList(examDto);
+		System.out.println(resultList);
+		model.addAttribute("resultList", resultList);
+		return resultList;
+	}
 	
 	@RequestMapping(value = "/{userDivn}/exam/result/score", produces = "application/text;charset=utf-8") /* value주소 이름 */
 	public String examResultScore(
-			@RequestParam int pkExamResultSeq
-			, @RequestParam String divn
+			@RequestParam List<Integer> pkExamResultSeq
+			, @RequestParam List<String> ansResult
 			, @PathVariable String userDivn
 			, Criteria cri
 			, Model model
@@ -190,18 +205,11 @@ public class ExamController {
 		SubjectDto subjectDto = (SubjectDto) request.getSession().getAttribute("subjectDto");
 		int pkSubjectSeq = subjectDto.getPkSubjectSeq();
 		ExamDto examDto = new ExamDto();
-		examDto.setPkExamResultSeq(pkExamResultSeq);
-		examDto.setAnsResult(divn);
-		examService.updateScore(examDto);
-//		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
-//		String[] answers = examDto.getAnswer().split(",");
-//		int[] pkExamDetailSeqArray =  examDto.getPkExamDetailSeqArray();
-//		for(int i = 0; i < pkExamDetailSeqArray.length; i++) {
-//			examDto.setAnswer(answers[i]);
-//			examDto.setPkExamDetailSeq(pkExamDetailSeqArray[i]);
-//			examDto.setPkUserSeq(loginDto.getPkUserSeq());
-//			examService.insertResult(examDto);
-//		}
-		return "ssssss";
+		for (int i=0; i < pkExamResultSeq.size(); i++) {
+			examDto.setPkExamResultSeq(pkExamResultSeq.get(i));
+			examDto.setAnsResult(ansResult.get(i));
+			examService.updateScore(examDto);
+		}
+		return "redirect:/" + userDivn + "/" + pkSubjectSeq + "/exam/main";
 	}
 }

@@ -66,6 +66,11 @@ public class ExamService {
 		// TODO Auto-generated method stub
 		return examMapper.selectExamResultDetailList(examDto);
 	}
+	
+	public List<ExamDto> selectExamResultDoneDetailList(ExamDto examDto) {
+		// TODO Auto-generated method stub
+		return examMapper.selectExamResultDetailList(examDto);
+	}
 
 	public void updateScore(ExamDto examDto) {
 		// TODO Auto-generated method stub

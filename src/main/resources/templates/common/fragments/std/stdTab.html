@@ -17,9 +17,6 @@
 			<li class="nav-item">
 				<a class="nav-link" th:classappend="${session.tab} == '4' ? 'active'" th:href="@{/{userDivn}/{pkSubjectSeq}/exam/main(userDivn=${session.loginDto.userDivn}, pkSubjectSeq=${session.subjectDto.pkSubjectSeq})}">테스트</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" th:classappend="${session.tab} == '5' ? 'active'" th:href="@{/{userDivn}/exam/main(userDivn=${session.loginDto.userDivn})}">강의평가</a>
-			</li>
 		</ul>
 	</div>
 </th:block>
