@@ -9,7 +9,6 @@
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 	<!--<link th:href="@{/css/gamemultiroom.css}" rel="stylesheet">-->
 	<script th:src="@{/js/dice.js}"></script>
-
 	<!-- ------------------------ 대기방 ---------------------------- -->
 	<div id="waitRoom" class="waiting_room_container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 		<div class="waiting_room_header" id="header"></div>
@@ -17,10 +16,10 @@
 		<div class="waiting_room_sidebar" id="sidebar">
 			<div class="waiting_room_gameinfo">
 				<ul class="waiting_room_no_dot">
-					<li>게임 유형 :</li>
-					<li>난이도 : </li>
-					<li>문제당 시간 : </li>
-					<li>문제 개수 : </li>
+					<li>게임 유형 : 팀전</li>
+					<li>난이도 : <span id = "level"></span></li>
+					<!-- <li>문제당 시간 : </li> -->
+					<li>문제 개수 : 36</li>
 				</ul>
 			</div>
 			<div>
@@ -360,6 +359,16 @@
 		var pkUserSeq = /*[[${session.loginDto.pkUserSeq}]]*/0;
 		var userName = /*[[${session.loginDto.name}]]*/0;
 		var userTeamNo;
+		var roomLevel = /*[[${room.roomLevel}]]*/0;
+		if (roomLevel == 1){
+			roomLevel = "Easy";
+		}else if (roomLevel == 2){
+			roomLevel = "MID";
+		}else if (roomLevel == 3){
+			roomLevel = "HARD";
+		}else if (roomLevel == 4){
+			roomLevel = "RANDOM";
+		}
 		
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -698,6 +707,7 @@
 					
 				}
 			});
+			$("#level").text(roomLevel);
 		});
 		// 주사위 애니메이션 다시 시작
 		function dice_animation_start(){
