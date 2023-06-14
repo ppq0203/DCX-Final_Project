@@ -89,7 +89,7 @@ public class AiDictController {
 	 * AI Dictionary Modify
 	 */
 	@RequestMapping(value = "/{userDivn}/aidict/{divn}", produces = "application/text;charset=utf-8")
-	public String aiQuestionSubmit(@RequestParam(required = false) int pkDictionarySeq, AiDictDto aidictDto, @PathVariable String userDivn, @PathVariable String divn, HttpServletRequest request, Model model) {
+	public String aiQuestionSubmit(@RequestParam int pkDictionarySeq, AiDictDto aidictDto, @PathVariable String userDivn, @PathVariable String divn, HttpServletRequest request, Model model) {
 		System.out.println(aidictDto);
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		aidictDto.setUserId(loginDto.getUserId());
@@ -104,7 +104,7 @@ public class AiDictController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getDictList", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
-	public AiDictDto getDictList(@RequestParam int pkDictionarySeq, @PathVariable String userDivn) {
+	public AiDictDto getDictList(@RequestParam int pkDictionarySeq) {
 		AiDictDto dictDto = aidictService.getDictList(pkDictionarySeq);
 		System.out.println(dictDto);
 		return dictDto;

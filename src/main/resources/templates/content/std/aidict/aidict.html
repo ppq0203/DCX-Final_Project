@@ -19,11 +19,11 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">No.</th>
-						<th scope="col">용어명</th>
-						<th scope="col">뜻</th>
-						<th scope="col">수정</th>
-						<th scope="col">삭제</th>
+						<th style="width:5%;">No.</th>
+						<th>용어명</th>
+						<th style="width:40%;">뜻</th>
+						<th style="width:5%;">수정</th>
+						<th style="width:5%;">삭제</th>
 					</tr>
 				</thead>
 
@@ -33,15 +33,16 @@
 						<td th:text="${item.word}"></td>
 						<td th:text="${item.content}"></td>
 						<td>
-							<button data-toggle="modal" data-target="#modal-xl-two" id="updateBtn"
+							<button class="btn btn-info updateBtn" data-toggle="modal" data-target="#modal-xl-two"
 								th:attr="pkDictionarySeq=${item.pkDictionarySeq}" type="button" data-action="update">
-								<span>O</span>
+								<span>수정</span>
 							</button>
 						</td>
 						<td>
-							<button th:attr="pkDictionarySeq=${item.pkDictionarySeq}" type="button" data-action="delete"
+							<button class="btn btn-danger updateBtn" th:attr="pkDictionarySeq=${item.pkDictionarySeq}"
+								type="button" data-action="delete"
 								th:onclick="|location.href='/std/ai/dict/delete/${item.pkDictionarySeq}'|">
-								<span>X</span>
+								<span>삭제</span>
 							</button>
 						</td>
 					</tr>
@@ -74,9 +75,9 @@
 			</ul>
 		</nav>
 	</footer>
-	
+
 	<div class="modal fade" id="modal-xl-two" style="display: none;" aria-hidden="true">
-		<form action="/std/ai/dict/update" method="post">
+		<form action="/std/aidict/update" method="post">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
 					<div class="col-12 modal-header">
@@ -133,6 +134,7 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="form-group">
+										<input type="hidden" id="pkDictionarySeq" name="pkDictionarySeq" value="0">
 										<label>카테고리</label>
 										<input type="text" class="form-control" name="classId" id="classId">
 										<label>용어</label>
@@ -153,8 +155,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="submit" class="btn btn-primary modelBtn"
-							divn="create">
+						<button type="submit" class="btn btn-primary modelBtn" divn="create">
 							<span>등록</span>
 						</button>
 					</div>
@@ -164,40 +165,35 @@
 	</div>
 	<!-- Modal -->
 	<script>
+		$(document).ready(function () {
+			$('.updateBtn').click(function () {
 
-		$('#updateBtn').click(function () {
-			$.ajax({
-				url: '/getDictList',
-				type: 'POST',
-				data: {
-					pkDictionarySeq: $(this).attr('pkdictionaryseq')
-				},
-				dataType: 'json',
-				success: function (data) {
-					var pkDictionarySeq = data.pkDictionarySeq;
-					var category = data.classId;
-					var word = data.word;
-					var content = data.content;
-					console.log(data)
+				$.ajax({
+					url: '/getDictList',
+					type: 'POST',
+					data: {
+						pkDictionarySeq: $(this).attr('pkDictionarySeq')
+					},
+					dataType: 'json',
+					success: function (data) {
+						var pkDictionarySeq = data.pkDictionarySeq;
+						var category = data.classId;
+						var word = data.word;
+						var content = data.content;
+						console.log(data)
 
-					$("#pkDictionarySeq").val(data.pkDictionarySeq);
-					$("#updateClassId").val(data.classId);
-					$("#updateWord").val(data.word);
-					$("#updateContent").val(data.content);
-				},
-				error: function (xhr, status, error) {
-					console.log(error); // 에러 처리
-				}
+						$("#pkDictionarySeq").val(data.pkDictionarySeq);
+						$("#updateClassId").val(data.classId);
+						$("#updateWord").val(data.word);
+						$("#updateContent").val(data.content);
+					},
+					error: function (xhr, status, error) {
+						console.log(error); // 에러 처리
+					}
+				});
+
 			});
-
-		});
-
-		// 삭제
-		function deleteRow(ths) {
-			var ths = $(ths);
-
-			ths.parents("tr").remove();
-		}
+		})
 
 	</script>
 </th:block>
