@@ -148,7 +148,7 @@ public class AiController {
 	}
 	
 	@RequestMapping(value = "/{userDivn}/ai/question/{divn}", produces = "application/text;charset=utf-8")
-	public String aiQuestionSubmit(QuestionDto questionDto,@PathVariable String userDivn, @PathVariable String divn, HttpServletRequest request, Model model) {
+	public String aiQuestionSubmit(QuestionDto questionDto, @PathVariable String userDivn, @PathVariable String divn, HttpServletRequest request, Model model) {
 		
 		if(divn.equals("create")) {
 			aiService.insertAiQuestion(questionDto);
@@ -182,14 +182,6 @@ public class AiController {
 		model.addAttribute("resultList",resultList);
 		System.out.println(resultList);
 		return "content/" + userDivn + "/aiquiz/aiquiz";
-	}
-	/*
-	 * AI aiDict 화면 이동
-	 */
-	@RequestMapping(value = "/{userDivn}/ai/dict", produces = "application/text;charset=utf-8")
-	public String aiDict(@PathVariable String userDivn, HttpServletRequest request, Model model) {
-
-		return "content/" + userDivn + "/aidict/aidict";
 	}
 
 }

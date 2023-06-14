@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{common/layout/std/stdAiLayout}">
-
 <th:block layout:fragment="content">
 	<div class="row">
 		<div class="col-12 p-5">
@@ -28,19 +27,23 @@
 					</tr>
 				</thead>
 
-				<tbody th:if="${exameList != null && exameList.size() > 0}">
-					<tr th:each="item, index : ${exameList}" th:if="${item.examDivn == 'Y'}">
-						<td th:text="${index.index + 1}"></td>
-						<td th:text="${item.registDt}"></td>
-						<td th:text="${item.registDt}"></td>
+				<tbody>
+					<tr th:each="item, index : ${resultList}">
+						<td th:text="${index.count}"></td>
+						<td th:text="${item.word}"></td>
+						<td th:text="${item.content}"></td>
 						<td>
-							<button data-toggle="modal" data-target="#modal-xl-two"
-								th:attr="pkExamSeq=${item.pkExamSeq}" type="button" class="btn btn-primary updateBtn"
-								data-action="modify">
-								<span>시작</span>
+							<button data-toggle="modal" data-target="#modal-xl-two" id="updateBtn"
+								th:attr="pkDictionarySeq=${item.pkDictionarySeq}" type="button" data-action="update">
+								<span>O</span>
 							</button>
 						</td>
-						<td><i class="bi bi-file-excel-fill" onclick="deleteRow(this);"></i></td>
+						<td>
+							<button th:attr="pkDictionarySeq=${item.pkDictionarySeq}" type="button" data-action="delete"
+								th:onclick="|location.href='/std/ai/dict/delete/${item.pkDictionarySeq}'|">
+								<span>X</span>
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -50,10 +53,30 @@
 			</div>
 		</div>
 	</div>
+	<footer>
 
-	<!-- Modal -->
-	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
-		<form action="/std/exam/result" method="POST" onsubmit="return validation()">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item previous th-disabled" th:classappend="${paging.prev == false} ? 'disabled'">
+					<a th:href="@{/std/ai/dict(page=${paging.startPage - 1})}" tabindex="0"
+						class="page-link">Previous</a>
+				</li>
+				<div th:each="pNo: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+					<li class="page-item" th:classappend="${paging.cri.page == pNo} ? 'active'">
+						<a th:href="@{/std/ai/dict(page=${pNo})}" tabindex="0" aria-controls="dataTable"
+							class="page-link" th:text="${pNo}"></a>
+					</li>
+				</div>
+				<li class="page-item next th-disabled" th:classappend="${paging.next == false} ? 'disabled'">
+					<a th:href="@{/std/ai/dict(page=${paging.endPage + 1})}" tabindex="0" aria-controls="dataTable"
+						class="page-link">Next</a>
+				</li>
+			</ul>
+		</nav>
+	</footer>
+	
+	<div class="modal fade" id="modal-xl-two" style="display: none;" aria-hidden="true">
+		<form action="/std/ai/dict/update" method="post">
 			<div class="modal-dialog modal-dialog-cented modal-xl">
 				<div class="modal-content">
 					<div class="col-12 modal-header">
@@ -65,17 +88,21 @@
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12">
-
 									<div class="form-group">
+										<input type="hidden" id="pkDictionarySeq" name="pkDictionarySeq">
+										<label>카테고리</label>
+										<input type="text" class="form-control" name="classId" id="updateClassId">
 										<label>용어</label>
-										<input type="text" class="form-control" placeholder="Enter ...">
+										<input type="text" class="form-control" placeholder="Enter ..." name="word"
+											id="updateWord">
 									</div>
 								</div>
 								<div class="col-12">
 
 									<div class="form-group">
 										<label>뜻</label>
-										<textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+										<textarea class="form-control" rows="3" placeholder="Enter ..."
+											id="updateContent" name="content"></textarea>
 									</div>
 								</div>
 							</div>
@@ -83,7 +110,51 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="submit" divn="delete" class="btn btn-primary modelBtn">
+						<button type="submit" class="btn btn-primary modelBtn" divn="update">
+							<span>수정</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<form action="/std/aidict/create" method="POST" onsubmit="return validation()">
+			<div class="modal-dialog modal-dialog-cented modal-xl">
+				<div class="modal-content">
+					<div class="col-12 modal-header">
+						<div class="col-6">
+							<h4 class="col-12 modal-title">단어장</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label>카테고리</label>
+										<input type="text" class="form-control" name="classId" id="classId">
+										<label>용어</label>
+										<input type="text" class="form-control" placeholder="Enter ... " name="word"
+											id="word">
+									</div>
+								</div>
+								<div class="col-12">
+
+									<div class="form-group">
+										<label>뜻</label>
+										<textarea class="form-control" rows="3" placeholder="Enter ..." id="content"
+											name="content"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="submit" class="btn btn-primary modelBtn"
+							divn="create">
 							<span>등록</span>
 						</button>
 					</div>
@@ -91,42 +162,44 @@
 			</div>
 		</form>
 	</div>
-	<div class="modal fade" id="modal-xl-three" style="display: none;" aria-hidden="true">
-		<form action="/mng/exam/result/score" method="POST">
-			<div class="modal-dialog modal-dialog-cented modal-xl">
-				<div class="modal-content">
-					<div class="col-12 modal-header">
-						<div class="col-6">
-							<h4 class="col-12 modal-title">시험 결과</h4>
-						</div>
-					</div>
-					<div class="modal-body">
-						<div class="container-fluid">
-							<div id="resultDiv" class="row">
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
+	<!-- Modal -->
 	<script>
 
-		$(document).ready(function () {
+		$('#updateBtn').click(function () {
+			$.ajax({
+				url: '/getDictList',
+				type: 'POST',
+				data: {
+					pkDictionarySeq: $(this).attr('pkdictionaryseq')
+				},
+				dataType: 'json',
+				success: function (data) {
+					var pkDictionarySeq = data.pkDictionarySeq;
+					var category = data.classId;
+					var word = data.word;
+					var content = data.content;
+					console.log(data)
+
+					$("#pkDictionarySeq").val(data.pkDictionarySeq);
+					$("#updateClassId").val(data.classId);
+					$("#updateWord").val(data.word);
+					$("#updateContent").val(data.content);
+				},
+				error: function (xhr, status, error) {
+					console.log(error); // 에러 처리
+				}
+			});
 
 		});
-		
+
 		// 삭제
-		function deleteRow(ths){
+		function deleteRow(ths) {
 			var ths = $(ths);
 
 			ths.parents("tr").remove();
 		}
 
 	</script>
-	</th:block>
+</th:block>
 
 </html>
