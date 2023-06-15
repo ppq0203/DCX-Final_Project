@@ -4,7 +4,7 @@
 
 <th:block layout:fragment="content">
 	<script>
-		function addList() {
+		/* function addList() {
 			const addValue
 				= document.getElementById('addValue1').value;
 			const dt = document.createElement("dt");
@@ -23,7 +23,18 @@
 			if (items.length > 0) {
 				items[0].remove();
 			}
-		}
+		} 
+		document.getElementById("comma").onload = function () {
+			const commaList = document.getElementById("comma").value;
+			const keywordArray = commaList.split(",").map(keyword => keyword.trim());
+			console.log(keywordArray);
+		};
+		*/
+
+
+
+
+
 	</script>
 	<style>
 		div.left {
@@ -88,19 +99,30 @@
 				</section>
 			</div>
 			<div class="rightdown">
+
 				<section class="post">
 					<!-- Lists -->
 					<h2>My List</h2>
+					<!--
+					<input type="hidden" id='comma' th:value="${result.answer}">
+					-->
 					<span>
-						<dl id='list'></dl>
-						<input type='text' id='addValue1' placeholder="input keyword and add" />
+						<dl id="list">
+							<dt th:each="word : ${solution}">
+								<input type="text" th:value="${word}"/>
+							</dt>
+						</dl>
 					</span>
 				</section>
+
 				<br>
 				<ul class="actions">
-					<li><input class="button primary" type='button' value='ADD' onclick='addList()' />
+					<!--<li>
+						<input class="button primary" type='button' value='ADD'/>
 					</li>
-					<li><input class="button" type='button' value='DELETE' onclick='removeItem()' /></li>
+					<li>
+						<input class="button" type='button' value='DELETE' onclick='removeItem()' />
+					</li>-->
 					<li><input class="button primary" type='submit' value='SAVE' /></li>
 				</ul>
 				<hr />

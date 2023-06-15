@@ -107,6 +107,7 @@ public class AiController {
 		aiService.insertQuestionResult(questionDto);
 		QuestionDto selectDto = aiService.selectQuestion(questionDto);
 		model.addAttribute("result",selectDto);
+		model.addAttribute("solution", solutions);
 		return "content/" + userDivn + "/ai/keyword";
 	}
 	
