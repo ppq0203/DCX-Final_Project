@@ -844,13 +844,10 @@
 
 			str1 = "<img class='stop_dice_style' id='first_stop_dice' src='/img/game_dice" + dice1 + ".png'>";
 			str2 = "<img class='stop_dice_style2' id='second_stop_dice' src='/img/game_dice" + dice2 + ".png'>";
-			str3 = "<span class='quiz_infos' id='quiz_info_type'></span><br>"
-			str3 += "<span class='quiz_infos'>문제 : " + shuffleNo[nowNo] + "</span><br>"
-			str3 += "<span class='quiz_infos' id='level'>" + + "</span>"
+			
 			// 주사위 이미지를 dice div에 추가
 			$('#game_dice_stop').append(str1);
 			$('#game_dice_stop2').append(str2);
-			$('#quiz_info').append(str3);
 
 			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
 			setTimeout(function () {
@@ -899,6 +896,12 @@
 
 		// 문제정보를 모달창에 저장하는 함수
 		function loadQuestion(question) {
+
+			str3 = "<span class='quiz_infos' id='quiz_info_type'></span><br>"
+			str3 += "<span class='quiz_infos'>문제 : " + shuffleNo[nowNo] + "</span><br>"
+			str3 += "<span class='quiz_infos' id='level'>" + + "</span>"
+			$('#quiz_info').append(str3);
+			
 			//console.log("test");
 			title = question.pkQuestionSeq + "." + name;
 			name = question.questionName;
@@ -929,7 +932,6 @@
 			} else if (level == 4) {
 				$('#level').text('난이도 : Rondom')
 			}
-
 		}
 
 		// 정답 등록시 수행되는 함수
