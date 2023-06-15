@@ -16,12 +16,12 @@
 		<div class="waiting_room_sidebar" id="sidebar">
 			<div class="waiting_room_gameinfo">
 				<div class="waiting_room_gameinfo_style">
-				<span id="room_name">방제목 : [[${room.roomName}]]</span><br>
-				<span id="room_total">총 인원 : [[${room.total}]]</span><br>
-				<span class="difficulty" th:if="${room.roomLevel == 1}">난이도 : Easy</span>
-				<span class="difficulty" th:if="${room.roomLevel == 2}">난이도 : Middle</span>
-				<span class="difficulty" th:if="${room.roomLevel == 3}">난이도 : Hard</span>
-				<span class="difficulty" th:if="${room.roomLevel == 4}">난이도 : Random</span>
+					<span id="room_name">방제목 : [[${room.roomName}]]</span><br>
+					<span id="room_total">총 인원 : [[${room.total}]]</span><br>
+					<span class="difficulty" th:if="${room.roomLevel == 1}">난이도 : Easy</span>
+					<span class="difficulty" th:if="${room.roomLevel == 2}">난이도 : Middle</span>
+					<span class="difficulty" th:if="${room.roomLevel == 3}">난이도 : Hard</span>
+					<span class="difficulty" th:if="${room.roomLevel == 4}">난이도 : Random</span>
 				</div>
 			</div>
 			<div>
@@ -75,20 +75,51 @@
 		<div class="modal-dialog">
 			<!-- 모달 내용 -->
 			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="col ml-3 pl-2 modal-title text-center total_modal"><img src="/img/win.png" id="win"></img>
-				<img src="/img/lose.png" id="lose"></img></h4>
+				<div class="modal-header" style="border-bottom: none;">
+					<h4 class="col ml-3 pl-2 modal-title text-center total_modal"><img src="/img/win.png"
+							id="win"></img>
+						<img src="/img/lose.png" id="lose"></img><br>
+					</h4>
 					<button type="button" class="close pl-0 ml-0" data-dismiss="modal">&times;</button>
+
 				</div>
 				<table class="table" style="text-align:center">
-					<thead id="quiz_td_result">
-						<tr>
-							<th id="ss" style="width: 5%;"></th>
+					<thead id="quiz_td_member_result">
+						<tr><h4 style="text-align: center;"><span>개인 점수표</span></h4>
 							<th id="sd" style="width: 25%;">유형</th>
 							<th id="se" style="width: 20%;">총 문제 수</th>
 							<th id="sf" style="width: 20%;">푼 문제 수</th>
-							<th id="sg" style="width: 35%;">포기한 문제수</th>
 						</tr>
+					</thead>
+				</table>
+				<table class="table" style="text-align: center;">
+					<thead id="quiz_td_team_result">
+						<tr><h4 style="text-align: center;"><span>팀 점수표</span></h4>
+							<th id="sd" style="width: 25%;">팀</th>
+							<th id="se" style="width: 20%;">총 문제 수</th>
+							<th id="sf" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<tr id = "t1result">
+							<th style="width: 25%;">팀1</th>
+							<th style="width: 20%;">36</th>
+							<th id="t1total" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<tr id = "t2result">
+							<th style="width: 25%;">팀2</th>
+							<th style="width: 20%;">36</th>
+							<th id="t2total" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<tr id = "t3result">
+							<th style="width: 25%;">팀3</th>
+							<th style="width: 20%;">36</th>
+							<th id="t3total" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<tr id = "t4result">
+							<th style="width: 25%;">팀4</th>
+							<th style="width: 20%;">36</th>
+							<th id="t4total" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<div id="t1result">		
 					</thead>
 				</table>
 			</div>
@@ -171,7 +202,7 @@
 						<tbody class="gameing_tableborder">
 							<tr>
 								<th class="quiz_board_green_th">1</th>
-								<td class="hover_y quiz_board_th"  id="q1">1</td>
+								<td class="hover_y quiz_board_th" id="q1">1</td>
 								<td class="hover_y quiz_board_th" id="q2">2</td>
 								<td class="hover_y quiz_board_th" id="q3">3</td>
 								<td class="hover_y quiz_board_th" id="q4">4</td>
@@ -311,8 +342,8 @@
 			<!--<button onclick="get_index_and_prob()">임시 테스트</button>-->
 			<div id="test_value"></div>
 		</div>
-		<button  onclick="resultCalc()" data-toggle="modal" data-target="#myModal" >결과보기</button>
-		<div class="text-center">
+		<button onclick="resultCalc()" data-toggle="modal" data-target="#myModal">결과보기</button>
+		<!--<div class="text-center">
 			결과창
 			<div>
 				<span id="win">승리</span>
@@ -342,7 +373,7 @@
 			<div id="type_result_area">
 
 			</div>
-		</div>
+		</div>-->
 	</div>
 
 	<!-- ----------------------- 게임방 끝 ---------------------------- -->
@@ -362,16 +393,16 @@
 		var userTeamNo;
 		var roomLevel = /*[[${room.roomLevel}]]*/0;
 		var owner = /*[[${room.owner}]]*/0;
-		if (roomLevel == 1){
+		if (roomLevel == 1) {
 			roomLevel = "Easy";
-		}else if (roomLevel == 2){
+		} else if (roomLevel == 2) {
 			roomLevel = "MID";
-		}else if (roomLevel == 3){
+		} else if (roomLevel == 3) {
 			roomLevel = "HARD";
-		}else if (roomLevel == 4){
+		} else if (roomLevel == 4) {
 			roomLevel = "RANDOM";
 		}
-		
+
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
 		var stomp = Stomp.over(sockJs);
@@ -430,7 +461,7 @@
 
 				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
-					
+
 					Object.keys(content.waitList).forEach(function (index, i) {
 						value = content.waitList[index];
 
@@ -451,16 +482,16 @@
 							$("#t4_block" + i + "").remove();
 						}
 					}
-					
-					if(content.team1 != undefined){
-						Object.keys(content.team1).forEach(function(index, i) {
+
+					if (content.team1 != undefined) {
+						Object.keys(content.team1).forEach(function (index, i) {
 							value = content.team1[index];
-							
+
 							str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-							if(index == owner){
-								str +="<img class='host_image' src='/img/host.png' />"
+							if (index == owner) {
+								str += "<img class='host_image' src='/img/host.png' />"
 							}
 							str += value + "</b>";
 							str += "</div>";
@@ -475,21 +506,21 @@
 						});
 					}
 
-					if(content.team2 != undefined){
+					if (content.team2 != undefined) {
 						Object.keys(content.team2).forEach(function (index, i) {
 							value = content.team2[index];
-	
+
 							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-							if(index == owner){
-								str +="<img class='host_image' src='/img/host.png' />"
+							if (index == owner) {
+								str += "<img class='host_image' src='/img/host.png' />"
 							}
 							str += value + "</b>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team2").append(str);
-							
+
 							gtr = "<div class='gameing_t2-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
 							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
@@ -498,16 +529,16 @@
 							$("#game2").prepend(gtr);
 						});
 					}
-					
-					if(content.team3 != undefined){
+
+					if (content.team3 != undefined) {
 						Object.keys(content.team3).forEach(function (index, i) {
 							value = content.team3[index];
-	
+
 							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-							if(index == owner){
-								str +="<img class='host_image' src='/img/host.png' />"
+							if (index == owner) {
+								str += "<img class='host_image' src='/img/host.png' />"
 							}
 							str += value + "</b>";
 							str += "</div></div>";
@@ -521,18 +552,18 @@
 							$("#game3").prepend(gtr);
 						});
 					}
-					
-					if(content.team4 != undefined){
+
+					if (content.team4 != undefined) {
 						Object.keys(content.team4).forEach(function (index, i) {
 							value = content.team4[index];
-	
+
 							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-								if(index == owner){
-									str +="<img class='host_image' src='/img/host.png' />"
-								}
-								str += value + "</b>";
+							if (index == owner) {
+								str += "<img class='host_image' src='/img/host.png' />"
+							}
+							str += value + "</b>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team4").append(str);
@@ -548,8 +579,7 @@
 
 				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
 					var content = chat.body;
-					if(content == owner)
-					{
+					if (content == owner) {
 						alert("방장이 드랍했습니다.");
 						window.location.href = '/chat/rooms';
 					}
@@ -711,7 +741,7 @@
 				var allReady = 1;
 				console.log("5555" + owner);
 				console.log("6666" + pkUserSeq);
-				if(owner == pkUserSeq){
+				if (owner == pkUserSeq) {
 					for (var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++) {
 						if ($("#team" + i + "").children(".waiting_room_t" + i + "-user1").length < 1) {
 							allReady = 0;
@@ -726,10 +756,10 @@
 						else {
 							stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
 						}
-	
+
 					}
 				}
-				else{
+				else {
 					alert("방장이 아닙니다!");
 				}
 			});
@@ -822,14 +852,21 @@
 
 			for (const [key, value] of resultMap.entries()) {
 				//console.log(`Key: ${key}, Value: ${value}`);
-				str = '';
-				str = "<div>";
-				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
-				str += "</div>";
-				$("#type_result_area").append(str);
+				str = "<tr id='result_members_td'>";
+				str += "<td>" + key + "</td>";
+				str += "<td>" + value[0] + "</td>";
+				str += "<td>" + value[1] + "</td>";
+				
+				$("#quiz_td_member_result").append(str);
 				total += value[1];
 				solve += value[0];
 			}
+			/*
+			<div id="t1result">
+				팀1 : <span id="t1total">0</span>/36
+			</div> 
+			*/
+			
 			for (var i = 1; i <= 4; ++i) {
 				if (roomNumber >= i) {
 					var scoreTagId = "#score" + i;
@@ -844,7 +881,7 @@
 
 			$("#total_count").text(total);
 			$("#solve_count").text(solve);
-			
+
 			// 이곳에 모델창 보이게하기
 			////////
 		}
@@ -913,10 +950,10 @@
 				tagId = "#score" + teamNo;
 				var value = $(tagId).text();
 				value = 1 + parseInt(value, 10);
-				if (value<10)
-					value = "0"+value;
+				if (value < 10)
+					value = "0" + value;
 				$(tagId).text(value);
-				
+
 			}
 		}
 
