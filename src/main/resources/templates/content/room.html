@@ -85,7 +85,8 @@
 				</div>
 				<table class="table" style="text-align:center">
 					<thead id="quiz_td_member_result">
-						<tr><h4 style="text-align: center;"><span>개인 점수표</span></h4>
+						<tr>
+							<h4 style="text-align: center;"><span>개인 점수표</span></h4>
 							<th id="sd" style="width: 25%;">유형</th>
 							<th id="se" style="width: 20%;">총 문제 수</th>
 							<th id="sf" style="width: 20%;">푼 문제 수</th>
@@ -94,32 +95,33 @@
 				</table>
 				<table class="table" style="text-align: center;">
 					<thead id="quiz_td_team_result">
-						<tr><h4 style="text-align: center;"><span>팀 점수표</span></h4>
+						<tr>
+							<h4 style="text-align: center;"><span>팀 점수표</span></h4>
 							<th id="sd" style="width: 25%;">팀</th>
 							<th id="se" style="width: 20%;">총 문제 수</th>
 							<th id="sf" style="width: 20%;">푼 문제 수</th>
 						</tr>
-						<tr id = "t1result">
+						<tr id="t1result">
 							<th style="width: 25%;">팀1</th>
 							<th style="width: 20%;">36</th>
 							<th id="t1total" style="width: 20%;">푼 문제 수</th>
 						</tr>
-						<tr id = "t2result">
+						<tr id="t2result">
 							<th style="width: 25%;">팀2</th>
 							<th style="width: 20%;">36</th>
 							<th id="t2total" style="width: 20%;">푼 문제 수</th>
 						</tr>
-						<tr id = "t3result">
+						<tr id="t3result">
 							<th style="width: 25%;">팀3</th>
 							<th style="width: 20%;">36</th>
 							<th id="t3total" style="width: 20%;">푼 문제 수</th>
 						</tr>
-						<tr id = "t4result">
+						<tr id="t4result">
 							<th style="width: 25%;">팀4</th>
 							<th style="width: 20%;">36</th>
 							<th id="t4total" style="width: 20%;">푼 문제 수</th>
 						</tr>
-						<div id="t1result">		
+						<div id="t1result">
 					</thead>
 				</table>
 			</div>
@@ -411,7 +413,6 @@
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
 		var stomp = Stomp.over(sockJs);
 		$(document).ready(function () {
-			
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
@@ -446,7 +447,7 @@
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					// 첫접속시 유저 고유번호 저장
-					
+
 					console.log("pkUserSeq : " + content.pkUserSeq);
 					if (pkUserSeq == "0") {
 						pkUserSeq = content.pkUserSeq;
@@ -486,9 +487,9 @@
 							$("#t4_block" + i + "").remove();
 						}
 					}
-					
-					if(content.team1 != undefined){
-						Object.keys(content.team1).forEach(function(index, i) {
+
+					if (content.team1 != undefined) {
+						Object.keys(content.team1).forEach(function (index, i) {
 							text = content.team1[index];
 							var value = text.split("%^&^%");
 
@@ -568,8 +569,8 @@
 							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-							if(index == owner){
-								str +="<img class='host_image' src='/img/host.png' />"
+							if (index == owner) {
+								str += "<img class='host_image' src='/img/host.png' />"
 							}
 							str += value[0] + "</b>";
 							str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
@@ -865,7 +866,7 @@
 				str += "<td>" + key + "</td>";
 				str += "<td>" + value[0] + "</td>";
 				str += "<td>" + value[1] + "</td>";
-				
+
 				$("#quiz_td_member_result").append(str);
 				total += value[1];
 				solve += value[0];
@@ -875,7 +876,7 @@
 				팀1 : <span id="t1total">0</span>/36
 			</div> 
 			*/
-			
+
 			for (var i = 1; i <= 4; ++i) {
 				if (roomNumber >= i) {
 					var scoreTagId = "#score" + i;
@@ -913,7 +914,7 @@
 
 			str1 = "<img class='stop_dice_style' id='first_stop_dice' src='/img/game_dice" + dice1 + ".png'>";
 			str2 = "<img class='stop_dice_style2' id='second_stop_dice' src='/img/game_dice" + dice2 + ".png'>";
-			
+
 			// 주사위 이미지를 dice div에 추가
 			$('#game_dice_stop').append(str1);
 			$('#game_dice_stop2').append(str2);
@@ -970,7 +971,7 @@
 			str3 += "<span class='quiz_infos'>문제 : " + shuffleNo[nowNo] + "</span><br>"
 			str3 += "<span class='quiz_infos' id='level'>" + + "</span>"
 			$('#quiz_info').append(str3);
-			
+
 			//console.log("test");
 			title = question.pkQuestionSeq + "." + name;
 			name = question.questionName;
@@ -1040,6 +1041,12 @@
 			]
 		});
 
+	</script>
+	<script>
+		window.onkeydown = function() {
+			var kcode = event.keyCode;
+			if(kcode == 8 || kcode == 116) event.returnValue = false;
+		}
 	</script>
 </th:block>
 
