@@ -69,6 +69,25 @@ public class GameController {
 		qtDto.setProbNum(Integer.parseInt(size));
 		List<QuestionDto> questionList= questionService.selectQuestion(qtDto);
 		System.out.println(questionList.size());
+		int questionCount = questionList.size();
+		while(questionCount < Integer.parseInt(size))
+		{
+			if(level.equals("1") || level.equals("3"))
+			{
+				level = "2";
+			}
+			else
+			{
+				level = "1";
+			}
+
+			levels = new String[]{level};
+			qtDto.setLevels(levels);
+			qtDto.setProbNum(Integer.parseInt(size)-questionCount);
+			List<QuestionDto> questionList2 = questionService.selectQuestion(qtDto);
+			questionList.addAll(questionList2);
+			questionCount = questionList.size();
+		}
 		mav.addObject("questionList", questionList);
 		mav.setViewName("content/game"); // view 지정
 		return mav;
