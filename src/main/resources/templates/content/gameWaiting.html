@@ -162,7 +162,11 @@
 					<img th:src="@{/img/profil.jpg}" style="border-radius: 50px;" alt="exit" width="150px"
 						height="140px">
 					<div class="" style="font-weight:bold;">
-						<span>ID : [[${session.loginDto.userId}]]</span><br><span th:utext="${session.loginDto.name}"></span>
+						<!--
+						<span>ID : [[${session.loginDto.userId}]]</span><br>
+						--> 
+						<span th:utext="${session.loginDto.name}"></span><br>
+						<span>DCX 가산점</span>
 					</div>
 				</div>
 
