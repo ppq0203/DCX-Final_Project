@@ -146,6 +146,7 @@
 			border: 3px solid white;
 		}
 	</style>
+
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 			<!-- 모달 내용 -->
@@ -154,24 +155,21 @@
 					<h4 class="col ml-3 pl-2 modal-title text-center total_modal">점수표</h4>
 					<button type="button" class="close pl-0 ml-0" data-dismiss="modal">&times;</button>
 				</div>
-				<div class="modal-body">
-					<div class="text-center">
-						<div>
-							총 문제 :<span id="total_count">36</span>
-						</div>
-						<div>
-							푼 문제 :<span id="solve_count">30</span>
-						</div>
-						<div>
-							포기 :<span id="giveup_count">6</span>
-						</div>
-						<div id="type_result_area">
-
-						</div>
-					</div>
-				</div>
+				<table class="table" style="text-align:center">
+					<thead id="quiz_td_result">
+						<tr>
+							<th style="width: 5%;"></th>
+							<th style="width: 25%;">유형</th>
+							<th style="width: 20%;">총 문제 수</th>
+							<th style="width: 20%;">푼 문제 수</th>
+							<th style="width: 35%;">포기한 문제수</th>
+						</tr>
+						
+					</thead>
+				</table>
 			</div>
 		</div>
+	</div>
 	</div>
 	<div id="container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 		<div id="header"></div>
@@ -183,14 +181,15 @@
 					<button type="button" class="btn btn-default btn-outline-secondary Question_status"
 						th:onclick='loadQuestion(this,[[${n}]])' data-toggle="modal" data-target="#modal-xl"
 						style="width: 100%; height: 100%; border: none;">
-						키워드
+						<span th:text="${n.type}"></span>
 					</button>
 				</div>
 			</div>
 		</div>
 		<div id="sidebar">
 			<div class="side_User">
-				<img src="profil.jpg" style="border-radius: 50px;" alt="exit" width="150px" height="150px">
+				<img th:src="@{/img/profil.jpg}" style="border-radius: 50px; margin-top: -5px;" alt="exit" width="150px"
+					height="150px">
 				<div class="" style="font-weight:bold;">
 					<span th:utext="${session.loginDto.name}"></span><br><span
 						th:utext="${session.loginDto.userId}"></span>
@@ -206,11 +205,10 @@
 					<b class="fontb">>>키워드를 클릭해주세요.</b>
 				</p>
 			</div>
-			<button class="btnlogout" type="button">나가기</button>
+			<button class="btnlogout" type="button" onclick="location.href='/chat/rooms'">나가기</button>
 		</div>
 	</div>
-	<button id="total_modal" style="visibility: hidden;" onclick="resultCalc()" data-toggle="modal"
-		data-target="#myModal">결과보기</button>
+	<button id="total_modal" onclick="resultCalc()" style="visibility: hidden;" data-toggle="modal" data-target="#myModal">결과보기</button>
 
 	<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
@@ -240,36 +238,33 @@
 								<input type="hidden" id="questionType">
 								<p id="questionContents"></p>
 							</div>
-							<div class="card-footer">
-							</div>
+								<input type="hidden" id="questionType">
+									<p class="mb-4" id="questionContents"></p>
+									<div class="card-group">
+										<div class="card col-md-6 mb-0">
+											<div class="card-header">
+												<h3 class="card-title">
+													Input Example
+												</h3>
+											</div>
+											<div class="card-body p-0">
+												<p id="questionInput"></p>
+											</div>
+										</div>
+										<div class="card col-md-6 mb-0">
+											<div class="card-header">
+												<h3 class="card-title">
+													Output Example
+												</h3>
+											</div>
+											<div class="card-body p-0">
+												<p id="questionOutput"></p>
+											</div>
+										</div>
+									</div>
+							
 						</div>
-						<!-- 06.13 추가(input, output) -->
-						<div class="card card-outline card-info">
-							<div class="card-header">
-								<h3 class="card-title">
-									Input Example
-								</h3>
-							</div>
 
-							<div class="card-body p-0">
-								<p id="questionInput"></p>
-							</div>
-							<div class="card-footer">
-							</div>
-						</div>
-						<div class="card card-outline card-info">
-							<div class="card-header">
-								<h3 class="card-title">
-									Output Example
-								</h3>
-							</div>
-
-							<div class="card-body p-0">
-								<p id="questionOutput"></p>
-							</div>
-							<div class="card-footer">
-							</div>
-						</div>
 						<!-- 기존 코드 -->
 						<div class="card card-outline card-info">
 							<div class="card-header">
@@ -380,18 +375,26 @@
 
 			for (const [key, value] of resultMap.entries()) {
 				console.log(`Key: ${key}, Value: ${value}`);
-				str = '';
-				str = "<div>";
-				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
-				str += "</div>";
-				$("#type_result_area").append(str);
+				str = "<tr>"
+				str += "<td></td>";
+				str += "<td>" + key + "</td>";
+				str += "<td>" + value[1] + "</td>";
+				str += "<td>" + value[0] + "</td>";
+				str += "<td>" + (value[1]-value[0]) + "</td></tr>";
+				$("#quiz_td_result").append(str);
 				total += value[1];
 				solve += value[0];
 			}
 
+						/*<td></td>
+							<td>Array</td>
+							<td>2</td>
+							<td>3</td>
+							<td>3</td>*/
+
 			$("#total_count").text(total);
 			$("#solve_count").text(solve);
-			$("#giveup_count").text(total - solve);
+			//$("#giveup_count").text(total - solve);
 		}
 
 		for (var i = 0; i < gameroom_left_classes.length; i++) {

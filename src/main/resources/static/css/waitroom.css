@@ -383,6 +383,7 @@
 }
 
 .waiting_room_gameinfo {
+	text-align: center;
 	width: 220px;
 	height: 150px;
 	padding: 5px;
@@ -407,6 +408,11 @@
 	margin: 5px 10px;
 	border: 3px solid white;
 	overflow: scroll;
+}
+.waiting_room_gameinfo_style{
+	margin-top: 25px;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 .waiting_room_chat-input {
@@ -759,6 +765,7 @@
 
 /*side*/
 .gameing_gamequiz {
+	text-align: center;
 	width: 236px;
 	height: 141px;
 	padding: 5px 7px;
@@ -807,6 +814,7 @@
 	margin: 7px;
 	border: 3px solid white;
 	overflow: scroll;
+	overflow-x: hidden;
 }
 
 .gameing_quizread {
@@ -897,7 +905,7 @@
 .gameing_scorenum {
 	position: absolute;
 	top: 7px;
-	left: 12px;
+	left: 8px;
 	font-family: 'GmarketSansMedium';
 	font-size: 16px;
 	color: white;
@@ -1131,12 +1139,15 @@
 
 }
 
-table td,
-th {
+
+.quiz_board_th{
+	border: 2px solid #282A46;
+}
+.quiz_board_green_th{
 	border: 2px solid #282A46;
 }
 
-thead tr th {
+.quiz_board_th thead tr th {
 	background: #0070c0;
 	font-size: 22px;
 	height: 54.28px;
@@ -1144,7 +1155,7 @@ thead tr th {
 
 }
 
-tbody tr th {
+.quiz_board_green_th {
 	background: #92d050;
 	font-size: 22px;
 	color: white;
@@ -1173,4 +1184,29 @@ tbody tr th {
 	position: absolute;
 	top: 108px;
 	left: 465px;
+}
+.quiz_info_pfont{
+	margin-top: 30px;
+}
+.quiz_infos{
+	font-family: 'GmarketSansMedium';
+}
+.host_image{
+	width: 15px;
+}
+#win{
+	width: 160px;
+	
+}
+#lose{
+	width: 130px;	
+}
+.result_team_style1{
+	padding-left: 21px;
+}
+.result_team_style2{
+	padding-left: 66px;
+}
+.result_member_style{
+	padding-left: 54px;
 }

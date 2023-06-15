@@ -71,18 +71,21 @@ public class RoomService {
 	public void addUser(ChatDto message) {
 		// TODO Auto-generated method stub
 		RoomDto room = roomDtoMap.get(message.getPkRoomSeq());
+		String name = message.getUserName();
+		String rank = message.getRank();
+		String val = name + "%^&^%" + rank;
 		// 현재는 임시로 생성해 두었지만 실제로 완성시 세션의 유저고유번호를 저장해야함
 		if(room.getUserList().get("waitList") == null)
 		{
 			HashMap dump = new HashMap();
 			dump.put("dump", "dump");
 			room.getUserList().put("waitList", dump);
-			room.getUserList().get("waitList").put(message.getPkUserSeq(), message.getUserName());
+			room.getUserList().get("waitList").put(message.getPkUserSeq(), val);
 			room.getUserList().get("waitList").remove("dump");
 		}else {
-			room.getUserList().get("waitList").put(message.getPkUserSeq(), message.getUserName());
+			room.getUserList().get("waitList").put(message.getPkUserSeq(), val);
 		}
-		
+		System.out.println(room.getUserList());
 		room.setParticipants(room.getParticipants() + 1);
 	}
 	

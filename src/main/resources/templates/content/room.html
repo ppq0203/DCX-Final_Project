@@ -15,12 +15,14 @@
 		<!--side right -->
 		<div class="waiting_room_sidebar" id="sidebar">
 			<div class="waiting_room_gameinfo">
-				<ul class="waiting_room_no_dot">
-					<li>게임 유형 : 팀전</li>
-					<li>난이도 : <span id = "level"></span></li>
-					<!-- <li>문제당 시간 : </li> -->
-					<li>문제 개수 : 36</li>
-				</ul>
+				<div class="waiting_room_gameinfo_style">
+					<span id="room_name">방제목 : [[${room.roomName}]]</span><br>
+					<span id="room_total">총 인원 : [[${room.total}]]</span><br>
+					<span class="difficulty" th:if="${room.roomLevel == 1}">난이도 : Easy</span>
+					<span class="difficulty" th:if="${room.roomLevel == 2}">난이도 : Middle</span>
+					<span class="difficulty" th:if="${room.roomLevel == 3}">난이도 : Hard</span>
+					<span class="difficulty" th:if="${room.roomLevel == 4}">난이도 : Random</span>
+				</div>
 			</div>
 			<div>
 				<button class="teamchange" type="button">팀 바꾸기</button>
@@ -69,17 +71,67 @@
 	<!-- ----------------------- 대기방 끝 --------------------------- -->
 
 	<!-- ------------------------게임방------------------------------ -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- 모달 내용 -->
+			<div class="modal-content">
+				<div class="modal-header" style="border-bottom: none;">
+					<h4 class="col ml-3 pl-2 modal-title text-center total_modal"><img src="/img/win.png"
+							id="win"></img>
+						<img src="/img/lose.png" id="lose"></img><br>
+					</h4>
+					<button type="button" class="close pl-0 ml-0" data-dismiss="modal">&times;</button>
+
+				</div>
+				<table class="table" style="text-align:center">
+					<thead id="quiz_td_member_result">
+						<tr><h4 style="text-align: center;"><span>개인 점수표</span></h4>
+							<th id="sd" style="width: 25%;">유형</th>
+							<th id="se" style="width: 20%;">총 문제 수</th>
+							<th id="sf" style="width: 20%;">푼 문제 수</th>
+						</tr>
+					</thead>
+				</table>
+				<table class="table" style="text-align: center;">
+					<thead id="quiz_td_team_result">
+						<tr><h4 style="text-align: center;"><span>팀 점수표</span></h4>
+							<th id="sd" style="width: 25%;">팀</th>
+							<th id="se" style="width: 20%;">총 문제 수</th>
+							<th id="sf" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<tr id = "t1result">
+							<th style="width: 25%;">팀1</th>
+							<th style="width: 20%;">36</th>
+							<th id="t1total" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<tr id = "t2result">
+							<th style="width: 25%;">팀2</th>
+							<th style="width: 20%;">36</th>
+							<th id="t2total" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<tr id = "t3result">
+							<th style="width: 25%;">팀3</th>
+							<th style="width: 20%;">36</th>
+							<th id="t3total" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<tr id = "t4result">
+							<th style="width: 25%;">팀4</th>
+							<th style="width: 20%;">36</th>
+							<th id="t4total" style="width: 20%;">푼 문제 수</th>
+						</tr>
+						<div id="t1result">		
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
 	<div id="gameRoom" style="display:none;">
 		<div class="gameing_container" th:style="'background-image:url('+ @{/img/gameStart.png} +');'">
 			<div class="gameing_header" id="header"></div>
 			<!--side right -->
 			<div class="gameing_sidebar" id="sidebar">
-				<div class="gameing_gamequiz" id="quiz_info">
-					<p class="pfont">
-						Time : 15:00 min<br>
-						유형 :<br>
-						문제 <span>7</span>번<br>
-						...
+				<div class="gameing_gamequiz">
+					<p class="pfont quiz_info_pfont" id="quiz_info">
 					</p>
 				</div>
 				<button class="gameing_quizread" type="button" data-toggle="modal" data-target="#modal-xl">문제
@@ -103,23 +155,19 @@
 				<div class="gameing_user">
 					<div class="gameing_team1" id="game1">
 						<div class="gameing_score" style="background-color:#BF9039" id="hover"><span
-								class="gameing_scorenum" id="score1">0</span></div>
+								class="gameing_scorenum" id="score1">00</span></div>
 					</div>
 					<div class="gameing_team2" id="game2">
-						<!--<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-user1"></div>
-						<div class="gameing_t2-nouser"></div>-->
 						<div class="gameing_score" style="background-color:#BF4C1F"><span class="gameing_scorenum"
-								id="score2">0</span></div>
+								id="score2">00</span></div>
 					</div>
 					<div class="gameing_team3" id="game3">
 						<div class="gameing_score" style="background-color:#1454C2"><span class="gameing_scorenum"
-								id="score3">0</span></div>
+								id="score3">00</span></div>
 					</div>
 					<div class="gameing_team4" id="game4">
 						<div class="gameing_score" style="background-color:#6F9C4C"><span class="gameing_scorenum"
-								id="score4">0</span></div>
+								id="score4">00</span></div>
 					</div>
 				</div>
 				<div class="gameing_dicearea">
@@ -139,72 +187,72 @@
 					</div>
 				</div>
 				<div class="gameing_quiz">
-					<table class="gameing_table">
+					<table class="gameing_table quiz_board_th">
 						<thead class="gameing_tableborder">
-							<tr>
-								<th></th>
-								<th class="hover_y">1</th>
-								<th class="hover_y">2</th>
-								<th class="hover_y">3</th>
-								<th class="hover_y">4</th>
-								<th class="hover_y">5</th>
-								<th class="hover_y">6</th>
+							<tr class="quiz_board_th">
+								<th class="quiz_board_th"></th>
+								<th class="quiz_board_th">1</th>
+								<th class="quiz_board_th">2</th>
+								<th class="quiz_board_th">3</th>
+								<th class="quiz_board_th">4</th>
+								<th class="quiz_board_th">5</th>
+								<th class="quiz_board_th">6</th>
 							</tr>
 						</thead>
 						<tbody class="gameing_tableborder">
 							<tr>
-								<th>1</th>
-								<td class="hover_y" id="q1">1</td>
-								<td class="hover_y" id="q2">2</td>
-								<td class="hover_y" id="q3">3</td>
-								<td class="hover_y" id="q4">4</td>
-								<td class="hover_y" id="q5">5</td>
-								<td class="hover_y" id="q6">6</td>
+								<th class="quiz_board_green_th">1</th>
+								<td class="hover_y quiz_board_th" id="q1">1</td>
+								<td class="hover_y quiz_board_th" id="q2">2</td>
+								<td class="hover_y quiz_board_th" id="q3">3</td>
+								<td class="hover_y quiz_board_th" id="q4">4</td>
+								<td class="hover_y quiz_board_th" id="q5">5</td>
+								<td class="hover_y quiz_board_th" id="q6">6</td>
 							</tr>
 							<tr>
-								<th>2</th>
-								<td class="hover_y" id="q7">7</td>
-								<td class="hover_y" id="q8">8</td>
-								<td class="hover_y" id="q9">9</td>
-								<td class="hover_y" id="q10">10</td>
-								<td class="hover_y" id="q11">11</td>
-								<td class="hover_y" id="q12">12</td>
+								<th class="quiz_board_green_th">2</th>
+								<td class="hover_y quiz_board_th" id="q7">7</td>
+								<td class="hover_y quiz_board_th" id="q8">8</td>
+								<td class="hover_y quiz_board_th" id="q9">9</td>
+								<td class="hover_y quiz_board_th" id="q10">10</td>
+								<td class="hover_y quiz_board_th" id="q11">11</td>
+								<td class="hover_y quiz_board_th" id="q12">12</td>
 							</tr>
 							<tr>
-								<th>3</th>
-								<td class="hover_y" id="q13">13</td>
-								<td class="hover_y" id="q14">14</td>
-								<td class="hover_y" id="q15">15</td>
-								<td class="hover_y" id="q16">16</td>
-								<td class="hover_y" id="q17">17</td>
-								<td class="hover_y" id="q18">18</td>
+								<th class="quiz_board_green_th">3</th>
+								<td class="hover_y quiz_board_th" id="q13">13</td>
+								<td class="hover_y quiz_board_th" id="q14">14</td>
+								<td class="hover_y quiz_board_th" id="q15">15</td>
+								<td class="hover_y quiz_board_th" id="q16">16</td>
+								<td class="hover_y quiz_board_th" id="q17">17</td>
+								<td class="hover_y quiz_board_th" id="q18">18</td>
 							</tr>
 							<tr>
-								<th>4</th>
-								<td class="hover_y" id="q19">19</td>
-								<td class="hover_y" id="q20">20</td>
-								<td class="hover_y" id="q21">21</td>
-								<td class="hover_y" id="q22">22</td>
-								<td class="hover_y" id="q23">23</td>
-								<td class="hover_y" id="q24">24</td>
+								<th class="quiz_board_green_th">4</th>
+								<td class="hover_y quiz_board_th" id="q19">19</td>
+								<td class="hover_y quiz_board_th" id="q20">20</td>
+								<td class="hover_y quiz_board_th" id="q21">21</td>
+								<td class="hover_y quiz_board_th" id="q22">22</td>
+								<td class="hover_y quiz_board_th" id="q23">23</td>
+								<td class="hover_y quiz_board_th" id="q24">24</td>
 							</tr>
 							<tr>
-								<th>5</th>
-								<td class="hover_y" id="q25">25</td>
-								<td class="hover_y" id="q26">26</td>
-								<td class="hover_y" id="q27">27</td>
-								<td class="hover_y" id="q28">28</td>
-								<td class="hover_y" id="q29">29</td>
-								<td class="hover_y" id="q30">30</td>
+								<th class="quiz_board_green_th">5</th>
+								<td class="hover_y quiz_board_th" id="q25">25</td>
+								<td class="hover_y quiz_board_th" id="q26">26</td>
+								<td class="hover_y quiz_board_th" id="q27">27</td>
+								<td class="hover_y quiz_board_th" id="q28">28</td>
+								<td class="hover_y quiz_board_th" id="q29">29</td>
+								<td class="hover_y quiz_board_th" id="q30">30</td>
 							</tr>
 							<tr id="line6">
-								<th>6</th>
-								<td class="hover_y" id="q31">31</td>
-								<td class="hover_y" id="q32">32</td>
-								<td class="hover_y" id="q33">33</td>
-								<td class="hover_y" id="q34">34</td>
-								<td class="hover_y" id="q35">35</td>
-								<td class="hover_y" id="q36">36</td>
+								<th class="quiz_board_green_th">6</th>
+								<td class="hover_y quiz_board_th" id="q31">31</td>
+								<td class="hover_y quiz_board_th" id="q32">32</td>
+								<td class="hover_y quiz_board_th" id="q33">33</td>
+								<td class="hover_y quiz_board_th" id="q34">34</td>
+								<td class="hover_y quiz_board_th" id="q35">35</td>
+								<td class="hover_y quiz_board_th" id="q36">36</td>
 							</tr>
 						</tbody>
 					</table>
@@ -212,11 +260,11 @@
 			</div>
 		</div>
 		<!-- 문제 풀이 창 -->
-		<div class="modal fade" id="modal-xl" style="display: none;" aria-hidden="true">
+		<div class="modal fade quiz_modal_input" id="modal-xl" style="display: none;" aria-hidden="true">
 			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title"></h4>
+						<h4 class="modal-title modal-title-quiz"></h4>
 						<input type="hidden" id="questionNo">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
@@ -281,7 +329,9 @@
 							<!-- 진상 코드-->
 							<div class="modal-footer justify-content-between">
 								<button id="giveup" type="button" class="btn btn-default" onclick="giveup()">포기</button>
+								<!-- 
 								<button type="button" onclick="correctTest()">임시 정답테스트</button>
+								 -->
 								<button onclick="question_submit()" type="button" class="btn btn-primary">등록</button>
 							</div>
 							<!-- 진상 코드 끝-->
@@ -294,8 +344,10 @@
 			<!--<button onclick="get_index_and_prob()">임시 테스트</button>-->
 			<div id="test_value"></div>
 		</div>
-		<button onclick="resultCalc()">결과보기</button>
-		<div class="text-center">
+		<!-- 
+		<button onclick="resultCalc()" data-toggle="modal" data-target="#myModal">결과보기</button>
+		 -->
+		<!--<div class="text-center">
 			결과창
 			<div>
 				<span id="win">승리</span>
@@ -325,7 +377,7 @@
 			<div id="type_result_area">
 
 			</div>
-		</div>
+		</div>-->
 	</div>
 
 	<!-- ----------------------- 게임방 끝 ---------------------------- -->
@@ -345,21 +397,21 @@
 		var userTeamNo;
 		var roomLevel = /*[[${room.roomLevel}]]*/0;
 		var owner = /*[[${room.owner}]]*/0;
-		if (roomLevel == 1){
+		if (roomLevel == 1) {
 			roomLevel = "Easy";
-		}else if (roomLevel == 2){
+		} else if (roomLevel == 2) {
 			roomLevel = "MID";
-		}else if (roomLevel == 3){
+		} else if (roomLevel == 3) {
 			roomLevel = "HARD";
-		}else if (roomLevel == 4){
+		} else if (roomLevel == 4) {
 			roomLevel = "RANDOM";
 		}
-		
+
 		var sockJs = new SockJS("/stomp/chat");
 		//1. SockJS를 내부에 들고있는 stomp를 내어줌
 		var stomp = Stomp.over(sockJs);
 		$(document).ready(function () {
-
+			
 			//2. connection이 맺어지면 실행
 			stomp.connect({}, function () {
 				console.log("STOMP Connection")
@@ -394,7 +446,7 @@
 				stomp.subscribe("/sub/chat/system/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
 					// 첫접속시 유저 고유번호 저장
-
+					
 					console.log("pkUserSeq : " + content.pkUserSeq);
 					if (pkUserSeq == "0") {
 						pkUserSeq = content.pkUserSeq;
@@ -413,7 +465,7 @@
 
 				stomp.subscribe("/sub/chat/userList/" + roomId, function (chat) {
 					var content = JSON.parse(chat.body);
-					
+
 					Object.keys(content.waitList).forEach(function (index, i) {
 						value = content.waitList[index];
 
@@ -437,91 +489,96 @@
 					
 					if(content.team1 != undefined){
 						Object.keys(content.team1).forEach(function(index, i) {
-							value = content.team1[index];
-							
+							text = content.team1[index];
+							var value = text.split("%^&^%");
+
 							str = "<div class='waiting_room_t1-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-							if(index == owner){
-								str +="&#x1F31A"
+							if (index == owner) {
+								str += "<img class='host_image' src='/img/host.png' />"
 							}
-							str += value + "</b>";
-							str += "</div>";
+							str += value[0] + "</b>";
+							str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
+							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team1").append(str);
 							gtr = "<div class='gameing_t1-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
-							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value[0] + "<br></b>";
 							gtr += "</div></div>";
 							$("#game-" + index + "").remove();
 							$("#game1").prepend(gtr);
 						});
 					}
 
-					if(content.team2 != undefined){
+					if (content.team2 != undefined) {
 						Object.keys(content.team2).forEach(function (index, i) {
-							value = content.team2[index];
-	
+							text = content.team2[index];
+							var value = text.split("%^&^%");
 							str = "<div class='waiting_room_t2-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-							if(index == owner){
-								str +="&#x1F31A";
+							if (index == owner) {
+								str += "<img class='host_image' src='/img/host.png' />"
 							}
-							str += value + "</b>";
+							str += value[0] + "</b>";
+							str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team2").append(str);
-							
+
 							gtr = "<div class='gameing_t2-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
-							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value[0] + "<br></b>";
 							gtr += "</div></div>";
 							$("#game-" + index + "").remove();
 							$("#game2").prepend(gtr);
 						});
 					}
-					
-					if(content.team3 != undefined){
+
+					if (content.team3 != undefined) {
 						Object.keys(content.team3).forEach(function (index, i) {
-							value = content.team3[index];
-	
+							text = content.team3[index];
+							var value = text.split("%^&^%");
 							str = "<div class='waiting_room_t3-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-							if(index == owner){
-								str +="&#x1F31A";
+							if (index == owner) {
+								str += "<img class='host_image' src='/img/host.png' />"
 							}
-							str += value + "</b>";
+							str += value[0] + "</b>";
+							str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team3").append(str);
 							gtr = "<div class='gameing_t3-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
-							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value[0] + "<br></b>";
 							gtr += "</div></div>";
 							$("#game-" + index + "").remove();
 							$("#game3").prepend(gtr);
 						});
 					}
-					
-					if(content.team4 != undefined){
+
+					if (content.team4 != undefined) {
 						Object.keys(content.team4).forEach(function (index, i) {
-							value = content.team4[index];
-	
+							text = content.team4[index];
+							var value = text.split("%^&^%");
 							str = "<div class='waiting_room_t4-user1' id = '" + index + "'>";
 							str += "<div class='col-sys'>";
 							str += "<b class='fontp'>";
-								if(index == owner){
-									str +="&#x1F31A";
-								}
-								str += value + "</b>";
+							if(index == owner){
+								str +="<img class='host_image' src='/img/host.png' />"
+							}
+							str += value[0] + "</b>";
+							str += "<i class='fa-solid fa-dice' style='color:" + value[1] + ";'></i>";
 							str += "</div></div>";
 							$("#" + index + "").remove();
 							$("#team4").append(str);
 							gtr = "<div class='gameing_t4-user1' id=game-" + index + ">";
 							gtr += "<div class='col-sys'>";
-							gtr += "<b id='game-" + index + "' class='fontp'>" + value + "<br></b>";
+							gtr += "<b id='game-" + index + "' class='fontp'>" + value[0] + "<br></b>";
 							gtr += "</div></div>";
 							$("#game-" + index + "").remove();
 							$("#game4").prepend(gtr);
@@ -531,8 +588,7 @@
 
 				stomp.subscribe("/sub/chat/rm/" + roomId, function (chat) {
 					var content = chat.body;
-					if(content == owner)
-					{
+					if (content == owner) {
 						alert("방장이 드랍했습니다.");
 						window.location.href = '/chat/rooms';
 					}
@@ -551,7 +607,7 @@
 					else {
 						resultSave(qtype, -1);
 					}
-					$('.modal').modal('hide');
+					$('.quiz_modal_input').modal('hide');
 					nowNo += 1;
 
 					//if (content.teamNo == 0)
@@ -561,7 +617,6 @@
 					dice_animation_start()
 					resultFillColor(content.teamNo);
 					if (nowNo >= 36) {
-						
 						resultCalc();
 					}
 					else {
@@ -589,7 +644,7 @@
 				});
 
 				//3. send(path, header, message)로 메세지를 보낼 수 있음
-				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName}));
+				stomp.send('/pub/chat/enter', {}, JSON.stringify({pkRoomSeq: roomId, pkUserSeq: pkUserSeq, userName: userName, rank: /*[[${session.Rank}]]*/0}));
 			});
 
 			$("#team1").on("click", function (e) {
@@ -695,7 +750,7 @@
 				var allReady = 1;
 				console.log("5555" + owner);
 				console.log("6666" + pkUserSeq);
-				if(owner == pkUserSeq){
+				if (owner == pkUserSeq) {
 					for (var i = 1; i <= /*[[${room.roomNumber}]]*/0; i++) {
 						if ($("#team" + i + "").children(".waiting_room_t" + i + "-user1").length < 1) {
 							allReady = 0;
@@ -710,10 +765,10 @@
 						else {
 							stomp.send('/pub/chat/gamestart', {}, JSON.stringify({pkRoomSeq: roomId}));
 						}
-	
+
 					}
 				}
-				else{
+				else {
 					alert("방장이 아닙니다!");
 				}
 			});
@@ -726,6 +781,7 @@
 
 			$('#first_stop_dice').remove();
 			$('#second_stop_dice').remove();
+			$('#quiz_info').empty();
 		}
 	</script>
 
@@ -805,14 +861,21 @@
 
 			for (const [key, value] of resultMap.entries()) {
 				//console.log(`Key: ${key}, Value: ${value}`);
-				str = '';
-				str = "<div>";
-				str += "<span>" + key + " : " + value[0] + "/" + value[1] + "</span>";
-				str += "</div>";
-				$("#type_result_area").append(str);
+				str = "<tr id='result_members_td'>";
+				str += "<td>" + key + "</td>";
+				str += "<td>" + value[0] + "</td>";
+				str += "<td>" + value[1] + "</td>";
+				
+				$("#quiz_td_member_result").append(str);
 				total += value[1];
 				solve += value[0];
 			}
+			/*
+			<div id="t1result">
+				팀1 : <span id="t1total">0</span>/36
+			</div> 
+			*/
+			
 			for (var i = 1; i <= 4; ++i) {
 				if (roomNumber >= i) {
 					var scoreTagId = "#score" + i;
@@ -827,6 +890,9 @@
 
 			$("#total_count").text(total);
 			$("#solve_count").text(solve);
+
+			// 이곳에 모델창 보이게하기
+			////////
 		}
 		var nowNo = 0;
 		var dice1 = 0;
@@ -839,23 +905,22 @@
 			// 주사위 굴러가다가 멈추는 함수 이곳에 구현해야함.
 			// code
 			// ////////////////////////////////////
-			$('.gameing_rice1').css('display', 'none')
-			$('.gameing_rice2').css('display', 'none')
-
+			$('.gameing_rice1').css('display', 'none');
+			$('.gameing_rice2').css('display', 'none');
 			/*var diceImage = $('<img>').attr('src', 
 			
 			'"/momento/src/main/resources/static/img/game_dice"' + dice1 + '.png"'); */
 
 			str1 = "<img class='stop_dice_style' id='first_stop_dice' src='/img/game_dice" + dice1 + ".png'>";
 			str2 = "<img class='stop_dice_style2' id='second_stop_dice' src='/img/game_dice" + dice2 + ".png'>";
-
+			
 			// 주사위 이미지를 dice div에 추가
 			$('#game_dice_stop').append(str1);
 			$('#game_dice_stop2').append(str2);
 
 			// 주사위가 멈추면 해당 번호에 해당하는 문제 modal창 보여줌
 			setTimeout(function () {
-				$('.modal').modal('show');
+				$('.quiz_modal_input').modal('show');
 				loadQuestion(questionList[nowNo]);
 			}, 1000);
 		}
@@ -872,39 +937,50 @@
 				// resultSave($("#questionType").val(), -1);			
 			}
 			else if (teamNo == 1) {
-				$(tagId).css("background-color", "yellow");
+				$(tagId).css("background-color", "#FFC04D");
 				// resultSave($("#questionType").val(), -1);	
 			}
 			else if (teamNo == 2) {
-				$(tagId).css("background-color", "red");
+				$(tagId).css("background-color", "#FF652A");
 				// resultSave($("#questionType").val(), -1);	
 			}
 			else if (teamNo == 3) {
-				$(tagId).css("background-color", "blue");
+				$(tagId).css("background-color", "#4C6ED4");
 				// resultSave($("#questionType").val(), -1);	
 			}
 			else if (teamNo == 4) {
-				$(tagId).css("background-color", "green");
+				$(tagId).css("background-color", "#9BDB6B");
 				// resultSave($("#questionType").val(), -1);	
 			}
 			if (teamNo != 0) {
 				tagId = "#score" + teamNo;
 				var value = $(tagId).text();
-				$(tagId).text(1 + parseInt(value, 10));
+				value = 1 + parseInt(value, 10);
+				if (value < 10)
+					value = "0" + value;
+				$(tagId).text(value);
+
 			}
 		}
 
 		// 문제정보를 모달창에 저장하는 함수
 		function loadQuestion(question) {
+
+			str3 = "<span class='quiz_infos' id='quiz_info_type'></span><br>"
+			str3 += "<span class='quiz_infos'>문제 : " + shuffleNo[nowNo] + "</span><br>"
+			str3 += "<span class='quiz_infos' id='level'>" + + "</span>"
+			$('#quiz_info').append(str3);
+			
 			//console.log("test");
 			title = question.pkQuestionSeq + "." + name;
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
+			level = question.level;
 			type = question.type;
 			input = question.input;
 			output = question.output;
-			$('.modal-title').text(title);
+			$('.modal-title-quiz').text(title);
 			$('#questionNo').val(question.pkQuestionSeq);
 			$('#questionName').text(name);
 			$('#nameQuestion').val(question.className);
@@ -913,6 +989,18 @@
 			$('#questionInput').text(input);
 			$('#questionOutput').text(output);
 			$('#Demo').val(codeFormat);
+			$('#level').text(level);
+			$('#quiz_info_type').text('유형 : ' + type);
+
+			if (level == 1) {
+				$('#level').text('난이도 : Easy')
+			} else if (level == 2) {
+				$('#level').text('난이도 : Mid')
+			} else if (level == 3) {
+				$('#level').text('난이도 : Hard')
+			} else if (level == 4) {
+				$('#level').text('난이도 : Rondom')
+			}
 		}
 
 		// 정답 등록시 수행되는 함수
@@ -926,10 +1014,11 @@
 		}
 		function giveup() {
 			stomp.send('/pub/chat/giveup', {}, JSON.stringify({userNo: pkUserSeq}));
+			$('#quiz_info').empty();
 		}
 	</script>
 
-	<!--       클릭하면 주사위 굴러가는 애니메이션         -->
+	<!--       주사위 굴러가는 애니메이션         -->
 	<script>
 		LottieInteractivity.create({
 			player: '#fourteenthLottie',
