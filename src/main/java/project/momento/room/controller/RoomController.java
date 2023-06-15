@@ -89,7 +89,6 @@ public class RoomController {
 			roomDto.getQuestionList().addAll(questionList);
 			questionCount = roomDto.getQuestionList().size();
 		}
-		//System.out.println(roomDto.getQuestionList());
 		roomService.createRoomDto(roomDto, loginDto);
 //		rttr.addFlashAttribute("roomName", service.createRoomDto(name));
 		

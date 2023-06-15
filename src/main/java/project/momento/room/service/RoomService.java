@@ -85,7 +85,6 @@ public class RoomService {
 		}else {
 			room.getUserList().get("waitList").put(message.getPkUserSeq(), val);
 		}
-		System.out.println(room.getUserList());
 		room.setParticipants(room.getParticipants() + 1);
 	}
 	
