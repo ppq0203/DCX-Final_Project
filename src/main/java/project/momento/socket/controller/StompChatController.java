@@ -122,7 +122,6 @@ public class StompChatController {
     public void webSocketDisconnectListener(SessionDisconnectEvent event){
     	
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        System.out.println(" [+] " + headerAccessor);
 
         // stomp 세션에 있던 uuid 와 roomId 를 확인하여 채팅방 유저 리스트와 room에서 해당 유저를 삭제
         int pkUserSeq = (int) headerAccessor.getSessionAttributes().get("pkUserSeq");
