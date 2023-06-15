@@ -447,6 +447,12 @@
 		})
 
 	</script>
+	<script>
+		window.onkeydown = function() {
+			var kcode = event.keyCode;
+			if(kcode == 8 || kcode == 116) event.returnValue = false;
+		}
+	</script>
 </th:block>
 
 </html>
