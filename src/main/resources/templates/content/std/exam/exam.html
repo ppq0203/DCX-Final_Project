@@ -14,17 +14,17 @@
 			<table class="table" id="addrow">
 				<thead>
 					<tr>
-						<th scope="col">No.</th>
-						<th scope="col">과목명</th>
-						<th scope="col">날짜</th>
-						<th scope="col">시작</th>
+						<th style="width: 5%;" scope="col">No.</th>
+						<th style="width: 72.5%;" scope="col">과목명</th>
+						<th style="width: 15%;" scope="col">날짜</th>
+						<th style="width: 7.5%;" scope="col">시작</th>
 					</tr>
 				</thead>
 
 				<tbody th:if="${exameList != null && exameList.size() > 0}">
 					<tr th:each="item, index : ${exameList}" th:if="${item.examDivn == 'Y'}">
 						<td th:text="${index.index + 1}"></td>
-						<td th:text="${item.registDt}"></td>
+						<td th:text="${item.subjectName}"></td>
 						<td th:text="${item.registDt}"></td>
 						<td>
 							<button data-toggle="modal" data-target="#modal-xl-two"

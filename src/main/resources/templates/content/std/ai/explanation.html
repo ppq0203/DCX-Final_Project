@@ -70,34 +70,41 @@
 	<script>
 
 		$(document).ready(function () {
+			var num = 0;
+			var checkAnswerBtn = document.getElementById('checkAnswer');
+			var solutionInput = document.getElementById('solution');
+			var solutionValue = solutionInput.value.trim();
+			var solutionArray = solutionValue.split(', ');
 			// Summernote
 			// 텍스트를 담고 있는 변수를 가정합니다.
 			var text = $("#questionName").text();
-			var inputTag = '<span style="white-space: nowrap;"><input type="text" name="answer" class="validate form-control input answer"style = "width: 200pt; height: 50pt" placeholder = "정답" ></span> ';
 			// ( )를 <input> 태그로 대체합니다.
 			var replacedContent = text.replace(/\(\d\)/g, function (match) {
 				if (match) {
-					return inputTag;
+					match = match.replace('(', '');
+					match = match.replace(')', '');
+					str = '<span style="white-space: nowrap;">' + 
+							'<input type="hidden" name="solutions" class="solutions" value="' + solutionArray[match-1] + '">' +
+							'<input id="input-for-answer' + num + '" type="text" name="answers" class="validate form-control input answer"style = "width: 200pt; height: 50pt" placeholder = "정답" required>' +
+							'</span> ';
+					num = num + 1;
+					return str;
 				} else {
 					return '<div class="col"></div>';
 				}
 			});
 			var questionNameDiv = document.getElementById('questionName');
+			var answerInputs = document.getElementsByClassName('answer');
+			var solutionInputs = document.getElementsByClassName('solutions');
 			questionNameDiv.innerHTML = replacedContent;
 
-			var checkAnswerBtn = document.getElementById('checkAnswer');
-			var solutionInput = document.getElementById('solution');
-			var answerInputs = document.getElementsByClassName('answer');
-
 			checkAnswerBtn.addEventListener('click', function () {
-				var solutionValue = solutionInput.value.trim();
-				var solutionArray = solutionValue.split(',');
-
+				
 				for (var i = 0; i < answerInputs.length; i++) {
 					var answerValue = answerInputs[i].value.trim();
-					var isCorrect = solutionArray.includes(answerValue);
-
-					if (isCorrect) {
+					var solutionValue = solutionInputs[i].value.trim();
+					
+					if (answerValue == solutionValue) {
 						answerInputs[i].classList.remove('is-invalid');
 						answerInputs[i].classList.add('is-valid');
 					} else {
@@ -105,10 +112,9 @@
 						answerInputs[i].classList.add('is-invalid');
 					}
 
-					console.log('Answer ' + (i + 1) + ' is correct: ' + isCorrect);
+					console.log('Answer ' + (i + 1) + ' is correct: ' + (answerValue == solutionValue));
 				}
 			});
-
 		})
 
 	</script>

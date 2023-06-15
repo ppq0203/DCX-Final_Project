@@ -42,16 +42,20 @@ public class AiDictController {
 	
 	@RequestMapping(value = "/{userDivn}/ai/dict", produces = "application/text;charset=utf-8")
 	public String aiMain(@PathVariable String userDivn, HttpServletRequest request, Criteria cri, Model model) {
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		
 		int total = 0;
-		total = aidictService.selectDictListCount();
+		total = aidictService.selectDictListCount(loginDto);
+		System.out.println(total);
 		// 페이징 객체
 		Paging paging = new Paging();
 		paging.setCri(cri);
 		paging.setTotalCount(total);
+		loginDto.setCri(cri);
 		System.out.println(paging);
 		System.out.println(cri);
 		
-		List<AiDictDto> resultList = aidictService.selectDictList(cri);
+		List<AiDictDto> resultList = aidictService.selectDictList(loginDto);
 		
 		System.out.println(resultList);
 		model.addAttribute("paging", paging);
@@ -93,6 +97,7 @@ public class AiDictController {
 		System.out.println(aidictDto);
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		aidictDto.setUserId(loginDto.getUserId());
+		aidictDto.setUpdateId(loginDto.getUserId());
 		if(divn.equals("create")) {
 			aidictService.insertAiDict(aidictDto);
 		}else if(divn.equals("update")){

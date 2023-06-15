@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import project.momento.aiQuiz.dto.AiDictDto;
+import project.momento.aiQuiz.service.AiDictService;
 import project.momento.correction.service.CorrectionService;
 import project.momento.login.dto.LoginDto;
 import project.momento.page.Criteria;
@@ -20,6 +22,8 @@ public class CorrectionController {
 	
 	@Autowired
 	private CorrectionService correctionService;
+	@Autowired
+	private AiDictService aidictService;
 
 	/*
 	 * 오답노트 main 화면 이동
@@ -56,8 +60,36 @@ public class CorrectionController {
 	}
 	
 	@RequestMapping(value = "/{userDivn}/correction/dict", produces = "application/text;charset=utf-8")
-	public String aiDict(@PathVariable String userDivn, HttpServletRequest request, Model model) {
-
+	public String aiDict(@PathVariable String userDivn, Criteria cri, HttpServletRequest request, Model model) {
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		
+		int total = 0;
+		total = aidictService.selectCorrectionDictListCount(loginDto);
+		
+		// 페이징 객체
+		Paging paging = new Paging();
+		paging.setCri(cri);
+		paging.setTotalCount(total);
+		System.out.println(paging);
+		System.out.println(cri);
+		loginDto.setCri(cri);
+		
+		List<AiDictDto> resultList = aidictService.selectCorrectionDictList(loginDto);
+		
+		System.out.println(resultList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("resultList",resultList);
+		System.out.println("ok");
 		return "content/" + userDivn + "/correctiondict/correctiondict";
 	}
+	
+	@RequestMapping(value = "/{userDivn}/correction/dict/create", produces = "application/text;charset=utf-8")
+	public String gameDictCreate(AiDictDto aiDictDto, @PathVariable String userDivn, Criteria cri, HttpServletRequest request, Model model) {
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		aiDictDto.setPkUserSeq(loginDto.getPkUserSeq());
+		aiDictDto.setRegistId(loginDto.getUserId());
+		aidictService.createCorrectionDict(aiDictDto);
+		return "redirect:/" + userDivn + "/correction/dict";
+	}
+	
 }

@@ -19,7 +19,7 @@
 		WHERE B.PK_USER_SEQ = #{pkUserSeq}
 	</select>
 	
-	<select id="selectDictList" parameterType="hashmap" resultType="project.momento.aiQuiz.dto.AiDictDto">
+	<select id="selectDictList" parameterType="project.momento.login.dto.LoginDto" resultType="project.momento.aiQuiz.dto.AiDictDto">
 		SELECT
 			A.PK_DICTIONARY_SEQ				AS pkDictionarySeq
 			, A.PK_USER_SEQ					AS pkUserSeq
@@ -31,9 +31,25 @@
 			, A.UPDATE_ID					AS updateId
 			, A.UPDATE_DT					AS updateDt
 		FROM AI_DICTIONARY A
-		WHERE 1=1
+		WHERE A.PK_USER_SEQ = #{pkUserSeq}
 		ORDER BY A.PK_DICTIONARY_SEQ ASC
-		LIMIT #{pageStart}, #{perPageNum}
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectCorrectionDictList" parameterType="project.momento.login.dto.LoginDto" resultType="project.momento.aiQuiz.dto.AiDictDto">
+		SELECT
+			A.PK_GAME_DICTIONARY_SEQ				AS pkDictionarySeq
+			, A.PK_USER_SEQ					AS pkUserSeq
+			, A.WORD						AS word
+			, A.CONTENT						AS content
+			, A.REGIST_ID					AS registId
+			, DATE_FORMAT(A.REGIST_DT, '%Y-%m-%d')					AS registDt
+			, A.UPDATE_ID					AS updateId
+			, A.UPDATE_DT					AS updateDt
+		FROM GAME_DICTIONARY A
+		WHERE A.PK_USER_SEQ = #{pkUserSeq}
+		ORDER BY A.PK_GAME_DICTIONARY_SEQ ASC
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="getDictList" parameterType="int" resultType="project.momento.aiQuiz.dto.AiDictDto">
@@ -51,12 +67,20 @@
 		WHERE A.PK_DICTIONARY_SEQ = #{pkDictionarySeq}
 	</select>
 	
+	<select id="selectCorrectionDictListCount" parameterType="project.momento.login.dto.LoginDto" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM GAME_DICTIONARY A
+		WHERE A.PK_USER_SEQ = #{pkUserSeq}
+	</select>
 	
 	
-	<select id="selectDictListCount" resultType="int">
+	
+	<select id="selectDictListCount" parameterType="project.momento.login.dto.LoginDto" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM AI_DICTIONARY A
+		WHERE A.PK_USER_SEQ = #{pkUserSeq}
 	</select>
 	<insert id="insertAiDict" parameterType="project.momento.aiQuiz.dto.AiDictDto">
 	    INSERT INTO AI_DICTIONARY (
@@ -71,7 +95,23 @@
     		, #{classId}
     		, #{word}
     		, #{content}
-    		, 'root'
+    		, #{registId}
+    		, SYSDATE()
+  		)
+	</insert>
+	
+	<insert id="createCorrectionDict" parameterType="project.momento.aiQuiz.dto.AiDictDto">
+	    INSERT INTO GAME_DICTIONARY (
+    		PK_USER_SEQ
+    		, WORD
+    		, CONTENT
+    		, REGIST_ID
+    		, REGIST_DT
+  		) VALUES (
+    		#{pkUserSeq}
+    		, #{word}
+    		, #{content}
+    		, #{registId}
     		, SYSDATE()
   		)
 	</insert>
