@@ -814,6 +814,7 @@
 	margin: 7px;
 	border: 3px solid white;
 	overflow: scroll;
+	overflow-x: hidden;
 }
 
 .gameing_quizread {
@@ -1138,12 +1139,15 @@
 
 }
 
-table td,
-th {
+
+.quiz_board_th{
+	border: 2px solid #282A46;
+}
+.quiz_board_green_th{
 	border: 2px solid #282A46;
 }
 
-thead tr th {
+.quiz_board_th thead tr th {
 	background: #0070c0;
 	font-size: 22px;
 	height: 54.28px;
@@ -1151,7 +1155,7 @@ thead tr th {
 
 }
 
-tbody tr th {
+.quiz_board_green_th {
 	background: #92d050;
 	font-size: 22px;
 	color: white;
@@ -1186,4 +1190,14 @@ tbody tr th {
 }
 .quiz_infos{
 	font-family: 'GmarketSansMedium';
+}
+.host_image{
+	width: 15px;
+}
+#win{
+	width: 160px;
+	
+}
+#lose{
+	width: 130px;	
 }
