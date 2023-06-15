@@ -46,14 +46,29 @@ public class AiDictService {
 		return aidictMapper.getDictCountForUser(pkDictionarySeq, pkUserSeq);
 	}
 
-	public List<AiDictDto> selectDictList(Criteria cri) {
+	public List<AiDictDto> selectDictList(LoginDto loginDto) {
 		// TODO Auto-generated method stub
-		return aidictMapper.selectDictList(cri);
+		return aidictMapper.selectDictList(loginDto);
 	}
 
-	public int selectDictListCount() {
+	public int selectDictListCount(LoginDto loginDto) {
 		// TODO Auto-generated method stub
-		return aidictMapper.selectDictListCount();
+		return aidictMapper.selectDictListCount(loginDto);
+	}
+
+	public int selectCorrectionDictListCount(LoginDto loginDto) {
+		// TODO Auto-generated method stub
+		return aidictMapper.selectCorrectionDictListCount(loginDto);
+	}
+
+	public List<AiDictDto> selectCorrectionDictList(LoginDto loginDto) {
+		// TODO Auto-generated method stub
+		return aidictMapper.selectCorrectionDictList(loginDto);
+	}
+
+	public void createCorrectionDict(AiDictDto aiDictDto) {
+		// TODO Auto-generated method stub
+		aidictMapper.createCorrectionDict(aiDictDto);
 	}
 
 

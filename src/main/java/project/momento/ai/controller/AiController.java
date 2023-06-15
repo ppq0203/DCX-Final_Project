@@ -1,35 +1,31 @@
 package project.momento.ai.controller;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import project.momento.ai.service.AiService;
-import project.momento.exam.dto.ExamDto;
+import project.momento.aiQuiz.dto.AiDictDto;
+import project.momento.aiQuiz.service.AiDictService;
 import project.momento.login.dto.LoginDto;
 import project.momento.page.Criteria;
 import project.momento.page.Paging;
 import project.momento.question.dto.QuestionDto;
-import project.momento.sign.dto.SignDto;
-import project.momento.sign.service.SignService;
-import project.momento.subject.dto.SubjectDto;
 
 @Controller
 public class AiController {
 
 	@Autowired
 	private AiService aiService;
+	@Autowired
+	private AiDictService aidictService;
 
 	/*
 	 * AI Main 화면 이동
@@ -81,7 +77,6 @@ public class AiController {
 		QuestionDto questionDto = new QuestionDto();
 		questionDto.setPkQuestionSeq(pkQuestionSeq);
 		QuestionDto selectDto = aiService.selectQuestion(questionDto);
-		
 		model.addAttribute("result",selectDto);
 		return "content/" + userDivn + "/ai/explanation";
 	}
@@ -91,21 +86,34 @@ public class AiController {
 	 */
 	@RequestMapping(value = "/{userDivn}/ai/question/answer", produces = "application/text;charset=utf-8")
 	public String aiAnswer(QuestionDto questionDto, @PathVariable String userDivn, HttpServletRequest request, Criteria cri, Model model) {
-		
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		questionDto.setPkUserSeq(loginDto.getPkUserSeq());
-		String[] solutions = questionDto.getSolution().split(",");
-		String[] answers = questionDto.getAnswer().split(",");
+		List<String> solutions = questionDto.getSolutions();
+		List<String> answers = questionDto.getAnswers();
+		String answer = "";
 		int count = 0;
-		for(int i = 0; i < solutions.length; i++) {
-			if(solutions[i].equals(answers[i])) {
+		for(int i = 0; i < solutions.size(); i++) {
+			if(solutions.get(i).equals(answers.get(i))) {
 				count++;
 			}
+			if (i != solutions.size()-1) {
+				answer += answers.get(i) + ", ";
+			} else {
+				answer += answers.get(i);
+			}
 		}
-		questionDto.setQuestionNum(solutions.length);
+		questionDto.setAnswer(answer);
+		questionDto.setQuestionNum(solutions.size());
 		questionDto.setAnswerNum(count);
+		questionDto.setRegistId(loginDto.getUserId());
 		aiService.insertQuestionResult(questionDto);
 		QuestionDto selectDto = aiService.selectQuestion(questionDto);
+		String[] splitAnswer = selectDto.getSolution().split(", ");
+		List<String> splitAnswers = new ArrayList<String>();
+		for (int i=0; i<splitAnswer.length; i++) {
+			splitAnswers.add(splitAnswer[i]);
+		}
+		selectDto.setSolutions(splitAnswers);
 		model.addAttribute("result",selectDto);
 		return "content/" + userDivn + "/ai/keyword";
 	}
@@ -170,6 +178,25 @@ public class AiController {
 		return "redirect:/" + userDivn + "/ai/main";
 	}
 	
+	@RequestMapping(value = "/{userDivn}/ai/create/dict", produces = "application/text;charset=utf-8")
+	public String aiCreateDict(@RequestParam("type") List<String> types
+			,@RequestParam("word") List<String> words
+			,@RequestParam("content") List<String> contents
+			,@PathVariable String userDivn, HttpServletRequest request, Model model) {
+		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
+		for (int i=0; i<words.size(); i++) {
+			AiDictDto aiDictDto = new AiDictDto();
+			aiDictDto.setPkUserSeq(loginDto.getPkUserSeq());
+			aiDictDto.setClassId(types.get(i));
+			aiDictDto.setWord(words.get(i));
+			aiDictDto.setContent(contents.get(i));
+			aiDictDto.setRegistId(loginDto.getUserId());
+			System.out.println(aiDictDto);
+			aidictService.insertAiDict(aiDictDto);
+		}
+		return "redirect:/" + userDivn + "/ai/article";
+	}
+	
 	/*
 	 * AI aiQuiz 화면 이동
 	 */
@@ -180,7 +207,6 @@ public class AiController {
 		questionDto.setPkUserSeq(loginDto.getPkUserSeq());
 		List<QuestionDto> resultList = aiService.selectQuestionResultList(questionDto);
 		model.addAttribute("resultList",resultList);
-		System.out.println(resultList);
 		return "content/" + userDivn + "/aiquiz/aiquiz";
 	}
 

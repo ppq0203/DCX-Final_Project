@@ -88,21 +88,26 @@
 				</section>
 			</div>
 			<div class="rightdown">
-				<section class="post">
-					<!-- Lists -->
-					<h2>My List</h2>
-					<span>
-						<dl id='list'></dl>
-						<input type='text' id='addValue1' placeholder="input keyword and add" />
-					</span>
-				</section>
-				<br>
-				<ul class="actions">
-					<li><input class="button primary" type='button' value='ADD' onclick='addList()' />
-					</li>
-					<li><input class="button" type='button' value='DELETE' onclick='removeItem()' /></li>
-					<li><input class="button primary" type='submit' value='SAVE' /></li>
-				</ul>
+				<form action="/std/ai/create/dict" method="POST">
+					<section class="post">
+						<!-- Lists -->
+						<h2>My List</h2>
+						<span th:each="item, index : ${result.solutions}">
+							<dl id='list'></dl>
+							<p th:text="${item}"></p>
+							<input type="hidden" name="type" th:value="${result.type}">
+							<input type="hidden" name="word" th:value="${item}">
+							<input type='text' name="content" placeholder="input keyword and add" />
+						</span>
+					</section>
+					<br>
+					<ul class="actions">
+						<li><input class="button primary" type='button' value='ADD' onclick='addList()' />
+						</li>
+						<li><input class="button" type='button' value='DELETE' onclick='removeItem()' /></li>
+						<li><input class="button primary" type='submit' value='SAVE' /></li>
+					</ul>
+				</form>
 				<hr />
 			</div>
 		</div>

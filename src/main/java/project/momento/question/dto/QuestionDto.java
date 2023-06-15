@@ -1,5 +1,7 @@
 package project.momento.question.dto;
 
+import java.util.List;
+
 import org.springframework.context.annotation.PropertySource;
 import lombok.Data;
 import project.momento.login.dto.LoginDto;
@@ -64,5 +66,9 @@ public class QuestionDto extends LoginDto {
 	private int questionNum;
 	
 	private int answerNum;
+	
+	private List<String> solutions;
+	
+	private List<String> answers;
 	
 }

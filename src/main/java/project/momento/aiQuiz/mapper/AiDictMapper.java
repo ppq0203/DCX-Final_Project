@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import project.momento.aiQuiz.dto.AiDictDto;
+import project.momento.login.dto.LoginDto;
 import project.momento.page.Criteria;
 import project.momento.qna.dto.QnaDto;
 import project.momento.question.dto.QuestionDto;
@@ -26,10 +27,16 @@ public interface AiDictMapper {
 
 	int getDictCountForUser(@Param("pkDictionarySeq") int pkDictionarySeq, @Param("pkUserSeq") int pkUserSeq);
 
-	List<AiDictDto> selectDictList(Criteria cri);
+	List<AiDictDto> selectDictList(LoginDto loginDto);
 	
 	List<AiDictDto> selectDictResultList(AiDictDto aidictDto);
 
-	int selectDictListCount();
+	int selectDictListCount(LoginDto loginDto);
+
+	int selectCorrectionDictListCount(LoginDto loginDto);
+
+	List<AiDictDto> selectCorrectionDictList(LoginDto loginDto);
+
+	void createCorrectionDict(AiDictDto aiDictDto);
 
 }
