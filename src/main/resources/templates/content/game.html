@@ -315,7 +315,7 @@
 		/*<![CDATA[*/
 		function loadQuestion(elem, question) {
 			console.log("test");
-			title = question.pkQuestionSeq + "번째 문제";
+			title = question.pkQuestionSeq + "번 문제";
 			name = question.questionName;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
@@ -455,7 +455,7 @@
 	<script>
 		window.onkeydown = function() {
 			var kcode = event.keyCode;
-			if(kcode == 8 || kcode == 116) event.returnValue = false;
+			if(kcode == 116) event.returnValue = false;
 		}
 	</script>
 </th:block>

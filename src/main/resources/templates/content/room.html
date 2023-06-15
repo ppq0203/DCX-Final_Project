@@ -973,17 +973,18 @@
 			$('#quiz_info').append(str3);
 
 			//console.log("test");
-			title = question.pkQuestionSeq + "." + name;
 			name = question.questionName;
+			title = question.pkQuestionSeq + "." + name;
 			contents = question.contents;
 			codeFormat = question.codeFormat;
 			level = question.level;
 			type = question.type;
 			input = question.input;
 			output = question.output;
+			console.log(question);
 			$('.modal-title-quiz').text(title);
 			$('#questionNo').val(question.pkQuestionSeq);
-			$('#questionName').text(name);
+			$('#questionName').text(question.questionName);
 			$('#nameQuestion').val(question.className);
 			$('#questionType').val(type);
 			$('#questionContents').text(contents);
@@ -1045,7 +1046,7 @@
 	<script>
 		window.onkeydown = function() {
 			var kcode = event.keyCode;
-			if(kcode == 8 || kcode == 116) event.returnValue = false;
+			if(kcode == 116) event.returnValue = false;
 		}
 	</script>
 </th:block>
