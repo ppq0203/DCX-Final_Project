@@ -346,9 +346,7 @@
 			<!--<button onclick="get_index_and_prob()">임시 테스트</button>-->
 			<div id="test_value"></div>
 		</div>
-		<!-- 
-		<button onclick="resultCalc()" data-toggle="modal" data-target="#myModal">결과보기</button>
-		 -->
+		<button id="multi_result" style="visibility: hidden;" data-toggle="modal" data-target="#myModal">결과보기</button>
 		<!--<div class="text-center">
 			결과창
 			<div>
@@ -837,6 +835,7 @@
 		}
 		// 결과값을 연산해주는 함수
 		function resultCalc() {
+			
 			var maxCount = 0;
 			var tempScore = 0;
 			for (var i = 1; i <= 4; ++i) {
@@ -894,6 +893,7 @@
 
 			// 이곳에 모델창 보이게하기
 			////////
+			$('#multi_result').click();
 		}
 		var nowNo = 0;
 		var dice1 = 0;
