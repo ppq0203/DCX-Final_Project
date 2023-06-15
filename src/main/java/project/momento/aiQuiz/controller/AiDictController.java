@@ -93,6 +93,7 @@ public class AiDictController {
 		System.out.println(aidictDto);
 		LoginDto loginDto = (LoginDto) request.getSession().getAttribute("loginDto");
 		aidictDto.setUserId(loginDto.getUserId());
+		aidictDto.setRegistId(loginDto.getUserId());
 		if(divn.equals("create")) {
 			aidictService.insertAiDict(aidictDto);
 		}else if(divn.equals("update")){

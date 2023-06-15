@@ -28,65 +28,26 @@
 					</tr>
 				</thead>
 
-				<body>
-					<tr>
-						<td>1</td>
-						<td>HashMap</td>
-						<td>Map 인터페이스를 구현한 대표적인 Map 컬렉션입니다.</td>
+				<tbody>
+					<tr th:each="item, index : ${resultList}">
+						<td th:text="${index.count}"></td>
+						<td th:text="${item.word}"></td>
+						<td th:text="${item.content}"></td>
 						<td>
-							<button data-toggle="modal" data-target="#modal-xl-two"
-								type="button" class="btn btn-primary updateBtn"
-								data-action="modify">
+							<button class="btn btn-info updateBtn" data-toggle="modal" data-target="#modal-xl-two"
+								th:attr="pkDictionarySeq=${item.pkDictionarySeq}" type="button" data-action="update">
 								<span>수정</span>
 							</button>
 						</td>
 						<td>
-							<button data-toggle="modal" data-target="#modal-xl-two"
-								type="button" class="btn btn-primary updateBtn"
-								data-action="modify">
+							<button class="btn btn-danger updateBtn" th:attr="pkDictionarySeq=${item.pkDictionarySeq}"
+								type="button" data-action="delete"
+								th:onclick="|location.href='/std/ai/dict/delete/${item.pkDictionarySeq}'|">
 								<span>삭제</span>
 							</button>
 						</td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td>WebSocket</td>
-						<td>WebSocket은 클라이언트와 서버(브라우저와 서버)를 연결하고 실시간으로 통신이 가능하도록 하는 첨단 기술입니다.</td>
-						<td>
-							<button data-toggle="modal" data-target="#modal-xl-two"
-								type="button" class="btn btn-primary updateBtn"
-								data-action="modify">
-								<span>수정</span>
-							</button>
-						</td>
-						<td>
-							<button data-toggle="modal" data-target="#modal-xl-two"
-								type="button" class="btn btn-primary updateBtn"
-								data-action="modify">
-								<span>삭제</span>
-							</button>
-						</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>Thymeleaf</td>
-						<td>View Template 중 하나로 컨트롤러가 전달하는 데이터를 이용하여 동적으로 화면을 구성할 수 있게 해줍니다.</td>
-						<td>
-							<button data-toggle="modal" data-target="#modal-xl-two"
-								type="button" class="btn btn-primary updateBtn"
-								data-action="modify">
-								<span>수정</span>
-							</button>
-						</td>
-						<td>
-							<button data-toggle="modal" data-target="#modal-xl-two"
-								type="button" class="btn btn-primary updateBtn"
-								data-action="modify">
-								<span>삭제</span>
-							</button>
-						</td>
-					</tr>					
-				</body>
+				</tbody>
 			</table>
 
 			<!-- /.card-body -->
@@ -119,7 +80,7 @@
 
 									<div class="form-group">
 										<label>뜻</label>
-										<textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+										<textarea class="form-control" rows="5" placeholder="Enter ..."></textarea>
 									</div>
 								</div>
 							</div>

@@ -71,7 +71,7 @@
     		, #{classId}
     		, #{word}
     		, #{content}
-    		, 'root'
+    		, #{registId}
     		, SYSDATE()
   		)
 	</insert>

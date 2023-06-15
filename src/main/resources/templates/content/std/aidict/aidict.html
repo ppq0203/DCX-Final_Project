@@ -91,9 +91,19 @@
 								<div class="col-12">
 									<div class="form-group">
 										<input type="hidden" id="pkDictionarySeq" name="pkDictionarySeq">
-										<input type="hidden" id="pkUserSeq" name="pkUserSeq" th:value="${session.loginDto.pkUserSeq}">
-										<label>카테고리</label>
-										<input type="text" class="form-control" name="classId" id="updateClassId">
+										<input type="hidden" id="pkUserSeq" name="pkUserSeq"
+											th:value="${session.loginDto.pkUserSeq}">
+										<label>카테고리</label><br>
+										<label><input type="radio" value="컴퓨팅 기술" class="form-control" name="classId"
+												id="updateClassId">컴퓨팅 기술</label>&nbsp;&nbsp;
+										<label><input type="radio" value="디지털 디바이스와 IoT" class="form-control"
+												name="classId" id="updateClassId">디지털 디바이스와 IoT</label>&nbsp;&nbsp;
+										<label><input type="radio" value="미래 기술과 혁신" class="form-control" name="classId"
+												id="updateClassId" checked>미래 기술과 혁신</label>&nbsp;&nbsp;
+										<label><input type="radio" value="보안과 개인 정보 보호" class="form-control"
+												name="classId" id="updateClassId">보안과 개인 정보 보호</label>&nbsp;&nbsp;
+										<label><input type="radio" value="기업과 협업" class="form-control" name="classId"
+												id="updateClassId">기업과 협업</label><br>
 										<label>용어</label>
 										<input type="text" class="form-control" placeholder="Enter ..." name="word"
 											id="updateWord">
@@ -136,9 +146,19 @@
 								<div class="col-12">
 									<div class="form-group">
 										<input type="hidden" id="pkDictionarySeq" name="pkDictionarySeq" value="0">
-										<input type="hidden" id="pkUserSeq" name="pkUserSeq" th:value="${session.loginDto.pkUserSeq}">
-										<label>카테고리</label>
-										<input type="text" class="form-control" name="classId" id="classId">
+										<input type="hidden" id="pkUserSeq" name="pkUserSeq"
+											th:value="${session.loginDto.pkUserSeq}">
+										<label>카테고리</label><br>
+										<label><input type="radio" value="컴퓨팅 기술" class="form-control" name="classId"
+												id="updateClassId">컴퓨팅 기술</label>&nbsp;&nbsp;
+										<label><input type="radio" value="디지털 디바이스와 IoT" class="form-control"
+												name="classId" id="updateClassId">디지털 디바이스와 IoT</label>&nbsp;&nbsp;
+										<label><input type="radio" value="미래 기술과 혁신" class="form-control" name="classId"
+												id="updateClassId" checked>미래 기술과 혁신</label>&nbsp;&nbsp;
+										<label><input type="radio" value="보안과 개인 정보 보호" class="form-control"
+												name="classId" id="updateClassId">보안과 개인 정보 보호</label>&nbsp;&nbsp;
+										<label><input type="radio" value="기업과 협업" class="form-control" name="classId"
+												id="updateClassId">기업과 협업</label><br>
 										<label>용어</label>
 										<input type="text" class="form-control" placeholder="Enter ... " name="word"
 											id="word">

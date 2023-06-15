@@ -29,7 +29,6 @@ public class AiDictDto extends LoginDto {
 	/*수정 아이디*/
 	private String updateId;
 	/*수정 일자*/
-	private String updateDt;
-	
+	private String updateDt;	
 	
 }
